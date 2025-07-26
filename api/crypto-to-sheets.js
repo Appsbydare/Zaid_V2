@@ -1753,30 +1753,30 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Sample withdrawal:`, withdrawals[0]);
       
       const withdrawalRows = withdrawals.map(tx => [
-        tx.client || '',
-        tx.amount_aed || '',
-        '', // Empty column
-        tx.rate || '',
-        tx.remarks || '',
-        tx.platform || '',
-        tx.asset || '',
-        tx.amount || '',
-        tx.timestamp || '',
-        tx.from_address || '',
-        tx.to_address || '',
-        tx.tx_id || ''
+        '', // Column A - CLIENT (empty, preserve existing)
+        '', // Column B - AED (empty, preserve existing)
+        '', // Column C - USDT (empty, preserve existing)
+        '', // Column D - SELL RATE (empty, preserve existing)
+        '', // Column E - REMARK (empty, preserve existing)
+        tx.platform || '', // Column F - PLATFORM
+        tx.asset || '', // Column G - ASSET
+        tx.amount || '', // Column H - AMOUNT
+        tx.timestamp || '', // Column I - TIMESTAMP
+        tx.from_address || '', // Column J - FROM ADDRESS
+        tx.to_address || '', // Column K - TO ADDRESS
+        tx.tx_id || '' // Column L - TX ID
       ]);
       
       console.log(`📤 First withdrawal row:`, withdrawalRows[0]);
       console.log(`📤 Total withdrawal rows to write:`, withdrawalRows.length);
       
       try {
-        console.log(`📤 Attempting to write to Withdrawals!A:L...`);
+        console.log(`📤 Attempting to write to Withdrawals!F:L...`);
         const withdrawalResult = await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: 'Withdrawals!A:L',
+          range: 'Withdrawals!F:L', // Only write to columns F-L, preserve A-E
           valueInputOption: 'RAW',
-          requestBody: { values: withdrawalRows }
+          requestBody: { values: withdrawalRows.map(row => row.slice(5, 12)) } // Only columns F-L
         });
         
         console.log(`📤 Withdrawal write result:`, withdrawalResult);
@@ -1798,30 +1798,30 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Sample deposit:`, deposits[0]);
       
       const depositRows = deposits.map(tx => [
-        tx.client || '',
-        tx.amount_aed || '',
-        '', // Empty column
-        tx.rate || '',
-        tx.remarks || '',
-        tx.platform || '',
-        tx.asset || '',
-        tx.amount || '',
-        tx.timestamp || '',
-        tx.from_address || '',
-        tx.to_address || '',
-        tx.tx_id || ''
+        '', // Column A - CLIENT (empty, preserve existing)
+        '', // Column B - AED (empty, preserve existing)
+        '', // Column C - USDT (empty, preserve existing)
+        '', // Column D - SELL RATE (empty, preserve existing)
+        '', // Column E - REMARK (empty, preserve existing)
+        tx.platform || '', // Column F - PLATFORM
+        tx.asset || '', // Column G - ASSET
+        tx.amount || '', // Column H - AMOUNT
+        tx.timestamp || '', // Column I - TIMESTAMP
+        tx.from_address || '', // Column J - FROM ADDRESS
+        tx.to_address || '', // Column K - TO ADDRESS
+        tx.tx_id || '' // Column L - TX ID
       ]);
       
       console.log(`📝 First deposit row:`, depositRows[0]);
       console.log(`📝 Total deposit rows to write:`, depositRows.length);
       
       try {
-        console.log(`📝 Attempting to write to Deposits!A:L...`);
+        console.log(`📝 Attempting to write to Deposits!F:L...`);
         const depositResult = await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: 'Deposits!A:L',
+          range: 'Deposits!F:L', // Only write to columns F-L, preserve A-E
           valueInputOption: 'RAW',
-          requestBody: { values: depositRows }
+          requestBody: { values: depositRows.map(row => row.slice(5, 12)) } // Only columns F-L
         });
         
         console.log(`📝 Deposit write result:`, depositResult);

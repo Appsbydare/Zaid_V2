@@ -212,11 +212,21 @@ function consolidateToFormatted() {
     const withdrawals = readRawSheet(spreadsheet, CONFIG.WITHDRAWALS_SHEET, 'withdrawal');
     const deposits = readRawSheet(spreadsheet, CONFIG.DEPOSITS_SHEET, 'deposit');
 
+    // Validate data processing
+    validateDataProcessing(withdrawals, deposits);
+
     const allTransactions = [...withdrawals, ...deposits];
-    allTransactions.sort((a, b) => b.timestamp - a.timestamp);
+    
+    // Improved sorting: handle both string and Date timestamps
+    allTransactions.sort((a, b) => {
+      const dateA = new Date(a.timestamp);
+      const dateB = new Date(b.timestamp);
+      return dateB - dateA; // Sort newest first
+    });
+    
     updateFormattedTransactionsSheet(spreadsheet, allTransactions);
 
-    console.log(`✅ Consolidated ${allTransactions.length} transactions.`);
+    console.log(`✅ Consolidated ${allTransactions.length} transactions (${withdrawals.length} withdrawals, ${deposits.length} deposits).`);
   } catch (error) {
     console.error("❌ Error in consolidateToFormatted:", error);
   }
@@ -281,24 +291,80 @@ function updateFormattedTransactionsSheet(spreadsheet, transactions) {
     const sheet = spreadsheet.getSheetByName(CONFIG.FORMATTED_SHEET);
     if (!sheet) throw new Error("FORMATTED_TRANSACTIONS sheet not found");
 
+    // Clear existing data (keep header row)
     if (sheet.getLastRow() > 1) {
       sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn()).clearContent();
     }
-    if (transactions.length === 0) return;
+    if (transactions.length === 0) {
+      console.log("ℹ️ No transactions to format");
+      return;
+    }
 
     const formattedRows = transactions.map(tx => {
-      const rate = parseFloat(tx.rate) || getCryptoRate(tx.asset);
-      const amount = parseFloat(tx.amount) || 0;
-      const aedValue = parseFloat(tx.amount_aed) || (amount * rate);
-      return [
-        tx.timestamp, tx.platform, tx.type.charAt(0).toUpperCase() + tx.type.slice(1),
-        tx.asset, amount.toFixed(8), `AED ${aedValue.toLocaleString()}`,
-        rate, tx.client, tx.remarks, tx.from_address,
-        tx.to_address, tx.tx_id
-      ];
+      try {
+        const rate = parseFloat(tx.rate) || getCryptoRate(tx.asset);
+        const amount = parseFloat(tx.amount) || 0;
+        const aedValue = parseFloat(tx.amount_aed) || (amount * rate);
+        
+        // Format timestamp properly
+        let formattedTimestamp = tx.timestamp;
+        if (tx.timestamp) {
+          const date = new Date(tx.timestamp);
+          if (!isNaN(date.getTime())) {
+            formattedTimestamp = Utilities.formatDate(date, SpreadsheetApp.getActive().getSpreadsheetTimeZone(), "MM/dd/yyyy HH:mm:ss");
+          }
+        }
+        
+        return [
+          formattedTimestamp, 
+          tx.platform || '', 
+          tx.type.charAt(0).toUpperCase() + tx.type.slice(1),
+          tx.asset || '', 
+          amount.toFixed(8), 
+          `AED ${aedValue.toLocaleString()}`,
+          rate.toFixed(2), 
+          tx.client || '', 
+          tx.remarks || '', 
+          tx.from_address || '',
+          tx.to_address || '', 
+          tx.tx_id || ''
+        ];
+      } catch (error) {
+        console.error(`❌ Error formatting transaction:`, tx, error);
+        // Return a safe default row
+        return [
+          tx.timestamp || '', 
+          tx.platform || '', 
+          tx.type || '', 
+          tx.asset || '', 
+          '0.00000000', 
+          'AED 0',
+          '0.00', 
+          tx.client || '', 
+          tx.remarks || '', 
+          tx.from_address || '',
+          tx.to_address || '', 
+          tx.tx_id || ''
+        ];
+      }
     });
     
+    // Write data to sheet
     sheet.getRange(2, 1, formattedRows.length, 12).setValues(formattedRows);
+    
+    // Apply formatting
+    if (formattedRows.length > 0) {
+      // Format Amount column (E) with 8 decimal places
+      sheet.getRange(2, 5, formattedRows.length, 1).setNumberFormat("0.00000000");
+      // Format AED Value column (F) 
+      sheet.getRange(2, 6, formattedRows.length, 1).setNumberFormat("@");
+      // Format Rate column (G) with 2 decimal places
+      sheet.getRange(2, 7, formattedRows.length, 1).setNumberFormat("0.00");
+      // Format Timestamp column (A) with date-time format
+      sheet.getRange(2, 1, formattedRows.length, 1).setNumberFormat("MM/dd/yyyy HH:mm:ss");
+    }
+    
+    console.log(`✅ Updated FORMATTED_TRANSACTIONS with ${formattedRows.length} transactions`);
   } catch (error) {
     console.error("❌ Error updating FORMATTED_TRANSACTIONS:", error);
   }
@@ -1221,3 +1287,58 @@ function readApiCredentialsFromSheet() {
 // BINANCE API PROCESSING (Apps Script) - REMOVED
 // Now handled by Vercel backend with credentials sent from Apps Script
 // ===========================================
+
+// ===========================================
+// DATA VALIDATION & DEBUGGING
+// ===========================================
+
+/**
+ * Validate and log data processing results
+ */
+function validateDataProcessing(withdrawals, deposits) {
+  try {
+    console.log("🔍 Data Validation Results:");
+    console.log(`📊 Withdrawals: ${withdrawals.length} transactions`);
+    console.log(`📊 Deposits: ${deposits.length} transactions`);
+    console.log(`📊 Total: ${withdrawals.length + deposits.length} transactions`);
+    
+    // Log sample transactions for debugging
+    if (withdrawals.length > 0) {
+      console.log("📤 Sample Withdrawal:", {
+        platform: withdrawals[0].platform,
+        asset: withdrawals[0].asset,
+        amount: withdrawals[0].amount,
+        timestamp: withdrawals[0].timestamp
+      });
+    }
+    
+    if (deposits.length > 0) {
+      console.log("💰 Sample Deposit:", {
+        platform: deposits[0].platform,
+        asset: deposits[0].asset,
+        amount: deposits[0].amount,
+        timestamp: deposits[0].timestamp
+      });
+    }
+    
+    // Check for data quality issues
+    const issues = [];
+    [...withdrawals, ...deposits].forEach((tx, index) => {
+      if (!tx.platform || !tx.asset) {
+        issues.push(`Transaction ${index}: Missing platform or asset`);
+      }
+      if (!tx.timestamp) {
+        issues.push(`Transaction ${index}: Missing timestamp`);
+      }
+    });
+    
+    if (issues.length > 0) {
+      console.log("⚠️ Data Quality Issues:", issues);
+    } else {
+      console.log("✅ All transactions have required fields");
+    }
+    
+  } catch (error) {
+    console.error("❌ Error in data validation:", error);
+  }
+}

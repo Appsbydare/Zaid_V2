@@ -1638,10 +1638,10 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     // The private key should be set in Vercel environment variables
     const googleCredentials = {
       type: "service_account",
-      project_id: "zaidcryptowallets",
-      private_key_id: "28d0fa5468a57eed6c7654bd077d87843ad0ceaf",
-      client_email: "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com",
-      client_id: "101295956426147651033",
+      project_id: process.env.GOOGLE_PROJECT_ID || "zaidcryptowallets",
+      private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID || "28d0fa5468a57eed6c7654bd077d87843ad0ceaf",
+      client_email: process.env.GOOGLE_CLIENT_EMAIL || "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com",
+      client_id: process.env.GOOGLE_CLIENT_ID || "101295956426147651033",
       private_key: process.env.GOOGLE_PRIVATE_KEY
     };
     
@@ -1687,9 +1687,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
     
-    const sheets = google.sheets({ version: 'v4', auth });
+    console.log('🔑 Google Auth created, getting client...');
+    const authClient = await auth.getClient();
+    console.log('✅ Google Auth client obtained');
     
-    console.log('✅ Google Sheets authentication successful');
+    const sheets = google.sheets({ version: 'v4', auth: authClient });
+    
+    console.log('✅ Google Sheets API initialized');
     
     // Get existing transaction IDs to avoid duplicates
     const existingWithdrawalIds = await getExistingTransactionIds(sheets, spreadsheetId);
@@ -1717,12 +1721,37 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     const deposits = sortedTransactions.filter(tx => tx.type === 'deposit');
     
     console.log(`📊 Separated: ${withdrawals.length} withdrawals, ${deposits.length} deposits`);
+    console.log(`🔍 Transaction types found:`, [...new Set(sortedTransactions.map(tx => tx.type))]);
+    
+    // Debug: Show sample transactions of each type
+    if (withdrawals.length > 0) {
+      console.log(`📤 Sample withdrawal:`, {
+        type: withdrawals[0].type,
+        platform: withdrawals[0].platform,
+        asset: withdrawals[0].asset,
+        amount: withdrawals[0].amount,
+        timestamp: withdrawals[0].timestamp
+      });
+    }
+    
+    if (deposits.length > 0) {
+      console.log(`💰 Sample deposit:`, {
+        type: deposits[0].type,
+        platform: deposits[0].platform,
+        asset: deposits[0].asset,
+        amount: deposits[0].amount,
+        timestamp: deposits[0].timestamp
+      });
+    }
     
     // Write to Google Sheets
     let withdrawalsAdded = 0;
     let depositsAdded = 0;
     
     if (withdrawals.length > 0) {
+      console.log(`📤 Writing ${withdrawals.length} withdrawals to sheet...`);
+      console.log(`📤 Sample withdrawal:`, withdrawals[0]);
+      
       const withdrawalRows = withdrawals.map(tx => [
         tx.client || '',
         tx.amount_aed || '',
@@ -1738,18 +1767,36 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
         tx.tx_id || ''
       ]);
       
-      await sheets.spreadsheets.values.append({
-        spreadsheetId,
-        range: 'Withdrawals!A:L',
-        valueInputOption: 'RAW',
-        requestBody: { values: withdrawalRows }
-      });
+      console.log(`📤 First withdrawal row:`, withdrawalRows[0]);
+      console.log(`📤 Total withdrawal rows to write:`, withdrawalRows.length);
       
-      withdrawalsAdded = withdrawals.length;
-      console.log(`✅ Added ${withdrawalsAdded} withdrawals to sheet`);
+      try {
+        console.log(`📤 Attempting to write to Withdrawals!A:L...`);
+        const withdrawalResult = await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range: 'Withdrawals!A:L',
+          valueInputOption: 'RAW',
+          requestBody: { values: withdrawalRows }
+        });
+        
+        console.log(`📤 Withdrawal write result:`, withdrawalResult);
+        console.log(`📤 Withdrawal write successful:`, withdrawalResult.data);
+        
+        withdrawalsAdded = withdrawals.length;
+        console.log(`✅ Added ${withdrawalsAdded} withdrawals to sheet`);
+      } catch (error) {
+        console.error(`❌ Error writing withdrawals:`, error);
+        console.error(`❌ Error details:`, error.message);
+        withdrawalsAdded = 0;
+      }
+    } else {
+      console.log(`ℹ️ No withdrawals to write (${withdrawals.length} withdrawals found)`);
     }
     
     if (deposits.length > 0) {
+      console.log(`📝 Writing ${deposits.length} deposits to sheet...`);
+      console.log(`📝 Sample deposit:`, deposits[0]);
+      
       const depositRows = deposits.map(tx => [
         tx.client || '',
         tx.amount_aed || '',
@@ -1765,15 +1812,30 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
         tx.tx_id || ''
       ]);
       
-      await sheets.spreadsheets.values.append({
-        spreadsheetId,
-        range: 'Deposits!A:L',
-        valueInputOption: 'RAW',
-        requestBody: { values: depositRows }
-      });
+      console.log(`📝 First deposit row:`, depositRows[0]);
+      console.log(`📝 Total deposit rows to write:`, depositRows.length);
       
-      depositsAdded = deposits.length;
-      console.log(`✅ Added ${depositsAdded} deposits to sheet`);
+      try {
+        console.log(`📝 Attempting to write to Deposits!A:L...`);
+        const depositResult = await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range: 'Deposits!A:L',
+          valueInputOption: 'RAW',
+          requestBody: { values: depositRows }
+        });
+        
+        console.log(`📝 Deposit write result:`, depositResult);
+        console.log(`📝 Deposit write successful:`, depositResult.data);
+        
+        depositsAdded = deposits.length;
+        console.log(`✅ Added ${depositsAdded} deposits to sheet`);
+      } catch (error) {
+        console.error(`❌ Error writing deposits:`, error);
+        console.error(`❌ Error details:`, error.message);
+        depositsAdded = 0;
+      }
+    } else {
+      console.log(`ℹ️ No deposits to write (${deposits.length} deposits found)`);
     }
     
     // Save filtered transactions to recycle bin

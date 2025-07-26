@@ -43,33 +43,35 @@ export default async function handler(req, res) {
     let totalTransactionsFound = 0;
 
     // ===========================================
-    // STEP 1: FIXED BINANCE APIS
+    // STEP 1: FIXED BINANCE APIS WITH CREDENTIALS FROM APPS SCRIPT
     // ===========================================
-    debugLogs.push('🔧 Testing Binance APIs with FIXED endpoints...');
+    debugLogs.push('🔧 Testing Binance APIs with credentials from Apps Script...');
     
-    // For now, use hardcoded credentials until we fix the sheet reading
-    // TODO: Move credential reading to after Google Sheets authentication
+    // Get API credentials from request body (sent by Apps Script)
+    const apiCredentials = req.body?.apiCredentials || {};
+    debugLogs.push(`🔑 Received ${Object.keys(apiCredentials).length} credential sets from Apps Script`);
+    
     const binanceAccounts = [
       {
         name: "Binance (GC)",
-        apiKey: '', // Will be populated from sheet later
-        apiSecret: ''
+        apiKey: apiCredentials.BINANCE_GC_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_GC_API?.apiSecret || ''
       },
       {
         name: "Binance (Main)",
-        apiKey: '', // Will be populated from sheet later
-        apiSecret: ''
+        apiKey: apiCredentials.BINANCE_MAIN_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_MAIN_API?.apiSecret || ''
       },
       {
         name: "Binance (CV)",
-        apiKey: '', // Will be populated from sheet later
-        apiSecret: ''
+        apiKey: apiCredentials.BINANCE_CV?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_CV?.apiSecret || ''
       }
     ];
 
     for (const account of binanceAccounts) {
       if (!account.apiKey || !account.apiSecret) {
-        debugLogs.push(`⚠️ ${account.name}: Missing API credentials (will be read from sheet later)`);
+        debugLogs.push(`⚠️ ${account.name}: Missing API credentials`);
         apiStatusResults[account.name] = {
           status: 'Error',
           lastSync: new Date().toISOString(),
@@ -80,7 +82,7 @@ export default async function handler(req, res) {
         continue;
       }
 
-      debugLogs.push(`🔧 Processing ${account.name} with FIXES...`);
+      debugLogs.push(`🔧 Processing ${account.name} with credentials...`);
       const result = await testBinanceAccountFixed(account, filterDate, debugLogs);
       apiStatusResults[account.name] = result.status;
       
@@ -94,10 +96,39 @@ export default async function handler(req, res) {
     }
 
     // ===========================================
-    // STEP 2: FIXED BYBIT API (V5 AUTHENTICATION)
+    // STEP 2: FIXED BYBIT API (V5 AUTHENTICATION) WITH CREDENTIALS FROM APPS SCRIPT
     // ===========================================
-    // ByBit credentials will also be read from sheet later
-    debugLogs.push('🔧 ByBit credentials will be read from sheet during write process');
+    debugLogs.push('🔧 Processing ByBit APIs with credentials from Apps Script...');
+    
+    // Get ByBit credentials from the same apiCredentials object
+    const bybitConfig = {
+      name: "ByBit",
+      apiKey: apiCredentials.BYBIT_API?.apiKey || '',
+      apiSecret: apiCredentials.BYBIT_API?.apiSecret || ''
+    };
+
+    if (!bybitConfig.apiKey || !bybitConfig.apiSecret) {
+      debugLogs.push('⚠️ ByBit: Missing API credentials');
+      apiStatusResults['ByBit'] = {
+        status: 'Error',
+        lastSync: new Date().toISOString(),
+        autoUpdate: 'Every Hour',
+        notes: '❌ Missing credentials',
+        transactionCount: 0
+      };
+    } else {
+      debugLogs.push('🔧 Processing ByBit with credentials...');
+      const bybitResult = await testByBitAccountFixed(bybitConfig, filterDate, debugLogs);
+      apiStatusResults['ByBit'] = bybitResult.status;
+      
+      if (bybitResult.success) {
+        allTransactions.push(...bybitResult.transactions);
+        totalTransactionsFound += bybitResult.transactions.length;
+        debugLogs.push(`✅ ByBit: ${bybitResult.transactions.length} transactions`);
+      } else {
+        debugLogs.push(`❌ ByBit: ${bybitResult.status.notes}`);
+      }
+    }
 
     // ===========================================
     // STEP 3: BLOCKCHAIN DATA (UNCHANGED)

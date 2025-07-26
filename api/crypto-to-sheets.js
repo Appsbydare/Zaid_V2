@@ -1634,16 +1634,34 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     // Read Google credentials from the sheet
     const spreadsheetId = "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y";
     
-    // For now, use environment variables or hardcoded credentials
-    // The Google credentials should be configured in Vercel environment
+    // Use environment variables for Google authentication
+    // The private key should be set in Vercel environment variables
     const googleCredentials = {
       type: "service_account",
       project_id: "zaidcryptowallets",
       private_key_id: "28d0fa5468a57eed6c7654bd077d87843ad0ceaf",
       client_email: "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com",
       client_id: "101295956426147651033",
-      private_key: process.env.GOOGLE_PRIVATE_KEY || "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+      private_key: process.env.GOOGLE_PRIVATE_KEY
     };
+    
+    if (!process.env.GOOGLE_PRIVATE_KEY) {
+      console.log('❌ GOOGLE_PRIVATE_KEY environment variable not set');
+      return {
+        success: false,
+        withdrawalsAdded: 0,
+        depositsAdded: 0,
+        statusUpdated: false,
+        totalRaw: transactions.length,
+        totalAfterDedup: transactions.length,
+        totalAfterFilter: transactions.length,
+        duplicatesRemoved: 0,
+        filteredOut: 0,
+        recycleBinSaved: 0,
+        unknownCurrencies: [],
+        note: "❌ GOOGLE_PRIVATE_KEY environment variable not set in Vercel"
+      };
+    }
     
     if (!googleCredentials) {
       console.log('❌ No Google credentials found, skipping Google Sheets write');

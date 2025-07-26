@@ -1752,12 +1752,8 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Writing ${withdrawals.length} withdrawals to sheet...`);
       console.log(`📤 Sample withdrawal:`, withdrawals[0]);
       
+      // Only prepare F-L data (columns 5-11 in array)
       const withdrawalRows = withdrawals.map(tx => [
-        '', // Column A - CLIENT (empty, preserve existing)
-        '', // Column B - AED (empty, preserve existing)
-        '', // Column C - USDT (empty, preserve existing)
-        '', // Column D - SELL RATE (empty, preserve existing)
-        '', // Column E - REMARK (empty, preserve existing)
         tx.platform || '', // Column F - PLATFORM
         tx.asset || '', // Column G - ASSET
         tx.amount || '', // Column H - AMOUNT
@@ -1776,7 +1772,7 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
           spreadsheetId,
           range: 'Withdrawals!F:L', // Only write to columns F-L, preserve A-E
           valueInputOption: 'RAW',
-          requestBody: { values: withdrawalRows.map(row => row.slice(5, 12)) } // Only columns F-L
+          requestBody: { values: withdrawalRows } // Send only F-L data
         });
         
         console.log(`📤 Withdrawal write result:`, withdrawalResult);
@@ -1797,12 +1793,8 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Writing ${deposits.length} deposits to sheet...`);
       console.log(`📝 Sample deposit:`, deposits[0]);
       
+      // Only prepare F-L data (columns 5-11 in array)
       const depositRows = deposits.map(tx => [
-        '', // Column A - CLIENT (empty, preserve existing)
-        '', // Column B - AED (empty, preserve existing)
-        '', // Column C - USDT (empty, preserve existing)
-        '', // Column D - SELL RATE (empty, preserve existing)
-        '', // Column E - REMARK (empty, preserve existing)
         tx.platform || '', // Column F - PLATFORM
         tx.asset || '', // Column G - ASSET
         tx.amount || '', // Column H - AMOUNT
@@ -1821,7 +1813,7 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
           spreadsheetId,
           range: 'Deposits!F:L', // Only write to columns F-L, preserve A-E
           valueInputOption: 'RAW',
-          requestBody: { values: depositRows.map(row => row.slice(5, 12)) } // Only columns F-L
+          requestBody: { values: depositRows } // Send only F-L data
         });
         
         console.log(`📝 Deposit write result:`, depositResult);

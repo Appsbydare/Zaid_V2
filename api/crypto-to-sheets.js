@@ -47,21 +47,27 @@ export default async function handler(req, res) {
     // ===========================================
     debugLogs.push('🔧 Testing Binance APIs with FIXED endpoints...');
     
+    // Read API credentials from Settings sheet
+    const apiCredentials = await readApiCredentialsFromSheet(sheets, spreadsheetId);
+    
+    // Set global variables for other functions to access
+    global.etherscanApiKey = apiCredentials.ETHERSCAN_API_KEY?.apiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+    
     const binanceAccounts = [
       {
         name: "Binance (GC)",
-        apiKey: process.env.BINANCE_GC_API_KEY,
-        apiSecret: process.env.BINANCE_GC_API_SECRET
+        apiKey: apiCredentials.BINANCE_GC_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_GC_API?.apiSecret || ''
       },
       {
         name: "Binance (Main)",
-        apiKey: process.env.BINANCE_MAIN_API_KEY,
-        apiSecret: process.env.BINANCE_MAIN_API_SECRET
+        apiKey: apiCredentials.BINANCE_MAIN_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_MAIN_API?.apiSecret || ''
       },
       {
         name: "Binance (CV)",
-        apiKey: process.env.BINANCE_CV_API_KEY,
-        apiSecret: process.env.BINANCE_CV_API_SECRET
+        apiKey: apiCredentials.BINANCE_CV?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_CV?.apiSecret || ''
       }
     ];
 
@@ -94,13 +100,13 @@ export default async function handler(req, res) {
     // ===========================================
     // STEP 2: FIXED BYBIT API (V5 AUTHENTICATION)
     // ===========================================
-    if (process.env.BYBIT_API_KEY && process.env.BYBIT_API_SECRET) {
+    if (apiCredentials.BYBIT_API_SECRET?.apiKey && apiCredentials.BYBIT_API_SECRET?.apiSecret) {
       debugLogs.push('🔧 Testing ByBit with FIXED V5 authentication...');
-      const bybitResult = await testByBitAccountFixed({
-        name: "ByBit (CV)",
-        apiKey: process.env.BYBIT_API_KEY,
-        apiSecret: process.env.BYBIT_API_SECRET
-      }, filterDate, debugLogs);
+              const bybitResult = await testByBitAccountFixed({
+          name: "ByBit (CV)",
+          apiKey: apiCredentials.BYBIT_API_SECRET.apiKey,
+          apiSecret: apiCredentials.BYBIT_API_SECRET.apiSecret
+        }, filterDate, debugLogs);
       
       apiStatusResults["ByBit (CV)"] = bybitResult.status;
       if (bybitResult.success) {
@@ -1110,7 +1116,8 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
 
 async function fetchEthereumEnhanced(address, filterDate) {
   try {
-    const apiKey = process.env.ETHERSCAN_API_KEY || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+    // Get API credentials from the main function context
+    const apiKey = global.etherscanApiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
     const endpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${apiKey}`;
     
     const response = await fetch(endpoint);
@@ -1622,17 +1629,20 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs) {
   try {
     console.log('🔑 Setting up Google Sheets authentication...');
     
+    // Read Google service account credentials from Settings sheet
+    const googleCredentials = await readGoogleCredentialsFromSheet(sheets, spreadsheetId);
+    
     const credentials = {
       type: "service_account",
-      project_id: process.env.GOOGLE_PROJECT_ID,
-      private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      client_email: process.env.GOOGLE_CLIENT_EMAIL,
-      client_id: process.env.GOOGLE_CLIENT_ID,
+      project_id: googleCredentials.GOOGLE_PROJECT_ID,
+      private_key_id: googleCredentials.GOOGLE_PRIVATE_KEY_ID,
+      private_key: googleCredentials.GOOGLE_PRIVATE_KEY ? googleCredentials.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : '',
+      client_email: googleCredentials.GOOGLE_CLIENT_EMAIL,
+      client_id: googleCredentials.GOOGLE_CLIENT_ID,
       auth_uri: "https://accounts.google.com/o/oauth2/auth",
       token_uri: "https://oauth2.googleapis.com/token",
       auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${process.env.GOOGLE_CLIENT_EMAIL}`
+      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${googleCredentials.GOOGLE_CLIENT_EMAIL}`
     };
 
     const auth = new GoogleAuth({
@@ -1641,7 +1651,7 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs) {
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
-    const spreadsheetId = '1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q';
+    const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
 
     console.log(`📊 Starting with ${transactions.length} raw transactions`);
 
@@ -1786,17 +1796,20 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs) {
 }
 
 async function updateSettingsStatusOnly(apiStatus) {
+  // Read Google service account credentials from Settings sheet
+  const googleCredentials = await readGoogleCredentialsFromSheet(sheets, spreadsheetId);
+  
   const credentials = {
     type: "service_account",
-    project_id: process.env.GOOGLE_PROJECT_ID,
-    private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    client_id: process.env.GOOGLE_CLIENT_ID,
+    project_id: googleCredentials.GOOGLE_PROJECT_ID,
+    private_key_id: googleCredentials.GOOGLE_PRIVATE_KEY_ID,
+    private_key: googleCredentials.GOOGLE_PRIVATE_KEY ? googleCredentials.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : '',
+    client_email: googleCredentials.GOOGLE_CLIENT_EMAIL,
+    client_id: googleCredentials.GOOGLE_CLIENT_ID,
     auth_uri: "https://accounts.google.com/o/oauth2/auth",
     token_uri: "https://oauth2.googleapis.com/token",
     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${process.env.GOOGLE_CLIENT_EMAIL}`
+    client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${googleCredentials.GOOGLE_CLIENT_EMAIL}`
   };
 
   const auth = new GoogleAuth({
@@ -1805,7 +1818,7 @@ async function updateSettingsStatusOnly(apiStatus) {
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
-  const spreadsheetId = '1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q';
+  const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
 
   await updateSettingsStatus(sheets, spreadsheetId, apiStatus);
 }
@@ -1878,5 +1891,86 @@ function createQueryString(params) {
 function formatDateTimeSimple(isoString) {
   const date = new Date(isoString);
   return date.toISOString().slice(0, 16).replace('T', ' ');
-  
+}
+
+// ===========================================
+// SETTINGS SHEET READER FUNCTIONS
+// ===========================================
+
+async function readApiCredentialsFromSheet(sheets, spreadsheetId) {
+  try {
+    console.log('🔑 Reading API credentials from Settings sheet...');
+    
+    // Read API Keys table (K2:M7)
+    const apiKeysRange = 'SETTINGS!K2:M7';
+    const apiKeysResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: apiKeysRange,
+    });
+    
+    const apiKeysData = apiKeysResponse.data.values || [];
+    const credentials = {};
+    
+    // Skip header row (row 2), process data rows (3-7)
+    for (let i = 1; i < apiKeysData.length; i++) {
+      const row = apiKeysData[i];
+      if (row && row.length >= 3) {
+        const platform = row[0]; // Column K
+        const apiKey = row[1];   // Column L
+        const apiSecret = row[2]; // Column M
+        
+        if (platform && apiKey && apiSecret) {
+          credentials[platform] = {
+            apiKey: apiKey,
+            apiSecret: apiSecret
+          };
+          console.log(`✅ Loaded credentials for ${platform}`);
+        }
+      }
+    }
+    
+    console.log(`📊 Loaded ${Object.keys(credentials).length} API credential sets`);
+    return credentials;
+    
+  } catch (error) {
+    console.error('❌ Error reading API credentials from sheet:', error);
+    return {};
+  }
+}
+
+async function readGoogleCredentialsFromSheet(sheets, spreadsheetId) {
+  try {
+    console.log('🔑 Reading Google credentials from Settings sheet...');
+    
+    // Read Google Data table (P2:Q9)
+    const googleDataRange = 'SETTINGS!P2:Q9';
+    const googleDataResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: googleDataRange,
+    });
+    
+    const googleData = googleDataResponse.data.values || [];
+    const credentials = {};
+    
+    // Skip header row (row 2), process data rows (3-9)
+    for (let i = 1; i < googleData.length; i++) {
+      const row = googleData[i];
+      if (row && row.length >= 2) {
+        const key = row[0];   // Column P
+        const value = row[1]; // Column Q
+        
+        if (key && value) {
+          credentials[key] = value;
+          console.log(`✅ Loaded Google credential: ${key}`);
+        }
+      }
+    }
+    
+    console.log(`📊 Loaded ${Object.keys(credentials).length} Google credential fields`);
+    return credentials;
+    
+  } catch (error) {
+    console.error('❌ Error reading Google credentials from sheet:', error);
+    return {};
+  }
 }

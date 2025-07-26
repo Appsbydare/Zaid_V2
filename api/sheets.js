@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   try {
     // STEP 1: Get transactions from Google Sheets (existing logic)
     console.log('📊 Fetching transactions from Google Sheets...');
-    const spreadsheetId = '1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q';
+    const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
     const sheetName = 'FORMATTED_TRANSACTIONS';
     
     const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;

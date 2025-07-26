@@ -6,7 +6,7 @@
  */
 
 const CONFIG = {
-  SHEET_ID: "1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q",
+  SHEET_ID: "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y",
   FORMATTED_SHEET: "FORMATTED_TRANSACTIONS",
   WITHDRAWALS_SHEET: "Withdrawals",
   DEPOSITS_SHEET: "Deposits",
@@ -312,7 +312,7 @@ function updateApiStatusTable(apiStatus) {
 }
 
 // ===========================================
-// UTILITIES (Append your Test functions below)
+// UTILITIES 
 // ===========================================
 
 function getCryptoRate(asset) {

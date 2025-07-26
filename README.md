@@ -1,4 +1,2 @@
-# zaid_cryptowallets
-Crypto Portfolio Tracker for Zaid 
-Created by Darshana
-
+# Zaid_V2
+Additional features to add Wallets in Settings page

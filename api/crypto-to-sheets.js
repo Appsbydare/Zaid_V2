@@ -1382,7 +1382,7 @@ async function getExistingTransactionIds(sheets, spreadsheetId) {
   }
 }
 
-function removeDuplicateTransactions(transactions, existingTxIds) {
+function removeDuplicateTransactions(transactions, existingWithdrawalIds, existingDepositIds) {
   let duplicateCount = 0;
   let totalCount = transactions.length;
   
@@ -1393,7 +1393,7 @@ function removeDuplicateTransactions(transactions, existingTxIds) {
       return true;
     }
     
-    const isDuplicate = existingTxIds.has(txId);
+    const isDuplicate = existingWithdrawalIds.has(txId) || existingDepositIds.has(txId);
     if (isDuplicate) {
       duplicateCount++;
     }
@@ -1631,50 +1631,165 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
   try {
     console.log('🔑 Setting up Google Sheets authentication...');
     
-    // We need to read Google credentials from the sheet, but we can't do that without Google auth first
-    // Let's use a simpler approach - just use the Apps Script to handle the Google Sheets operations
-    // and focus on getting the API credentials working
+    // Read Google credentials from the sheet
+    const spreadsheetId = "1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q";
+    const googleCredentials = await readGoogleCredentialsFromSheet(null, spreadsheetId);
     
-    console.log('🔧 Skipping Google Sheets write for now - focusing on API credential reading');
+    if (!googleCredentials) {
+      console.log('❌ No Google credentials found, skipping Google Sheets write');
+      return {
+        success: false,
+        withdrawalsAdded: 0,
+        depositsAdded: 0,
+        statusUpdated: false,
+        totalRaw: transactions.length,
+        totalAfterDedup: transactions.length,
+        totalAfterFilter: transactions.length,
+        duplicatesRemoved: 0,
+        filteredOut: 0,
+        recycleBinSaved: 0,
+        unknownCurrencies: [],
+        note: "❌ No Google credentials found - cannot write to sheets"
+      };
+    }
     
-    // For now, let's just process the transactions we have and return them
-    // The Google Sheets write will be handled by the Apps Script
-
-    // Since we can't authenticate with Google Sheets from here due to OpenSSL issues,
-    // let's return the transactions and let the Apps Script handle the Google Sheets operations
-    
-    console.log('🔧 Returning transactions for Apps Script to process');
-    
-    // Update API status to show that we're skipping Google Sheets operations
-    Object.keys(apiStatus).forEach(key => {
-      if (apiStatus[key].notes && apiStatus[key].notes.includes('Missing credentials')) {
-        apiStatus[key].notes = '❌ Credentials will be read by Apps Script';
-      }
+    // Set up Google Sheets API
+    const auth = new GoogleAuth({
+      credentials: googleCredentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
     
-    // For now, just return the transactions we have
-    // The Apps Script will handle reading credentials and writing to Google Sheets
+    const sheets = google.sheets({ version: 'v4', auth });
     
-    console.log(`📊 Returning ${transactions.length} transactions for Apps Script to process`);
+    console.log('✅ Google Sheets authentication successful');
+    
+    // Get existing transaction IDs to avoid duplicates
+    const existingWithdrawalIds = await getExistingTransactionIds(sheets, spreadsheetId);
+    const existingDepositIds = await getExistingTransactionIds(sheets, spreadsheetId);
+    
+    console.log(`📊 Found ${existingWithdrawalIds.size} existing withdrawal IDs`);
+    console.log(`📊 Found ${existingDepositIds.size} existing deposit IDs`);
+    
+    // Remove duplicates
+    const deduplicatedTransactions = removeDuplicateTransactions(transactions, existingWithdrawalIds, existingDepositIds);
+    console.log(`🔧 Deduplication: ${transactions.length} → ${deduplicatedTransactions.length} transactions`);
+    
+    // Filter transactions by value
+    const filteredResult = filterTransactionsByValueFixed(deduplicatedTransactions);
+    const validTransactions = filteredResult.transactions;
+    const filteredOut = filteredResult.filteredOut;
+    
+    console.log(`💰 Value filtering: ${deduplicatedTransactions.length} → ${validTransactions.length} transactions`);
+    
+    // Sort transactions by timestamp
+    const sortedTransactions = sortTransactionsByTimestamp(validTransactions);
+    
+    // Separate withdrawals and deposits
+    const withdrawals = sortedTransactions.filter(tx => tx.type === 'withdrawal');
+    const deposits = sortedTransactions.filter(tx => tx.type === 'deposit');
+    
+    console.log(`📊 Separated: ${withdrawals.length} withdrawals, ${deposits.length} deposits`);
+    
+    // Write to Google Sheets
+    let withdrawalsAdded = 0;
+    let depositsAdded = 0;
+    
+    if (withdrawals.length > 0) {
+      const withdrawalRows = withdrawals.map(tx => [
+        tx.client || '',
+        tx.amount_aed || '',
+        '', // Empty column
+        tx.rate || '',
+        tx.remarks || '',
+        tx.platform || '',
+        tx.asset || '',
+        tx.amount || '',
+        tx.timestamp || '',
+        tx.from_address || '',
+        tx.to_address || '',
+        tx.tx_id || ''
+      ]);
+      
+      await sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range: 'Withdrawals!A:L',
+        valueInputOption: 'RAW',
+        requestBody: { values: withdrawalRows }
+      });
+      
+      withdrawalsAdded = withdrawals.length;
+      console.log(`✅ Added ${withdrawalsAdded} withdrawals to sheet`);
+    }
+    
+    if (deposits.length > 0) {
+      const depositRows = deposits.map(tx => [
+        tx.client || '',
+        tx.amount_aed || '',
+        '', // Empty column
+        tx.rate || '',
+        tx.remarks || '',
+        tx.platform || '',
+        tx.asset || '',
+        tx.amount || '',
+        tx.timestamp || '',
+        tx.from_address || '',
+        tx.to_address || '',
+        tx.tx_id || ''
+      ]);
+      
+      await sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range: 'Deposits!A:L',
+        valueInputOption: 'RAW',
+        requestBody: { values: depositRows }
+      });
+      
+      depositsAdded = deposits.length;
+      console.log(`✅ Added ${depositsAdded} deposits to sheet`);
+    }
+    
+    // Save filtered transactions to recycle bin
+    let recycleBinSaved = 0;
+    if (filteredOut.length > 0) {
+      recycleBinSaved = await saveToRecycleBin(sheets, spreadsheetId, filteredOut);
+    }
+    
+    // Update API status in Settings sheet
+    const statusUpdated = await updateSettingsStatus(sheets, spreadsheetId, apiStatus);
+    
+    console.log(`✅ Google Sheets write completed: ${withdrawalsAdded} withdrawals, ${depositsAdded} deposits`);
     
     return {
       success: true,
+      withdrawalsAdded,
+      depositsAdded,
+      statusUpdated,
+      totalRaw: transactions.length,
+      totalAfterDedup: deduplicatedTransactions.length,
+      totalAfterFilter: validTransactions.length,
+      duplicatesRemoved: transactions.length - deduplicatedTransactions.length,
+      filteredOut: filteredOut.length,
+      recycleBinSaved,
+      unknownCurrencies: filteredResult.unknownCurrencies,
+      note: "✅ Transactions successfully written to Google Sheets"
+    };
+
+  } catch (error) {
+    console.error('❌ Error in writeToGoogleSheets:', error);
+    return {
+      success: false,
       withdrawalsAdded: 0,
       depositsAdded: 0,
       statusUpdated: false,
       totalRaw: transactions.length,
       totalAfterDedup: transactions.length,
-      totalAfterFilter: transactions.length,
+      totalAfterFilter: 0,
       duplicatesRemoved: 0,
       filteredOut: 0,
       recycleBinSaved: 0,
       unknownCurrencies: [],
-      note: "Transactions returned for Apps Script processing - Google Sheets operations skipped due to OpenSSL issues"
+      note: `❌ Google Sheets write failed: ${error.message}`
     };
-
-  } catch (error) {
-    console.error('❌ Error in FIXED writeToGoogleSheets:', error);
-    throw error;
   }
 }
 

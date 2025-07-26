@@ -6,7 +6,7 @@
  */
 
 const CONFIG = {
-  SHEET_ID: "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y",
+  SHEET_ID: "1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q",
   FORMATTED_SHEET: "FORMATTED_TRANSACTIONS",
   WITHDRAWALS_SHEET: "Withdrawals",
   DEPOSITS_SHEET: "Deposits",
@@ -132,8 +132,6 @@ function adjustTimestampsForNewRows(spreadsheet, sheetName, prevLastRow) {
 
 function triggerVercelDataFetch(settings) {
   try {
-    console.log("📡 Triggering Vercel data fetch...");
-    
     const response = UrlFetchApp.fetch(CONFIG.VERCEL_CRYPTO_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -161,38 +159,6 @@ function triggerVercelDataFetch(settings) {
   } catch (error) {
     console.error("❌ Error triggering Vercel:", error);
     throw error;
-  }
-}
-
-/**
- * Format transaction sheet with proper number formatting
- */
-function formatTransactionSheet(sheet, newRowsAdded) {
-  try {
-    const lastRow = sheet.getLastRow();
-    const startRow = lastRow - newRowsAdded + 1;
-    
-    if (startRow <= lastRow) {
-      // Format Amount column (H) with decimal places
-      const amountRange = sheet.getRange(startRow, 8, newRowsAdded, 1);
-      amountRange.setNumberFormat("0.00#######");
-      
-      // Format Amount AED column (B) with decimal places
-      const aedRange = sheet.getRange(startRow, 2, newRowsAdded, 1);
-      aedRange.setNumberFormat("0.00");
-      
-      // Format Rate column (D) with decimal places
-      const rateRange = sheet.getRange(startRow, 4, newRowsAdded, 1);
-      rateRange.setNumberFormat("0.00");
-      
-      // Format Timestamp column (I) with date-time format
-      const timestampRange = sheet.getRange(startRow, 9, newRowsAdded, 1);
-      timestampRange.setNumberFormat("MM/dd/yyyy HH:mm:ss");
-      
-      console.log(`✅ Formatted ${newRowsAdded} rows in sheet`);
-    }
-  } catch (error) {
-    console.error("❌ Error formatting sheet:", error);
   }
 }
 
@@ -968,92 +934,6 @@ function getSheetRowCount(spreadsheet, sheetName) {
   }
 }
 
-/**
- * Read API credentials from the Settings sheet
- * Returns an object with API credentials for different platforms
- */
-function readApiCredentialsFromSheet() {
-  try {
-    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-    const settingsSheet = spreadsheet.getSheetByName(CONFIG.SETTINGS_SHEET);
-    
-    if (!settingsSheet) {
-      console.log("❌ Settings sheet not found");
-      return {};
-    }
-    
-    const credentials = {};
-    
-    // Read Binance GC API credentials (rows 25-30)
-    try {
-      const binanceGCKey = settingsSheet.getRange('B25').getValue();
-      const binanceGCSecret = settingsSheet.getRange('C25').getValue();
-      if (binanceGCKey && binanceGCSecret) {
-        credentials.BINANCE_GC_API = {
-          apiKey: binanceGCKey.toString(),
-          apiSecret: binanceGCSecret.toString()
-        };
-        console.log("✅ Loaded Binance GC credentials");
-      }
-    } catch (e) {
-      console.log("⚠️ No Binance GC credentials found");
-    }
-    
-    // Read Binance Main API credentials (rows 26-30)
-    try {
-      const binanceMainKey = settingsSheet.getRange('B26').getValue();
-      const binanceMainSecret = settingsSheet.getRange('C26').getValue();
-      if (binanceMainKey && binanceMainSecret) {
-        credentials.BINANCE_MAIN_API = {
-          apiKey: binanceMainKey.toString(),
-          apiSecret: binanceMainSecret.toString()
-        };
-        console.log("✅ Loaded Binance Main credentials");
-      }
-    } catch (e) {
-      console.log("⚠️ No Binance Main credentials found");
-    }
-    
-    // Read Binance CV API credentials (rows 27-30)
-    try {
-      const binanceCVKey = settingsSheet.getRange('B27').getValue();
-      const binanceCVSecret = settingsSheet.getRange('C27').getValue();
-      if (binanceCVKey && binanceCVSecret) {
-        credentials.BINANCE_CV = {
-          apiKey: binanceCVKey.toString(),
-          apiSecret: binanceCVSecret.toString()
-        };
-        console.log("✅ Loaded Binance CV credentials");
-      }
-    } catch (e) {
-      console.log("⚠️ No Binance CV credentials found");
-    }
-    
-    // Read ByBit API credentials (rows 28-30)
-    try {
-      const bybitKey = settingsSheet.getRange('B28').getValue();
-      const bybitSecret = settingsSheet.getRange('C28').getValue();
-      if (bybitKey && bybitSecret) {
-        credentials.BYBIT_API = {
-          apiKey: bybitKey.toString(),
-          apiSecret: bybitSecret.toString()
-        };
-        console.log("✅ Loaded ByBit credentials");
-      }
-    } catch (e) {
-      console.log("⚠️ No ByBit credentials found");
-    }
-    
-    console.log(`🔑 Total credentials loaded: ${Object.keys(credentials).length}`);
-    return credentials;
-    
-  } catch (error) {
-    console.error("❌ Error reading API credentials:", error);
-    return {};
-  }
-}
-
 // ===========================================
-// BINANCE API PROCESSING (Apps Script) - REMOVED
-// Now handled by Vercel backend with credentials sent from Apps Script
+// MAIN EXECUTION & WORKFLOW
 // ===========================================

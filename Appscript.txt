@@ -935,5 +935,118 @@ function getSheetRowCount(spreadsheet, sheetName) {
 }
 
 // ===========================================
+// BINANCE API PROCESSING (Apps Script)
+// ===========================================
+
+function processBinanceAPIs() {
+  try {
+    console.log("🔧 Processing Binance APIs from Apps Script...");
+    
+    // Read API credentials from Settings sheet
+    const apiCredentials = readApiCredentialsFromSheet();
+    
+    const binanceAccounts = [
+      {
+        name: "Binance (GC)",
+        apiKey: apiCredentials.BINANCE_GC_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_GC_API?.apiSecret || ''
+      },
+      {
+        name: "Binance (Main)",
+        apiKey: apiCredentials.BINANCE_MAIN_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_MAIN_API?.apiSecret || ''
+      },
+      {
+        name: "Binance (CV)",
+        apiKey: apiCredentials.BINANCE_CV?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_CV?.apiSecret || ''
+      }
+    ];
+
+    let allTransactions = [];
+    
+    for (const account of binanceAccounts) {
+      if (!account.apiKey || !account.apiSecret) {
+        console.log(`⚠️ ${account.name}: Missing API credentials`);
+        continue;
+      }
+
+      console.log(`🔧 Processing ${account.name} with credentials...`);
+      const result = processBinanceAccount(account);
+      
+      if (result.success) {
+        allTransactions.push(...result.transactions);
+        console.log(`✅ ${account.name}: ${result.transactions.length} transactions`);
+      } else {
+        console.log(`❌ ${account.name}: ${result.error}`);
+      }
+    }
+
+    console.log(`📊 Total Binance transactions: ${allTransactions.length}`);
+    return allTransactions;
+    
+  } catch (error) {
+    console.error("❌ Error processing Binance APIs:", error);
+    return [];
+  }
+}
+
+function readApiCredentialsFromSheet() {
+  try {
+    console.log('🔑 Reading API credentials from Settings sheet...');
+    
+    const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName(CONFIG.SETTINGS_SHEET);
+    const apiKeysRange = 'K3:M7'; // Skip header row, read data rows
+    const apiKeysData = sheet.getRange(apiKeysRange).getValues();
+    
+    const credentials = {};
+    
+    apiKeysData.forEach(row => {
+      if (row[0] && row[1] && row[2]) {
+        const platform = row[0]; // Column K
+        const apiKey = row[1];   // Column L
+        const apiSecret = row[2]; // Column M
+        
+        credentials[platform] = {
+          apiKey: apiKey,
+          apiSecret: apiSecret
+        };
+        console.log(`✅ Loaded credentials for ${platform}`);
+      }
+    });
+    
+    console.log(`📊 Loaded ${Object.keys(credentials).length} API credential sets`);
+    return credentials;
+    
+  } catch (error) {
+    console.error('❌ Error reading API credentials from sheet:', error);
+    return {};
+  }
+}
+
+function processBinanceAccount(account) {
+  try {
+    console.log(`🔧 Processing ${account.name}...`);
+    
+    // For now, return empty result since Apps Script has limitations with crypto APIs
+    // In a real implementation, you would need to use external services or different approach
+    console.log(`⚠️ ${account.name}: Apps Script has limitations with crypto APIs`);
+    
+    return {
+      success: false,
+      transactions: [],
+      error: "Apps Script has limitations with crypto APIs - needs external service"
+    };
+    
+  } catch (error) {
+    return {
+      success: false,
+      transactions: [],
+      error: error.message
+    };
+  }
+}
+
+// ===========================================
 // MAIN EXECUTION & WORKFLOW
 // ===========================================

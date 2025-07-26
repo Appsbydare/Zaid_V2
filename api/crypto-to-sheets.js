@@ -1607,7 +1607,17 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       project_id: process.env.GOOGLE_PROJECT_ID || "zaidcryptowallets",
       private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID || "28d0fa5468a57eed6c7654bd077d87843ad0ceaf",
       private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : 
-        "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5QoE1ZGejW7TL\nbXr4/eZ9Z6aOOViOdT4tYfPj7nVzYmlqah1Vj3O76xmffaWfq0B1fsSXnfm8hdF7\nvnp9fdwTd380/NALJDFHlp/b7ZoilOwd7AbqrgRL4jkDAoGBAIMguSb8w3cZ/LH4\nTTISQ59Gy+mEG5NpEBKJfNvOLRSbEuYizALb7DXCny8Z1Ok5w4Ob+aVqDl628gho\n/+bl34vGKuLReLB7YMbcBJJdNPezQJB1/7I/+fT/OOP3yrhmhRLW481d9dgmdiVT\n7DdUoHPnYoflToshQ1NSksYw2EIRAOGANKwfrgCB+G4qyLxu7dduqf7MkPbh2HMA\nXc29606xQb5j0mhcbOpsy2lt8GMeawWwFEEVZzq9qijKgPKcmqMdF+2P6ZcK51fF\nP7CVzssWdbcMbgd7XCMJfsWpSAeKbcncKdR+PKoufLmNUDuexvuL050h6x+v4vcj\nGbp7Y8Kmg=\n-----END PRIVATE KEY-----\n",
+        "-----BEGIN PRIVATE KEY-----\n" +
+        "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5QoE1ZGejW7TL\n" +
+        "bXr4/eZ9Z6aOOViOdT4tYfPj7nVzYmlqah1Vj3O76xmffaWfq0B1fsSXnfm8hdF7\n" +
+        "vnp9fdwTd380/NALJDFHlp/b7ZoilOwd7AbqrgRL4jkDAoGBAIMguSb8w3cZ/LH4\n" +
+        "TTISQ59Gy+mEG5NpEBKJfNvOLRSbEuYizALb7DXCny8Z1Ok5w4Ob+aVqDl628gho\n" +
+        "/+bl34vGKuLReLB7YMbcBJJdNPezQJB1/7I/+fT/OOP3yrhmhRLW481d9dgmdiVT\n" +
+        "7DdUoHPnYoflToshQ1NSksYw2EIRAOGANKwfrgCB+G4qyLxu7dduqf7MkPbh2HMA\n" +
+        "Xc29606xQb5j0mhcbOpsy2lt8GMeawWwFEEVZzq9qijKgPKcmqMdF+2P6ZcK51fF\n" +
+        "P7CVzssWdbcMbgd7XCMJfsWpSAeKbcncKdR+PKoufLmNUDuexvuL050h6x+v4vcj\n" +
+        "Gbp7Y8Kmg=\n" +
+        "-----END PRIVATE KEY-----\n",
       client_email: process.env.GOOGLE_CLIENT_EMAIL || "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com",
       client_id: process.env.GOOGLE_CLIENT_ID || "101295956426147651033",
       auth_uri: "https://accounts.google.com/o/oauth2/auth",

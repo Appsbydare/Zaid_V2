@@ -1600,20 +1600,20 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
   try {
     console.log('🔑 Setting up Google Sheets authentication...');
     
-    // Read Google service account credentials from Settings sheet
-    const googleCredentials = await readGoogleCredentialsFromSheet(sheets, spreadsheetId);
-    
+    // First, we need to authenticate with Google using hardcoded credentials
+    // We'll read the Google credentials from environment variables or use a fallback
     const credentials = {
       type: "service_account",
-      project_id: googleCredentials.GOOGLE_PROJECT_ID,
-      private_key_id: googleCredentials.GOOGLE_PRIVATE_KEY_ID,
-      private_key: googleCredentials.GOOGLE_PRIVATE_KEY ? googleCredentials.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : '',
-      client_email: googleCredentials.GOOGLE_CLIENT_EMAIL,
-      client_id: googleCredentials.GOOGLE_CLIENT_ID,
+      project_id: process.env.GOOGLE_PROJECT_ID || "zaidcryptowallets",
+      private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID || "28d0fa5468a57eed6c7654bd077d87843ad0ceaf",
+      private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : 
+        "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5QoE1ZGejW7TL\nbXr4/eZ9Z6aOOViOdT4tYfPj7nVzYmlqah1Vj3O76xmffaWfq0B1fsSXnfm8hdF7\nvnp9fdwTd380/NALJDFHlp/b7ZoilOwd7AbqrgRL4jkDAoGBAIMguSb8w3cZ/LH4\nTTISQ59Gy+mEG5NpEBKJfNvOLRSbEuYizALb7DXCny8Z1Ok5w4Ob+aVqDl628gho\n/+bl34vGKuLReLB7YMbcBJJdNPezQJB1/7I/+fT/OOP3yrhmhRLW481d9dgmdiVT\n7DdUoHPnYoflToshQ1NSksYw2EIRAOGANKwfrgCB+G4qyLxu7dduqf7MkPbh2HMA\nXc29606xQb5j0mhcbOpsy2lt8GMeawWwFEEVZzq9qijKgPKcmqMdF+2P6ZcK51fF\nP7CVzssWdbcMbgd7XCMJfsWpSAeKbcncKdR+PKoufLmNUDuexvuL050h6x+v4vcj\nGbp7Y8Kmg=\n-----END PRIVATE KEY-----\n",
+      client_email: process.env.GOOGLE_CLIENT_EMAIL || "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com",
+      client_id: process.env.GOOGLE_CLIENT_ID || "101295956426147651033",
       auth_uri: "https://accounts.google.com/o/oauth2/auth",
       token_uri: "https://oauth2.googleapis.com/token",
       auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${googleCredentials.GOOGLE_CLIENT_EMAIL}`
+      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${process.env.GOOGLE_CLIENT_EMAIL || "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com"}`
     };
 
     const auth = new GoogleAuth({
@@ -1827,7 +1827,7 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       filteredOut: uniqueTransactions.length - filteredTransactions.length,
       recycleBinSaved: recycleBinSaved,
       unknownCurrencies: unknownCurrencies,
-              safetyNote: "Only wrote new transactions to F:L columns - existing accountant data (A:E) untouched"
+      safetyNote: "Only wrote new transactions to F:L columns - existing accountant data (A:E) untouched"
     };
 
     console.log('🎉 FIXED deduplication completed:', result);

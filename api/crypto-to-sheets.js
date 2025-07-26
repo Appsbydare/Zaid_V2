@@ -1752,6 +1752,16 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Writing ${withdrawals.length} withdrawals to sheet...`);
       console.log(`📤 Sample withdrawal:`, withdrawals[0]);
       
+      // Get the last row in the Withdrawals sheet
+      const withdrawalsSheet = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range: 'Withdrawals!A:A'
+      });
+      const lastRow = withdrawalsSheet.data.values ? withdrawalsSheet.data.values.length : 6;
+      const startRow = lastRow + 1;
+      
+      console.log(`📤 Last row in Withdrawals sheet: ${lastRow}, starting at row: ${startRow}`);
+      
       // Only prepare F-L data (columns 5-11 in array)
       const withdrawalRows = withdrawals.map(tx => [
         tx.platform || '', // Column F - PLATFORM
@@ -1767,12 +1777,12 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Total withdrawal rows to write:`, withdrawalRows.length);
       
       try {
-        console.log(`📤 Attempting to write to Withdrawals!F:L...`);
-        const withdrawalResult = await sheets.spreadsheets.values.append({
+        console.log(`📤 Attempting to write to Withdrawals!F${startRow}:L...`);
+        const withdrawalResult = await sheets.spreadsheets.values.update({
           spreadsheetId,
-          range: 'Withdrawals!F:L', // Only write to columns F-L, preserve A-E
+          range: `Withdrawals!F${startRow}:L${startRow + withdrawalRows.length - 1}`,
           valueInputOption: 'RAW',
-          requestBody: { values: withdrawalRows } // Send only F-L data
+          requestBody: { values: withdrawalRows }
         });
         
         console.log(`📤 Withdrawal write result:`, withdrawalResult);
@@ -1793,6 +1803,16 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Writing ${deposits.length} deposits to sheet...`);
       console.log(`📝 Sample deposit:`, deposits[0]);
       
+      // Get the last row in the Deposits sheet
+      const depositsSheet = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range: 'Deposits!A:A'
+      });
+      const lastRow = depositsSheet.data.values ? depositsSheet.data.values.length : 6;
+      const startRow = lastRow + 1;
+      
+      console.log(`📝 Last row in Deposits sheet: ${lastRow}, starting at row: ${startRow}`);
+      
       // Only prepare F-L data (columns 5-11 in array)
       const depositRows = deposits.map(tx => [
         tx.platform || '', // Column F - PLATFORM
@@ -1808,12 +1828,12 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Total deposit rows to write:`, depositRows.length);
       
       try {
-        console.log(`📝 Attempting to write to Deposits!F:L...`);
-        const depositResult = await sheets.spreadsheets.values.append({
+        console.log(`📝 Attempting to write to Deposits!F${startRow}:L...`);
+        const depositResult = await sheets.spreadsheets.values.update({
           spreadsheetId,
-          range: 'Deposits!F:L', // Only write to columns F-L, preserve A-E
+          range: `Deposits!F${startRow}:L${startRow + depositRows.length - 1}`,
           valueInputOption: 'RAW',
-          requestBody: { values: depositRows } // Send only F-L data
+          requestBody: { values: depositRows }
         });
         
         console.log(`📝 Deposit write result:`, depositResult);

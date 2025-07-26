@@ -1632,8 +1632,18 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     console.log('🔑 Setting up Google Sheets authentication...');
     
     // Read Google credentials from the sheet
-    const spreadsheetId = "1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q";
-    const googleCredentials = await readGoogleCredentialsFromSheet(null, spreadsheetId);
+    const spreadsheetId = "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y";
+    
+    // For now, use environment variables or hardcoded credentials
+    // The Google credentials should be configured in Vercel environment
+    const googleCredentials = {
+      type: "service_account",
+      project_id: "zaidcryptowallets",
+      private_key_id: "28d0fa5468a57eed6c7654bd077d87843ad0ceaf",
+      client_email: "crypto-tracker-service@zaidcryptowallets.iam.gserviceaccount.com",
+      client_id: "101295956426147651033",
+      private_key: process.env.GOOGLE_PRIVATE_KEY || "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+    };
     
     if (!googleCredentials) {
       console.log('❌ No Google credentials found, skipping Google Sheets write');

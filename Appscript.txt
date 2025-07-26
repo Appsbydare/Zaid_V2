@@ -1131,50 +1131,12 @@ function readApiCredentialsFromSheet() {
     
     const credentials = {};
     
-    // Read Binance GC API credentials (rows 25-30)
+    // Read Binance CV API credentials (row 3)
     try {
-      const binanceGCKey = settingsSheet.getRange('B25').getValue();
-      const binanceGCSecret = settingsSheet.getRange('C25').getValue();
-      console.log(`🔍 B25 (Binance GC Key): "${binanceGCKey}"`);
-      console.log(`🔍 C25 (Binance GC Secret): "${binanceGCSecret}"`);
-      if (binanceGCKey && binanceGCSecret) {
-        credentials.BINANCE_GC_API = {
-          apiKey: binanceGCKey.toString(),
-          apiSecret: binanceGCSecret.toString()
-        };
-        console.log("✅ Loaded Binance GC credentials");
-      } else {
-        console.log("⚠️ Binance GC credentials empty or missing");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Binance GC credentials:", e.message);
-    }
-    
-    // Read Binance Main API credentials (rows 26-30)
-    try {
-      const binanceMainKey = settingsSheet.getRange('B26').getValue();
-      const binanceMainSecret = settingsSheet.getRange('C26').getValue();
-      console.log(`🔍 B26 (Binance Main Key): "${binanceMainKey}"`);
-      console.log(`🔍 C26 (Binance Main Secret): "${binanceMainSecret}"`);
-      if (binanceMainKey && binanceMainSecret) {
-        credentials.BINANCE_MAIN_API = {
-          apiKey: binanceMainKey.toString(),
-          apiSecret: binanceMainSecret.toString()
-        };
-        console.log("✅ Loaded Binance Main credentials");
-      } else {
-        console.log("⚠️ Binance Main credentials empty or missing");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Binance Main credentials:", e.message);
-    }
-    
-    // Read Binance CV API credentials (rows 27-30)
-    try {
-      const binanceCVKey = settingsSheet.getRange('B27').getValue();
-      const binanceCVSecret = settingsSheet.getRange('C27').getValue();
-      console.log(`🔍 B27 (Binance CV Key): "${binanceCVKey}"`);
-      console.log(`🔍 C27 (Binance CV Secret): "${binanceCVSecret}"`);
+      const binanceCVKey = settingsSheet.getRange('L3').getValue();
+      const binanceCVSecret = settingsSheet.getRange('M3').getValue();
+      console.log(`🔍 L3 (Binance CV Key): "${binanceCVKey}"`);
+      console.log(`🔍 M3 (Binance CV Secret): "${binanceCVSecret}"`);
       if (binanceCVKey && binanceCVSecret) {
         credentials.BINANCE_CV = {
           apiKey: binanceCVKey.toString(),
@@ -1188,12 +1150,50 @@ function readApiCredentialsFromSheet() {
       console.log("⚠️ Error reading Binance CV credentials:", e.message);
     }
     
-    // Read ByBit API credentials (rows 28-30)
+    // Read Binance GC API credentials (row 4)
     try {
-      const bybitKey = settingsSheet.getRange('B28').getValue();
-      const bybitSecret = settingsSheet.getRange('C28').getValue();
-      console.log(`🔍 B28 (ByBit Key): "${bybitKey}"`);
-      console.log(`🔍 C28 (ByBit Secret): "${bybitSecret}"`);
+      const binanceGCKey = settingsSheet.getRange('L4').getValue();
+      const binanceGCSecret = settingsSheet.getRange('M4').getValue();
+      console.log(`🔍 L4 (Binance GC Key): "${binanceGCKey}"`);
+      console.log(`🔍 M4 (Binance GC Secret): "${binanceGCSecret}"`);
+      if (binanceGCKey && binanceGCSecret) {
+        credentials.BINANCE_GC_API = {
+          apiKey: binanceGCKey.toString(),
+          apiSecret: binanceGCSecret.toString()
+        };
+        console.log("✅ Loaded Binance GC credentials");
+      } else {
+        console.log("⚠️ Binance GC credentials empty or missing");
+      }
+    } catch (e) {
+      console.log("⚠️ Error reading Binance GC credentials:", e.message);
+    }
+    
+    // Read Binance Main API credentials (row 5)
+    try {
+      const binanceMainKey = settingsSheet.getRange('L5').getValue();
+      const binanceMainSecret = settingsSheet.getRange('M5').getValue();
+      console.log(`🔍 L5 (Binance Main Key): "${binanceMainKey}"`);
+      console.log(`🔍 M5 (Binance Main Secret): "${binanceMainSecret}"`);
+      if (binanceMainKey && binanceMainSecret) {
+        credentials.BINANCE_MAIN_API = {
+          apiKey: binanceMainKey.toString(),
+          apiSecret: binanceMainSecret.toString()
+        };
+        console.log("✅ Loaded Binance Main credentials");
+      } else {
+        console.log("⚠️ Binance Main credentials empty or missing");
+      }
+    } catch (e) {
+      console.log("⚠️ Error reading Binance Main credentials:", e.message);
+    }
+    
+    // Read ByBit API credentials (row 6)
+    try {
+      const bybitKey = settingsSheet.getRange('L6').getValue();
+      const bybitSecret = settingsSheet.getRange('M6').getValue();
+      console.log(`🔍 L6 (ByBit Key): "${bybitKey}"`);
+      console.log(`🔍 M6 (ByBit Secret): "${bybitSecret}"`);
       if (bybitKey && bybitSecret) {
         credentials.BYBIT_API = {
           apiKey: bybitKey.toString(),

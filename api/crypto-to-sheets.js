@@ -47,33 +47,29 @@ export default async function handler(req, res) {
     // ===========================================
     debugLogs.push('🔧 Testing Binance APIs with FIXED endpoints...');
     
-    // Read API credentials from Settings sheet
-    const apiCredentials = await readApiCredentialsFromSheet(sheets, spreadsheetId);
-    
-    // Set global variables for other functions to access
-    global.etherscanApiKey = apiCredentials.ETHERSCAN_API_KEY?.apiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
-    
+    // For now, use hardcoded credentials until we fix the sheet reading
+    // TODO: Move credential reading to after Google Sheets authentication
     const binanceAccounts = [
       {
         name: "Binance (GC)",
-        apiKey: apiCredentials.BINANCE_GC_API?.apiKey || '',
-        apiSecret: apiCredentials.BINANCE_GC_API?.apiSecret || ''
+        apiKey: '', // Will be populated from sheet later
+        apiSecret: ''
       },
       {
         name: "Binance (Main)",
-        apiKey: apiCredentials.BINANCE_MAIN_API?.apiKey || '',
-        apiSecret: apiCredentials.BINANCE_MAIN_API?.apiSecret || ''
+        apiKey: '', // Will be populated from sheet later
+        apiSecret: ''
       },
       {
         name: "Binance (CV)",
-        apiKey: apiCredentials.BINANCE_CV?.apiKey || '',
-        apiSecret: apiCredentials.BINANCE_CV?.apiSecret || ''
+        apiKey: '', // Will be populated from sheet later
+        apiSecret: ''
       }
     ];
 
     for (const account of binanceAccounts) {
       if (!account.apiKey || !account.apiSecret) {
-        debugLogs.push(`⚠️ ${account.name}: Missing API credentials`);
+        debugLogs.push(`⚠️ ${account.name}: Missing API credentials (will be read from sheet later)`);
         apiStatusResults[account.name] = {
           status: 'Error',
           lastSync: new Date().toISOString(),
@@ -100,23 +96,8 @@ export default async function handler(req, res) {
     // ===========================================
     // STEP 2: FIXED BYBIT API (V5 AUTHENTICATION)
     // ===========================================
-    if (apiCredentials.BYBIT_API_SECRET?.apiKey && apiCredentials.BYBIT_API_SECRET?.apiSecret) {
-      debugLogs.push('🔧 Testing ByBit with FIXED V5 authentication...');
-              const bybitResult = await testByBitAccountFixed({
-          name: "ByBit (CV)",
-          apiKey: apiCredentials.BYBIT_API_SECRET.apiKey,
-          apiSecret: apiCredentials.BYBIT_API_SECRET.apiSecret
-        }, filterDate, debugLogs);
-      
-      apiStatusResults["ByBit (CV)"] = bybitResult.status;
-      if (bybitResult.success) {
-        allTransactions.push(...bybitResult.transactions);
-        totalTransactionsFound += bybitResult.transactions.length;
-        debugLogs.push(`✅ ByBit: ${bybitResult.transactions.length} transactions`);
-      } else {
-        debugLogs.push(`❌ ByBit: ${bybitResult.status.notes}`);
-      }
-    }
+    // ByBit credentials will also be read from sheet later
+    debugLogs.push('🔧 ByBit credentials will be read from sheet during write process');
 
     // ===========================================
     // STEP 3: BLOCKCHAIN DATA (UNCHANGED)
@@ -237,27 +218,17 @@ export default async function handler(req, res) {
     
     let sheetsResult = { success: false, withdrawalsAdded: 0, depositsAdded: 0 };
     
-    if (allTransactions.length > 0) {
-      try {
-        sheetsResult = await writeToGoogleSheetsFixed(allTransactions, apiStatusResults, debugLogs);
-        debugLogs.push('✅ Google Sheets write successful:', sheetsResult);
-      } catch (sheetsError) {
-        debugLogs.push('❌ Google Sheets write failed:', sheetsError);
-        sheetsResult = { 
-          success: false, 
-          error: sheetsError.message,
-          withdrawalsAdded: 0, 
-          depositsAdded: 0 
-        };
-      }
-    } else {
-      // Still update status even with 0 transactions
-      try {
-        await updateSettingsStatusOnly(apiStatusResults);
-        sheetsResult.statusUpdated = true;
-      } catch (error) {
-        debugLogs.push('❌ Status update failed:', error);
-      }
+    try {
+      sheetsResult = await writeToGoogleSheetsFixed(allTransactions, apiStatusResults, debugLogs, filterDate);
+      debugLogs.push('✅ Google Sheets write successful:', sheetsResult);
+    } catch (sheetsError) {
+      debugLogs.push('❌ Google Sheets write failed:', sheetsError);
+      sheetsResult = { 
+        success: false, 
+        error: sheetsError.message,
+        withdrawalsAdded: 0, 
+        depositsAdded: 0 
+      };
     }
 
     // ===========================================
@@ -1116,8 +1087,8 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
 
 async function fetchEthereumEnhanced(address, filterDate) {
   try {
-    // Get API credentials from the main function context
-    const apiKey = global.etherscanApiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+    // Use hardcoded API key for now
+    const apiKey = "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
     const endpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${apiKey}`;
     
     const response = await fetch(endpoint);
@@ -1625,7 +1596,7 @@ async function saveToRecycleBin(sheets, spreadsheetId, filteredTransactions) {
 // FIXED GOOGLE SHEETS FUNCTIONS
 // ===========================================
 
-async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs) {
+async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filterDate) {
   try {
     console.log('🔑 Setting up Google Sheets authentication...');
     
@@ -1653,7 +1624,84 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs) {
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
 
-    console.log(`📊 Starting with ${transactions.length} raw transactions`);
+    // ===========================================
+    // READ API CREDENTIALS FROM SETTINGS SHEET
+    // ===========================================
+    console.log('🔑 Reading API credentials from Settings sheet...');
+    const apiCredentials = await readApiCredentialsFromSheet(sheets, spreadsheetId);
+    
+    // Set global variables for other functions to access
+    global.etherscanApiKey = apiCredentials.ETHERSCAN_API_KEY?.apiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+    
+    // ===========================================
+    // PROCESS BINANCE APIS WITH CREDENTIALS
+    // ===========================================
+    console.log('🔧 Processing Binance APIs with credentials from sheet...');
+    
+    const binanceAccounts = [
+      {
+        name: "Binance (GC)",
+        apiKey: apiCredentials.BINANCE_GC_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_GC_API?.apiSecret || ''
+      },
+      {
+        name: "Binance (Main)",
+        apiKey: apiCredentials.BINANCE_MAIN_API?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_MAIN_API?.apiSecret || ''
+      },
+      {
+        name: "Binance (CV)",
+        apiKey: apiCredentials.BINANCE_CV?.apiKey || '',
+        apiSecret: apiCredentials.BINANCE_CV?.apiSecret || ''
+      }
+    ];
+
+    for (const account of binanceAccounts) {
+      if (!account.apiKey || !account.apiSecret) {
+        console.log(`⚠️ ${account.name}: Missing API credentials`);
+        apiStatus[account.name] = {
+          status: 'Error',
+          lastSync: new Date().toISOString(),
+          autoUpdate: 'Every Hour',
+          notes: '❌ Missing credentials',
+          transactionCount: 0
+        };
+        continue;
+      }
+
+      console.log(`🔧 Processing ${account.name} with credentials...`);
+      const result = await testBinanceAccountFixed(account, filterDate, debugLogs);
+      apiStatus[account.name] = result.status;
+      
+      if (result.success) {
+        transactions.push(...result.transactions);
+        console.log(`✅ ${account.name}: ${result.transactions.length} transactions`);
+      } else {
+        console.log(`❌ ${account.name}: ${result.status.notes}`);
+      }
+    }
+
+    // ===========================================
+    // PROCESS BYBIT API WITH CREDENTIALS
+    // ===========================================
+    if (apiCredentials.BYBIT_API_SECRET?.apiKey && apiCredentials.BYBIT_API_SECRET?.apiSecret) {
+      console.log('🔧 Processing ByBit with credentials from sheet...');
+      const bybitResult = await testByBitAccountFixed({
+        name: "ByBit (CV)",
+        apiKey: apiCredentials.BYBIT_API_SECRET.apiKey,
+        apiSecret: apiCredentials.BYBIT_API_SECRET.apiSecret
+      }, filterDate, debugLogs);
+      
+      apiStatus["ByBit (CV)"] = bybitResult.status;
+      if (bybitResult.success) {
+        transactions.push(...bybitResult.transactions);
+        console.log(`✅ ByBit: ${bybitResult.transactions.length} transactions`);
+      } else {
+        console.log(`❌ ByBit: ${bybitResult.status.notes}`);
+      }
+    }
+
+    console.log(`📊 Total transactions after API processing: ${transactions.length}`);
 
     const existingTxIds = await getExistingTransactionIds(sheets, spreadsheetId);
     const uniqueTransactions = removeDuplicateTransactions(transactions, existingTxIds);
@@ -1796,31 +1844,9 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs) {
 }
 
 async function updateSettingsStatusOnly(apiStatus) {
-  // Read Google service account credentials from Settings sheet
-  const googleCredentials = await readGoogleCredentialsFromSheet(sheets, spreadsheetId);
-  
-  const credentials = {
-    type: "service_account",
-    project_id: googleCredentials.GOOGLE_PROJECT_ID,
-    private_key_id: googleCredentials.GOOGLE_PRIVATE_KEY_ID,
-    private_key: googleCredentials.GOOGLE_PRIVATE_KEY ? googleCredentials.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : '',
-    client_email: googleCredentials.GOOGLE_CLIENT_EMAIL,
-    client_id: googleCredentials.GOOGLE_CLIENT_ID,
-    auth_uri: "https://accounts.google.com/o/oauth2/auth",
-    token_uri: "https://oauth2.googleapis.com/token",
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${googleCredentials.GOOGLE_CLIENT_EMAIL}`
-  };
-
-  const auth = new GoogleAuth({
-    credentials: credentials,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets']
-  });
-
-  const sheets = google.sheets({ version: 'v4', auth });
-  const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
-
-  await updateSettingsStatus(sheets, spreadsheetId, apiStatus);
+  // This function is no longer needed since we handle everything in writeToGoogleSheetsFixed
+  console.log('updateSettingsStatusOnly called - this should not happen');
+  return { success: false, error: 'Function deprecated' };
 }
 
 async function updateSettingsStatus(sheets, spreadsheetId, apiStatus) {

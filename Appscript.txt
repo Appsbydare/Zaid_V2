@@ -1027,6 +1027,76 @@ function testCredentialLocations() {
   }
 }
 
+/**
+ * SIMPLE: Find API credentials in Settings sheet
+ */
+function findApiCredentials() {
+  try {
+    console.log("🔍 Searching for API credentials in Settings sheet...");
+    
+    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+    const settingsSheet = spreadsheet.getSheetByName(CONFIG.SETTINGS_SHEET);
+    
+    if (!settingsSheet) {
+      console.log("❌ Settings sheet not found");
+      return;
+    }
+    
+    // Get all data from the sheet
+    const dataRange = settingsSheet.getDataRange();
+    const allData = dataRange.getValues();
+    
+    console.log(`📊 Sheet has ${allData.length} rows and ${allData[0].length} columns`);
+    
+    // Search for cells containing API keys or secrets
+    for (let row = 0; row < allData.length; row++) {
+      for (let col = 0; col < allData[row].length; col++) {
+        const cellValue = allData[row][col];
+        if (cellValue && typeof cellValue === 'string') {
+          const cellAddress = `${String.fromCharCode(65 + col)}${row + 1}`;
+          
+          // Check if this looks like an API key or secret
+          if (cellValue.length > 20 && 
+              (cellValue.toLowerCase().includes('binance') || 
+               cellValue.toLowerCase().includes('bybit') ||
+               cellValue.toLowerCase().includes('api') ||
+               cellValue.toLowerCase().includes('key') ||
+               cellValue.toLowerCase().includes('secret'))) {
+            console.log(`🔑 Found potential credential at ${cellAddress}: "${cellValue.substring(0, 20)}..."`);
+          }
+          
+          // Also check for labels that might indicate credential locations
+          if (cellValue.toLowerCase().includes('binance') || 
+              cellValue.toLowerCase().includes('bybit') ||
+              cellValue.toLowerCase().includes('api key') ||
+              cellValue.toLowerCase().includes('secret')) {
+            console.log(`🏷️ Found credential label at ${cellAddress}: "${cellValue}"`);
+          }
+        }
+      }
+    }
+    
+    // Also check specific rows that might contain credentials
+    console.log("🔍 Checking specific rows for credentials...");
+    for (let row = 20; row <= 35; row++) {
+      for (let col = 0; col < 5; col++) { // Check columns A-E
+        try {
+          const cellAddress = `${String.fromCharCode(65 + col)}${row}`;
+          const value = settingsSheet.getRange(cellAddress).getValue();
+          if (value && value.toString().trim().length > 10) {
+            console.log(`📝 ${cellAddress}: "${value.toString().substring(0, 15)}..."`);
+          }
+        } catch (e) {
+          // Ignore errors for out-of-range cells
+        }
+      }
+    }
+    
+  } catch (error) {
+    console.error("❌ Error searching for credentials:", error);
+  }
+}
+
 // ===========================================
 // UTILITY FUNCTIONS
 // ===========================================

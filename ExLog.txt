@@ -1,31 +1,1584 @@
-7:16:11 PM	Notice	Execution started
-7:16:11 PM	Info	🚀 Starting Vercel-mode crypto data fetch...
-7:16:11 PM	Info	📡 Triggering Vercel data fetch...
-7:16:16 PM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
-7:16:16 PM	Info	🚀 Starting FIXED crypto data fetch...
-7:16:16 PM	Info	📅 Filtering transactions after: 2025-07-24T13:43:57.059Z
-7:16:16 PM	Info	📅 Filter date object: 2025-07-24T13:43:57.059Z
-7:16:16 PM	Info	🔧 Testing Binance APIs with FIXED endpoints...
-7:16:16 PM	Info	⚠️ Binance (GC): Missing API credentials
-7:16:16 PM	Info	⚠️ Binance (Main): Missing API credentials
-7:16:16 PM	Info	⚠️ Binance (CV): Missing API credentials
-7:16:16 PM	Info	🔧 Fetching blockchain data...
-7:16:16 PM	Info	🔧 Testing Bitcoin API...
-7:16:16 PM	Info	✅ Bitcoin: 0 transactions
-7:16:16 PM	Info	🔧 Testing Ethereum API...
-7:16:16 PM	Info	✅ Ethereum: 0 transactions
-7:16:16 PM	Info	🔧 Testing TRON API...
-7:16:16 PM	Info	✅ TRON: 22 transactions
-7:16:16 PM	Info	🔧 Testing Solana API...
-7:16:16 PM	Info	✅ Solana: 0 transactions
-7:16:16 PM	Info	🔧 Processing 22 transactions with FIXED deduplication...
-7:16:16 PM	Info	❌ Google Sheets write failed:
-7:16:16 PM	Info	{}
-7:16:16 PM	Info	--- 📡 Vercel Debug Logs End 📡 ---
-7:16:16 PM	Info	✅ Vercel processed 22 transactions.
-7:16:16 PM	Info	✅ Updated 7 API statuses in Settings.
-7:16:17 PM	Info	🔄 Consolidating to formatted sheet...
-7:16:18 PM	Info	✅ Consolidated 6 transactions.
-7:16:18 PM	Info	⏰ Updating last execution timestamp...
-7:16:18 PM	Info	✅ Vercel-mode flow completed successfully.
-7:16:32 PM	Notice	Execution completed
+Execution log
+9:35:52 PM	Notice	Execution started
+9:35:52 PM	Info	🚀 Starting Vercel-mode crypto data fetch...
+9:35:52 PM	Info	📡 Triggering Vercel data fetch...
+9:35:52 PM	Info	📡 Triggering Vercel data fetch...
+9:35:52 PM	Info	🔑 Total credentials loaded: 0
+9:35:52 PM	Info	🔑 Loaded API credentials: []
+9:36:02 PM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
+9:36:02 PM	Info	🚀 Starting FIXED crypto data fetch...
+9:36:02 PM	Info	📅 Filtering transactions after: 2025-07-14T16:05:03.000Z
+9:36:02 PM	Info	📅 Filter date object: 2025-07-14T16:05:03.000Z
+9:36:02 PM	Info	🔧 Testing Binance APIs with FIXED endpoints...
+9:36:02 PM	Info	🔧 Processing Binance (GC) with FIXES...
+9:36:02 PM	Info	  💰 Binance (GC) deposits: 5
+9:36:02 PM	Info	  📤 Binance (GC) withdrawals: 13
+9:36:02 PM	Info	  🤝 Binance (GC) P2P: 0
+9:36:02 PM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
+9:36:02 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+9:36:02 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1753545953471,"recvWindow":5000,"limit":100,"startTime":1752509103000}
+9:36:02 PM	Info	        [PAY DEBUG] Response Status: 200
+9:36:02 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":941534261,"counterpartyId":72446297,"orderId":"376907255959822336","note":"","orderType":"C2C","transactionId":"P_A1UT6VMJF5171117","transactionTime":1753347918959,"amount":"-8086.25","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"8086.25","walletAssetCost":{"1":"8086.25"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"HKM77","type":"USER","binanceId":18720600,"accountId":72446297,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":225696915,"orderId":"375469230159822848","note":"","orderType":"C2C","transactionId":"P_A1UN3D4AP7D71116","transactionTime":1752678285618,"amount":"14412","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"14412","walletAssetCost":{"1":"14412"}}],"payerInfo":{"name":"Kifayatmasoud","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"375445648880427008","note":"","orderType":"C2C","transactionId":"P_A1UMZQB6F5H71116","transactionTime":1752667304244,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":269008194,"orderId":"375257417651118080","note":"","orderType":"C2C","transactionId":"P_A1UMBAJEESS71112","transactionTime":1752579653050,"amount":"-10600.27","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10600.27","walletAssetCost":{"1":"10600.27"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-6c5dd","type":"USER","accountId":269008194,"unmaskData":false,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":269008194,"orderId":"375257256424161280","note":"","orderType":"C2C","transactionId":"P_A1UMB9YB4J971116","transactionTime":1752579577704,"amount":"-18","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"18","walletAssetCost":{"1":"18"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-6c5dd","type":"USER","accountId":269008194,"unmaskData":false,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"}],"success":true}
+9:36:02 PM	Info	        [PAY DEBUG] Parsed Data: {
+  "code": "000000",
+  "message": "success",
+  "data": [
+    {
+      "uid": 941534261,
+      "counterpartyId": 72446297,
+      "orderId": "376907255959822336",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UT6VMJF5171117",
+      "transactionTime": 1753347918959,
+      "amount": "-8086.25",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "8086.25",
+          "walletAssetCost": {
+            "1": "8086.25"
+          }
+        }
+      ],
+      "payerInfo": {
+        "binanceId": 941534261,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "name": "HKM77",
+        "type": "USER",
+        "binanceId": 18720600,
+        "accountId": 72446297,
+        "unmaskData": true,
+        "extend": {
+          "phoneOrEmailChanged": false
+        }
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 941534261,
+      "counterpartyId": 225696915,
+      "orderId": "375469230159822848",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UN3D4AP7D71116",
+      "transactionTime": 1752678285618,
+      "amount": "14412",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "14412",
+          "walletAssetCost": {
+            "1": "14412"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Kifayatmasoud",
+        "type": "USER",
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 941534261,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 941534261,
+      "counterpartyId": 206029274,
+      "orderId": "375445648880427008",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UMZQB6F5H71116",
+      "transactionTime": 1752667304244,
+      "amount": "20000",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "20000",
+          "walletAssetCost": {
+            "1": "20000"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Rabahalnasseri",
+        "type": "USER",
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 941534261,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 941534261,
+      "counterpartyId": 269008194,
+      "orderId": "375257417651118080",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UMBAJEESS71112",
+      "transactionTime": 1752579653050,
+      "amount": "-10600.27",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "10600.27",
+          "walletAssetCost": {
+            "1": "10600.27"
+          }
+        }
+      ],
+      "payerInfo": {
+        "binanceId": 941534261,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "name": "User-6c5dd",
+        "type": "USER",
+        "accountId": 269008194,
+        "unmaskData": false,
+        "extend": {
+          "phoneOrEmailChanged": false
+        }
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 941534261,
+      "counterpartyId": 269008194,
+      "orderId": "375257256424161280",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UMB9YB4J971116",
+      "transactionTime": 1752579577704,
+      "amount": "-18",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "18",
+          "walletAssetCost": {
+            "1": "18"
+          }
+        }
+      ],
+      "payerInfo": {
+        "binanceId": 941534261,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "name": "User-6c5dd",
+        "type": "USER",
+        "accountId": 269008194,
+        "unmaskData": false,
+        "extend": {
+          "phoneOrEmailChanged": false
+        }
+      },
+      "totalPaymentFee": "0"
+    }
+  ],
+  "success": true
+}
+9:36:02 PM	Info	        [PAY DEBUG] Found 5 successful transactions.
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 941534261,
+  "counterpartyId": 72446297,
+  "orderId": "376907255959822336",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UT6VMJF5171117",
+  "transactionTime": 1753347918959,
+  "amount": "-8086.25",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "8086.25",
+      "walletAssetCost": {
+        "1": "8086.25"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 941534261,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "HKM77",
+    "type": "USER",
+    "binanceId": 18720600,
+    "accountId": 72446297,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 18720600 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("18720600" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 941534261,
+  "counterpartyId": 225696915,
+  "orderId": "375469230159822848",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UN3D4AP7D71116",
+  "transactionTime": 1752678285618,
+  "amount": "14412",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "14412",
+      "walletAssetCost": {
+        "1": "14412"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Kifayatmasoud",
+    "type": "USER",
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 941534261,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 941534261,
+  "counterpartyId": 206029274,
+  "orderId": "375445648880427008",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UMZQB6F5H71116",
+  "transactionTime": 1752667304244,
+  "amount": "20000",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "20000",
+      "walletAssetCost": {
+        "1": "20000"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Rabahalnasseri",
+    "type": "USER",
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 941534261,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("13115322" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 941534261,
+  "counterpartyId": 269008194,
+  "orderId": "375257417651118080",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UMBAJEESS71112",
+  "transactionTime": 1752579653050,
+  "amount": "-10600.27",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "10600.27",
+      "walletAssetCost": {
+        "1": "10600.27"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 941534261,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "User-6c5dd",
+    "type": "USER",
+    "accountId": 269008194,
+    "unmaskData": false,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 941534261,
+  "counterpartyId": 269008194,
+  "orderId": "375257256424161280",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UMB9YB4J971116",
+  "transactionTime": 1752579577704,
+  "amount": "-18",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "18",
+      "walletAssetCost": {
+        "1": "18"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 941534261,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "User-6c5dd",
+    "type": "USER",
+    "accountId": 269008194,
+    "unmaskData": false,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("" === "941534261")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	  💳 Binance (GC) Pay: 5
+9:36:02 PM	Info	✅ Binance (GC): 23 transactions
+9:36:02 PM	Info	🔧 Processing Binance (Main) with FIXES...
+9:36:02 PM	Info	  💰 Binance (Main) deposits: 37
+9:36:02 PM	Info	  📤 Binance (Main) withdrawals: 19
+9:36:02 PM	Info	  🤝 Binance (Main) P2P: 6
+9:36:02 PM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
+9:36:02 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+9:36:02 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1753545954131,"recvWindow":5000,"limit":100,"startTime":1752509103000}
+9:36:02 PM	Info	        [PAY DEBUG] Response Status: 200
+9:36:02 PM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":1112329266,"orderId":"377159301821505536","note":"","orderType":"C2C","transactionId":"P_A1UU3HJJWVW71116","transactionTime":1753465286155,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"377135138429222912","note":"","orderType":"C2C","transactionId":"P_A1UTZSNT71H71112","transactionTime":1753454034969,"amount":"-1000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1000","walletAssetCost":{"1":"1000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377134794738114560","note":"يودروم","orderType":"C2C","transactionId":"P_A1UTZRDJF5171115","transactionTime":1753453874479,"amount":"1000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1000","walletAssetCost":{"1":"1000"}}],"payerInfo":{"name":"block_merchant ","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":273646830,"orderId":"376936949422940160","note":"","orderType":"C2C","transactionId":"P_A1UTA8NCDYN71116","transactionTime":1753361745649,"amount":"32990","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"32990","walletAssetCost":{"1":"32990"}}],"payerInfo":{"name":"Saud Almarri","type":"USER","binanceId":170277098,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":273646830,"orderId":"376935953001299968","note":"","orderType":"C2C","transactionId":"P_A1UTA51BAG971114","transactionTime":1753361281394,"amount":"10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"name":"Saud Almarri","type":"USER","binanceId":170277098,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"376759382477914113","note":"بودرم","orderType":"C2C","transactionId":"P_A1USP2P1EMS71115","transactionTime":1753279060119,"amount":"1600","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1600","walletAssetCost":{"1":"1600"}}],"payerInfo":{"name":"block_merchant ","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"376549107293364224","note":"","orderType":"C2C","transactionId":"P_A1URX5PJ7TH71114","transactionTime":1753181142144,"amount":"206201","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"206201","walletAssetCost":{"1":"206201"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"376001153224368128","note":"","orderType":"C2C","transactionId":"P_A1UPYV8A6FD71117","transactionTime":1752925981897,"amount":"-698.73","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"698.73","walletAssetCost":{"1":"698.73"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":156097876,"orderId":"375988461522640896","note":"","orderType":"C2C","transactionId":"P_A1UPXE2T6FD71114","transactionTime":1752920071179,"amount":"147","currency":"USDC","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDC","amount":"147","walletAssetCost":{"1":"147"}}],"payerInfo":{"name":"Abdullaotb87","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":444505463,"orderId":"375650655927648256","note":"","orderType":"C2C","transactionId":"P_A1UNR15A6FD71113","transactionTime":1752762769120,"amount":"-470","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"470","walletAssetCost":{"1":"470"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"shazzyhere","type":"USER","binanceId":444480663,"accountId":444505463,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":182409574,"orderId":"375637618545704960","note":"","orderType":"C2C","transactionId":"P_A1UNPHQ99ZN71119","transactionTime":1752756697356,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"User-87406","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"375630141004554240","note":"","orderType":"C2C","transactionId":"P_A1UNNPGSD3D71112","transactionTime":1752753215305,"amount":"-1696.98","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1696.98","walletAssetCost":{"1":"1696.98"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1023026733,"orderId":"375625582124720128","note":"","orderType":"C2C","transactionId":"P_A1UNN5X34J971113","transactionTime":1752751092273,"amount":"-8093.45","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"8093.45","walletAssetCost":{"1":"8093.45"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-f7d24","type":"USER","binanceId":1023012193,"accountId":1023026733,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"375619360696524800","note":"","orderType":"C2C","transactionId":"P_A1UNMF9SEJS71116","transactionTime":1752748195925,"amount":"19990","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"19990","walletAssetCost":{"1":"19990"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"375618967887609856","note":"","orderType":"C2C","transactionId":"P_A1UNMDV43NS71116","transactionTime":1752748012259,"amount":"10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1132098442,"orderId":"375484335624404992","note":"","orderType":"C2C","transactionId":"P_A1UN542VFM571115","transactionTime":1752685319957,"amount":"1900","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1900","walletAssetCost":{"1":"1900"}}],"payerInfo":{"name":"Mao Turzak YJGK","type":"
+9:36:02 PM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Parsed Data: {
+  "code": "000000",
+  "message": "success",
+  "data": [
+    {
+      "uid": 13115322,
+      "counterpartyId": 1112329266,
+      "orderId": "377159301821505536",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UU3HJJWVW71116",
+      "transactionTime": 1753465286155,
+      "amount": "20000",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "20000",
+          "walletAssetCost": {
+            "1": "20000"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Faisal AlYahya",
+        "type": "USER",
+        "binanceId": 1112336009,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 1028496161,
+      "orderId": "377135138429222912",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UTZSNT71H71112",
+      "transactionTime": 1753454034969,
+      "amount": "-1000",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "1000",
+          "walletAssetCost": {
+            "1": "1000"
+          }
+        }
+      ],
+      "payerInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "name": "husam_Jordan ",
+        "type": "USER",
+        "binanceId": 1028458551,
+        "accountId": 1028496161,
+        "unmaskData": true,
+        "extend": {
+          "phoneOrEmailChanged": false
+        }
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 442624693,
+      "orderId": "377134794738114560",
+      "note": "يودروم",
+      "orderType": "C2C",
+      "transactionId": "P_A1UTZRDJF5171115",
+      "transactionTime": 1753453874479,
+      "amount": "1000",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "1000",
+          "walletAssetCost": {
+            "1": "1000"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "block_merchant ",
+        "type": "USER",
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 273646830,
+      "orderId": "376936949422940160",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UTA8NCDYN71116",
+      "transactionTime": 1753361745649,
+      "amount": "32990",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "32990",
+          "walletAssetCost": {
+            "1": "32990"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Saud Almarri",
+        "type": "USER",
+        "binanceId": 170277098,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 273646830,
+      "orderId": "376935953001299968",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UTA51BAG971114",
+      "transactionTime": 1753361281394,
+      "amount": "10",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "10",
+          "walletAssetCost": {
+            "1": "10"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Saud Almarri",
+        "type": "USER",
+        "binanceId": 170277098,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 442624693,
+      "orderId": "376759382477914113",
+      "note": "بودرم",
+      "orderType": "C2C",
+      "transactionId": "P_A1USP2P1EMS71115",
+      "transactionTime": 1753279060119,
+      "amount": "1600",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "1600",
+          "walletAssetCost": {
+            "1": "1600"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "block_merchant ",
+        "type": "USER",
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 1112329266,
+      "orderId": "376549107293364224",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1URX5PJ7TH71114",
+      "transactionTime": 1753181142144,
+      "amount": "206201",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "206201",
+          "walletAssetCost": {
+            "1": "206201"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Faisal AlYahya",
+        "type": "USER",
+        "binanceId": 1112336009,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 1028496161,
+      "orderId": "376001153224368128",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UPYV8A6FD71117",
+      "transactionTime": 1752925981897,
+      "amount": "-698.73",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "698.73",
+          "walletAssetCost": {
+            "1": "698.73"
+          }
+        }
+      ],
+      "payerInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "name": "husam_Jordan ",
+        "type": "USER",
+        "binanceId": 1028458551,
+        "accountId": 1028496161,
+        "unmaskData": true,
+        "extend": {
+          "phoneOrEmailChanged": false
+        }
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 156097876,
+      "orderId": "375988461522640896",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UPXE2T6FD71114",
+      "transactionTime": 1752920071179,
+      "amount": "147",
+      "currency": "USDC",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDC",
+          "amount": "147",
+          "walletAssetCost": {
+            "1": "147"
+          }
+        }
+      ],
+      "payerInfo": {
+        "name": "Abdullaotb87",
+        "type": "USER",
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "totalPaymentFee": "0"
+    },
+    {
+      "uid": 13115322,
+      "counterpartyId": 444505463,
+      "orderId": "375650655927648256",
+      "note": "",
+      "orderType": "C2C",
+      "transactionId": "P_A1UNR15A6FD71113",
+      "transactionTime": 1752762769120,
+      "amount": "-470",
+      "currency": "USDT",
+      "walletType": 1,
+      "walletTypes": [
+        "1"
+      ],
+      "fundsDetail": [
+        {
+          "currency": "USDT",
+          "amount": "470",
+          "walletAssetCost": {
+            "1": "470"
+          }
+        }
+      ],
+      "payerInfo": {
+        "binanceId": 13115322,
+        "unmaskData": false
+      },
+      "receiverInfo": {
+        "name": "shazzyhere",
+        "type": "USER",
+        "binanc
+9:36:02 PM	Info	        [PAY DEBUG] Found 17 successful transactions.
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1112329266,
+  "orderId": "377159301821505536",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UU3HJJWVW71116",
+  "transactionTime": 1753465286155,
+  "amount": "20000",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "20000",
+      "walletAssetCost": {
+        "1": "20000"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Faisal AlYahya",
+    "type": "USER",
+    "binanceId": 1112336009,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1028496161,
+  "orderId": "377135138429222912",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UTZSNT71H71112",
+  "transactionTime": 1753454034969,
+  "amount": "-1000",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "1000",
+      "walletAssetCost": {
+        "1": "1000"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "husam_Jordan ",
+    "type": "USER",
+    "binanceId": 1028458551,
+    "accountId": 1028496161,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 442624693,
+  "orderId": "377134794738114560",
+  "note": "يودروم",
+  "orderType": "C2C",
+  "transactionId": "P_A1UTZRDJF5171115",
+  "transactionTime": 1753453874479,
+  "amount": "1000",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "1000",
+      "walletAssetCost": {
+        "1": "1000"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "block_merchant ",
+    "type": "USER",
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 273646830,
+  "orderId": "376936949422940160",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UTA8NCDYN71116",
+  "transactionTime": 1753361745649,
+  "amount": "32990",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "32990",
+      "walletAssetCost": {
+        "1": "32990"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Saud Almarri",
+    "type": "USER",
+    "binanceId": 170277098,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 273646830,
+  "orderId": "376935953001299968",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UTA51BAG971114",
+  "transactionTime": 1753361281394,
+  "amount": "10",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "10",
+      "walletAssetCost": {
+        "1": "10"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Saud Almarri",
+    "type": "USER",
+    "binanceId": 170277098,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 442624693,
+  "orderId": "376759382477914113",
+  "note": "بودرم",
+  "orderType": "C2C",
+  "transactionId": "P_A1USP2P1EMS71115",
+  "transactionTime": 1753279060119,
+  "amount": "1600",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "1600",
+      "walletAssetCost": {
+        "1": "1600"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "block_merchant ",
+    "type": "USER",
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1112329266,
+  "orderId": "376549107293364224",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1URX5PJ7TH71114",
+  "transactionTime": 1753181142144,
+  "amount": "206201",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "206201",
+      "walletAssetCost": {
+        "1": "206201"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Faisal AlYahya",
+    "type": "USER",
+    "binanceId": 1112336009,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1028496161,
+  "orderId": "376001153224368128",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UPYV8A6FD71117",
+  "transactionTime": 1752925981897,
+  "amount": "-698.73",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "698.73",
+      "walletAssetCost": {
+        "1": "698.73"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "husam_Jordan ",
+    "type": "USER",
+    "binanceId": 1028458551,
+    "accountId": 1028496161,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 156097876,
+  "orderId": "375988461522640896",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UPXE2T6FD71114",
+  "transactionTime": 1752920071179,
+  "amount": "147",
+  "currency": "USDC",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDC",
+      "amount": "147",
+      "walletAssetCost": {
+        "1": "147"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Abdullaotb87",
+    "type": "USER",
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 444505463,
+  "orderId": "375650655927648256",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UNR15A6FD71113",
+  "transactionTime": 1752762769120,
+  "amount": "-470",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "470",
+      "walletAssetCost": {
+        "1": "470"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "shazzyhere",
+    "type": "USER",
+    "binanceId": 444480663,
+    "accountId": 444505463,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 444480663 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("444480663" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 182409574,
+  "orderId": "375637618545704960",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UNPHQ99ZN71119",
+  "transactionTime": 1752756697356,
+  "amount": "20000",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "20000",
+      "walletAssetCost": {
+        "1": "20000"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "User-87406",
+    "type": "USER",
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1028496161,
+  "orderId": "375630141004554240",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UNNPGSD3D71112",
+  "transactionTime": 1752753215305,
+  "amount": "-1696.98",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "1696.98",
+      "walletAssetCost": {
+        "1": "1696.98"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "husam_Jordan ",
+    "type": "USER",
+    "binanceId": 1028458551,
+    "accountId": 1028496161,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1023026733,
+  "orderId": "375625582124720128",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UNN5X34J971113",
+  "transactionTime": 1752751092273,
+  "amount": "-8093.45",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "8093.45",
+      "walletAssetCost": {
+        "1": "8093.45"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "User-f7d24",
+    "type": "USER",
+    "binanceId": 1023012193,
+    "accountId": 1023026733,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1023012193 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("1023012193" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1112329266,
+  "orderId": "375619360696524800",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UNMF9SEJS71116",
+  "transactionTime": 1752748195925,
+  "amount": "19990",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "19990",
+      "walletAssetCost": {
+        "1": "19990"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Faisal AlYahya",
+    "type": "USER",
+    "binanceId": 1112336009,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1112329266,
+  "orderId": "375618967887609856",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UNMDV43NS71116",
+  "transactionTime": 1752748012259,
+  "amount": "10",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "10",
+      "walletAssetCost": {
+        "1": "10"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Faisal AlYahya",
+    "type": "USER",
+    "binanceId": 1112336009,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 1132098442,
+  "orderId": "375484335624404992",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UN542VFM571115",
+  "transactionTime": 1752685319957,
+  "amount": "1900",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "1900",
+      "walletAssetCost": {
+        "1": "1900"
+      }
+    }
+  ],
+  "payerInfo": {
+    "name": "Mao Turzak YJGK",
+    "type": "USER",
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: deposit
+9:36:02 PM	Info	        [PAY DEBUG] Processing transaction: {
+  "uid": 13115322,
+  "counterpartyId": 941547466,
+  "orderId": "375445648880427008",
+  "note": "",
+  "orderType": "C2C",
+  "transactionId": "P_A1UMZQB6F5H71114",
+  "transactionTime": 1752667304244,
+  "amount": "-20000",
+  "currency": "USDT",
+  "walletType": 1,
+  "walletTypes": [
+    "1"
+  ],
+  "fundsDetail": [
+    {
+      "currency": "USDT",
+      "amount": "20000",
+      "walletAssetCost": {
+        "1": "20000"
+      }
+    }
+  ],
+  "payerInfo": {
+    "binanceId": 13115322,
+    "unmaskData": false
+  },
+  "receiverInfo": {
+    "name": "Trade-Crypto",
+    "type": "USER",
+    "binanceId": 941534261,
+    "accountId": 941547466,
+    "unmaskData": true,
+    "extend": {
+      "phoneOrEmailChanged": false
+    }
+  },
+  "totalPaymentFee": "0"
+}
+9:36:02 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+9:36:02 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Is Receiver: false ("941534261" === "13115322")
+9:36:02 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+9:36:02 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+9:36:02 PM	Info	  💳 Binance (Main) Pay: 17
+9:36:02 PM	Info	✅ Binance (Main): 79 transactions
+9:36:02 PM	Info	🔧 Processing Binance (CV) with FIXES...
+9:36:02 PM	Info	  💰 Binance (CV) deposits: 0
+9:36:02 PM	Info	  📤 Binance (CV) withdrawals: 0
+9:36:02 PM	Info	  🤝 Binance (CV) P2P: 0
+9:36:02 PM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
+9:36:02 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+9:36:02 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1753545954697,"recvWindow":5000,"limit":100,"startTime":1752509103000}
+9:36:02 PM	Info	        [PAY DEBUG] Response Status: 200
+9:36:02 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
+9:36:02 PM	Info	        [PAY DEBUG] Parsed Data: {
+  "code": "000000",
+  "message": "success",
+  "data": [],
+  "success": true
+}
+9:36:02 PM	Info	        ℹ️ Pay: No new transactions found.
+9:36:02 PM	Info	  💳 Binance (CV) Pay: 0
+9:36:02 PM	Info	✅ Binance (CV): 0 transactions
+9:36:02 PM	Info	🔧 Testing ByBit with FIXED V5 authentication...
+9:36:02 PM	Info	✅ ByBit: 77 transactions
+9:36:02 PM	Info	🔧 Fetching blockchain data...
+9:36:02 PM	Info	🔧 Testing Bitcoin API...
+9:36:02 PM	Info	✅ Bitcoin: 0 transactions
+9:36:02 PM	Info	🔧 Testing Ethereum API...
+9:36:02 PM	Info	✅ Ethereum: 0 transactions
+9:36:02 PM	Info	🔧 Testing TRON API...
+9:36:02 PM	Info	✅ TRON: 86 transactions
+9:36:02 PM	Info	🔧 Testing Solana API...
+9:36:02 PM	Info	✅ Solana: 0 transactions
+9:36:02 PM	Info	🔧 Processing 265 transactions with FIXED deduplication...
+9:36:02 PM	Info	✅ Google Sheets write successful:
+9:36:02 PM	Info	{ success: true,
+  withdrawalsAdded: 0,
+  depositsAdded: 0,
+  statusUpdated: true,
+  totalRaw: 265,
+  totalAfterDedup: 47,
+  totalAfterFilter: 0,
+  duplicatesRemoved: 218,
+  filteredOut: 47,
+  recycleBinSaved: 0,
+  unknownCurrencies: [] }
+9:36:02 PM	Info	--- 📡 Vercel Debug Logs End 📡 ---
+9:36:02 PM	Info	✅ Vercel processed 265 transactions.
+9:36:02 PM	Info	✅ Updated 8 API statuses in Settings.
+9:36:03 PM	Info	🔄 Consolidating to formatted sheet...
+9:36:03 PM	Info	✅ Consolidated 6 transactions.
+9:36:03 PM	Info	⏰ Updating last execution timestamp...
+9:36:03 PM	Info	✅ Vercel-mode flow completed successfully.
+9:36:18 PM	Notice	Execution completed

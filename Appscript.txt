@@ -1273,6 +1273,25 @@ function readApiCredentialsFromSheet() {
       console.log("⚠️ Error reading ByBit credentials:", e.message);
     }
     
+    // Read Bitget API credentials (row 8)
+    try {
+      const bitgetKey = settingsSheet.getRange('L8').getValue();
+      const bitgetSecret = settingsSheet.getRange('M8').getValue();
+      console.log(`🔍 L8 (Bitget Key): "${bitgetKey}"`);
+      console.log(`🔍 M8 (Bitget Secret): "${bitgetSecret}"`);
+      if (bitgetKey && bitgetSecret) {
+        credentials.BITGET_API = {
+          apiKey: bitgetKey.toString(),
+          apiSecret: bitgetSecret.toString()
+        };
+        console.log("✅ Loaded Bitget credentials");
+      } else {
+        console.log("⚠️ Bitget credentials empty or missing");
+      }
+    } catch (e) {
+      console.log("⚠️ Error reading Bitget credentials:", e.message);
+    }
+    
     console.log(`🔑 Total credentials loaded: ${Object.keys(credentials).length}`);
     console.log(`🔑 Credential keys: ${Object.keys(credentials).join(', ')}`);
     return credentials;

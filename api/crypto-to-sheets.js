@@ -131,7 +131,42 @@ export default async function handler(req, res) {
     }
 
     // ===========================================
-    // STEP 3: BLOCKCHAIN DATA (UNCHANGED)
+    // STEP 3: BITGET API WITH CREDENTIALS FROM APPS SCRIPT
+    // ===========================================
+    debugLogs.push('🔧 Processing Bitget APIs with credentials from Apps Script...');
+    
+    // Get Bitget credentials from the same apiCredentials object
+    const bitgetConfig = {
+      name: "Bitget",
+      apiKey: apiCredentials.BITGET_API?.apiKey || '',
+      apiSecret: apiCredentials.BITGET_API?.apiSecret || ''
+    };
+
+    if (!bitgetConfig.apiKey || !bitgetConfig.apiSecret) {
+      debugLogs.push(`⚠️ Bitget: Missing API credentials`);
+      apiStatusResults['Bitget'] = {
+        status: 'Error',
+        lastSync: new Date().toISOString(),
+        autoUpdate: 'Every Hour',
+        notes: '❌ Missing credentials',
+        transactionCount: 0
+      };
+    } else {
+      debugLogs.push('🔧 Processing Bitget with credentials...');
+      const bitgetResult = await testBitgetAccountFixed(bitgetConfig, filterDate, debugLogs);
+      apiStatusResults['Bitget'] = bitgetResult.status;
+      
+      if (bitgetResult.success) {
+        allTransactions.push(...bitgetResult.transactions);
+        totalTransactionsFound += bitgetResult.transactions.length;
+        debugLogs.push(`✅ Bitget: ${bitgetResult.transactions.length} transactions`);
+      } else {
+        debugLogs.push(`❌ Bitget: ${bitgetResult.status.notes}`);
+      }
+    }
+
+    // ===========================================
+    // STEP 4: BLOCKCHAIN DATA (UNCHANGED)
     // ===========================================
     debugLogs.push('🔧 Fetching blockchain data...');
     
@@ -243,7 +278,7 @@ export default async function handler(req, res) {
     }
 
     // ===========================================
-    // STEP 4: WRITE TO GOOGLE SHEETS WITH FIXES
+    // STEP 5: WRITE TO GOOGLE SHEETS WITH FIXES
     // ===========================================
     debugLogs.push(`🔧 Processing ${allTransactions.length} transactions with FIXED deduplication...`);
     
@@ -263,7 +298,7 @@ export default async function handler(req, res) {
     }
 
     // ===========================================
-    // STEP 5: RETURN FIXED RESULTS
+    // STEP 6: RETURN FIXED RESULTS
     // ===========================================
     res.status(200).json({
       success: true,
@@ -2054,5 +2089,224 @@ async function readGoogleCredentialsFromSheet(sheets, spreadsheetId) {
   } catch (error) {
     console.error('❌ Error reading Google credentials from sheet:', error);
     return {};
+  }
+}
+
+// ===========================================
+// BITGET API FUNCTIONS
+// ===========================================
+
+async function testBitgetAccountFixed(config, filterDate, debugLogs) {
+  try {
+    console.log(`🔧 Processing Bitget ${config.name} with authentication...`);
+    
+    // Test connection with Bitget authentication
+    const timestamp = Date.now().toString();
+    const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
+    
+    // Bitget signature creation
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/assets';
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    const testResponse = await fetch(testEndpoint, {
+      method: "GET",
+      headers: {
+        "ACCESS-KEY": config.apiKey,
+        "ACCESS-SIGN": signature,
+        "ACCESS-TIMESTAMP": timestamp,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const testData = await testResponse.json();
+    
+    console.log(`    📊 Bitget Response: ${testResponse.status}, Code: ${testData.code}`);
+    
+    if (!testResponse.ok || testData.code !== '00000') {
+      return {
+        success: false,
+        transactions: [],
+        status: {
+          status: 'Error',
+          lastSync: new Date().toISOString(),
+          autoUpdate: 'Every Hour',
+          notes: `❌ Bitget auth failed: ${testData.msg || testResponse.status}`,
+          transactionCount: 0
+        }
+      };
+    }
+
+    console.log(`    ✅ Bitget connection successful, fetching transactions...`);
+
+    // Fetch transactions
+    let transactions = [];
+    let transactionBreakdown = {
+      deposits: 0,
+      withdrawals: 0
+    };
+
+    try {
+      // Fetch deposits
+      const deposits = await fetchBitgetDepositsFixed(config, filterDate);
+      transactions.push(...deposits);
+      transactionBreakdown.deposits = deposits.length;
+      console.log(`  💰 ${config.name} deposits: ${deposits.length}`);
+
+      // Fetch withdrawals
+      const withdrawals = await fetchBitgetWithdrawalsFixed(config, filterDate);
+      transactions.push(...withdrawals);
+      transactionBreakdown.withdrawals = withdrawals.length;
+      console.log(`  📤 ${config.name} withdrawals: ${withdrawals.length}`);
+
+    } catch (txError) {
+      console.log(`Bitget transaction fetch failed: ${txError.message}`);
+    }
+
+    const statusNotes = `🔧 Bitget: ${transactionBreakdown.deposits}D + ${transactionBreakdown.withdrawals}W = ${transactions.length} total`;
+
+    return {
+      success: true,
+      transactions: transactions,
+      status: {
+        status: 'Active',
+        lastSync: new Date().toISOString(),
+        autoUpdate: 'Every Hour',
+        notes: statusNotes,
+        transactionCount: transactions.length
+      }
+    };
+
+  } catch (error) {
+    return {
+      success: false,
+      transactions: [],
+      status: {
+        status: 'Error',
+        lastSync: new Date().toISOString(),
+        autoUpdate: 'Every Hour',
+        notes: `❌ Bitget failed: ${error.message}`,
+        transactionCount: 0
+      }
+    };
+  }
+}
+
+async function fetchBitgetDepositsFixed(config, filterDate) {
+  try {
+    console.log(`  💰 Fetching Bitget deposits...`);
+    
+    const timestamp = Date.now().toString();
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
+    const queryString = `timestamp=${timestamp}`;
+    
+    // Bitget signature
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + queryString;
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    const response = await fetch(`${endpoint}?${queryString}`, {
+      method: "GET",
+      headers: {
+        "ACCESS-KEY": config.apiKey,
+        "ACCESS-SIGN": signature,
+        "ACCESS-TIMESTAMP": timestamp,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok || data.code !== '00000') {
+      console.log(`    ❌ Bitget deposits failed: ${data.msg || response.status}`);
+      return [];
+    }
+
+    const deposits = [];
+    
+    if (data.data && Array.isArray(data.data)) {
+      for (const deposit of data.data) {
+        const depositDate = new Date(deposit.createTime);
+        
+        if (depositDate >= filterDate) {
+          deposits.push({
+            type: 'deposit',
+            platform: 'Bitget',
+            asset: deposit.coin,
+            amount: deposit.amount || '0',
+            timestamp: deposit.createTime,
+            from_address: deposit.fromAddress || '',
+            to_address: deposit.toAddress || '',
+            tx_id: deposit.txId || '',
+            status: deposit.status || 'completed'
+          });
+        }
+      }
+    }
+
+    console.log(`    ✅ Found ${deposits.length} Bitget deposits`);
+    return deposits;
+
+  } catch (error) {
+    console.log(`    ❌ Bitget deposits error: ${error.message}`);
+    return [];
+  }
+}
+
+async function fetchBitgetWithdrawalsFixed(config, filterDate) {
+  try {
+    console.log(`  📤 Fetching Bitget withdrawals...`);
+    
+    const timestamp = Date.now().toString();
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
+    const queryString = `timestamp=${timestamp}`;
+    
+    // Bitget signature
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + queryString;
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    const response = await fetch(`${endpoint}?${queryString}`, {
+      method: "GET",
+      headers: {
+        "ACCESS-KEY": config.apiKey,
+        "ACCESS-SIGN": signature,
+        "ACCESS-TIMESTAMP": timestamp,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok || data.code !== '00000') {
+      console.log(`    ❌ Bitget withdrawals failed: ${data.msg || response.status}`);
+      return [];
+    }
+
+    const withdrawals = [];
+    
+    if (data.data && Array.isArray(data.data)) {
+      for (const withdrawal of data.data) {
+        const withdrawalDate = new Date(withdrawal.createTime);
+        
+        if (withdrawalDate >= filterDate) {
+          withdrawals.push({
+            type: 'withdrawal',
+            platform: 'Bitget',
+            asset: withdrawal.coin,
+            amount: withdrawal.amount || '0',
+            timestamp: withdrawal.createTime,
+            from_address: withdrawal.fromAddress || '',
+            to_address: withdrawal.toAddress || '',
+            tx_id: withdrawal.txId || '',
+            status: withdrawal.status || 'completed'
+          });
+        }
+      }
+    }
+
+    console.log(`    ✅ Found ${withdrawals.length} Bitget withdrawals`);
+    return withdrawals;
+
+  } catch (error) {
+    console.log(`    ❌ Bitget withdrawals error: ${error.message}`);
+    return [];
   }
 }

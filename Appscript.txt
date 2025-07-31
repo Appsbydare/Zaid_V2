@@ -138,6 +138,24 @@ function triggerVercelDataFetch(settings) {
     const apiCredentials = readApiCredentialsFromSheet();
     console.log("🔑 Loaded API credentials:", Object.keys(apiCredentials));
     
+    // Add detailed logging for Bitget credentials
+    if (apiCredentials.BITGET_API) {
+      console.log("🔍 Bitget credentials found:");
+      console.log("   - API Key:", apiCredentials.BITGET_API.apiKey ? "✅ Present" : "❌ Missing");
+      console.log("   - API Secret:", apiCredentials.BITGET_API.apiSecret ? "✅ Present" : "❌ Missing");
+      console.log("   - Key length:", apiCredentials.BITGET_API.apiKey ? apiCredentials.BITGET_API.apiKey.length : 0);
+      console.log("   - Secret length:", apiCredentials.BITGET_API.apiSecret ? apiCredentials.BITGET_API.apiSecret.length : 0);
+    } else {
+      console.log("⚠️ Bitget credentials NOT found in apiCredentials object");
+    }
+    
+    // Log all credential keys for debugging
+    console.log("🔍 All credential keys available:", Object.keys(apiCredentials));
+    Object.keys(apiCredentials).forEach(key => {
+      const cred = apiCredentials[key];
+      console.log(`   - ${key}: ${cred.apiKey ? '✅' : '❌'} Key, ${cred.apiSecret ? '✅' : '❌'} Secret`);
+    });
+    
     const response = UrlFetchApp.fetch(CONFIG.VERCEL_CRYPTO_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -449,7 +467,7 @@ function onOpen() {
     .addItem('📊 Main Extraction', 'mainVercelMode')
     .addSeparator()
     .addSubMenu(ui.createMenu('🧪 Test Functions')
-      .addItem('📅 Test Last Week', 'testLastWeekExtraction')
+      .addItem('�� Test Last Week', 'testLastWeekExtraction')
       .addItem('📅 Test 30 Days', 'testSpecificDateRange')
       .addItem('🔗 Test Connection', 'testVercelConnection')
       .addItem('📊 Count Transactions', 'countCurrentTransactions')
@@ -1279,14 +1297,20 @@ function readApiCredentialsFromSheet() {
       const bitgetSecret = settingsSheet.getRange('M8').getValue();
       console.log(`🔍 L8 (Bitget Key): "${bitgetKey}"`);
       console.log(`🔍 M8 (Bitget Secret): "${bitgetSecret}"`);
+      console.log(`🔍 L8 cell type: ${typeof bitgetKey}, length: ${bitgetKey ? bitgetKey.length : 0}`);
+      console.log(`🔍 M8 cell type: ${typeof bitgetSecret}, length: ${bitgetSecret ? bitgetSecret.length : 0}`);
       if (bitgetKey && bitgetSecret) {
         credentials.BITGET_API = {
           apiKey: bitgetKey.toString(),
           apiSecret: bitgetSecret.toString()
         };
         console.log("✅ Loaded Bitget credentials");
+        console.log(`   - Key: ${bitgetKey.toString().substring(0, 10)}...`);
+        console.log(`   - Secret: ${bitgetSecret.toString().substring(0, 10)}...`);
       } else {
         console.log("⚠️ Bitget credentials empty or missing");
+        console.log(`   - Key empty: ${!bitgetKey}`);
+        console.log(`   - Secret empty: ${!bitgetSecret}`);
       }
     } catch (e) {
       console.log("⚠️ Error reading Bitget credentials:", e.message);

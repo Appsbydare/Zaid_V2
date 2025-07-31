@@ -1752,22 +1752,12 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Writing ${withdrawals.length} withdrawals to sheet...`);
       console.log(`📤 Sample withdrawal:`, withdrawals[0]);
       
-      // Get the last row in the Withdrawals sheet
-      const withdrawalsSheet = await sheets.spreadsheets.values.get({
-        spreadsheetId,
-        range: 'Withdrawals!A:A'
-      });
-      const lastRow = withdrawalsSheet.data.values ? withdrawalsSheet.data.values.length : 6;
-      const startRow = lastRow + 1;
-      
-      console.log(`📤 Last row in Withdrawals sheet: ${lastRow}, starting at row: ${startRow}`);
-      
       // Only prepare F-L data (columns 5-11 in array)
       const withdrawalRows = withdrawals.map(tx => [
         tx.platform || '', // Column F - PLATFORM
         tx.asset || '', // Column G - ASSET
         tx.amount || '', // Column H - AMOUNT
-        tx.timestamp || '', // Column I - TIMESTAMP
+        formatDateTimeSimple(tx.timestamp) || '', // Column I - TIMESTAMP (formatted)
         tx.from_address || '', // Column J - FROM ADDRESS
         tx.to_address || '', // Column K - TO ADDRESS
         tx.tx_id || '' // Column L - TX ID
@@ -1777,12 +1767,22 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Total withdrawal rows to write:`, withdrawalRows.length);
       
       try {
-        console.log(`📤 Attempting to write to Withdrawals!F${startRow}:L...`);
-        const withdrawalResult = await sheets.spreadsheets.values.update({
+        console.log(`📤 Attempting to append to Withdrawals sheet...`);
+        const withdrawalResult = await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: `Withdrawals!F${startRow}:L${startRow + withdrawalRows.length - 1}`,
+          range: 'Withdrawals!A:A', // Append to column A, but we'll only write F-L data
           valueInputOption: 'RAW',
-          requestBody: { values: withdrawalRows }
+          insertDataOption: 'INSERT_ROWS', // This ensures new rows are inserted
+          requestBody: { 
+            values: withdrawalRows.map(row => {
+              // Create a full row with empty A-E and data in F-L
+              const fullRow = new Array(12).fill(''); // A-L columns
+              for (let i = 0; i < 7; i++) {
+                fullRow[i + 5] = row[i]; // Put data in columns F-L (indices 5-11)
+              }
+              return fullRow;
+            })
+          }
         });
         
         console.log(`📤 Withdrawal write result:`, withdrawalResult);
@@ -1803,22 +1803,12 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Writing ${deposits.length} deposits to sheet...`);
       console.log(`📝 Sample deposit:`, deposits[0]);
       
-      // Get the last row in the Deposits sheet
-      const depositsSheet = await sheets.spreadsheets.values.get({
-        spreadsheetId,
-        range: 'Deposits!A:A'
-      });
-      const lastRow = depositsSheet.data.values ? depositsSheet.data.values.length : 6;
-      const startRow = lastRow + 1;
-      
-      console.log(`📝 Last row in Deposits sheet: ${lastRow}, starting at row: ${startRow}`);
-      
       // Only prepare F-L data (columns 5-11 in array)
       const depositRows = deposits.map(tx => [
         tx.platform || '', // Column F - PLATFORM
         tx.asset || '', // Column G - ASSET
         tx.amount || '', // Column H - AMOUNT
-        tx.timestamp || '', // Column I - TIMESTAMP
+        formatDateTimeSimple(tx.timestamp) || '', // Column I - TIMESTAMP (formatted)
         tx.from_address || '', // Column J - FROM ADDRESS
         tx.to_address || '', // Column K - TO ADDRESS
         tx.tx_id || '' // Column L - TX ID
@@ -1828,12 +1818,22 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Total deposit rows to write:`, depositRows.length);
       
       try {
-        console.log(`📝 Attempting to write to Deposits!F${startRow}:L...`);
-        const depositResult = await sheets.spreadsheets.values.update({
+        console.log(`📝 Attempting to append to Deposits sheet...`);
+        const depositResult = await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: `Deposits!F${startRow}:L${startRow + depositRows.length - 1}`,
+          range: 'Deposits!A:A', // Append to column A, but we'll only write F-L data
           valueInputOption: 'RAW',
-          requestBody: { values: depositRows }
+          insertDataOption: 'INSERT_ROWS', // This ensures new rows are inserted
+          requestBody: { 
+            values: depositRows.map(row => {
+              // Create a full row with empty A-E and data in F-L
+              const fullRow = new Array(12).fill(''); // A-L columns
+              for (let i = 0; i < 7; i++) {
+                fullRow[i + 5] = row[i]; // Put data in columns F-L (indices 5-11)
+              }
+              return fullRow;
+            })
+          }
         });
         
         console.log(`📝 Deposit write result:`, depositResult);

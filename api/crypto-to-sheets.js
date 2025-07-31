@@ -1752,6 +1752,16 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Writing ${withdrawals.length} withdrawals to sheet...`);
       console.log(`📤 Sample withdrawal:`, withdrawals[0]);
       
+      // Find the last row with data in column F
+      const withdrawalsSheet = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range: 'Withdrawals!F:F'
+      });
+      const lastRow = withdrawalsSheet.data.values ? withdrawalsSheet.data.values.length : 6;
+      const startRow = lastRow + 1;
+      
+      console.log(`📤 Last row in Withdrawals column F: ${lastRow}, starting at row: ${startRow}`);
+      
       // Only prepare F-L data (columns 5-11 in array)
       const withdrawalRows = withdrawals.map(tx => [
         tx.platform || '', // Column F - PLATFORM
@@ -1767,14 +1777,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📤 Total withdrawal rows to write:`, withdrawalRows.length);
       
       try {
-        console.log(`📤 Attempting to append to Withdrawals sheet...`);
-        const withdrawalResult = await sheets.spreadsheets.values.append({
+        console.log(`📤 Attempting to write to Withdrawals!F${startRow}:L${startRow + withdrawalRows.length - 1}...`);
+        const withdrawalResult = await sheets.spreadsheets.values.update({
           spreadsheetId,
-          range: 'Withdrawals!F:F', // Start from column F to preserve A-E
+          range: `Withdrawals!F${startRow}:L${startRow + withdrawalRows.length - 1}`,
           valueInputOption: 'RAW',
-          insertDataOption: 'INSERT_ROWS', // This ensures new rows are inserted
           requestBody: { 
-            values: withdrawalRows // Use original 7-column data directly
+            values: withdrawalRows
           }
         });
         
@@ -1796,6 +1805,16 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Writing ${deposits.length} deposits to sheet...`);
       console.log(`📝 Sample deposit:`, deposits[0]);
       
+      // Find the last row with data in column F
+      const depositsSheet = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range: 'Deposits!F:F'
+      });
+      const lastRow = depositsSheet.data.values ? depositsSheet.data.values.length : 6;
+      const startRow = lastRow + 1;
+      
+      console.log(`📝 Last row in Deposits column F: ${lastRow}, starting at row: ${startRow}`);
+      
       // Only prepare F-L data (columns 5-11 in array)
       const depositRows = deposits.map(tx => [
         tx.platform || '', // Column F - PLATFORM
@@ -1811,14 +1830,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`📝 Total deposit rows to write:`, depositRows.length);
       
       try {
-        console.log(`📝 Attempting to append to Deposits sheet...`);
-        const depositResult = await sheets.spreadsheets.values.append({
+        console.log(`📝 Attempting to write to Deposits!F${startRow}:L${startRow + depositRows.length - 1}...`);
+        const depositResult = await sheets.spreadsheets.values.update({
           spreadsheetId,
-          range: 'Deposits!F:F', // Start from column F to preserve A-E
+          range: `Deposits!F${startRow}:L${startRow + depositRows.length - 1}`,
           valueInputOption: 'RAW',
-          insertDataOption: 'INSERT_ROWS', // This ensures new rows are inserted
           requestBody: { 
-            values: depositRows // Use original 7-column data directly
+            values: depositRows
           }
         });
         

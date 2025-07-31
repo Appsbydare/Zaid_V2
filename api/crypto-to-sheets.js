@@ -1770,18 +1770,11 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
         console.log(`📤 Attempting to append to Withdrawals sheet...`);
         const withdrawalResult = await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: 'Withdrawals!A:A', // Append to column A, but we'll only write F-L data
+          range: 'Withdrawals!F:F', // Start from column F to preserve A-E
           valueInputOption: 'RAW',
           insertDataOption: 'INSERT_ROWS', // This ensures new rows are inserted
           requestBody: { 
-            values: withdrawalRows.map(row => {
-              // Create a full row with empty A-E and data in F-L
-              const fullRow = new Array(12).fill(''); // A-L columns
-              for (let i = 0; i < 7; i++) {
-                fullRow[i + 5] = row[i]; // Put data in columns F-L (indices 5-11)
-              }
-              return fullRow;
-            })
+            values: withdrawalRows // Use original 7-column data directly
           }
         });
         
@@ -1821,18 +1814,11 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
         console.log(`📝 Attempting to append to Deposits sheet...`);
         const depositResult = await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: 'Deposits!A:A', // Append to column A, but we'll only write F-L data
+          range: 'Deposits!F:F', // Start from column F to preserve A-E
           valueInputOption: 'RAW',
           insertDataOption: 'INSERT_ROWS', // This ensures new rows are inserted
           requestBody: { 
-            values: depositRows.map(row => {
-              // Create a full row with empty A-E and data in F-L
-              const fullRow = new Array(12).fill(''); // A-L columns
-              for (let i = 0; i < 7; i++) {
-                fullRow[i + 5] = row[i]; // Put data in columns F-L (indices 5-11)
-              }
-              return fullRow;
-            })
+            values: depositRows // Use original 7-column data directly
           }
         });
         

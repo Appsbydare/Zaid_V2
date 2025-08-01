@@ -2104,9 +2104,19 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     const timestamp = Date.now().toString();
     const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
     
-    // Bitget signature creation
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/assets';
+    // Bitget signature creation - CORRECTED
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/assets' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    console.log(`    🔍 Bitget Auth Debug:`);
+    console.log(`    - API Key: ${config.apiKey.substring(0, 10)}...`);
+    console.log(`    - Secret: ${config.apiSecret.substring(0, 10)}...`);
+    console.log(`    - Timestamp: ${timestamp}`);
+    console.log(`    - Sign String: ${signString}`);
+    console.log(`    - Signature: ${signature.substring(0, 20)}...`);
+    console.log(`    - Full API Key: ${config.apiKey}`);
+    console.log(`    - Full Secret: ${config.apiSecret}`);
+    console.log(`    - Passphrase: ${config.passphrase || 'NOT PROVIDED'}`);
     
     const testResponse = await fetch(testEndpoint, {
       method: "GET",
@@ -2114,13 +2124,14 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
         "ACCESS-KEY": config.apiKey,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
       }
     });
 
     const testData = await testResponse.json();
     
-    console.log(`    📊 Bitget Response: ${testResponse.status}, Code: ${testData.code}`);
+    console.log(`    📊 Bitget Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
     
     if (!testResponse.ok || testData.code !== '00000') {
       return {
@@ -2197,23 +2208,25 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     
     const timestamp = Date.now().toString();
     const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
-    const queryString = `timestamp=${timestamp}`;
     
-    // Bitget signature
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + queryString;
+    // Bitget signature - CORRECTED
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
-    const response = await fetch(`${endpoint}?${queryString}`, {
+    const response = await fetch(`${endpoint}?timestamp=${timestamp}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
       }
     });
 
     const data = await response.json();
+    
+    console.log(`    📊 Bitget Deposits Response: ${response.status}, Code: ${data.code}, Message: ${data.msg || 'N/A'}`);
     
     if (!response.ok || data.code !== '00000') {
       console.log(`    ❌ Bitget deposits failed: ${data.msg || response.status}`);
@@ -2257,23 +2270,25 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     
     const timestamp = Date.now().toString();
     const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
-    const queryString = `timestamp=${timestamp}`;
     
-    // Bitget signature
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + queryString;
+    // Bitget signature - CORRECTED
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
-    const response = await fetch(`${endpoint}?${queryString}`, {
+    const response = await fetch(`${endpoint}?timestamp=${timestamp}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
       }
     });
 
     const data = await response.json();
+    
+    console.log(`    📊 Bitget Withdrawals Response: ${response.status}, Code: ${data.code}, Message: ${data.msg || 'N/A'}`);
     
     if (!response.ok || data.code !== '00000') {
       console.log(`    ❌ Bitget withdrawals failed: ${data.msg || response.status}`);

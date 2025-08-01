@@ -2124,28 +2124,60 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - Full API Key: ${config.apiKey}`);
     console.log(`    - Full Secret: ${config.apiSecret}`);
     console.log(`    - Passphrase: ${config.passphrase || 'NOT PROVIDED'}`);
+    console.log(`    - API Key Length: ${config.apiKey.length}`);
+    console.log(`    - API Key Format Check: ${config.apiKey.startsWith('bg_') ? 'Has bg_ prefix' : 'No bg_ prefix'}`);
+    
+    // Try different API key formats
+    const apiKeyOriginal = config.apiKey;
+    const apiKeyWithoutPrefix = config.apiKey.startsWith('bg_') ? config.apiKey.substring(3) : config.apiKey;
+    const apiKeyWithPrefix = config.apiKey.startsWith('bg_') ? config.apiKey : `bg_${config.apiKey}`;
+    
+    console.log(`    - Original API Key: ${apiKeyOriginal}`);
+    console.log(`    - API Key without prefix: ${apiKeyWithoutPrefix}`);
+    console.log(`    - API Key with prefix: ${apiKeyWithPrefix}`);
     
     console.log(`    🔍 Request Debug:`);
     console.log(`    - URL: ${testEndpoint}`);
     console.log(`    - Method: GET`);
     console.log(`    - Headers:`);
-    console.log(`      ACCESS-KEY: ${config.apiKey}`);
+    console.log(`      ACCESS-KEY: ${apiKeyOriginal}`);
     console.log(`      ACCESS-SIGN: ${signature.substring(0, 20)}...`);
     console.log(`      ACCESS-TIMESTAMP: ${timestamp}`);
     console.log(`      ACCESS-PASSPHRASE: ${config.passphrase || 'NOT PROVIDED'}`);
     
-    const testResponse = await fetch(testEndpoint, {
+    // Try with original API key first
+    let testResponse = await fetch(testEndpoint, {
       method: "GET",
       headers: {
-        "ACCESS-KEY": config.apiKey,
+        "ACCESS-KEY": apiKeyOriginal,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
         "Content-Type": "application/json",
         "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
       }
     });
-
-    const testData = await testResponse.json();
+    
+    let testData = await testResponse.json();
+    console.log(`    📊 First attempt - Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
+    
+    // If first attempt fails, try with different API key format
+    if (!testResponse.ok || testData.code !== '00000') {
+      console.log(`    🔄 Trying alternative API key format...`);
+      
+      testResponse = await fetch(testEndpoint, {
+        method: "GET",
+        headers: {
+          "ACCESS-KEY": apiKeyWithoutPrefix,
+          "ACCESS-SIGN": signature,
+          "ACCESS-TIMESTAMP": timestamp,
+          "Content-Type": "application/json",
+          "ACCESS-PASSPHRASE": config.passphrase || ""
+        }
+      });
+      
+      testData = await testResponse.json();
+      console.log(`    📊 Second attempt - Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
+    }
     
     console.log(`    📊 Bitget Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
     
@@ -2230,10 +2262,10 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-history";
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-history' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Deposits Request Debug:`);
@@ -2297,10 +2329,10 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawal-history";
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawal-history' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Withdrawals Request Debug:`);

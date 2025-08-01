@@ -139,7 +139,8 @@ export default async function handler(req, res) {
     const bitgetConfig = {
       name: "Bitget",
       apiKey: apiCredentials.BITGET_API?.apiKey || '',
-      apiSecret: apiCredentials.BITGET_API?.apiSecret || ''
+      apiSecret: apiCredentials.BITGET_API?.apiSecret || '',
+      passphrase: apiCredentials.BITGET_API?.passphrase || ''  // Add passphrase
     };
 
     if (!bitgetConfig.apiKey || !bitgetConfig.apiSecret) {
@@ -153,6 +154,7 @@ export default async function handler(req, res) {
       };
     } else {
       debugLogs.push('🔧 Processing Bitget with credentials...');
+      debugLogs.push(`🔍 Bitget Config: Key=${bitgetConfig.apiKey.substring(0, 10)}..., Secret=${bitgetConfig.apiSecret.substring(0, 10)}..., Passphrase=${bitgetConfig.passphrase || 'NOT PROVIDED'}`);
       const bitgetResult = await testBitgetAccountFixed(bitgetConfig, filterDate, debugLogs);
       apiStatusResults['Bitget'] = bitgetResult.status;
       
@@ -2185,8 +2187,16 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     }
     
     console.log(`    📊 Bitget Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
+    console.log(`    📊 Full Response:`, JSON.stringify(testData, null, 2));
     
     if (!testResponse.ok || testData.code !== '00000') {
+      console.log(`    ❌ Bitget Authentication Failed:`);
+      console.log(`    - Status: ${testResponse.status}`);
+      console.log(`    - Code: ${testData.code}`);
+      console.log(`    - Message: ${testData.msg || 'N/A'}`);
+      console.log(`    - API Key Used: ${apiKeyOriginal}`);
+      console.log(`    - Passphrase Used: ${config.passphrase || 'NOT PROVIDED'}`);
+      
       return {
         success: false,
         transactions: [],

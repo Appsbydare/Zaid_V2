@@ -2277,11 +2277,12 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
+    // FIXED: Use correct endpoint for deposit history according to Bitget API docs
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-list";
     
     // Bitget signature - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/deposit-address';
+    const requestPath = '/api/spot/v1/account/deposit-list';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2349,11 +2350,12 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
+    // FIXED: Use correct endpoint for withdrawal history according to Bitget API docs
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdraw-list";
     
     // Bitget signature - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/withdrawals';
+    const requestPath = '/api/spot/v1/account/withdraw-list';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2421,11 +2423,12 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     console.log(`  🤝 Fetching Bitget P2P transactions...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/p2p/order-history";
+    // FIXED: Use correct endpoint for P2P transaction history according to Bitget API docs
+    const endpoint = "https://api.bitget.com/api/spot/v1/p2p/order-list";
     
     // Bitget signature - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/p2p/order-history';
+    const requestPath = '/api/spot/v1/p2p/order-list';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2464,21 +2467,16 @@ async function fetchBitgetP2PFixed(config, filterDate) {
         const p2pDate = new Date(p2p.createTime);
         
         if (p2pDate >= filterDate) {
-          // Determine if it's a deposit or withdrawal based on the order type
-          const isDeposit = p2p.orderType === 'BUY'; // BUY = receiving crypto (deposit)
-          const isWithdrawal = p2p.orderType === 'SELL'; // SELL = sending crypto (withdrawal)
-          
           p2pTransactions.push({
-            type: isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'p2p',
+            type: p2p.side === 'BUY' ? 'deposit' : 'withdrawal', // Determine type based on side
             platform: 'Bitget',
             asset: p2p.coin,
             amount: p2p.amount || '0',
             timestamp: p2p.createTime,
             from_address: p2p.fromAddress || '',
             to_address: p2p.toAddress || '',
-            tx_id: p2p.orderId || '',
-            status: p2p.status || 'completed',
-            order_type: p2p.orderType || 'UNKNOWN'
+            tx_id: p2p.txId || '',
+            status: p2p.status || 'completed'
           });
         }
       }

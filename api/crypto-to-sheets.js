@@ -2104,8 +2104,13 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     const timestamp = Date.now().toString();
     const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
     
-    // Bitget signature creation - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/assets' + '';
+    // Bitget signature creation - FIXED according to official documentation
+    const method = 'GET';
+    const requestPath = '/api/spot/v1/account/assets';
+    const body = ''; // Empty body for GET request
+    
+    // Create signature string: timestamp + method + requestPath + body
+    const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     // Debug signature creation
@@ -2264,8 +2269,13 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     const timestamp = Date.now().toString();
     const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
     
-    // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + '';
+    // Bitget signature - FIXED according to official documentation
+    const method = 'GET';
+    const requestPath = '/api/spot/v1/account/deposit-address';
+    const body = ''; // Empty body for GET request
+    
+    // Create signature string: timestamp + method + requestPath + body
+    const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Deposits Request Debug:`);
@@ -2331,8 +2341,13 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     const timestamp = Date.now().toString();
     const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
     
-    // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + '';
+    // Bitget signature - FIXED according to official documentation
+    const method = 'GET';
+    const requestPath = '/api/spot/v1/account/withdrawals';
+    const body = ''; // Empty body for GET request
+    
+    // Create signature string: timestamp + method + requestPath + body
+    const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Withdrawals Request Debug:`);
@@ -2398,8 +2413,13 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     const timestamp = Date.now().toString();
     const endpoint = "https://api.bitget.com/api/spot/v1/p2p/order-history";
     
-    // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/p2p/order-history' + '';
+    // Bitget signature - FIXED according to official documentation
+    const method = 'GET';
+    const requestPath = '/api/spot/v1/p2p/order-history';
+    const body = ''; // Empty body for GET request
+    
+    // Create signature string: timestamp + method + requestPath + body
+    const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 P2P Request Debug:`);

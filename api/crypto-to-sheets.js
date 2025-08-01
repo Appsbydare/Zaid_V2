@@ -2104,11 +2104,11 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     
     // Test connection with Bitget authentication
     const timestamp = Date.now().toString();
-    const testEndpoint = "https://api.bitget.com/api/spot/v2/account/assets";
+    const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
     
     // Bitget signature creation - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v2/account/assets';
+    const requestPath = '/api/spot/v1/account/assets';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2144,7 +2144,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - API Key with prefix: ${apiKeyWithPrefix}`);
     
     console.log(`    🔍 Request Debug:`);
-    console.log(`    - URL: ${testEndpoint} (V2 API)`);
+    console.log(`    - URL: ${testEndpoint} (V1 API)`);
     console.log(`    - Method: GET`);
     console.log(`    - Headers:`);
     console.log(`      ACCESS-KEY: ${apiKeyOriginal}`);
@@ -2290,11 +2290,11 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Deposits Request Debug:`);
-    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}&timestamp=${timestamp}`);
+    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`);
     console.log(`    - Sign String: "${signString}"`);
     console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
-    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}&timestamp=${timestamp}`, {
+    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
@@ -2363,11 +2363,11 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Withdrawals Request Debug:`);
-    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}&timestamp=${timestamp}`);
+    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`);
     console.log(`    - Sign String: "${signString}"`);
     console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
-    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}&timestamp=${timestamp}`, {
+    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
@@ -2436,11 +2436,11 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 P2P Request Debug:`);
-    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}&timestamp=${timestamp}`);
+    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`);
     console.log(`    - Sign String: "${signString}"`);
     console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
-    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}&timestamp=${timestamp}`, {
+    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,

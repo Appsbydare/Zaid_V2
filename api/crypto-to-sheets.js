@@ -2108,6 +2108,13 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     const signString = timestamp + 'GET' + '/api/spot/v1/account/assets' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
+    // Debug signature creation
+    console.log(`    🔍 Signature Debug:`);
+    console.log(`    - Sign String: "${signString}"`);
+    console.log(`    - Secret Length: ${config.apiSecret.length}`);
+    console.log(`    - Signature Length: ${signature.length}`);
+    console.log(`    - Signature (first 20 chars): ${signature.substring(0, 20)}`);
+    
     console.log(`    🔍 Bitget Auth Debug:`);
     console.log(`    - API Key: ${config.apiKey.substring(0, 10)}...`);
     console.log(`    - Secret: ${config.apiSecret.substring(0, 10)}...`);
@@ -2117,6 +2124,15 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - Full API Key: ${config.apiKey}`);
     console.log(`    - Full Secret: ${config.apiSecret}`);
     console.log(`    - Passphrase: ${config.passphrase || 'NOT PROVIDED'}`);
+    
+    console.log(`    🔍 Request Debug:`);
+    console.log(`    - URL: ${testEndpoint}`);
+    console.log(`    - Method: GET`);
+    console.log(`    - Headers:`);
+    console.log(`      ACCESS-KEY: ${config.apiKey}`);
+    console.log(`      ACCESS-SIGN: ${signature.substring(0, 20)}...`);
+    console.log(`      ACCESS-TIMESTAMP: ${timestamp}`);
+    console.log(`      ACCESS-PASSPHRASE: ${config.passphrase || 'NOT PROVIDED'}`);
     
     const testResponse = await fetch(testEndpoint, {
       method: "GET",
@@ -2213,6 +2229,11 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
+    console.log(`    🔍 Deposits Request Debug:`);
+    console.log(`    - URL: ${endpoint}?timestamp=${timestamp}`);
+    console.log(`    - Sign String: "${signString}"`);
+    console.log(`    - Signature: ${signature.substring(0, 20)}...`);
+    
     const response = await fetch(`${endpoint}?timestamp=${timestamp}`, {
       method: "GET",
       headers: {
@@ -2274,6 +2295,11 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     // Bitget signature - CORRECTED
     const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    console.log(`    🔍 Withdrawals Request Debug:`);
+    console.log(`    - URL: ${endpoint}?timestamp=${timestamp}`);
+    console.log(`    - Sign String: "${signString}"`);
+    console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
     const response = await fetch(`${endpoint}?timestamp=${timestamp}`, {
       method: "GET",

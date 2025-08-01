@@ -2277,31 +2277,42 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use correct V2 tax endpoint for spot transaction records according to Bitget API docs
-    const endpoint = "https://api.bitget.com/api/v2/tax/spot-record";
+    // FIXED: Use working spot deposit endpoint from official documentation
+    const endpoint = "https://api.bitget.com/api/spot/v1/wallet/deposit-list";
     
-    // Bitget signature - FIXED according to official documentation
+    // Official Bitget signature method
     const method = 'GET';
-    const requestPath = '/api/v2/tax/spot-record';
-    const body = ''; // Empty body for GET request
+    const params = {
+      coin: 'USDT',
+      startTime: filterDate.getTime().toString(),
+      endTime: Date.now().toString()
+    };
+    
+    // Create query string using official method
+    const queryString = Object.keys(params)
+      .map(key => `${key}=${params[key]}`)
+      .join('&');
+    
+    const requestPath = '/api/spot/v1/wallet/deposit-list?' + queryString;
+    const body = '';
     
     // Create signature string: timestamp + method + requestPath + body
     const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Deposits Request Debug:`);
-    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`);
+    console.log(`    - URL: ${endpoint}?${queryString}`);
     console.log(`    - Sign String: "${signString}"`);
     console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
-    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`, {
+    const response = await fetch(`${endpoint}?${queryString}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
         "Content-Type": "application/json",
-        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
+        "ACCESS-PASSPHRASE": config.passphrase || ""
       }
     });
 
@@ -2318,7 +2329,7 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     
     if (data.data && Array.isArray(data.data)) {
       for (const deposit of data.data) {
-        const depositDate = new Date(deposit.createTime);
+        const depositDate = new Date(parseInt(deposit.cTime));
         
         if (depositDate >= filterDate) {
           deposits.push({
@@ -2326,7 +2337,7 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
             platform: 'Bitget',
             asset: deposit.coin,
             amount: deposit.amount || '0',
-            timestamp: deposit.createTime,
+            timestamp: deposit.cTime,
             from_address: deposit.fromAddress || '',
             to_address: deposit.toAddress || '',
             tx_id: deposit.txId || '',
@@ -2350,31 +2361,42 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use correct V2 tax endpoint for spot transaction records according to Bitget API docs
-    const endpoint = "https://api.bitget.com/api/v2/tax/spot-record";
+    // FIXED: Use working spot withdrawal endpoint from official documentation
+    const endpoint = "https://api.bitget.com/api/spot/v1/wallet/withdrawal-list";
     
-    // Bitget signature - FIXED according to official documentation
+    // Official Bitget signature method
     const method = 'GET';
-    const requestPath = '/api/v2/tax/spot-record';
-    const body = ''; // Empty body for GET request
+    const params = {
+      coin: 'USDT',
+      startTime: filterDate.getTime().toString(),
+      endTime: Date.now().toString()
+    };
+    
+    // Create query string using official method
+    const queryString = Object.keys(params)
+      .map(key => `${key}=${params[key]}`)
+      .join('&');
+    
+    const requestPath = '/api/spot/v1/wallet/withdrawal-list?' + queryString;
+    const body = '';
     
     // Create signature string: timestamp + method + requestPath + body
     const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Withdrawals Request Debug:`);
-    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`);
+    console.log(`    - URL: ${endpoint}?${queryString}`);
     console.log(`    - Sign String: "${signString}"`);
     console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
-    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`, {
+    const response = await fetch(`${endpoint}?${queryString}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
         "Content-Type": "application/json",
-        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
+        "ACCESS-PASSPHRASE": config.passphrase || ""
       }
     });
 
@@ -2391,7 +2413,7 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     
     if (data.data && Array.isArray(data.data)) {
       for (const withdrawal of data.data) {
-        const withdrawalDate = new Date(withdrawal.createTime);
+        const withdrawalDate = new Date(parseInt(withdrawal.cTime));
         
         if (withdrawalDate >= filterDate) {
           withdrawals.push({
@@ -2399,7 +2421,7 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
             platform: 'Bitget',
             asset: withdrawal.coin,
             amount: withdrawal.amount || '0',
-            timestamp: withdrawal.createTime,
+            timestamp: withdrawal.cTime,
             from_address: withdrawal.fromAddress || '',
             to_address: withdrawal.toAddress || '',
             tx_id: withdrawal.txId || '',
@@ -2423,31 +2445,44 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     console.log(`  🤝 Fetching Bitget P2P transactions...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use correct V2 tax endpoint for P2P transaction records according to Bitget API docs
-    const endpoint = "https://api.bitget.com/api/v2/tax/p2p-record";
+    // FIXED: Use working mix account bill endpoint for all transaction types
+    const endpoint = "https://api.bitget.com/api/mix/v1/account/accountBill";
     
-    // Bitget signature - FIXED according to official documentation
+    // Official Bitget signature method
     const method = 'GET';
-    const requestPath = '/api/v2/tax/p2p-record';
-    const body = ''; // Empty body for GET request
+    const params = {
+      productType: 'UMCBL',
+      marginCoin: 'USDT',
+      startTime: filterDate.getTime().toString(),
+      endTime: Date.now().toString(),
+      pageSize: '20'
+    };
+    
+    // Create query string using official method
+    const queryString = Object.keys(params)
+      .map(key => `${key}=${params[key]}`)
+      .join('&');
+    
+    const requestPath = '/api/mix/v1/account/accountBill?' + queryString;
+    const body = '';
     
     // Create signature string: timestamp + method + requestPath + body
     const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 P2P Request Debug:`);
-    console.log(`    - URL: ${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`);
+    console.log(`    - URL: ${endpoint}?${queryString}`);
     console.log(`    - Sign String: "${signString}"`);
     console.log(`    - Signature: ${signature.substring(0, 20)}...`);
     
-    const response = await fetch(`${endpoint}?startTime=${filterDate.getTime()}&endTime=${Date.now()}`, {
+    const response = await fetch(`${endpoint}?${queryString}`, {
       method: "GET",
       headers: {
         "ACCESS-KEY": config.apiKey,
         "ACCESS-SIGN": signature,
         "ACCESS-TIMESTAMP": timestamp,
         "Content-Type": "application/json",
-        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
+        "ACCESS-PASSPHRASE": config.passphrase || ""
       }
     });
 
@@ -2462,21 +2497,29 @@ async function fetchBitgetP2PFixed(config, filterDate) {
 
     const p2pTransactions = [];
     
-    if (data.data && Array.isArray(data.data)) {
-      for (const p2p of data.data) {
-        const p2pDate = new Date(p2p.createTime);
+    if (data.data && data.data.result && Array.isArray(data.data.result)) {
+      for (const transaction of data.data.result) {
+        const transactionDate = new Date(parseInt(transaction.ctime));
         
-        if (p2pDate >= filterDate) {
+        if (transactionDate >= filterDate) {
+          // Determine transaction type based on business field
+          let type = 'unknown';
+          if (transaction.business && transaction.business.includes('transfer')) {
+            type = 'deposit';
+          } else if (transaction.business && transaction.business.includes('withdraw')) {
+            type = 'withdrawal';
+          }
+          
           p2pTransactions.push({
-            type: p2p.side === 'BUY' ? 'deposit' : 'withdrawal', // Determine type based on side
+            type: type,
             platform: 'Bitget',
-            asset: p2p.coin,
-            amount: p2p.amount || '0',
-            timestamp: p2p.createTime,
-            from_address: p2p.fromAddress || '',
-            to_address: p2p.toAddress || '',
-            tx_id: p2p.txId || '',
-            status: p2p.status || 'completed'
+            asset: transaction.marginCoin || 'USDT',
+            amount: transaction.amount || '0',
+            timestamp: transaction.ctime,
+            from_address: '',
+            to_address: '',
+            tx_id: transaction.id || '',
+            status: 'completed'
           });
         }
       }

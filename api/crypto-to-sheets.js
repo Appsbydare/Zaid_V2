@@ -2333,15 +2333,17 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
         
         if (depositDate >= filterDate) {
           deposits.push({
-            type: 'deposit',
             platform: 'Bitget',
+            type: 'deposit',
             asset: deposit.coin,
-            amount: deposit.amount || '0',
-            timestamp: deposit.cTime,
-            from_address: deposit.fromAddress || '',
-            to_address: deposit.toAddress || '',
-            tx_id: deposit.txId || '',
-            status: deposit.status || 'completed'
+            amount: deposit.amount.toString(),
+            timestamp: new Date(parseInt(deposit.cTime)).toISOString(),
+            from_address: deposit.fromAddress || 'External',
+            to_address: 'Bitget',
+            tx_id: deposit.txId || deposit.id,
+            status: deposit.status === 'success' ? 'Completed' : 'Pending',
+            network: deposit.chain,
+            api_source: 'Bitget_Deposit_Fixed'
           });
         }
       }
@@ -2417,15 +2419,17 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
         
         if (withdrawalDate >= filterDate) {
           withdrawals.push({
-            type: 'withdrawal',
             platform: 'Bitget',
+            type: 'withdrawal',
             asset: withdrawal.coin,
-            amount: withdrawal.amount || '0',
-            timestamp: withdrawal.cTime,
-            from_address: withdrawal.fromAddress || '',
-            to_address: withdrawal.toAddress || '',
-            tx_id: withdrawal.txId || '',
-            status: withdrawal.status || 'completed'
+            amount: withdrawal.amount.toString(),
+            timestamp: new Date(parseInt(withdrawal.cTime)).toISOString(),
+            from_address: 'Bitget',
+            to_address: withdrawal.toAddress || 'External',
+            tx_id: withdrawal.txId || withdrawal.id,
+            status: withdrawal.status === 'success' ? 'Completed' : 'Pending',
+            network: withdrawal.chain,
+            api_source: 'Bitget_Withdrawal_Fixed'
           });
         }
       }
@@ -2511,15 +2515,17 @@ async function fetchBitgetP2PFixed(config, filterDate) {
           }
           
           p2pTransactions.push({
-            type: type,
             platform: 'Bitget',
+            type: type,
             asset: transaction.marginCoin || 'USDT',
-            amount: transaction.amount || '0',
-            timestamp: transaction.ctime,
-            from_address: '',
-            to_address: '',
+            amount: transaction.amount.toString(),
+            timestamp: new Date(parseInt(transaction.ctime)).toISOString(),
+            from_address: type === 'deposit' ? 'External' : 'Bitget',
+            to_address: type === 'deposit' ? 'Bitget' : 'External',
             tx_id: transaction.id || '',
-            status: 'completed'
+            status: 'Completed',
+            network: 'Internal',
+            api_source: 'Bitget_P2P_Fixed'
           });
         }
       }

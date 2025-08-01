@@ -2104,11 +2104,11 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     
     // Test connection with Bitget authentication
     const timestamp = Date.now().toString();
-    const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
+    const testEndpoint = "https://api.bitget.com/api/spot/v2/account/assets";
     
     // Bitget signature creation - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/assets';
+    const requestPath = '/api/spot/v2/account/assets';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2144,7 +2144,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - API Key with prefix: ${apiKeyWithPrefix}`);
     
     console.log(`    🔍 Request Debug:`);
-    console.log(`    - URL: ${testEndpoint} (V1 API)`);
+    console.log(`    - URL: ${testEndpoint} (V2 API)`);
     console.log(`    - Method: GET`);
     console.log(`    - Headers:`);
     console.log(`      ACCESS-KEY: ${apiKeyOriginal}`);

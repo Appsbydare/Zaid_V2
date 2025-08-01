@@ -2169,7 +2169,8 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     let transactions = [];
     let transactionBreakdown = {
       deposits: 0,
-      withdrawals: 0
+      withdrawals: 0,
+      p2p: 0
     };
 
     try {
@@ -2185,11 +2186,17 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
       transactionBreakdown.withdrawals = withdrawals.length;
       console.log(`  📤 ${config.name} withdrawals: ${withdrawals.length}`);
 
+      // Fetch P2P transactions
+      const p2pTransactions = await fetchBitgetP2PFixed(config, filterDate);
+      transactions.push(...p2pTransactions);
+      transactionBreakdown.p2p = p2pTransactions.length;
+      console.log(`  🤝 ${config.name} P2P: ${p2pTransactions.length}`);
+
     } catch (txError) {
       console.log(`Bitget transaction fetch failed: ${txError.message}`);
     }
 
-    const statusNotes = `🔧 Bitget: ${transactionBreakdown.deposits}D + ${transactionBreakdown.withdrawals}W = ${transactions.length} total`;
+    const statusNotes = `🔧 Bitget: ${transactionBreakdown.deposits}D + ${transactionBreakdown.withdrawals}W + ${transactionBreakdown.p2p}P2P = ${transactions.length} total`;
 
     return {
       success: true,
@@ -2223,10 +2230,10 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-history";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-history' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Deposits Request Debug:`);
@@ -2290,10 +2297,10 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawal-history";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawal-history' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Withdrawals Request Debug:`);
@@ -2348,6 +2355,78 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
 
   } catch (error) {
     console.log(`    ❌ Bitget withdrawals error: ${error.message}`);
+    return [];
+  }
+}
+
+async function fetchBitgetP2PFixed(config, filterDate) {
+  try {
+    console.log(`  🤝 Fetching Bitget P2P transactions...`);
+    
+    const timestamp = Date.now().toString();
+    const endpoint = "https://api.bitget.com/api/spot/v1/p2p/order-history";
+    
+    // Bitget signature - CORRECTED
+    const signString = timestamp + 'GET' + '/api/spot/v1/p2p/order-history' + '';
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    console.log(`    🔍 P2P Request Debug:`);
+    console.log(`    - URL: ${endpoint}?timestamp=${timestamp}`);
+    console.log(`    - Sign String: "${signString}"`);
+    console.log(`    - Signature: ${signature.substring(0, 20)}...`);
+    
+    const response = await fetch(`${endpoint}?timestamp=${timestamp}`, {
+      method: "GET",
+      headers: {
+        "ACCESS-KEY": config.apiKey,
+        "ACCESS-SIGN": signature,
+        "ACCESS-TIMESTAMP": timestamp,
+        "Content-Type": "application/json",
+        "ACCESS-PASSPHRASE": config.passphrase || ""  // Use passphrase from credentials
+      }
+    });
+
+    const data = await response.json();
+    
+    console.log(`    📊 Bitget P2P Response: ${response.status}, Code: ${data.code}, Message: ${data.msg || 'N/A'}`);
+    
+    if (!response.ok || data.code !== '00000') {
+      console.log(`    ❌ Bitget P2P failed: ${data.msg || response.status}`);
+      return [];
+    }
+
+    const p2pTransactions = [];
+    
+    if (data.data && Array.isArray(data.data)) {
+      for (const p2p of data.data) {
+        const p2pDate = new Date(p2p.createTime);
+        
+        if (p2pDate >= filterDate) {
+          // Determine if it's a deposit or withdrawal based on the order type
+          const isDeposit = p2p.orderType === 'BUY'; // BUY = receiving crypto (deposit)
+          const isWithdrawal = p2p.orderType === 'SELL'; // SELL = sending crypto (withdrawal)
+          
+          p2pTransactions.push({
+            type: isDeposit ? 'deposit' : isWithdrawal ? 'withdrawal' : 'p2p',
+            platform: 'Bitget',
+            asset: p2p.coin,
+            amount: p2p.amount || '0',
+            timestamp: p2p.createTime,
+            from_address: p2p.fromAddress || '',
+            to_address: p2p.toAddress || '',
+            tx_id: p2p.orderId || '',
+            status: p2p.status || 'completed',
+            order_type: p2p.orderType || 'UNKNOWN'
+          });
+        }
+      }
+    }
+
+    console.log(`    ✅ Found ${p2pTransactions.length} Bitget P2P transactions`);
+    return p2pTransactions;
+
+  } catch (error) {
+    console.log(`    ❌ Bitget P2P error: ${error.message}`);
     return [];
   }
 }

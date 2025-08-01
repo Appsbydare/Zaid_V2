@@ -2104,11 +2104,11 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     
     // Test connection with Bitget authentication
     const timestamp = Date.now().toString();
-    const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
+    const testEndpoint = "https://api.bitget.com/api/spot/v2/account/assets";
     
     // Bitget signature creation - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/assets';
+    const requestPath = '/api/spot/v2/account/assets';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2144,7 +2144,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - API Key with prefix: ${apiKeyWithPrefix}`);
     
     console.log(`    🔍 Request Debug:`);
-    console.log(`    - URL: ${testEndpoint} (V1 API)`);
+    console.log(`    - URL: ${testEndpoint} (V2 API)`);
     console.log(`    - Method: GET`);
     console.log(`    - Headers:`);
     console.log(`      ACCESS-KEY: ${apiKeyOriginal}`);
@@ -2277,12 +2277,12 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use correct endpoint for deposit history according to Bitget API docs
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-list";
+    // FIXED: Use correct V2 endpoint for deposit history according to Bitget API docs
+    const endpoint = "https://api.bitget.com/api/spot/v2/account/deposit-list";
     
     // Bitget signature - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/deposit-list';
+    const requestPath = '/api/spot/v2/account/deposit-list';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2350,12 +2350,12 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use correct endpoint for withdrawal history according to Bitget API docs
-    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdraw-list";
+    // FIXED: Use correct V2 endpoint for withdrawal history according to Bitget API docs
+    const endpoint = "https://api.bitget.com/api/spot/v2/account/withdraw-list";
     
     // Bitget signature - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/withdraw-list';
+    const requestPath = '/api/spot/v2/account/withdraw-list';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -2423,12 +2423,12 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     console.log(`  🤝 Fetching Bitget P2P transactions...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use correct endpoint for P2P transaction history according to Bitget API docs
-    const endpoint = "https://api.bitget.com/api/spot/v1/p2p/order-list";
+    // FIXED: Use correct V2 endpoint for P2P transaction history according to Bitget API docs
+    const endpoint = "https://api.bitget.com/api/spot/v2/p2p/order-list";
     
     // Bitget signature - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/p2p/order-list';
+    const requestPath = '/api/spot/v2/p2p/order-list';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body

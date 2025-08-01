@@ -1306,12 +1306,13 @@ function readApiCredentialsFromSheet() {
         credentials.BITGET_API = {
           apiKey: bitgetKey.toString(),
           apiSecret: bitgetSecret.toString(),
-          passphrase: bitgetPassphrase.toString()
+          passphrase: bitgetPassphrase.toString().trim()  // Trim whitespace
         };
         console.log("✅ Loaded Bitget credentials");
         console.log(`   - Key: ${bitgetKey.toString().substring(0, 10)}...`);
         console.log(`   - Secret: ${bitgetSecret.toString().substring(0, 10)}...`);
-        console.log(`   - Passphrase: ${bitgetPassphrase.toString().substring(0, 5)}...`);
+        console.log(`   - Passphrase (raw): "${bitgetPassphrase.toString()}"`);
+        console.log(`   - Passphrase (trimmed): "${bitgetPassphrase.toString().trim()}"`);
       } else {
         console.log("⚠️ Bitget credentials empty or missing");
         console.log(`   - Key empty: ${!bitgetKey}`);

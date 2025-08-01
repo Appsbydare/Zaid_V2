@@ -1,70 +1,70 @@
 Execution log
-8:49:51 PM	Notice	Execution started
-8:49:51 PM	Info	🚀 Starting Vercel-mode crypto data fetch...
-8:49:54 PM	Info	📡 Triggering Vercel data fetch...
-8:49:54 PM	Info	📡 Triggering Vercel data fetch...
-8:49:54 PM	Info	🔍 Debugging credential reading...
-8:49:54 PM	Info	🔍 L3 (Binance CV Key): "jdKlhQcdPyOEykfdGB2FFsCKGnmzfqkJ9gsmCuEaHS00l8LfDPkMEWtY8nDUVbNn"
-8:49:54 PM	Info	🔍 M3 (Binance CV Secret): "JanQSThz1NOvinAaOWcPkP86CoxULBFJ5BDxfyk0hhM3mlR1RYgB59RIn3lQMQEt"
-8:49:54 PM	Info	✅ Loaded Binance CV credentials
-8:49:54 PM	Info	🔍 L4 (Binance GC Key): "IvyPBHtjvptofGoxMPCGyQ6fDWo82bBTzNbACRTSPcfF23Onht8fL6jKfAL2QzRk"
-8:49:54 PM	Info	🔍 M4 (Binance GC Secret): "Gw3nor0p0NYJpXkGHSshLh9QjFMwUy97cAwPwBniifvm0ivvhmxyika4OKhxioBH"
-8:49:54 PM	Info	✅ Loaded Binance GC credentials
-8:49:54 PM	Info	🔍 L5 (Binance Main Key): "LYG4Tp1wnBF0Xzuu9pKVcIYB2UJcV6nGQmCVGtcNKnA4mJLYVyTfMCcIUZt7Vksu"
-8:49:54 PM	Info	🔍 M5 (Binance Main Secret): "VRZUaxPNKQBuVVA81mhpS04xQ9xylh8Gr6HTL2Dl5ThhKYy71GqRenFS0XA0GG8N"
-8:49:54 PM	Info	✅ Loaded Binance Main credentials
-8:49:54 PM	Info	🔍 L6 (ByBit Key): "vqL52uDhkej3tyGUaP"
-8:49:54 PM	Info	🔍 M6 (ByBit Secret): "B043tPnaVGON5P5W3eCo4cDFDqEXcx7fB2sl"
-8:49:54 PM	Info	✅ Loaded ByBit credentials
-8:49:54 PM	Info	🔍 L8 (Bitget Key): "bgb42408b0fdce16b4ce7d8412c6920820"
-8:49:54 PM	Info	🔍 M8 (Bitget Secret): "1dc8a168bf7e0bbe01921f5f707e6be46cfe907b202687b9705a7aeb20bdfaa8"
-8:49:54 PM	Info	🔍 N8 (Bitget Passphrase): "Darshana1"
-8:49:54 PM	Info	🔍 L8 cell type: string, length: 34
-8:49:54 PM	Info	🔍 M8 cell type: string, length: 64
-8:49:54 PM	Info	🔍 N8 cell type: string, length: 9
-8:49:54 PM	Info	✅ Loaded Bitget credentials
-8:49:54 PM	Info	   - Key: bgb42408b0...
-8:49:54 PM	Info	   - Secret: 1dc8a168bf...
-8:49:54 PM	Info	   - Passphrase (raw): "Darshana1"
-8:49:54 PM	Info	   - Passphrase (trimmed): "Darshana1"
-8:49:54 PM	Info	🔑 Total credentials loaded: 5
-8:49:54 PM	Info	🔑 Credential keys: BINANCE_CV, BINANCE_GC_API, BINANCE_MAIN_API, BYBIT_API, BITGET_API
-8:49:54 PM	Info	🔑 Loaded API credentials: [ 'BINANCE_CV',
+10:21:16 PM	Notice	Execution started
+10:21:16 PM	Info	🚀 Starting Vercel-mode crypto data fetch...
+10:21:19 PM	Info	📡 Triggering Vercel data fetch...
+10:21:19 PM	Info	📡 Triggering Vercel data fetch...
+10:21:19 PM	Info	🔍 Debugging credential reading...
+10:21:19 PM	Info	🔍 L3 (Binance CV Key): "jdKlhQcdPyOEykfdGB2FFsCKGnmzfqkJ9gsmCuEaHS00l8LfDPkMEWtY8nDUVbNn"
+10:21:19 PM	Info	🔍 M3 (Binance CV Secret): "JanQSThz1NOvinAaOWcPkP86CoxULBFJ5BDxfyk0hhM3mlR1RYgB59RIn3lQMQEt"
+10:21:19 PM	Info	✅ Loaded Binance CV credentials
+10:21:19 PM	Info	🔍 L4 (Binance GC Key): "IvyPBHtjvptofGoxMPCGyQ6fDWo82bBTzNbACRTSPcfF23Onht8fL6jKfAL2QzRk"
+10:21:19 PM	Info	🔍 M4 (Binance GC Secret): "Gw3nor0p0NYJpXkGHSshLh9QjFMwUy97cAwPwBniifvm0ivvhmxyika4OKhxioBH"
+10:21:19 PM	Info	✅ Loaded Binance GC credentials
+10:21:19 PM	Info	🔍 L5 (Binance Main Key): "LYG4Tp1wnBF0Xzuu9pKVcIYB2UJcV6nGQmCVGtcNKnA4mJLYVyTfMCcIUZt7Vksu"
+10:21:19 PM	Info	🔍 M5 (Binance Main Secret): "VRZUaxPNKQBuVVA81mhpS04xQ9xylh8Gr6HTL2Dl5ThhKYy71GqRenFS0XA0GG8N"
+10:21:19 PM	Info	✅ Loaded Binance Main credentials
+10:21:19 PM	Info	🔍 L6 (ByBit Key): "vqL52uDhkej3tyGUaP"
+10:21:19 PM	Info	🔍 M6 (ByBit Secret): "B043tPnaVGON5P5W3eCo4cDFDqEXcx7fB2sl"
+10:21:19 PM	Info	✅ Loaded ByBit credentials
+10:21:19 PM	Info	🔍 L8 (Bitget Key): "bg_fe80b5a1851c65bb83a99aba55d4b40b"
+10:21:19 PM	Info	🔍 M8 (Bitget Secret): "1c8e1bac46576724aa920e2a2a60f7db78121a00d350cf6225041a007d4333de"
+10:21:19 PM	Info	🔍 N8 (Bitget Passphrase): "Darshana1"
+10:21:19 PM	Info	🔍 L8 cell type: string, length: 35
+10:21:19 PM	Info	🔍 M8 cell type: string, length: 64
+10:21:19 PM	Info	🔍 N8 cell type: string, length: 9
+10:21:19 PM	Info	✅ Loaded Bitget credentials
+10:21:19 PM	Info	   - Key: bg_fe80b5a...
+10:21:19 PM	Info	   - Secret: 1c8e1bac46...
+10:21:19 PM	Info	   - Passphrase (raw): "Darshana1"
+10:21:19 PM	Info	   - Passphrase (trimmed): "Darshana1"
+10:21:19 PM	Info	🔑 Total credentials loaded: 5
+10:21:19 PM	Info	🔑 Credential keys: BINANCE_CV, BINANCE_GC_API, BINANCE_MAIN_API, BYBIT_API, BITGET_API
+10:21:19 PM	Info	🔑 Loaded API credentials: [ 'BINANCE_CV',
   'BINANCE_GC_API',
   'BINANCE_MAIN_API',
   'BYBIT_API',
   'BITGET_API' ]
-8:49:54 PM	Info	🔍 Bitget credentials found:
-8:49:54 PM	Info	   - API Key: ✅ Present
-8:49:54 PM	Info	   - API Secret: ✅ Present
-8:49:54 PM	Info	   - Key length: 34
-8:49:54 PM	Info	   - Secret length: 64
-8:49:54 PM	Info	🔍 All credential keys available: [ 'BINANCE_CV',
+10:21:19 PM	Info	🔍 Bitget credentials found:
+10:21:19 PM	Info	   - API Key: ✅ Present
+10:21:19 PM	Info	   - API Secret: ✅ Present
+10:21:19 PM	Info	   - Key length: 35
+10:21:19 PM	Info	   - Secret length: 64
+10:21:19 PM	Info	🔍 All credential keys available: [ 'BINANCE_CV',
   'BINANCE_GC_API',
   'BINANCE_MAIN_API',
   'BYBIT_API',
   'BITGET_API' ]
-8:49:54 PM	Info	   - BINANCE_CV: ✅ Key, ✅ Secret
-8:49:54 PM	Info	   - BINANCE_GC_API: ✅ Key, ✅ Secret
-8:49:54 PM	Info	   - BINANCE_MAIN_API: ✅ Key, ✅ Secret
-8:49:54 PM	Info	   - BYBIT_API: ✅ Key, ✅ Secret
-8:49:54 PM	Info	   - BITGET_API: ✅ Key, ✅ Secret
-8:50:07 PM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
-8:50:07 PM	Info	🚀 Starting FIXED crypto data fetch...
-8:50:07 PM	Info	📅 Filtering transactions after: 2025-06-29T15:15:36.000Z
-8:50:07 PM	Info	📅 Filter date object: 2025-06-29T15:15:36.000Z
-8:50:07 PM	Info	🔧 Testing Binance APIs with credentials from Apps Script...
-8:50:07 PM	Info	🔑 Received 5 credential sets from Apps Script
-8:50:07 PM	Info	🔧 Processing Binance (GC) with credentials...
-8:50:07 PM	Info	  💰 Binance (GC) deposits: 17
-8:50:07 PM	Info	  📤 Binance (GC) withdrawals: 47
-8:50:07 PM	Info	  🤝 Binance (GC) P2P: 0
-8:50:07 PM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
-8:50:07 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-8:50:07 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754061595259,"recvWindow":5000,"limit":100,"startTime":1751210136000}
-8:50:07 PM	Info	        [PAY DEBUG] Response Status: 200
-8:50:07 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":941534261,"counterpartyId":710596492,"orderId":"378402622063747072","note":"","orderType":"C2C","transactionId":"P_A1UYGVR3Q997111A","transactionTime":1754044252608,"amount":"3000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3000","walletAssetCost":{"1":"3000"}}],"payerInfo":{"name":"l__1_0","type":"USER","binanceId":710629485,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":1057888111,"orderId":"377643402612350976","note":"","orderType":"C2C","transactionId":"P_A1UVTJQ9EBH71114","transactionTime":1753690713695,"amount":"2000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2000","walletAssetCost":{"1":"2000"}}],"payerInfo":{"name":"nfet123","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":72446297,"orderId":"376907255959822336","note":"","orderType":"C2C","transactionId":"P_A1UT6VMJF5171117","transactionTime":1753347918959,"amount":"-8086.25","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"8086.25","walletAssetCost":{"1":"8086.25"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"HKM77","type":"USER","binanceId":18720600,"accountId":72446297,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":225696915,"orderId":"375469230159822848","note":"","orderType":"C2C","transactionId":"P_A1UN3D4AP7D71116","transactionTime":1752678285618,"amount":"14412","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"14412","walletAssetCost":{"1":"14412"}}],"payerInfo":{"name":"Kifayatmasoud","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"375445648880427008","note":"","orderType":"C2C","transactionId":"P_A1UMZQB6F5H71116","transactionTime":1752667304244,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":269008194,"orderId":"375257417651118080","note":"","orderType":"C2C","transactionId":"P_A1UMBAJEESS71112","transactionTime":1752579653050,"amount":"-10600.27","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10600.27","walletAssetCost":{"1":"10600.27"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-6c5dd","type":"USER","accountId":269008194,"unmaskData":false,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":269008194,"orderId":"375257256424161280","note":"","orderType":"C2C","transactionId":"P_A1UMB9YB4J971116","transactionTime":1752579577704,"amount":"-18","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"18","walletAssetCost":{"1":"18"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-6c5dd","type":"USER","accountId":269008194,"unmaskData":false,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":209883110,"orderId":"372848361640837120","note":"","orderType":"C2C","transactionId":"P_A1UBSEF25WW71117","transactionTime":1751457848879,"amount":"-230","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"230","walletAssetCost":{"1":"230"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-e19f7","type":"USER","binanceId":21808203,"accountId":209883110,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"}],"success":true}
-8:50:07 PM	Info	        [PAY DEBUG] Parsed Data: {
+10:21:19 PM	Info	   - BINANCE_CV: ✅ Key, ✅ Secret
+10:21:19 PM	Info	   - BINANCE_GC_API: ✅ Key, ✅ Secret
+10:21:19 PM	Info	   - BINANCE_MAIN_API: ✅ Key, ✅ Secret
+10:21:19 PM	Info	   - BYBIT_API: ✅ Key, ✅ Secret
+10:21:19 PM	Info	   - BITGET_API: ✅ Key, ✅ Secret
+10:21:32 PM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
+10:21:32 PM	Info	🚀 Starting FIXED crypto data fetch...
+10:21:32 PM	Info	📅 Filtering transactions after: 2025-06-29T16:42:02.000Z
+10:21:32 PM	Info	📅 Filter date object: 2025-06-29T16:42:02.000Z
+10:21:32 PM	Info	🔧 Testing Binance APIs with credentials from Apps Script...
+10:21:32 PM	Info	🔑 Received 5 credential sets from Apps Script
+10:21:32 PM	Info	🔧 Processing Binance (GC) with credentials...
+10:21:32 PM	Info	  💰 Binance (GC) deposits: 17
+10:21:32 PM	Info	  📤 Binance (GC) withdrawals: 47
+10:21:32 PM	Info	  🤝 Binance (GC) P2P: 0
+10:21:32 PM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
+10:21:32 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+10:21:32 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754067080705,"recvWindow":5000,"limit":100,"startTime":1751215322000}
+10:21:32 PM	Info	        [PAY DEBUG] Response Status: 200
+10:21:32 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":941534261,"counterpartyId":710596492,"orderId":"378402622063747072","note":"","orderType":"C2C","transactionId":"P_A1UYGVR3Q997111A","transactionTime":1754044252608,"amount":"3000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3000","walletAssetCost":{"1":"3000"}}],"payerInfo":{"name":"l__1_0","type":"USER","binanceId":710629485,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":1057888111,"orderId":"377643402612350976","note":"","orderType":"C2C","transactionId":"P_A1UVTJQ9EBH71114","transactionTime":1753690713695,"amount":"2000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2000","walletAssetCost":{"1":"2000"}}],"payerInfo":{"name":"nfet123","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":72446297,"orderId":"376907255959822336","note":"","orderType":"C2C","transactionId":"P_A1UT6VMJF5171117","transactionTime":1753347918959,"amount":"-8086.25","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"8086.25","walletAssetCost":{"1":"8086.25"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"HKM77","type":"USER","binanceId":18720600,"accountId":72446297,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":225696915,"orderId":"375469230159822848","note":"","orderType":"C2C","transactionId":"P_A1UN3D4AP7D71116","transactionTime":1752678285618,"amount":"14412","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"14412","walletAssetCost":{"1":"14412"}}],"payerInfo":{"name":"Kifayatmasoud","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"375445648880427008","note":"","orderType":"C2C","transactionId":"P_A1UMZQB6F5H71116","transactionTime":1752667304244,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":269008194,"orderId":"375257417651118080","note":"","orderType":"C2C","transactionId":"P_A1UMBAJEESS71112","transactionTime":1752579653050,"amount":"-10600.27","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10600.27","walletAssetCost":{"1":"10600.27"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-6c5dd","type":"USER","accountId":269008194,"unmaskData":false,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":269008194,"orderId":"375257256424161280","note":"","orderType":"C2C","transactionId":"P_A1UMB9YB4J971116","transactionTime":1752579577704,"amount":"-18","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"18","walletAssetCost":{"1":"18"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-6c5dd","type":"USER","accountId":269008194,"unmaskData":false,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":209883110,"orderId":"372848361640837120","note":"","orderType":"C2C","transactionId":"P_A1UBSEF25WW71117","transactionTime":1751457848879,"amount":"-230","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"230","walletAssetCost":{"1":"230"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-e19f7","type":"USER","binanceId":21808203,"accountId":209883110,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"}],"success":true}
+10:21:32 PM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [
@@ -363,8 +363,8 @@ Execution log
   ],
   "success": true
 }
-8:50:07 PM	Info	        [PAY DEBUG] Found 8 successful transactions.
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Found 8 successful transactions.
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 710596492,
   "orderId": "378402622063747072",
@@ -399,14 +399,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 710629485 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("710629485" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 710629485 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("710629485" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 1057888111,
   "orderId": "377643402612350976",
@@ -440,14 +440,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 72446297,
   "orderId": "376907255959822336",
@@ -486,14 +486,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 18720600 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("18720600" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 18720600 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("18720600" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 225696915,
   "orderId": "375469230159822848",
@@ -527,14 +527,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 206029274,
   "orderId": "375445648880427008",
@@ -569,14 +569,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("13115322" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("13115322" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 269008194,
   "orderId": "375257417651118080",
@@ -614,14 +614,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 269008194,
   "orderId": "375257256424161280",
@@ -659,14 +659,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 209883110,
   "orderId": "372848361640837120",
@@ -705,25 +705,25 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 21808203 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("21808203" === "941534261")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	  💳 Binance (GC) Pay: 8
-8:50:07 PM	Info	✅ Binance (GC): 72 transactions
-8:50:07 PM	Info	🔧 Processing Binance (Main) with credentials...
-8:50:07 PM	Info	  💰 Binance (Main) deposits: 100
-8:50:07 PM	Info	  📤 Binance (Main) withdrawals: 80
-8:50:07 PM	Info	  🤝 Binance (Main) P2P: 11
-8:50:07 PM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
-8:50:07 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-8:50:07 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754061595862,"recvWindow":5000,"limit":100,"startTime":1751210136000}
-8:50:07 PM	Info	        [PAY DEBUG] Response Status: 200
-8:50:07 PM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":319341372,"orderId":"378415180432982016","note":"","orderType":"C2C","transactionId":"P_A1UYJAE2WF17111C","transactionTime":1754050100568,"amount":"-19797.92","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"19797.92","walletAssetCost":{"1":"19797.92"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-6b85c","type":"USER","binanceId":319325857,"accountId":319341372,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"378414398784135168","note":"","orderType":"C2C","transactionId":"P_A1UYJ7K4TH57111C","transactionTime":1754049736912,"amount":"-14110.17","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"14110.17","walletAssetCost":{"1":"14110.17"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"378277138299805696","note":"","orderType":"C2C","transactionId":"P_A1UY2M7X83171113","transactionTime":1753985819502,"amount":"-24968.1","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"24968.1","walletAssetCost":{"1":"24968.1"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":892849335,"orderId":"378214577739374592","note":"","orderType":"C2C","transactionId":"P_A1UXUGN5WXW71112","transactionTime":1753956688012,"amount":"-4950","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"4950","walletAssetCost":{"1":"4950"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-79c83","type":"USER","binanceId":892817144,"accountId":892849335,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":367753744,"orderId":"377900308529692672","note":"","orderType":"C2C","transactionId":"P_A1UWQSB6D2571116","transactionTime":1753810344300,"amount":"0.02882244","currency":"BTC","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"BTC","amount":"0.02882244","walletAssetCost":{"1":"0.02882244"}}],"payerInfo":{"name":"Rozabesa","type":"USER","binanceId":367643738,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"377694145569390592","note":"","orderType":"C2C","transactionId":"P_A1UVZBAJ71H71114","transactionTime":1753714342129,"amount":"189809","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"189809","walletAssetCost":{"1":"189809"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377682824191754240","note":"3450 cliq","orderType":"C2C","transactionId":"P_A1UVY24KXGS7111C","transactionTime":1753709070323,"amount":"-5000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"5000","walletAssetCost":{"1":"5000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377676267937619968","note":"","orderType":"C2C","transactionId":"P_A1UVXA9BAU571112","transactionTime":1753706017185,"amount":"-2534.29","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2534.29","walletAssetCost":{"1":"2534.29"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377676068250206208","note":"","orderType":"C2C","transactionId":"P_A1UVX9J58XW71114","transactionTime":1753705924833,"amount":"-3316.35","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3316.35","walletAssetCost":{"1":"3316.35"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"377159301821505536","note":"","orderType":"C2C","transactionId":"P_A1UU3HJJWVW71116","transactionTime":1753465286155,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"377135138429222912","note":"","orderType":"C2C","transactionId":"P_A1UTZSNT71H71112","transactionTime":1753454034969,"amount":"-1000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1000","walletAssetCost":{"1":"1000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377134794738114560","note":"يودروم","orderType":"C2C","transactionId":"P_A1UTZRDJF5171115","transactionTime":1753453874479,"amount":"1000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1000","walletAssetCost":{"1":"1000"}}],"payerInfo":{"name":"block_merchant ","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":273646830,"orderId":"376936949422940160","note":"","orderType":"C2C","transactionId":"P_A1UTA8NCDYN71116","transactionTime":1753361745649,"amount":"32990","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"32990","walletAssetCost":{"1":"32990"}}],"payerInfo":{"name":"Saud Almarri","type":"USER","binanceId":170277098,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":273646830,"orderId":"376935953001299968","note":"","orderType":"C2C","transactionId":"P_A1UTA51BAG971114","transactionTime":1753361281394,"amount":"10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"name":"Saud Almarri","type":"USER","binanceId":170277098,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"376759382477914113","note":"بودرم","orderType":"C2C","transactionId":"P_A1USP2P1EMS71115","transactionTime":1753279060119,"amount":"1600","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1600","walletAssetCost":{"1":"1600"}}],"payerInfo":{"name":"block_merchant ","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"376549107293364224","note":"","ord
-8:50:07 PM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Parsed Data: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 21808203 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("21808203" === "941534261")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	  💳 Binance (GC) Pay: 8
+10:21:32 PM	Info	✅ Binance (GC): 72 transactions
+10:21:32 PM	Info	🔧 Processing Binance (Main) with credentials...
+10:21:32 PM	Info	  💰 Binance (Main) deposits: 100
+10:21:32 PM	Info	  📤 Binance (Main) withdrawals: 80
+10:21:32 PM	Info	  🤝 Binance (Main) P2P: 11
+10:21:32 PM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
+10:21:32 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+10:21:32 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754067081336,"recvWindow":5000,"limit":100,"startTime":1751215322000}
+10:21:32 PM	Info	        [PAY DEBUG] Response Status: 200
+10:21:32 PM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":319341372,"orderId":"378415180432982016","note":"","orderType":"C2C","transactionId":"P_A1UYJAE2WF17111C","transactionTime":1754050100568,"amount":"-19797.92","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"19797.92","walletAssetCost":{"1":"19797.92"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-6b85c","type":"USER","binanceId":319325857,"accountId":319341372,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"378414398784135168","note":"","orderType":"C2C","transactionId":"P_A1UYJ7K4TH57111C","transactionTime":1754049736912,"amount":"-14110.17","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"14110.17","walletAssetCost":{"1":"14110.17"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"378277138299805696","note":"","orderType":"C2C","transactionId":"P_A1UY2M7X83171113","transactionTime":1753985819502,"amount":"-24968.1","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"24968.1","walletAssetCost":{"1":"24968.1"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":892849335,"orderId":"378214577739374592","note":"","orderType":"C2C","transactionId":"P_A1UXUGN5WXW71112","transactionTime":1753956688012,"amount":"-4950","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"4950","walletAssetCost":{"1":"4950"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-79c83","type":"USER","binanceId":892817144,"accountId":892849335,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":367753744,"orderId":"377900308529692672","note":"","orderType":"C2C","transactionId":"P_A1UWQSB6D2571116","transactionTime":1753810344300,"amount":"0.02882244","currency":"BTC","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"BTC","amount":"0.02882244","walletAssetCost":{"1":"0.02882244"}}],"payerInfo":{"name":"Rozabesa","type":"USER","binanceId":367643738,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"377694145569390592","note":"","orderType":"C2C","transactionId":"P_A1UVZBAJ71H71114","transactionTime":1753714342129,"amount":"189809","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"189809","walletAssetCost":{"1":"189809"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377682824191754240","note":"3450 cliq","orderType":"C2C","transactionId":"P_A1UVY24KXGS7111C","transactionTime":1753709070323,"amount":"-5000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"5000","walletAssetCost":{"1":"5000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377676267937619968","note":"","orderType":"C2C","transactionId":"P_A1UVXA9BAU571112","transactionTime":1753706017185,"amount":"-2534.29","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2534.29","walletAssetCost":{"1":"2534.29"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377676068250206208","note":"","orderType":"C2C","transactionId":"P_A1UVX9J58XW71114","transactionTime":1753705924833,"amount":"-3316.35","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3316.35","walletAssetCost":{"1":"3316.35"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"377159301821505536","note":"","orderType":"C2C","transactionId":"P_A1UU3HJJWVW71116","transactionTime":1753465286155,"amount":"20000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"20000","walletAssetCost":{"1":"20000"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"377135138429222912","note":"","orderType":"C2C","transactionId":"P_A1UTZSNT71H71112","transactionTime":1753454034969,"amount":"-1000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1000","walletAssetCost":{"1":"1000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"377134794738114560","note":"يودروم","orderType":"C2C","transactionId":"P_A1UTZRDJF5171115","transactionTime":1753453874479,"amount":"1000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1000","walletAssetCost":{"1":"1000"}}],"payerInfo":{"name":"block_merchant ","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":273646830,"orderId":"376936949422940160","note":"","orderType":"C2C","transactionId":"P_A1UTA8NCDYN71116","transactionTime":1753361745649,"amount":"32990","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"32990","walletAssetCost":{"1":"32990"}}],"payerInfo":{"name":"Saud Almarri","type":"USER","binanceId":170277098,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":273646830,"orderId":"376935953001299968","note":"","orderType":"C2C","transactionId":"P_A1UTA51BAG971114","transactionTime":1753361281394,"amount":"10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"name":"Saud Almarri","type":"USER","binanceId":170277098,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"376759382477914113","note":"بودرم","orderType":"C2C","transactionId":"P_A1USP2P1EMS71115","transactionTime":1753279060119,"amount":"1600","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1600","walletAssetCost":{"1":"1600"}}],"payerInfo":{"name":"block_merchant ","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"376549107293364224","note":"","ord
+10:21:32 PM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [
@@ -1073,8 +1073,8 @@ Execution log
     {
       "uid": 13115322,
       "counterpart
-8:50:07 PM	Info	        [PAY DEBUG] Found 46 successful transactions.
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Found 46 successful transactions.
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 319341372,
   "orderId": "378415180432982016",
@@ -1113,14 +1113,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 319325857 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("319325857" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 319325857 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("319325857" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378414398784135168",
@@ -1159,14 +1159,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378277138299805696",
@@ -1205,14 +1205,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 892849335,
   "orderId": "378214577739374592",
@@ -1251,14 +1251,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 367753744,
   "orderId": "377900308529692672",
@@ -1293,14 +1293,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 367643738 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("367643738" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 367643738 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("367643738" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "377694145569390592",
@@ -1335,14 +1335,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "377682824191754240",
@@ -1381,14 +1381,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "377676267937619968",
@@ -1427,14 +1427,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "377676068250206208",
@@ -1473,14 +1473,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "377159301821505536",
@@ -1515,14 +1515,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "377135138429222912",
@@ -1561,14 +1561,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "377134794738114560",
@@ -1602,14 +1602,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 273646830,
   "orderId": "376936949422940160",
@@ -1644,14 +1644,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 273646830,
   "orderId": "376935953001299968",
@@ -1686,14 +1686,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "376759382477914113",
@@ -1727,14 +1727,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "376549107293364224",
@@ -1769,14 +1769,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "376001153224368128",
@@ -1815,14 +1815,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 156097876,
   "orderId": "375988461522640896",
@@ -1856,14 +1856,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 444505463,
   "orderId": "375650655927648256",
@@ -1902,14 +1902,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 444480663 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("444480663" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 444480663 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("444480663" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 182409574,
   "orderId": "375637618545704960",
@@ -1943,14 +1943,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "375630141004554240",
@@ -1989,14 +1989,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1023026733,
   "orderId": "375625582124720128",
@@ -2035,14 +2035,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1023012193 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1023012193" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1023012193 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1023012193" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "375619360696524800",
@@ -2077,14 +2077,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "375618967887609856",
@@ -2119,14 +2119,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1132098442,
   "orderId": "375484335624404992",
@@ -2160,14 +2160,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 941547466,
   "orderId": "375445648880427008",
@@ -2206,14 +2206,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("941534261" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("941534261" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 832797655,
   "orderId": "375096557876535296",
@@ -2248,14 +2248,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 832805580 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("832805580" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 832805580 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("832805580" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 244148982,
   "orderId": "375063364441915392",
@@ -2289,14 +2289,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "374756370710372352",
@@ -2335,14 +2335,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1109753371,
   "orderId": "374756055042080768",
@@ -2376,14 +2376,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "374389009616199680",
@@ -2422,14 +2422,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "374381218266726400",
@@ -2468,14 +2468,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 534673024,
   "orderId": "373970939589345281",
@@ -2514,14 +2514,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 892849335,
   "orderId": "373820598362939392",
@@ -2560,14 +2560,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 710596492,
   "orderId": "373770836904968192",
@@ -2602,14 +2602,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 710629485 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("710629485" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 710629485 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("710629485" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1109753371,
   "orderId": "373456789048246272",
@@ -2648,14 +2648,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1109737666 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("1109737666" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1109737666 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("1109737666" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 297336490,
   "orderId": "373404596543127552",
@@ -2689,14 +2689,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 534673024,
   "orderId": "373243206689488896",
@@ -2735,14 +2735,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 534673024,
   "orderId": "373242861032292352",
@@ -2781,14 +2781,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 219787024,
   "orderId": "373082033631543296",
@@ -2827,14 +2827,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 10906785 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("10906785" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 10906785 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("10906785" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 219787024,
   "orderId": "373081533475340288",
@@ -2873,14 +2873,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 10906785 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("10906785" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 10906785 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("10906785" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 892849335,
   "orderId": "372899972278312960",
@@ -2919,14 +2919,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 534673024,
   "orderId": "372664913026973696",
@@ -2965,14 +2965,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 534654651 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("534654651" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 273646830,
   "orderId": "372658977394515968",
@@ -3011,14 +3011,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 170277098 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: false ("170277098" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 170277098 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: false ("170277098" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 710596492,
   "orderId": "372640571305222144",
@@ -3052,14 +3052,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	        [PAY DEBUG] Processing transaction: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 289228431,
   "orderId": "372517982240153600",
@@ -3093,51 +3093,51 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-8:50:07 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-8:50:07 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-8:50:07 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-8:50:07 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-8:50:07 PM	Info	        [PAY DEBUG] Final Type: deposit
-8:50:07 PM	Info	  💳 Binance (Main) Pay: 46
-8:50:07 PM	Info	✅ Binance (Main): 237 transactions
-8:50:07 PM	Info	🔧 Processing Binance (CV) with credentials...
-8:50:07 PM	Info	  💰 Binance (CV) deposits: 0
-8:50:07 PM	Info	  📤 Binance (CV) withdrawals: 1
-8:50:07 PM	Info	  🤝 Binance (CV) P2P: 0
-8:50:07 PM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
-8:50:07 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-8:50:07 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754061596498,"recvWindow":5000,"limit":100,"startTime":1751210136000}
-8:50:07 PM	Info	        [PAY DEBUG] Response Status: 200
-8:50:07 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
-8:50:07 PM	Info	        [PAY DEBUG] Parsed Data: {
+10:21:32 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+10:21:32 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+10:21:32 PM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+10:21:32 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+10:21:32 PM	Info	        [PAY DEBUG] Final Type: deposit
+10:21:32 PM	Info	  💳 Binance (Main) Pay: 46
+10:21:32 PM	Info	✅ Binance (Main): 237 transactions
+10:21:32 PM	Info	🔧 Processing Binance (CV) with credentials...
+10:21:32 PM	Info	  💰 Binance (CV) deposits: 0
+10:21:32 PM	Info	  📤 Binance (CV) withdrawals: 1
+10:21:32 PM	Info	  🤝 Binance (CV) P2P: 0
+10:21:32 PM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
+10:21:32 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+10:21:32 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754067082038,"recvWindow":5000,"limit":100,"startTime":1751215322000}
+10:21:32 PM	Info	        [PAY DEBUG] Response Status: 200
+10:21:32 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
+10:21:32 PM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [],
   "success": true
 }
-8:50:07 PM	Info	        ℹ️ Pay: No new transactions found.
-8:50:07 PM	Info	  💳 Binance (CV) Pay: 0
-8:50:07 PM	Info	✅ Binance (CV): 1 transactions
-8:50:07 PM	Info	🔧 Processing ByBit APIs with credentials from Apps Script...
-8:50:07 PM	Info	🔧 Processing ByBit with credentials...
-8:50:07 PM	Info	✅ ByBit: 0 transactions
-8:50:07 PM	Info	🔧 Processing Bitget APIs with credentials from Apps Script...
-8:50:07 PM	Info	🔧 Processing Bitget with credentials...
-8:50:07 PM	Info	❌ Bitget: ❌ Bitget auth failed: Apikey does not exist
-8:50:07 PM	Info	🔧 Fetching blockchain data...
-8:50:07 PM	Info	🔧 Testing Bitcoin API...
-8:50:07 PM	Info	✅ Bitcoin: 0 transactions
-8:50:07 PM	Info	🔧 Testing Ethereum API...
-8:50:07 PM	Info	✅ Ethereum: 0 transactions
-8:50:07 PM	Info	🔧 Testing TRON API...
-8:50:07 PM	Info	✅ TRON: 231 transactions
-8:50:07 PM	Info	🔧 Testing Solana API...
-8:50:07 PM	Info	✅ Solana: 0 transactions
-8:50:07 PM	Info	🔧 Processing 541 transactions with FIXED deduplication...
-8:50:07 PM	Info	✅ Google Sheets write successful:
-8:50:07 PM	Info	{ success: true,
+10:21:32 PM	Info	        ℹ️ Pay: No new transactions found.
+10:21:32 PM	Info	  💳 Binance (CV) Pay: 0
+10:21:32 PM	Info	✅ Binance (CV): 1 transactions
+10:21:32 PM	Info	🔧 Processing ByBit APIs with credentials from Apps Script...
+10:21:32 PM	Info	🔧 Processing ByBit with credentials...
+10:21:32 PM	Info	✅ ByBit: 0 transactions
+10:21:32 PM	Info	🔧 Processing Bitget APIs with credentials from Apps Script...
+10:21:32 PM	Info	🔧 Processing Bitget with credentials...
+10:21:32 PM	Info	❌ Bitget: ❌ Bitget auth failed: Request URL NOT FOUND
+10:21:32 PM	Info	🔧 Fetching blockchain data...
+10:21:32 PM	Info	🔧 Testing Bitcoin API...
+10:21:32 PM	Info	✅ Bitcoin: 0 transactions
+10:21:32 PM	Info	🔧 Testing Ethereum API...
+10:21:32 PM	Info	✅ Ethereum: 0 transactions
+10:21:32 PM	Info	🔧 Testing TRON API...
+10:21:32 PM	Info	✅ TRON: 231 transactions
+10:21:32 PM	Info	🔧 Testing Solana API...
+10:21:32 PM	Info	✅ Solana: 0 transactions
+10:21:32 PM	Info	🔧 Processing 541 transactions with FIXED deduplication...
+10:21:32 PM	Info	✅ Google Sheets write successful:
+10:21:32 PM	Info	{ success: true,
   withdrawalsAdded: 0,
   depositsAdded: 0,
   totalRaw: 541,
@@ -3148,25 +3148,25 @@ Execution log
   recycleBinSaved: 0,
   unknownCurrencies: [],
   note: '✅ Transactions successfully written to Google Sheets' }
-8:50:07 PM	Info	--- 📡 Vercel Debug Logs End 📡 ---
-8:50:07 PM	Info	✅ Vercel processed 541 transactions.
-8:50:07 PM	Info	✅ Updated 9 API statuses in Settings.
-8:50:08 PM	Info	🔄 Consolidating to formatted sheet...
-8:50:10 PM	Info	🔍 Data Validation Results:
-8:50:10 PM	Info	📊 Withdrawals: 231 transactions
-8:50:10 PM	Info	📊 Deposits: 213 transactions
-8:50:10 PM	Info	📊 Total: 444 transactions
-8:50:10 PM	Info	📤 Sample Withdrawal: { platform: 'Binance (Main)',
+10:21:32 PM	Info	--- 📡 Vercel Debug Logs End 📡 ---
+10:21:32 PM	Info	✅ Vercel processed 541 transactions.
+10:21:32 PM	Info	✅ Updated 9 API statuses in Settings.
+10:21:33 PM	Info	🔄 Consolidating to formatted sheet...
+10:21:34 PM	Info	🔍 Data Validation Results:
+10:21:34 PM	Info	📊 Withdrawals: 231 transactions
+10:21:34 PM	Info	📊 Deposits: 214 transactions
+10:21:34 PM	Info	📊 Total: 445 transactions
+10:21:34 PM	Info	📤 Sample Withdrawal: { platform: 'Binance (Main)',
   asset: 'USDT',
   amount: 1800,
   timestamp: '2025-06-30 08:29' }
-8:50:10 PM	Info	💰 Sample Deposit: { platform: 'Binance (Main)',
+10:21:34 PM	Info	💰 Sample Deposit: { platform: 'Binance (Main)',
   asset: 'USDT',
   amount: 5970,
   timestamp: '2025-06-30 17:20' }
-8:50:10 PM	Info	✅ All transactions have required fields
-8:50:12 PM	Info	✅ Updated FORMATTED_TRANSACTIONS with 444 transactions
-8:50:12 PM	Info	✅ Consolidated 444 transactions (231 withdrawals, 213 deposits).
-8:50:12 PM	Info	⏰ Updating last execution timestamp...
-8:50:12 PM	Info	✅ Vercel-mode flow completed successfully.
-8:50:21 PM	Notice	Execution completed
+10:21:34 PM	Info	✅ All transactions have required fields
+10:21:37 PM	Info	✅ Updated FORMATTED_TRANSACTIONS with 445 transactions
+10:21:37 PM	Info	✅ Consolidated 445 transactions (231 withdrawals, 214 deposits).
+10:21:37 PM	Info	⏰ Updating last execution timestamp...
+10:21:37 PM	Info	✅ Vercel-mode flow completed successfully.
+10:21:49 PM	Notice	Execution completed

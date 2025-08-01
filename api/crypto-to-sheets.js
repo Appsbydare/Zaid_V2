@@ -2102,10 +2102,10 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     
     // Test connection with Bitget authentication
     const timestamp = Date.now().toString();
-    const testEndpoint = "https://api.bitget.com/api/spot/v2/account/assets";
+    const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
     
     // Bitget signature creation - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v2/account/assets' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/assets' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     // Debug signature creation
@@ -2137,7 +2137,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - API Key with prefix: ${apiKeyWithPrefix}`);
     
     console.log(`    🔍 Request Debug:`);
-    console.log(`    - URL: ${testEndpoint} (V2 API)`);
+    console.log(`    - URL: ${testEndpoint} (V1 API)`);
     console.log(`    - Method: GET`);
     console.log(`    - Headers:`);
     console.log(`      ACCESS-KEY: ${apiKeyOriginal}`);
@@ -2262,10 +2262,10 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v2/account/deposit-address";
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/deposit-address";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v2/account/deposit-address' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/deposit-address' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Deposits Request Debug:`);
@@ -2329,10 +2329,10 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v2/account/withdrawals";
+    const endpoint = "https://api.bitget.com/api/spot/v1/account/withdrawals";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v2/account/withdrawals' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/account/withdrawals' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 Withdrawals Request Debug:`);
@@ -2396,10 +2396,10 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     console.log(`  🤝 Fetching Bitget P2P transactions...`);
     
     const timestamp = Date.now().toString();
-    const endpoint = "https://api.bitget.com/api/spot/v2/p2p/order-history";
+    const endpoint = "https://api.bitget.com/api/spot/v1/p2p/order-history";
     
     // Bitget signature - CORRECTED
-    const signString = timestamp + 'GET' + '/api/spot/v2/p2p/order-history' + '';
+    const signString = timestamp + 'GET' + '/api/spot/v1/p2p/order-history' + '';
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
     
     console.log(`    🔍 P2P Request Debug:`);

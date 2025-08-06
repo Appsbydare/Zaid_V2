@@ -16,10 +16,9 @@ async function readWalletsFromSettings() {
     console.log('🔧 Reading wallet configurations from Settings...');
     
     const spreadsheetId = "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y";
-    const range = 'SETTINGS!T3:X17'; // Read all wallet data
     
-    // Use CSV method since sheets object is not available here
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS`;
+    // Use the correct CSV URL format for Google Sheets
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=T3:X17`;
     console.log(`🔍 CSV URL: ${csvUrl}`);
     
     const response = await fetch(csvUrl);
@@ -35,21 +34,19 @@ async function readWalletsFromSettings() {
     const rows = parseCSV(csvText);
     console.log(`📊 Parsed ${rows.length} rows from CSV`);
     
-    // Filter rows to only get T3:X17 range (columns T-X, rows 3-17)
-    const filteredRows = rows.slice(2, 17).map(row => row.slice(19, 24)); // T=19, X=24
-    console.log(`📊 Filtered ${filteredRows.length} wallet rows (T3:X17)`);
-    
     const wallets = {};
     
-    console.log(`📊 Found ${filteredRows.length} wallet rows in Settings`);
+    console.log(`📊 Processing ${rows.length} wallet rows from Settings`);
     
-    filteredRows.forEach((row, index) => {
+    rows.forEach((row, index) => {
       if (row && row.length >= 5) {
         const name = row[0];        // Column T - Name
         const address = row[1];     // Column U - Wallet Address
         const blockchainType = row[2]; // Column V - Blockchain Type
         const apiKey = row[3];      // Column W - API Key
         const status = row[4];      // Column X - Status
+        
+        console.log(`🔍 Row ${index + 1}: Name="${name}", Address="${address}", Type="${blockchainType}", Status="${status}"`);
         
         // Only process if address is NOT empty AND status is "Working"
         if (address && address.trim() !== '' && 
@@ -64,7 +61,11 @@ async function readWalletsFromSettings() {
           console.log(`✅ Loaded wallet: ${name} (${blockchainType})`);
         } else if (address && address.trim() !== '') {
           console.log(`⚠️ Skipping wallet "${name}" - status not "Working" or missing blockchain type`);
+        } else {
+          console.log(`⚠️ Skipping empty row ${index + 1}`);
         }
+      } else {
+        console.log(`⚠️ Skipping invalid row ${index + 1} (length: ${row ? row.length : 0})`);
       }
     });
     
@@ -72,6 +73,10 @@ async function readWalletsFromSettings() {
     
     if (Object.keys(wallets).length === 0) {
       console.log(`⚠️ No active wallets found. Check Settings T3:X17 for wallet configurations.`);
+      console.log(`🔍 Make sure wallets have:`);
+      console.log(`   - Address filled in column U`);
+      console.log(`   - Blockchain type filled in column V`);
+      console.log(`   - Status set to "Working" in column X`);
     }
     
     return wallets;

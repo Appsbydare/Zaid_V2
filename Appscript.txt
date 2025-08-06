@@ -429,8 +429,51 @@ function updateApiStatusTable(apiStatus) {
       sheet.getRange(3, 1, statusRows.length, statusRows[0].length).setValues(statusRows);
       console.log(`✅ Updated ${statusRows.length} API statuses in Settings.`);
     }
+    
+    // Update wallet statuses in the DECENTRALIZED WALLETS table
+    updateWalletStatuses(apiStatus);
   } catch (error) {
     console.error("❌ Error updating API status:", error);
+  }
+}
+
+// ===========================================
+// NEW: WALLET STATUS UPDATER FOR DECENTRALIZED WALLETS
+// ===========================================
+
+function updateWalletStatuses(apiStatus) {
+  try {
+    const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName(CONFIG.SETTINGS_SHEET);
+    if (!sheet) return;
+    
+    // Read the current wallet table (T3:X17)
+    const walletRange = sheet.getRange('T3:X17');
+    const walletData = walletRange.getValues();
+    
+    // Update statuses based on apiStatus
+    for (let i = 0; i < walletData.length; i++) {
+      const row = walletData[i];
+      const walletName = row[0]; // Column T - Name
+      const walletAddress = row[1]; // Column U - Address
+      const blockchainType = row[2]; // Column V - Blockchain Type
+      const apiKey = row[3]; // Column W - API Key
+      const currentStatus = row[4]; // Column X - Status
+      
+      // Only update if wallet has an address and blockchain type
+      if (walletName && walletAddress && blockchainType) {
+        // Check if this wallet exists in apiStatus
+        if (apiStatus[walletName]) {
+          const newStatus = apiStatus[walletName].status;
+          // Update the status cell (Column X)
+          sheet.getRange(3 + i, 24).setValue(newStatus); // Column X is 24th column
+          console.log(`✅ Updated ${walletName} status to: ${newStatus}`);
+        }
+      }
+    }
+    
+    console.log("✅ Updated wallet statuses in DECENTRALIZED WALLETS table");
+  } catch (error) {
+    console.error("❌ Error updating wallet statuses:", error);
   }
 }
 

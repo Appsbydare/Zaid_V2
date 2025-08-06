@@ -1,5 +1,60 @@
 import crypto from 'crypto';
 
+// ===========================================
+// WALLET CONFIGURATION READER FROM SETTINGS
+// ===========================================
+
+async function readWalletsFromSettings() {
+  try {
+    console.log('🔧 Reading wallet configurations from Settings...');
+    
+    const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
+    const range = 'SETTINGS!T3:X17'; // Read all wallet data
+    
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=${range}`;
+    const response = await fetch(csvUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch wallet data: ${response.status}`);
+    }
+    
+    const csvText = await response.text();
+    const rows = parseCSV(csvText);
+    
+    const wallets = {};
+    
+    rows.forEach(row => {
+      if (row && row.length >= 5) {
+        const name = row[0];        // Column T - Name
+        const address = row[1];     // Column U - Wallet Address
+        const blockchainType = row[2]; // Column V - Blockchain Type
+        const apiKey = row[3];      // Column W - API Key
+        const status = row[4];      // Column X - Status
+        
+        // Only process if address is NOT empty AND status is "Working"
+        if (address && address.trim() !== '' && 
+            blockchainType && blockchainType.trim() !== '' && 
+            status === 'Working') {
+          wallets[name] = {
+            address: address.trim(),
+            blockchainType: blockchainType.trim(),
+            apiKey: apiKey || '',
+            status: status
+          };
+          console.log(`✅ Loaded wallet: ${name} (${blockchainType})`);
+        }
+      }
+    });
+    
+    console.log(`📊 Total active wallets loaded: ${Object.keys(wallets).length}`);
+    return wallets;
+    
+  } catch (error) {
+    console.error('❌ Error reading wallets from Settings:', error);
+    return {};
+  }
+}
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -118,18 +173,12 @@ async function fetchLiveWalletBalances() {
     }
   }
 
-  // Blockchain Wallets
-  const wallets = {
-    "Bitcoin Wallet": "bc1qkuefzcmc6c8enw9f7a2e9w2hy964q3jgwcv35g",
-    "Ethereum Wallet": "0x856851a1d5111330729744f95238e5D810ba773c",
-    "TRON Wallet": "TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN",
-    "Solana Wallet": "BURkHx6BNTqryY3sCqXcYNVkhN6Mz3ttDUdGQ6hXuX4n",
-    "BEP20 Wallet": "0x856851a1d5111330729744f95238e5D810ba773c"
-  };
-
-  for (const [name, address] of Object.entries(wallets)) {
+  // Blockchain Wallets - Read from Settings
+  const wallets = await readWalletsFromSettings();
+  
+  for (const [name, walletConfig] of Object.entries(wallets)) {
     try {
-      const walletBalance = await fetchBlockchainBalance(name, address);
+      const walletBalance = await fetchBlockchainBalance(name, walletConfig.address);
       balances[name] = walletBalance;
     } catch (error) {
       console.error(`Error fetching ${name}:`, error.message);

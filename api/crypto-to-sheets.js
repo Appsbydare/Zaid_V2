@@ -7,6 +7,111 @@ import { GoogleAuth } from 'google-auth-library';
 import { google } from 'googleapis';
 import crypto from 'crypto';
 
+// ===========================================
+// NEW: WALLET CONFIGURATION READER FROM SETTINGS
+// ===========================================
+
+async function readWalletsFromSettings(sheets, spreadsheetId) {
+  try {
+    console.log('🔧 Reading wallet configurations from Settings...');
+    
+    const range = 'SETTINGS!T3:X17'; // Read all wallet data
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: range
+    });
+    
+    const wallets = {};
+    const data = response.data.values || [];
+    
+    console.log(`📊 Found ${data.length} wallet rows in Settings`);
+    
+    data.forEach((row, index) => {
+      if (row && row.length >= 5) {
+        const name = row[0];        // Column T - Name
+        const address = row[1];     // Column U - Wallet Address
+        const blockchainType = row[2]; // Column V - Blockchain Type
+        const apiKey = row[3];      // Column W - API Key
+        const status = row[4];      // Column X - Status
+        
+        // Only process if address is NOT empty AND status is "Working"
+        if (address && address.trim() !== '' && 
+            blockchainType && blockchainType.trim() !== '' && 
+            status === 'Working') {
+          wallets[name] = {
+            address: address.trim(),
+            blockchainType: blockchainType.trim(),
+            apiKey: apiKey || '',
+            status: status
+          };
+          console.log(`✅ Loaded wallet: ${name} (${blockchainType})`);
+        } else if (address && address.trim() !== '') {
+          console.log(`⚠️ Skipping wallet "${name}" - status not "Working" or missing blockchain type`);
+        }
+      }
+    });
+    
+    console.log(`📊 Total active wallets loaded: ${Object.keys(wallets).length}`);
+    return wallets;
+    
+  } catch (error) {
+    console.error('❌ Error reading wallets from Settings:', error);
+    return {};
+  }
+}
+
+// ===========================================
+// NEW: WALLET STATUS UPDATER FOR APPS SCRIPT
+// ===========================================
+
+async function updateWalletStatusInSettings(sheets, spreadsheetId, walletStatuses) {
+  try {
+    console.log('🔧 Updating wallet statuses in Settings...');
+    
+    const range = 'SETTINGS!T3:X17';
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: range
+    });
+    
+    const data = response.data.values || [];
+    const updates = [];
+    
+    data.forEach((row, index) => {
+      if (row && row.length >= 5) {
+        const name = row[0];
+        const address = row[1];
+        
+        if (address && address.trim() !== '') {
+          const rowNumber = index + 3; // Row 3 starts the data
+          const status = walletStatuses[name] || 'Error';
+          
+          updates.push({
+            range: `SETTINGS!X${rowNumber}`,
+            values: [[status]]
+          });
+        }
+      }
+    });
+    
+    if (updates.length > 0) {
+      const batchUpdateRequest = {
+        spreadsheetId,
+        requestBody: {
+          valueInputOption: 'RAW',
+          data: updates
+        }
+      };
+      
+      await sheets.spreadsheets.values.batchUpdate(batchUpdateRequest);
+      console.log(`✅ Updated ${updates.length} wallet statuses in Settings`);
+    }
+    
+  } catch (error) {
+    console.error('❌ Error updating wallet statuses:', error);
+  }
+}
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -168,116 +273,72 @@ export default async function handler(req, res) {
     }
 
     // ===========================================
-    // STEP 4: BLOCKCHAIN DATA (UNCHANGED)
+    // STEP 4: BLOCKCHAIN DATA (DYNAMIC FROM SETTINGS)
     // ===========================================
-    debugLogs.push('🔧 Fetching blockchain data...');
+    debugLogs.push('🔧 Fetching blockchain data from Settings...');
     
-    const wallets = {
-      BTC: "bc1qkuefzcmc6c8enw9f7a2e9w2hy964q3jgwcv35g",
-      ETH: "0x856851a1d5111330729744f95238e5D810ba773c",
-      TRON: "TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN",
-      SOL: "BURkHx6BNTqryY3sCqXcYNVkhN6Mz3ttDUdGQ6hXuX4n"
-    };
-
-    // Bitcoin API
-    try {
-      debugLogs.push('🔧 Testing Bitcoin API...');
-      const btcTxs = await fetchBitcoinEnhanced(wallets.BTC, filterDate);
-      allTransactions.push(...btcTxs);
-      totalTransactionsFound += btcTxs.length;
-      apiStatusResults['Bitcoin Wallet'] = {
-        status: btcTxs.length > 0 ? 'Active' : 'Warning',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `🔧 ${btcTxs.length} transactions found`,
-        transactionCount: btcTxs.length
-      };
-      debugLogs.push(`✅ Bitcoin: ${btcTxs.length} transactions`);
-    } catch (error) {
-      apiStatusResults['Bitcoin Wallet'] = {
-        status: 'Error',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `❌ ${error.message}`,
-        transactionCount: 0
-      };
-      debugLogs.push(`❌ Bitcoin error: ${error.message}`);
+    // Read wallet configurations from Settings
+    const wallets = await readWalletsFromSettings(sheets, spreadsheetId);
+    const walletStatuses = {}; // Track status for Apps Script update
+    
+    // Process each wallet based on blockchain type
+    for (const [walletName, walletConfig] of Object.entries(wallets)) {
+      try {
+        debugLogs.push(`🔧 Processing ${walletName} (${walletConfig.blockchainType})...`);
+        
+        let transactions = [];
+        
+        switch (walletConfig.blockchainType) {
+          case 'bitcoin':
+            transactions = await fetchBitcoinEnhanced(walletConfig.address, filterDate);
+            break;
+          case 'ethereum':
+            transactions = await fetchEthereumEnhanced(walletConfig.address, filterDate, walletConfig.apiKey);
+            break;
+          case 'tron':
+            transactions = await fetchTronEnhanced(walletConfig.address, filterDate);
+            break;
+          case 'solana':
+            transactions = await fetchSolanaEnhanced(walletConfig.address, filterDate);
+            break;
+          default:
+            debugLogs.push(`⚠️ Unknown blockchain type: ${walletConfig.blockchainType}`);
+            walletStatuses[walletName] = 'Error';
+            continue;
+        }
+        
+        allTransactions.push(...transactions);
+        totalTransactionsFound += transactions.length;
+        
+        const walletStatus = transactions.length > 0 ? 'Active' : 'Warning';
+        walletStatuses[walletName] = walletStatus;
+        
+        apiStatusResults[walletName] = {
+          status: walletStatus,
+          lastSync: new Date().toISOString(),
+          autoUpdate: 'Every Hour',
+          notes: `🔧 ${transactions.length} transactions found`,
+          transactionCount: transactions.length
+        };
+        
+        debugLogs.push(`✅ ${walletName}: ${transactions.length} transactions`);
+        
+      } catch (error) {
+        debugLogs.push(`❌ ${walletName} error: ${error.message}`);
+        walletStatuses[walletName] = 'Error';
+        
+        apiStatusResults[walletName] = {
+          status: 'Error',
+          lastSync: new Date().toISOString(),
+          autoUpdate: 'Every Hour',
+          notes: `❌ ${error.message}`,
+          transactionCount: 0
+        };
+      }
     }
-
-    // Ethereum API
-    try {
-      debugLogs.push('🔧 Testing Ethereum API...');
-      const ethTxs = await fetchEthereumEnhanced(wallets.ETH, filterDate);
-      allTransactions.push(...ethTxs);
-      totalTransactionsFound += ethTxs.length;
-      apiStatusResults['Ethereum Wallet'] = {
-        status: 'Active',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `🔧 ${ethTxs.length} transactions found`,
-        transactionCount: ethTxs.length
-      };
-      debugLogs.push(`✅ Ethereum: ${ethTxs.length} transactions`);
-    } catch (error) {
-      apiStatusResults['Ethereum Wallet'] = {
-        status: 'Error',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `❌ ${error.message}`,
-        transactionCount: 0
-      };
-      debugLogs.push(`❌ Ethereum error: ${error.message}`);
-    }
-
-    // TRON API
-    try {
-      debugLogs.push('🔧 Testing TRON API...');
-      const tronTxs = await fetchTronEnhanced(wallets.TRON, filterDate);
-      allTransactions.push(...tronTxs);
-      totalTransactionsFound += tronTxs.length;
-      apiStatusResults['TRON Wallet'] = {
-        status: 'Active',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `🔧 ${tronTxs.length} transactions found`,
-        transactionCount: tronTxs.length
-      };
-      debugLogs.push(`✅ TRON: ${tronTxs.length} transactions`);
-    } catch (error) {
-      apiStatusResults['TRON Wallet'] = {
-        status: 'Error',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `❌ ${error.message}`,
-        transactionCount: 0
-      };
-      debugLogs.push(`❌ TRON error: ${error.message}`);
-    }
-
-    // Solana API
-    try {
-      debugLogs.push('🔧 Testing Solana API...');
-      const solTxs = await fetchSolanaEnhanced(wallets.SOL, filterDate);
-      allTransactions.push(...solTxs);
-      totalTransactionsFound += solTxs.length;
-      apiStatusResults['Solana Wallet'] = {
-        status: 'Active',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `🔧 ${solTxs.length} transactions found`,
-        transactionCount: solTxs.length
-      };
-      debugLogs.push(`✅ Solana: ${solTxs.length} transactions`);
-    } catch (error) {
-      apiStatusResults['Solana Wallet'] = {
-        status: 'Error',
-        lastSync: new Date().toISOString(),
-        autoUpdate: 'Every Hour',
-        notes: `❌ ${error.message}`,
-        transactionCount: 0
-      };
-      debugLogs.push(`❌ Solana error: ${error.message}`);
-    }
+    
+    // Update wallet statuses in Settings for Apps Script
+    await updateWalletStatusInSettings(sheets, spreadsheetId, walletStatuses);
 
     // ===========================================
     // STEP 5: WRITE TO GOOGLE SHEETS WITH FIXES
@@ -1153,11 +1214,11 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
   return transactions;
 }
 
-async function fetchEthereumEnhanced(address, filterDate) {
+async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
   try {
-    // Use hardcoded API key for now
-    const apiKey = "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
-    const endpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${apiKey}`;
+    // Use provided API key or fallback to default
+    const etherscanApiKey = apiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+    const endpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
     
     const response = await fetch(endpoint);
     

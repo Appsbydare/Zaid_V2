@@ -287,8 +287,17 @@ export default async function handler(req, res) {
     debugLogs.push('🔧 Fetching blockchain data from Settings...');
     
     // Read wallet configurations from Settings
-    const wallets = await readWalletsFromSettings();
-    const walletStatuses = {}; // Track status for Apps Script update
+    let wallets = {};
+    let walletStatuses = {}; // Track status for Apps Script update
+    
+    try {
+      console.log('🔧 Attempting to read wallets from Settings...');
+      wallets = await readWalletsFromSettings();
+      console.log(`🔧 Successfully read wallets from Settings`);
+    } catch (error) {
+      console.error('❌ Error reading wallets from Settings:', error);
+      wallets = {};
+    }
     
     console.log(`🔧 Processing ${Object.keys(wallets).length} wallets from Settings...`);
     

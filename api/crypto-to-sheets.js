@@ -20,6 +20,8 @@ async function readWalletsFromSettings() {
     
     // Use CSV method since sheets object is not available here
     const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=${range}`;
+    console.log(`🔍 CSV URL: ${csvUrl}`);
+    
     const response = await fetch(csvUrl);
     
     if (!response.ok) {
@@ -27,7 +29,11 @@ async function readWalletsFromSettings() {
     }
     
     const csvText = await response.text();
+    console.log(`📄 CSV Response length: ${csvText.length} characters`);
+    console.log(`📄 CSV Response preview: ${csvText.substring(0, 200)}...`);
+    
     const rows = parseCSV(csvText);
+    console.log(`📊 Parsed ${rows.length} rows from CSV`);
     
     const wallets = {};
     
@@ -59,6 +65,11 @@ async function readWalletsFromSettings() {
     });
     
     console.log(`📊 Total active wallets loaded: ${Object.keys(wallets).length}`);
+    
+    if (Object.keys(wallets).length === 0) {
+      console.log(`⚠️ No active wallets found. Check Settings T3:X17 for wallet configurations.`);
+    }
+    
     return wallets;
     
   } catch (error) {
@@ -278,6 +289,8 @@ export default async function handler(req, res) {
     // Read wallet configurations from Settings
     const wallets = await readWalletsFromSettings();
     const walletStatuses = {}; // Track status for Apps Script update
+    
+    console.log(`🔧 Processing ${Object.keys(wallets).length} wallets from Settings...`);
     
     // Process each wallet based on blockchain type
     for (const [walletName, walletConfig] of Object.entries(wallets)) {

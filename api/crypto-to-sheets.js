@@ -11,22 +11,29 @@ import crypto from 'crypto';
 // NEW: WALLET CONFIGURATION READER FROM SETTINGS
 // ===========================================
 
-async function readWalletsFromSettings(sheets, spreadsheetId) {
+async function readWalletsFromSettings() {
   try {
     console.log('🔧 Reading wallet configurations from Settings...');
     
+    const spreadsheetId = "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y";
     const range = 'SETTINGS!T3:X17'; // Read all wallet data
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range: range
-    });
+    
+    // Use CSV method since sheets object is not available here
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=${range}`;
+    const response = await fetch(csvUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch wallet data: ${response.status}`);
+    }
+    
+    const csvText = await response.text();
+    const rows = parseCSV(csvText);
     
     const wallets = {};
-    const data = response.data.values || [];
     
-    console.log(`📊 Found ${data.length} wallet rows in Settings`);
+    console.log(`📊 Found ${rows.length} wallet rows in Settings`);
     
-    data.forEach((row, index) => {
+    rows.forEach((row, index) => {
       if (row && row.length >= 5) {
         const name = row[0];        // Column T - Name
         const address = row[1];     // Column U - Wallet Address
@@ -61,56 +68,47 @@ async function readWalletsFromSettings(sheets, spreadsheetId) {
 }
 
 // ===========================================
-// NEW: WALLET STATUS UPDATER FOR APPS SCRIPT
+// CSV PARSER FUNCTION
 // ===========================================
 
-async function updateWalletStatusInSettings(sheets, spreadsheetId, walletStatuses) {
-  try {
-    console.log('🔧 Updating wallet statuses in Settings...');
-    
-    const range = 'SETTINGS!T3:X17';
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range: range
-    });
-    
-    const data = response.data.values || [];
-    const updates = [];
-    
-    data.forEach((row, index) => {
-      if (row && row.length >= 5) {
-        const name = row[0];
-        const address = row[1];
+function parseCSV(csvText) {
+  const lines = csvText.split('\n');
+  const rows = [];
+  
+  for (const line of lines) {
+    if (line.trim()) {
+      // Simple CSV parsing - split by comma and handle quoted fields
+      const row = [];
+      let current = '';
+      let inQuotes = false;
+      
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
         
-        if (address && address.trim() !== '') {
-          const rowNumber = index + 3; // Row 3 starts the data
-          const status = walletStatuses[name] || 'Error';
-          
-          updates.push({
-            range: `SETTINGS!X${rowNumber}`,
-            values: [[status]]
-          });
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          row.push(current.trim());
+          current = '';
+        } else {
+          current += char;
         }
       }
-    });
-    
-    if (updates.length > 0) {
-      const batchUpdateRequest = {
-        spreadsheetId,
-        requestBody: {
-          valueInputOption: 'RAW',
-          data: updates
-        }
-      };
       
-      await sheets.spreadsheets.values.batchUpdate(batchUpdateRequest);
-      console.log(`✅ Updated ${updates.length} wallet statuses in Settings`);
+      row.push(current.trim());
+      rows.push(row);
     }
-    
-  } catch (error) {
-    console.error('❌ Error updating wallet statuses:', error);
   }
+  
+  return rows;
 }
+
+// ===========================================
+// WALLET STATUS TRACKING (for Apps Script)
+// ===========================================
+
+// Note: Wallet status updates are handled by Apps Script
+// The walletStatuses object tracks status for each wallet
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -278,7 +276,7 @@ export default async function handler(req, res) {
     debugLogs.push('🔧 Fetching blockchain data from Settings...');
     
     // Read wallet configurations from Settings
-    const wallets = await readWalletsFromSettings(sheets, spreadsheetId);
+    const wallets = await readWalletsFromSettings();
     const walletStatuses = {}; // Track status for Apps Script update
     
     // Process each wallet based on blockchain type
@@ -337,8 +335,8 @@ export default async function handler(req, res) {
       }
     }
     
-    // Update wallet statuses in Settings for Apps Script
-    await updateWalletStatusInSettings(sheets, spreadsheetId, walletStatuses);
+    // Note: Wallet status updates will be handled by Apps Script
+    // The walletStatuses object contains the status for each wallet
 
     // ===========================================
     // STEP 5: WRITE TO GOOGLE SHEETS WITH FIXES

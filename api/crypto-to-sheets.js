@@ -19,7 +19,7 @@ async function readWalletsFromSettings() {
     const range = 'SETTINGS!T3:X17'; // Read all wallet data
     
     // Use CSV method since sheets object is not available here
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=${range}`;
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS`;
     console.log(`🔍 CSV URL: ${csvUrl}`);
     
     const response = await fetch(csvUrl);
@@ -35,11 +35,15 @@ async function readWalletsFromSettings() {
     const rows = parseCSV(csvText);
     console.log(`📊 Parsed ${rows.length} rows from CSV`);
     
+    // Filter rows to only get T3:X17 range (columns T-X, rows 3-17)
+    const filteredRows = rows.slice(2, 17).map(row => row.slice(19, 24)); // T=19, X=24
+    console.log(`📊 Filtered ${filteredRows.length} wallet rows (T3:X17)`);
+    
     const wallets = {};
     
-    console.log(`📊 Found ${rows.length} wallet rows in Settings`);
+    console.log(`📊 Found ${filteredRows.length} wallet rows in Settings`);
     
-    rows.forEach((row, index) => {
+    filteredRows.forEach((row, index) => {
       if (row && row.length >= 5) {
         const name = row[0];        // Column T - Name
         const address = row[1];     // Column U - Wallet Address

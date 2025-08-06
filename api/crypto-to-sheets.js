@@ -285,6 +285,7 @@ export default async function handler(req, res) {
     // STEP 4: BLOCKCHAIN DATA (DYNAMIC FROM SETTINGS)
     // ===========================================
     debugLogs.push('🔧 Fetching blockchain data from Settings...');
+    debugLogs.push('🔧 About to read wallets from Settings...');
     
     // Read wallet configurations from Settings
     let wallets = {};
@@ -300,6 +301,7 @@ export default async function handler(req, res) {
     }
     
     console.log(`🔧 Processing ${Object.keys(wallets).length} wallets from Settings...`);
+    debugLogs.push(`🔧 Processing ${Object.keys(wallets).length} wallets from Settings...`);
     
     // Process each wallet based on blockchain type
     for (const [walletName, walletConfig] of Object.entries(wallets)) {

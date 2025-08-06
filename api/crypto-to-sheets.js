@@ -48,19 +48,18 @@ async function readWalletsFromSettings() {
         
         console.log(`🔍 Row ${index + 1}: Name="${name}", Address="${address}", Type="${blockchainType}", Status="${status}"`);
         
-        // Only process if address is NOT empty AND status is "Working"
+        // Only process if address is NOT empty AND blockchain type is provided
         if (address && address.trim() !== '' && 
-            blockchainType && blockchainType.trim() !== '' && 
-            status === 'Working') {
+            blockchainType && blockchainType.trim() !== '') {
           wallets[name] = {
             address: address.trim(),
             blockchainType: blockchainType.trim(),
             apiKey: apiKey || '',
             status: status
           };
-          console.log(`✅ Loaded wallet: ${name} (${blockchainType})`);
+          console.log(`✅ Loaded wallet: ${name} (${blockchainType}) - Current Status: ${status}`);
         } else if (address && address.trim() !== '') {
-          console.log(`⚠️ Skipping wallet "${name}" - status not "Working" or missing blockchain type`);
+          console.log(`⚠️ Skipping wallet "${name}" - missing blockchain type`);
         } else {
           console.log(`⚠️ Skipping empty row ${index + 1}`);
         }
@@ -76,7 +75,7 @@ async function readWalletsFromSettings() {
       console.log(`🔍 Make sure wallets have:`);
       console.log(`   - Address filled in column U`);
       console.log(`   - Blockchain type filled in column V`);
-      console.log(`   - Status set to "Working" in column X`);
+      console.log(`   - Status will be automatically updated based on connection test`);
     }
     
     return wallets;
@@ -341,7 +340,15 @@ export default async function handler(req, res) {
         allTransactions.push(...transactions);
         totalTransactionsFound += transactions.length;
         
-        const walletStatus = transactions.length > 0 ? 'Active' : 'Warning';
+        // Determine status based on connection and data
+        let walletStatus = 'Not Working';
+        if (transactions.length > 0) {
+          walletStatus = 'Working';
+        } else {
+          // Check if connection was successful but no new transactions
+          walletStatus = 'Working'; // Connection successful, just no new data
+        }
+        
         walletStatuses[walletName] = walletStatus;
         
         apiStatusResults[walletName] = {
@@ -352,7 +359,7 @@ export default async function handler(req, res) {
           transactionCount: transactions.length
         };
         
-        debugLogs.push(`✅ ${walletName}: ${transactions.length} transactions`);
+        debugLogs.push(`✅ ${walletName}: ${transactions.length} transactions - Status: ${walletStatus}`);
         
       } catch (error) {
         debugLogs.push(`❌ ${walletName} error: ${error.message}`);

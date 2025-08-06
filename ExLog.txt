@@ -1,88 +1,88 @@
 Execution log
-2:09:56 PM	Notice	Execution started
-2:09:56 PM	Info	🚀 Starting Vercel-mode crypto data fetch...
-2:09:56 PM	Info	📡 Triggering Vercel data fetch...
-2:09:56 PM	Info	📡 Triggering Vercel data fetch...
-2:09:56 PM	Info	🔍 Debugging credential reading...
-2:09:56 PM	Info	🔍 L3 (Binance CV Key): "jdKlhQcdPyOEykfdGB2FFsCKGnmzfqkJ9gsmCuEaHS00l8LfDPkMEWtY8nDUVbNn"
-2:09:56 PM	Info	🔍 M3 (Binance CV Secret): "JanQSThz1NOvinAaOWcPkP86CoxULBFJ5BDxfyk0hhM3mlR1RYgB59RIn3lQMQEt"
-2:09:56 PM	Info	✅ Loaded Binance CV credentials
-2:09:56 PM	Info	🔍 L4 (Binance GC Key): "IvyPBHtjvptofGoxMPCGyQ6fDWo82bBTzNbACRTSPcfF23Onht8fL6jKfAL2QzRk"
-2:09:56 PM	Info	🔍 M4 (Binance GC Secret): "Gw3nor0p0NYJpXkGHSshLh9QjFMwUy97cAwPwBniifvm0ivvhmxyika4OKhxioBH"
-2:09:56 PM	Info	✅ Loaded Binance GC credentials
-2:09:56 PM	Info	🔍 L5 (Binance Main Key): "LYG4Tp1wnBF0Xzuu9pKVcIYB2UJcV6nGQmCVGtcNKnA4mJLYVyTfMCcIUZt7Vksu"
-2:09:56 PM	Info	🔍 M5 (Binance Main Secret): "VRZUaxPNKQBuVVA81mhpS04xQ9xylh8Gr6HTL2Dl5ThhKYy71GqRenFS0XA0GG8N"
-2:09:56 PM	Info	✅ Loaded Binance Main credentials
-2:09:56 PM	Info	🔍 L6 (ByBit Key): "vqL52uDhkej3tyGUaP"
-2:09:56 PM	Info	🔍 M6 (ByBit Secret): "B043tPnaVGON5P5W3eCo4cDFDqEXcx7fB2sl"
-2:09:56 PM	Info	✅ Loaded ByBit credentials
-2:09:57 PM	Info	🔍 L8 (Bitget Key): "bg_b42408b0fdce16b4ce7d8412c6920820"
-2:09:57 PM	Info	🔍 M8 (Bitget Secret): "1dc8a168bf7e0bbe01921f5f707e6be46cfe907b202687b9705a7aeb20bdfaa8"
-2:09:57 PM	Info	🔍 N8 (Bitget Passphrase): "Darshana1"
-2:09:57 PM	Info	🔍 L8 cell type: string, length: 35
-2:09:57 PM	Info	🔍 M8 cell type: string, length: 64
-2:09:57 PM	Info	🔍 N8 cell type: string, length: 9
-2:09:57 PM	Info	✅ Loaded Bitget credentials
-2:09:57 PM	Info	   - Key: bg_b42408b...
-2:09:57 PM	Info	   - Secret: 1dc8a168bf...
-2:09:57 PM	Info	   - Passphrase (raw): "Darshana1"
-2:09:57 PM	Info	   - Passphrase (trimmed): "Darshana1"
-2:09:57 PM	Info	🔑 Total credentials loaded: 5
-2:09:57 PM	Info	🔑 Credential keys: BINANCE_CV, BINANCE_GC_API, BINANCE_MAIN_API, BYBIT_API, BITGET_API
-2:09:57 PM	Info	🔑 Loaded API credentials: [ 'BINANCE_CV',
+2:24:27 PM	Notice	Execution started
+2:24:27 PM	Info	🚀 Starting Vercel-mode crypto data fetch...
+2:24:27 PM	Info	📡 Triggering Vercel data fetch...
+2:24:27 PM	Info	📡 Triggering Vercel data fetch...
+2:24:27 PM	Info	🔍 Debugging credential reading...
+2:24:27 PM	Info	🔍 L3 (Binance CV Key): "jdKlhQcdPyOEykfdGB2FFsCKGnmzfqkJ9gsmCuEaHS00l8LfDPkMEWtY8nDUVbNn"
+2:24:27 PM	Info	🔍 M3 (Binance CV Secret): "JanQSThz1NOvinAaOWcPkP86CoxULBFJ5BDxfyk0hhM3mlR1RYgB59RIn3lQMQEt"
+2:24:27 PM	Info	✅ Loaded Binance CV credentials
+2:24:27 PM	Info	🔍 L4 (Binance GC Key): "IvyPBHtjvptofGoxMPCGyQ6fDWo82bBTzNbACRTSPcfF23Onht8fL6jKfAL2QzRk"
+2:24:27 PM	Info	🔍 M4 (Binance GC Secret): "Gw3nor0p0NYJpXkGHSshLh9QjFMwUy97cAwPwBniifvm0ivvhmxyika4OKhxioBH"
+2:24:27 PM	Info	✅ Loaded Binance GC credentials
+2:24:27 PM	Info	🔍 L5 (Binance Main Key): "LYG4Tp1wnBF0Xzuu9pKVcIYB2UJcV6nGQmCVGtcNKnA4mJLYVyTfMCcIUZt7Vksu"
+2:24:27 PM	Info	🔍 M5 (Binance Main Secret): "VRZUaxPNKQBuVVA81mhpS04xQ9xylh8Gr6HTL2Dl5ThhKYy71GqRenFS0XA0GG8N"
+2:24:27 PM	Info	✅ Loaded Binance Main credentials
+2:24:27 PM	Info	🔍 L6 (ByBit Key): "vqL52uDhkej3tyGUaP"
+2:24:27 PM	Info	🔍 M6 (ByBit Secret): "B043tPnaVGON5P5W3eCo4cDFDqEXcx7fB2sl"
+2:24:27 PM	Info	✅ Loaded ByBit credentials
+2:24:27 PM	Info	🔍 L8 (Bitget Key): "bg_b42408b0fdce16b4ce7d8412c6920820"
+2:24:27 PM	Info	🔍 M8 (Bitget Secret): "1dc8a168bf7e0bbe01921f5f707e6be46cfe907b202687b9705a7aeb20bdfaa8"
+2:24:27 PM	Info	🔍 N8 (Bitget Passphrase): "Darshana1"
+2:24:27 PM	Info	🔍 L8 cell type: string, length: 35
+2:24:27 PM	Info	🔍 M8 cell type: string, length: 64
+2:24:27 PM	Info	🔍 N8 cell type: string, length: 9
+2:24:27 PM	Info	✅ Loaded Bitget credentials
+2:24:27 PM	Info	   - Key: bg_b42408b...
+2:24:27 PM	Info	   - Secret: 1dc8a168bf...
+2:24:27 PM	Info	   - Passphrase (raw): "Darshana1"
+2:24:27 PM	Info	   - Passphrase (trimmed): "Darshana1"
+2:24:27 PM	Info	🔑 Total credentials loaded: 5
+2:24:27 PM	Info	🔑 Credential keys: BINANCE_CV, BINANCE_GC_API, BINANCE_MAIN_API, BYBIT_API, BITGET_API
+2:24:27 PM	Info	🔑 Loaded API credentials: [ 'BINANCE_CV',
   'BINANCE_GC_API',
   'BINANCE_MAIN_API',
   'BYBIT_API',
   'BITGET_API' ]
-2:09:57 PM	Info	🔍 Bitget credentials found:
-2:09:57 PM	Info	   - API Key: ✅ Present
-2:09:57 PM	Info	   - API Secret: ✅ Present
-2:09:57 PM	Info	   - Key length: 35
-2:09:57 PM	Info	   - Secret length: 64
-2:09:57 PM	Info	🔍 All credential keys available: [ 'BINANCE_CV',
+2:24:27 PM	Info	🔍 Bitget credentials found:
+2:24:27 PM	Info	   - API Key: ✅ Present
+2:24:27 PM	Info	   - API Secret: ✅ Present
+2:24:27 PM	Info	   - Key length: 35
+2:24:27 PM	Info	   - Secret length: 64
+2:24:27 PM	Info	🔍 All credential keys available: [ 'BINANCE_CV',
   'BINANCE_GC_API',
   'BINANCE_MAIN_API',
   'BYBIT_API',
   'BITGET_API' ]
-2:09:57 PM	Info	   - BINANCE_CV: ✅ Key, ✅ Secret
-2:09:57 PM	Info	   - BINANCE_GC_API: ✅ Key, ✅ Secret
-2:09:57 PM	Info	   - BINANCE_MAIN_API: ✅ Key, ✅ Secret
-2:09:57 PM	Info	   - BYBIT_API: ✅ Key, ✅ Secret
-2:09:57 PM	Info	   - BITGET_API: ✅ Key, ✅ Secret
-2:10:03 PM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
-2:10:03 PM	Info	🚀 Starting FIXED crypto data fetch...
-2:10:03 PM	Info	📅 Filtering transactions after: 2025-08-04T08:35:54.789Z
-2:10:03 PM	Info	📅 Filter date object: 2025-08-04T08:35:54.789Z
-2:10:03 PM	Info	🔧 Testing Binance APIs with credentials from Apps Script...
-2:10:03 PM	Info	🔑 Received 5 credential sets from Apps Script
-2:10:03 PM	Info	🔧 Processing Binance (GC) with credentials...
-2:10:03 PM	Info	  💰 Binance (GC) deposits: 1
-2:10:03 PM	Info	  📤 Binance (GC) withdrawals: 2
-2:10:03 PM	Info	  🤝 Binance (GC) P2P: 0
-2:10:03 PM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
-2:10:03 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-2:10:03 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754469597907,"recvWindow":5000,"limit":100,"startTime":1754296554789}
-2:10:03 PM	Info	        [PAY DEBUG] Response Status: 200
-2:10:03 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
-2:10:03 PM	Info	        [PAY DEBUG] Parsed Data: {
+2:24:27 PM	Info	   - BINANCE_CV: ✅ Key, ✅ Secret
+2:24:27 PM	Info	   - BINANCE_GC_API: ✅ Key, ✅ Secret
+2:24:27 PM	Info	   - BINANCE_MAIN_API: ✅ Key, ✅ Secret
+2:24:27 PM	Info	   - BYBIT_API: ✅ Key, ✅ Secret
+2:24:27 PM	Info	   - BITGET_API: ✅ Key, ✅ Secret
+2:24:34 PM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
+2:24:34 PM	Info	🚀 Starting FIXED crypto data fetch...
+2:24:34 PM	Info	📅 Filtering transactions after: 2025-08-04T08:53:50.098Z
+2:24:34 PM	Info	📅 Filter date object: 2025-08-04T08:53:50.098Z
+2:24:34 PM	Info	🔧 Testing Binance APIs with credentials from Apps Script...
+2:24:34 PM	Info	🔑 Received 5 credential sets from Apps Script
+2:24:34 PM	Info	🔧 Processing Binance (GC) with credentials...
+2:24:34 PM	Info	  💰 Binance (GC) deposits: 1
+2:24:34 PM	Info	  📤 Binance (GC) withdrawals: 2
+2:24:34 PM	Info	  🤝 Binance (GC) P2P: 0
+2:24:34 PM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
+2:24:34 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+2:24:34 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754470468562,"recvWindow":5000,"limit":100,"startTime":1754297630098}
+2:24:34 PM	Info	        [PAY DEBUG] Response Status: 200
+2:24:34 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
+2:24:34 PM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [],
   "success": true
 }
-2:10:03 PM	Info	        ℹ️ Pay: No new transactions found.
-2:10:03 PM	Info	  💳 Binance (GC) Pay: 0
-2:10:03 PM	Info	✅ Binance (GC): 3 transactions
-2:10:03 PM	Info	🔧 Processing Binance (Main) with credentials...
-2:10:03 PM	Info	  💰 Binance (Main) deposits: 15
-2:10:03 PM	Info	  📤 Binance (Main) withdrawals: 7
-2:10:03 PM	Info	  🤝 Binance (Main) P2P: 15
-2:10:03 PM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
-2:10:03 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-2:10:03 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754469598440,"recvWindow":5000,"limit":100,"startTime":1754296554789}
-2:10:03 PM	Info	        [PAY DEBUG] Response Status: 200
-2:10:03 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":1028496161,"orderId":"379205596254175232","note":"","orderType":"C2C","transactionId":"P_A1V2C5XU39H71112","transactionTime":1754418167081,"amount":"-9863.57","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9863.57","walletAssetCost":{"1":"9863.57"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":892849335,"orderId":"379145131501535232","note":"","orderType":"C2C","transactionId":"P_A1V259YHXN971117","transactionTime":1754390010744,"amount":"-7252","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"7252","walletAssetCost":{"1":"7252"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-79c83","type":"USER","binanceId":892817144,"accountId":892849335,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":115928493,"orderId":"379006956254183424","note":"","orderType":"C2C","transactionId":"P_A1V1NKA6R1571112","transactionTime":1754325668133,"amount":"-13515.8","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"13515.8","walletAssetCost":{"1":"13515.8"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-0af8d","type":"USER","binanceId":68251320,"accountId":115928493,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"379001557295636480","note":"","orderType":"C2C","transactionId":"P_A1V1MYNA8PS7111A","transactionTime":1754323153810,"amount":"16390","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"16390","walletAssetCost":{"1":"16390"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"}],"success":true}
-2:10:03 PM	Info	        [PAY DEBUG] Parsed Data: {
+2:24:34 PM	Info	        ℹ️ Pay: No new transactions found.
+2:24:34 PM	Info	  💳 Binance (GC) Pay: 0
+2:24:34 PM	Info	✅ Binance (GC): 3 transactions
+2:24:34 PM	Info	🔧 Processing Binance (Main) with credentials...
+2:24:34 PM	Info	  💰 Binance (Main) deposits: 14
+2:24:34 PM	Info	  📤 Binance (Main) withdrawals: 6
+2:24:34 PM	Info	  🤝 Binance (Main) P2P: 15
+2:24:34 PM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
+2:24:34 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+2:24:34 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754470469088,"recvWindow":5000,"limit":100,"startTime":1754297630098}
+2:24:34 PM	Info	        [PAY DEBUG] Response Status: 200
+2:24:34 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":1028496161,"orderId":"379205596254175232","note":"","orderType":"C2C","transactionId":"P_A1V2C5XU39H71112","transactionTime":1754418167081,"amount":"-9863.57","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9863.57","walletAssetCost":{"1":"9863.57"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":892849335,"orderId":"379145131501535232","note":"","orderType":"C2C","transactionId":"P_A1V259YHXN971117","transactionTime":1754390010744,"amount":"-7252","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"7252","walletAssetCost":{"1":"7252"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-79c83","type":"USER","binanceId":892817144,"accountId":892849335,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":115928493,"orderId":"379006956254183424","note":"","orderType":"C2C","transactionId":"P_A1V1NKA6R1571112","transactionTime":1754325668133,"amount":"-13515.8","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"13515.8","walletAssetCost":{"1":"13515.8"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-0af8d","type":"USER","binanceId":68251320,"accountId":115928493,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1112329266,"orderId":"379001557295636480","note":"","orderType":"C2C","transactionId":"P_A1V1MYNA8PS7111A","transactionTime":1754323153810,"amount":"16390","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"16390","walletAssetCost":{"1":"16390"}}],"payerInfo":{"name":"Faisal AlYahya","type":"USER","binanceId":1112336009,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"}],"success":true}
+2:24:34 PM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [
@@ -241,8 +241,8 @@ Execution log
   ],
   "success": true
 }
-2:10:03 PM	Info	        [PAY DEBUG] Found 4 successful transactions.
-2:10:03 PM	Info	        [PAY DEBUG] Processing transaction: {
+2:24:34 PM	Info	        [PAY DEBUG] Found 4 successful transactions.
+2:24:34 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "379205596254175232",
@@ -281,14 +281,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-2:10:03 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-2:10:03 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-2:10:03 PM	Info	        [PAY DEBUG] Processing transaction: {
+2:24:34 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:24:34 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:24:34 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 892849335,
   "orderId": "379145131501535232",
@@ -327,14 +327,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-2:10:03 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-2:10:03 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-2:10:03 PM	Info	        [PAY DEBUG] Processing transaction: {
+2:24:34 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:24:34 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:24:34 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 115928493,
   "orderId": "379006956254183424",
@@ -373,14 +373,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-2:10:03 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-2:10:03 PM	Info	        [PAY DEBUG] Final Type: withdrawal
-2:10:03 PM	Info	        [PAY DEBUG] Processing transaction: {
+2:24:34 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:24:34 PM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:24:34 PM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "379001557295636480",
@@ -415,76 +415,76 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-2:10:03 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-2:10:03 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-2:10:03 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-2:10:03 PM	Info	        [PAY DEBUG] Final Type: deposit
-2:10:03 PM	Info	  💳 Binance (Main) Pay: 4
-2:10:03 PM	Info	✅ Binance (Main): 41 transactions
-2:10:03 PM	Info	🔧 Processing Binance (CV) with credentials...
-2:10:03 PM	Info	  💰 Binance (CV) deposits: 0
-2:10:03 PM	Info	  📤 Binance (CV) withdrawals: 0
-2:10:03 PM	Info	  🤝 Binance (CV) P2P: 0
-2:10:03 PM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
-2:10:03 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-2:10:03 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754469598929,"recvWindow":5000,"limit":100,"startTime":1754296554789}
-2:10:03 PM	Info	        [PAY DEBUG] Response Status: 200
-2:10:03 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
-2:10:03 PM	Info	        [PAY DEBUG] Parsed Data: {
+2:24:34 PM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:24:34 PM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:24:34 PM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:24:34 PM	Info	        [PAY DEBUG] Final Type: deposit
+2:24:34 PM	Info	  💳 Binance (Main) Pay: 4
+2:24:34 PM	Info	✅ Binance (Main): 39 transactions
+2:24:34 PM	Info	🔧 Processing Binance (CV) with credentials...
+2:24:34 PM	Info	  💰 Binance (CV) deposits: 0
+2:24:34 PM	Info	  📤 Binance (CV) withdrawals: 0
+2:24:34 PM	Info	  🤝 Binance (CV) P2P: 0
+2:24:34 PM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
+2:24:34 PM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+2:24:34 PM	Info	        [PAY DEBUG] Request Params: {"timestamp":1754470469590,"recvWindow":5000,"limit":100,"startTime":1754297630098}
+2:24:34 PM	Info	        [PAY DEBUG] Response Status: 200
+2:24:34 PM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
+2:24:34 PM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [],
   "success": true
 }
-2:10:03 PM	Info	        ℹ️ Pay: No new transactions found.
-2:10:03 PM	Info	  💳 Binance (CV) Pay: 0
-2:10:03 PM	Info	✅ Binance (CV): 0 transactions
-2:10:03 PM	Info	🔧 Processing ByBit APIs with credentials from Apps Script...
-2:10:03 PM	Info	🔧 Processing ByBit with credentials...
-2:10:03 PM	Info	✅ ByBit: 10 transactions
-2:10:03 PM	Info	🔧 Processing Bitget APIs with credentials from Apps Script...
-2:10:03 PM	Info	🔧 Processing Bitget with credentials...
-2:10:03 PM	Info	🔍 Bitget Config: Key=bg_b42408b..., Secret=1dc8a168bf..., Passphrase=Darshana1
-2:10:03 PM	Info	✅ Bitget: 0 transactions
-2:10:03 PM	Info	🔧 Fetching blockchain data from Settings...
-2:10:03 PM	Info	🔧 About to read wallets from Settings...
-2:10:03 PM	Info	🔧 Processing 0 wallets from Settings...
-2:10:03 PM	Info	🔧 Processing 54 transactions with FIXED deduplication...
-2:10:03 PM	Info	✅ Google Sheets write successful:
-2:10:03 PM	Info	{ success: true,
+2:24:34 PM	Info	        ℹ️ Pay: No new transactions found.
+2:24:34 PM	Info	  💳 Binance (CV) Pay: 0
+2:24:34 PM	Info	✅ Binance (CV): 0 transactions
+2:24:34 PM	Info	🔧 Processing ByBit APIs with credentials from Apps Script...
+2:24:34 PM	Info	🔧 Processing ByBit with credentials...
+2:24:34 PM	Info	✅ ByBit: 11 transactions
+2:24:34 PM	Info	🔧 Processing Bitget APIs with credentials from Apps Script...
+2:24:34 PM	Info	🔧 Processing Bitget with credentials...
+2:24:34 PM	Info	🔍 Bitget Config: Key=bg_b42408b..., Secret=1dc8a168bf..., Passphrase=Darshana1
+2:24:34 PM	Info	✅ Bitget: 0 transactions
+2:24:34 PM	Info	🔧 Fetching blockchain data from Settings...
+2:24:34 PM	Info	🔧 About to read wallets from Settings...
+2:24:34 PM	Info	🔧 Processing 0 wallets from Settings...
+2:24:34 PM	Info	🔧 Processing 53 transactions with FIXED deduplication...
+2:24:34 PM	Info	✅ Google Sheets write successful:
+2:24:34 PM	Info	{ success: true,
   withdrawalsAdded: 0,
   depositsAdded: 0,
-  totalRaw: 54,
+  totalRaw: 53,
   totalAfterDedup: 0,
   totalAfterFilter: 0,
-  duplicatesRemoved: 54,
+  duplicatesRemoved: 53,
   filteredOut: 0,
   recycleBinSaved: 0,
   unknownCurrencies: [],
   note: '✅ Transactions successfully written to Google Sheets' }
-2:10:03 PM	Info	--- 📡 Vercel Debug Logs End 📡 ---
-2:10:03 PM	Info	✅ Vercel processed 54 transactions.
-2:10:03 PM	Info	✅ Updated 5 API statuses in Settings.
-2:10:04 PM	Info	✅ Updated wallet statuses in DECENTRALIZED WALLETS table
-2:10:04 PM	Info	🔄 Consolidating to formatted sheet...
-2:10:05 PM	Info	🔍 Data Validation Results:
-2:10:05 PM	Info	📊 Withdrawals: 293 transactions
-2:10:05 PM	Info	📊 Deposits: 257 transactions
-2:10:05 PM	Info	📊 Total: 550 transactions
-2:10:05 PM	Info	📤 Sample Withdrawal: { platform: 'Binance (Main)',
+2:24:34 PM	Info	--- 📡 Vercel Debug Logs End 📡 ---
+2:24:34 PM	Info	✅ Vercel processed 53 transactions.
+2:24:34 PM	Info	✅ Updated 5 API statuses in Settings.
+2:24:34 PM	Info	✅ Updated wallet statuses in DECENTRALIZED WALLETS table
+2:24:35 PM	Info	🔄 Consolidating to formatted sheet...
+2:24:36 PM	Info	🔍 Data Validation Results:
+2:24:36 PM	Info	📊 Withdrawals: 294 transactions
+2:24:36 PM	Info	📊 Deposits: 257 transactions
+2:24:36 PM	Info	📊 Total: 551 transactions
+2:24:36 PM	Info	📤 Sample Withdrawal: { platform: 'Binance (Main)',
   asset: 'USDT',
   amount: '12225.96',
   timestamp: '2025-06-29 10:31' }
-2:10:05 PM	Info	💰 Sample Deposit: { platform: 'Binance (Main)',
+2:24:36 PM	Info	💰 Sample Deposit: { platform: 'Binance (Main)',
   asset: 'USDT',
   amount: '5970',
   timestamp: '2025-06-30 17:20' }
-2:10:05 PM	Info	✅ All transactions have required fields
-2:10:06 PM	Info	✅ Updated FORMATTED_TRANSACTIONS with 550 transactions
-2:10:06 PM	Info	✅ Consolidated 550 transactions (293 withdrawals, 257 deposits).
-2:10:06 PM	Info	⏰ Updating last execution timestamp...
-2:10:06 PM	Info	✅ Vercel-mode flow completed successfully.
-2:10:15 PM	Notice	Execution completed
+2:24:36 PM	Info	✅ All transactions have required fields
+2:24:38 PM	Info	✅ Updated FORMATTED_TRANSACTIONS with 551 transactions
+2:24:38 PM	Info	✅ Consolidated 551 transactions (294 withdrawals, 257 deposits).
+2:24:38 PM	Info	⏰ Updating last execution timestamp...
+2:24:38 PM	Info	✅ Vercel-mode flow completed successfully.
+2:26:12 PM	Notice	Execution completed

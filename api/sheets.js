@@ -41,20 +41,40 @@ async function readWalletsFromSettings() {
         
         console.log(`🔍 Row ${index + 1}: Name="${name}", Address="${address}", Type="${blockchainType}", Status="${status}"`);
         
-        // Only process if address is NOT empty AND blockchain type is provided
-        if (address && address.trim() !== '' && 
-            blockchainType && blockchainType.trim() !== '') {
-          wallets[name] = {
-            address: address.trim(),
-            blockchainType: blockchainType.trim(),
-            apiKey: apiKey || '',
-            status: status
-          };
-          console.log(`✅ Loaded wallet: ${name} (${blockchainType}) - Current Status: ${status}`);
-        } else if (address && address.trim() !== '') {
-          console.log(`⚠️ Skipping wallet "${name}" - missing blockchain type`);
+        // Only process if address is NOT empty
+        if (address && address.trim() !== '') {
+          // Infer blockchain type from wallet name if missing
+          let inferredBlockchainType = blockchainType;
+          if (!blockchainType || blockchainType.trim() === '') {
+            if (name.toLowerCase().includes('bitcoin')) {
+              inferredBlockchainType = 'bitcoin';
+            } else if (name.toLowerCase().includes('ethereum') || name.toLowerCase().includes('bep20')) {
+              inferredBlockchainType = 'ethereum';
+            } else if (name.toLowerCase().includes('tron')) {
+              inferredBlockchainType = 'tron';
+            } else if (name.toLowerCase().includes('solana')) {
+              inferredBlockchainType = 'solana';
+            } else {
+              console.log(`⚠️ Skipping wallet "${name}" - cannot infer blockchain type from name`);
+            }
+            
+            if (inferredBlockchainType !== blockchainType) {
+              console.log(`🔧 Inferred blockchain type for "${name}": ${inferredBlockchainType}`);
+            }
+          }
+          
+          // Only add wallet if we have a valid blockchain type
+          if (inferredBlockchainType && inferredBlockchainType.trim() !== '') {
+            wallets[name] = {
+              address: address.trim(),
+              blockchainType: inferredBlockchainType.trim(),
+              apiKey: apiKey || '',
+              status: status
+            };
+            console.log(`✅ Loaded wallet: ${name} (${inferredBlockchainType}) - Current Status: ${status}`);
+          }
         } else {
-          console.log(`⚠️ Skipping empty row ${index + 1}`);
+          console.log(`⚠️ Skipping empty row ${index + 1} - no address`);
         }
       } else {
         console.log(`⚠️ Skipping invalid row ${index + 1} (length: ${row ? row.length : 0})`);

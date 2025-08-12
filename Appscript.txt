@@ -235,16 +235,24 @@ function consolidateToFormatted() {
 
     const allTransactions = [...withdrawals, ...deposits];
     
+    // Apply wallet address mapping to all transactions
+    console.log('🔧 Applying wallet address mapping to transactions...');
+    const wallets = readWalletsFromSettings();
+    const addressMapping = createWalletAddressMapping(wallets);
+    
+    const mappedTransactions = allTransactions.map(tx => applyWalletAddressMapping(tx, addressMapping));
+    console.log(`🔗 Applied wallet address mapping to ${mappedTransactions.length} transactions`);
+    
     // Improved sorting: handle both string and Date timestamps
-    allTransactions.sort((a, b) => {
+    mappedTransactions.sort((a, b) => {
       const dateA = new Date(a.timestamp);
       const dateB = new Date(b.timestamp);
       return dateB - dateA; // Sort newest first
     });
     
-    updateFormattedTransactionsSheet(spreadsheet, allTransactions);
+    updateFormattedTransactionsSheet(spreadsheet, mappedTransactions);
 
-    console.log(`✅ Consolidated ${allTransactions.length} transactions (${withdrawals.length} withdrawals, ${deposits.length} deposits).`);
+    console.log(`✅ Consolidated ${mappedTransactions.length} transactions (${withdrawals.length} withdrawals, ${deposits.length} deposits).`);
   } catch (error) {
     console.error("❌ Error in consolidateToFormatted:", error);
   }
@@ -386,6 +394,326 @@ function updateFormattedTransactionsSheet(spreadsheet, transactions) {
   } catch (error) {
     console.error("❌ Error updating FORMATTED_TRANSACTIONS:", error);
   }
+}
+
+// ===========================================
+// WALLET CONFIGURATION READER FROM SETTINGS
+// ===========================================
+
+/**
+ * Reads wallet configurations from the SETTINGS sheet
+ * @returns {Object} - Object with wallet configurations
+ */
+function readWalletsFromSettings() {
+  try {
+    console.log('🔧 Reading wallet configurations from Settings...');
+    
+    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+    const sheet = spreadsheet.getSheetByName(CONFIG.SETTINGS_SHEET);
+    
+    if (!sheet) {
+      console.log('❌ SETTINGS sheet not found');
+      return {};
+    }
+    
+    // Read wallet data from T3:X17 (Name, Address, Blockchain Type, API Key, Status)
+    const walletRange = sheet.getRange('T3:X17');
+    const walletData = walletRange.getValues();
+    
+    const wallets = {};
+    
+    console.log(`📊 Processing ${walletData.length} wallet rows from Settings`);
+    
+    walletData.forEach((row, index) => {
+      if (row && row.length >= 5) {
+        const name = row[0];        // Column T - Name
+        const address = row[1];     // Column U - Wallet Address
+        const blockchainType = row[2]; // Column V - Blockchain Type
+        const apiKey = row[3];      // Column W - API Key
+        const status = row[4];      // Column X - Status
+        
+        console.log(`🔍 Row ${index + 1}: Name="${name}", Address="${address}", Type="${blockchainType}", Status="${status}"`);
+        
+        // Only process if address is NOT empty
+        if (address && address.trim() !== '') {
+          // Infer blockchain type from wallet name if missing
+          let inferredBlockchainType = blockchainType;
+          if (!blockchainType || blockchainType.trim() === '') {
+            if (name.toLowerCase().includes('bitcoin')) {
+              inferredBlockchainType = 'bitcoin';
+            } else if (name.toLowerCase().includes('ethereum') || name.toLowerCase().includes('bep20')) {
+              inferredBlockchainType = 'ethereum';
+            } else if (name.toLowerCase().includes('tron')) {
+              inferredBlockchainType = 'tron';
+            } else if (name.toLowerCase().includes('solana')) {
+              inferredBlockchainType = 'solana';
+            } else {
+              console.log(`⚠️ Skipping wallet "${name}" - cannot infer blockchain type from name`);
+            }
+            
+            if (inferredBlockchainType !== blockchainType) {
+              console.log(`🔧 Inferred blockchain type for "${name}": ${inferredBlockchainType}`);
+            }
+          }
+          
+          // Only add wallet if we have a valid blockchain type
+          if (inferredBlockchainType && inferredBlockchainType.trim() !== '') {
+            wallets[name] = {
+              address: address.trim(),
+              blockchainType: inferredBlockchainType.trim(),
+              apiKey: apiKey || '',
+              status: status
+            };
+            console.log(`✅ Loaded wallet: ${name} (${inferredBlockchainType}) - Current Status: ${status}`);
+          }
+        } else {
+          console.log(`⚠️ Skipping empty row ${index + 1} - no address`);
+        }
+      } else {
+        console.log(`⚠️ Skipping invalid row ${index + 1} (length: ${row ? row.length : 0})`);
+      }
+    });
+    
+    console.log(`📊 Total active wallets loaded: ${Object.keys(wallets).length}`);
+    
+    if (Object.keys(wallets).length === 0) {
+      console.log(`⚠️ No active wallets found. Check Settings T3:X17 for wallet configurations.`);
+      console.log(`🔍 Make sure wallets have:`);
+      console.log(`   - Address filled in column U`);
+      console.log(`   - Blockchain type filled in column V`);
+      console.log(`   - Status will be automatically updated based on connection test`);
+    }
+    
+    return wallets;
+    
+  } catch (error) {
+    console.error('❌ Error reading wallets from Settings:', error);
+    return {};
+  }
+}
+
+// ===========================================
+// WALLET ADDRESS MAPPING FUNCTIONS
+// ===========================================
+
+/**
+ * Creates a reverse mapping from wallet addresses to friendly names
+ * @param {Object} wallets - Wallet configuration object from readWalletsFromSettings
+ * @returns {Object} - Mapping of address -> friendly name
+ */
+function createWalletAddressMapping(wallets) {
+  const addressMapping = {};
+  const mappingStats = { total: 0, mapped: 0, skipped: 0 };
+  
+  console.log('🔧 Creating wallet address mapping...');
+  
+  for (const [walletName, walletConfig] of Object.entries(wallets)) {
+    if (walletConfig.address && walletConfig.address.trim() !== '') {
+      const address = walletConfig.address.trim();
+      
+      // Create multiple mapping variations for better matching
+      addressMapping[address.toLowerCase()] = walletName;
+      addressMapping[address] = walletName;
+      
+      // For Bitcoin addresses, also map without case sensitivity
+      if (walletConfig.blockchainType === 'bitcoin') {
+        addressMapping[address.toLowerCase()] = walletName;
+      }
+      
+      // For Ethereum addresses, normalize to lowercase
+      if (walletConfig.blockchainType === 'ethereum') {
+        addressMapping[address.toLowerCase()] = walletName;
+      }
+      
+      // For TRON addresses, keep original case
+      if (walletConfig.blockchainType === 'tron') {
+        addressMapping[address] = walletName;
+      }
+      
+      // For Solana addresses, keep original case
+      if (walletConfig.blockchainType === 'solana') {
+        addressMapping[address] = walletName;
+      }
+      
+      mappingStats.total++;
+      console.log(`✅ Mapped: ${address} → ${walletName}`);
+    }
+  }
+  
+  console.log(`📊 Address mapping created: ${mappingStats.total} addresses mapped`);
+  console.log(`📊 Mapping keys: ${Object.keys(addressMapping).length} variations`);
+  
+  return addressMapping;
+}
+
+/**
+ * Maps a wallet address to its friendly name if available
+ * @param {string} address - The wallet address to map
+ * @param {Object} addressMapping - The address mapping object
+ * @returns {string} - The friendly name or original address
+ */
+function mapWalletAddress(address, addressMapping) {
+  if (!address || !addressMapping) {
+    return address;
+  }
+  
+  const trimmedAddress = address.trim();
+  if (!trimmedAddress) {
+    return address;
+  }
+  
+  // Try exact match first
+  if (addressMapping[trimmedAddress]) {
+    return addressMapping[trimmedAddress];
+  }
+  
+  // Try lowercase match
+  if (addressMapping[trimmedAddress.toLowerCase()]) {
+    return addressMapping[trimmedAddress.toLowerCase()];
+  }
+  
+  // Try partial match for long addresses (first 10 characters)
+  if (trimmedAddress.length > 10) {
+    const partialKey = trimmedAddress.substring(0, 10);
+    for (const [mappedAddress, friendlyName] of Object.entries(addressMapping)) {
+      if (mappedAddress.startsWith(partialKey) || trimmedAddress.startsWith(mappedAddress.substring(0, 10))) {
+        return friendlyName;
+      }
+    }
+  }
+  
+  // No match found, return original address
+  return address;
+}
+
+/**
+ * Applies wallet address mapping to a transaction object
+ * @param {Object} transaction - The transaction object
+ * @param {Object} addressMapping - The address mapping object
+ * @returns {Object} - The transaction with mapped addresses
+ */
+function applyWalletAddressMapping(transaction, addressMapping) {
+  if (!transaction || !addressMapping) {
+    return transaction;
+  }
+  
+  const mappedTransaction = { ...transaction };
+  
+  // Map from_address if it exists
+  if (mappedTransaction.from_address) {
+    const originalFromAddress = mappedTransaction.from_address;
+    mappedTransaction.from_address = mapWalletAddress(originalFromAddress, addressMapping);
+    
+    // Log if mapping occurred
+    if (mappedTransaction.from_address !== originalFromAddress) {
+      console.log(`🔗 Mapped from_address: ${originalFromAddress} → ${mappedTransaction.from_address}`);
+    }
+  }
+  
+  // Map to_address if it exists
+  if (mappedTransaction.to_address) {
+    const originalToAddress = mappedTransaction.to_address;
+    mappedTransaction.to_address = mapWalletAddress(originalToAddress, addressMapping);
+    
+    // Log if mapping occurred
+    if (mappedTransaction.to_address !== originalToAddress) {
+      console.log(`🔗 Mapped to_address: ${originalToAddress} → ${mappedTransaction.to_address}`);
+    }
+  }
+  
+  return mappedTransaction;
+}
+  const addressToName = {};
+  const addressToNameLower = {}; // For case-insensitive matching
+  
+  console.log('🔧 Creating wallet address mapping...');
+  
+  for (const [walletName, walletConfig] of Object.entries(wallets)) {
+    if (walletConfig.address && walletConfig.address.trim() !== '') {
+      const address = walletConfig.address.trim();
+      
+      // Store both original case and lowercase versions
+      addressToName[address] = walletName;
+      addressToNameLower[address.toLowerCase()] = walletName;
+      
+      console.log(`🔗 Mapped: ${address} → ${walletName}`);
+    }
+  }
+  
+  console.log(`✅ Created mapping for ${Object.keys(addressToName).length} wallet addresses`);
+  return { addressToName, addressToNameLower };
+}
+
+/**
+ * Maps a wallet address to its friendly name if it exists in our wallet list
+ * @param {string} address - The wallet address to map
+ * @param {Object} addressMapping - The address mapping object
+ * @returns {string} - The friendly name or original address
+ */
+function mapWalletAddress(address, addressMapping) {
+  if (!address || !addressMapping) {
+    return address;
+  }
+  
+  const { addressToName, addressToNameLower } = addressMapping;
+  
+  // Try exact match first
+  if (addressToName[address]) {
+    return addressToName[address];
+  }
+  
+  // Try case-insensitive match
+  if (addressToNameLower[address.toLowerCase()]) {
+    return addressToNameLower[address.toLowerCase()];
+  }
+  
+  // Try partial match for long addresses (useful for blockchain addresses)
+  const addressLower = address.toLowerCase();
+  for (const [mappedAddress, walletName] of Object.entries(addressToNameLower)) {
+    if (addressLower.includes(mappedAddress) || mappedAddress.includes(addressLower)) {
+      console.log(`🔗 Partial match: ${address} → ${walletName} (via ${mappedAddress})`);
+      return walletName;
+    }
+  }
+  
+  // No match found, return original address
+  return address;
+}
+
+/**
+ * Applies wallet address mapping to a transaction
+ * @param {Object} transaction - The transaction object
+ * @param {Object} addressMapping - The address mapping object
+ * @returns {Object} - The transaction with mapped addresses
+ */
+function applyWalletAddressMapping(transaction, addressMapping) {
+  if (!transaction || !addressMapping) {
+    return transaction;
+  }
+  
+  const mappedTransaction = { ...transaction };
+  
+  // Map from_address
+  if (transaction.from_address) {
+    const originalFrom = transaction.from_address;
+    const mappedFrom = mapWalletAddress(originalFrom, addressMapping);
+    if (mappedFrom !== originalFrom) {
+      console.log(`🔗 Mapped from_address: ${originalFrom} → ${mappedFrom}`);
+      mappedTransaction.from_address = mappedFrom;
+    }
+  }
+  
+  // Map to_address
+  if (transaction.to_address) {
+    const originalTo = transaction.to_address;
+    const mappedTo = mapWalletAddress(originalTo, addressMapping);
+    if (mappedTo !== originalTo) {
+      console.log(`🔗 Mapped to_address: ${originalTo} → ${mappedTo}`);
+      mappedTransaction.to_address = mappedTo;
+    }
+  }
+  
+  return mappedTransaction;
 }
 
 // ===========================================

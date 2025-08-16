@@ -1570,7 +1570,7 @@ function readApiCredentialsFromSheet() {
       console.log("⚠️ Error reading ByBit credentials:", e.message);
     }
     
-    // Read Bitget API credentials (row 8)
+    // Read Bitget API credentials (row 8) - Account 1
     try {
       const bitgetKey = settingsSheet.getRange('L8').getValue();
       const bitgetSecret = settingsSheet.getRange('M8').getValue();
@@ -1587,19 +1587,51 @@ function readApiCredentialsFromSheet() {
           apiSecret: bitgetSecret.toString(),
           passphrase: bitgetPassphrase.toString().trim()  // Trim whitespace
         };
-        console.log("✅ Loaded Bitget credentials");
+        console.log("✅ Loaded Bitget Account 1 credentials");
         console.log(`   - Key: ${bitgetKey.toString().substring(0, 10)}...`);
         console.log(`   - Secret: ${bitgetSecret.toString().substring(0, 10)}...`);
         console.log(`   - Passphrase (raw): "${bitgetPassphrase.toString()}"`);
         console.log(`   - Passphrase (trimmed): "${bitgetPassphrase.toString().trim()}"`);
       } else {
-        console.log("⚠️ Bitget credentials empty or missing");
+        console.log("⚠️ Bitget Account 1 credentials empty or missing");
         console.log(`   - Key empty: ${!bitgetKey}`);
         console.log(`   - Secret empty: ${!bitgetSecret}`);
         console.log(`   - Passphrase empty: ${!bitgetPassphrase}`);
       }
     } catch (e) {
-      console.log("⚠️ Error reading Bitget credentials:", e.message);
+      console.log("⚠️ Error reading Bitget Account 1 credentials:", e.message);
+    }
+    
+    // Read Bitget API credentials (row 9) - Account 2
+    try {
+      const bitget2Key = settingsSheet.getRange('L9').getValue();
+      const bitget2Secret = settingsSheet.getRange('M9').getValue();
+      const bitget2Passphrase = settingsSheet.getRange('N9').getValue();
+      console.log(`🔍 L9 (Bitget Account 2 Key): "${bitget2Key}"`);
+      console.log(`🔍 M9 (Bitget Account 2 Secret): "${bitget2Secret}"`);
+      console.log(`🔍 N9 (Bitget Account 2 Passphrase): "${bitget2Passphrase}"`);
+      console.log(`🔍 L9 cell type: ${typeof bitget2Key}, length: ${bitget2Key ? bitget2Key.length : 0}`);
+      console.log(`🔍 M9 cell type: ${typeof bitget2Secret}, length: ${bitget2Secret ? bitget2Secret.length : 0}`);
+      console.log(`🔍 N9 cell type: ${typeof bitget2Passphrase}, length: ${bitget2Passphrase ? bitget2Passphrase.length : 0}`);
+      if (bitget2Key && bitget2Secret && bitget2Passphrase) {
+        credentials.BITGET_API_2 = {
+          apiKey: bitget2Key.toString(),
+          apiSecret: bitget2Secret.toString(),
+          passphrase: bitget2Passphrase.toString().trim()  // Trim whitespace
+        };
+        console.log("✅ Loaded Bitget Account 2 credentials");
+        console.log(`   - Key: ${bitget2Key.toString().substring(0, 10)}...`);
+        console.log(`   - Secret: ${bitget2Secret.toString().substring(0, 10)}...`);
+        console.log(`   - Passphrase (raw): "${bitget2Passphrase.toString()}"`);
+        console.log(`   - Passphrase (trimmed): "${bitget2Passphrase.toString().trim()}"`);
+      } else {
+        console.log("⚠️ Bitget Account 2 credentials empty or missing");
+        console.log(`   - Key empty: ${!bitget2Key}`);
+        console.log(`   - Secret empty: ${!bitget2Secret}`);
+        console.log(`   - Passphrase empty: ${!bitget2Passphrase}`);
+      }
+    } catch (e) {
+      console.log("⚠️ Error reading Bitget Account 2 credentials:", e.message);
     }
     
     console.log(`🔑 Total credentials loaded: ${Object.keys(credentials).length}`);

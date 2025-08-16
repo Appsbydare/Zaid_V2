@@ -409,17 +409,17 @@ export default async function handler(req, res) {
     // ===========================================
     debugLogs.push('🔧 Processing Bitget APIs with credentials from Apps Script...');
     
-    // Get Bitget credentials from the same apiCredentials object
-    const bitgetConfig = {
-      name: "Bitget",
+    // Process Bitget Account 1
+    const bitgetConfig1 = {
+      name: "Bitget Account 1",
       apiKey: apiCredentials.BITGET_API?.apiKey || '',
       apiSecret: apiCredentials.BITGET_API?.apiSecret || '',
-      passphrase: apiCredentials.BITGET_API?.passphrase || ''  // Add passphrase
+      passphrase: apiCredentials.BITGET_API?.passphrase || ''
     };
 
-    if (!bitgetConfig.apiKey || !bitgetConfig.apiSecret) {
-      debugLogs.push(`⚠️ Bitget: Missing API credentials`);
-      apiStatusResults['Bitget'] = {
+    if (!bitgetConfig1.apiKey || !bitgetConfig1.apiSecret) {
+      debugLogs.push(`⚠️ Bitget Account 1: Missing API credentials`);
+      apiStatusResults['Bitget Account 1'] = {
         status: 'Error',
         lastSync: new Date().toISOString(),
         autoUpdate: 'Every Hour',
@@ -427,17 +427,49 @@ export default async function handler(req, res) {
         transactionCount: 0
       };
     } else {
-      debugLogs.push('🔧 Processing Bitget with credentials...');
-      debugLogs.push(`🔍 Bitget Config: Key=${bitgetConfig.apiKey.substring(0, 10)}..., Secret=${bitgetConfig.apiSecret.substring(0, 10)}..., Passphrase=${bitgetConfig.passphrase || 'NOT PROVIDED'}`);
-      const bitgetResult = await testBitgetAccountFixed(bitgetConfig, filterDate, debugLogs);
-      apiStatusResults['Bitget'] = bitgetResult.status;
+      debugLogs.push('🔧 Processing Bitget Account 1 with credentials...');
+      debugLogs.push(`🔍 Bitget Account 1 Config: Key=${bitgetConfig1.apiKey.substring(0, 10)}..., Secret=${bitgetConfig1.apiSecret.substring(0, 10)}..., Passphrase=${bitgetConfig1.passphrase || 'NOT PROVIDED'}`);
+      const bitgetResult1 = await testBitgetAccountFixed(bitgetConfig1, filterDate, debugLogs);
+      apiStatusResults['Bitget Account 1'] = bitgetResult1.status;
       
-      if (bitgetResult.success) {
-        allTransactions.push(...bitgetResult.transactions);
-        totalTransactionsFound += bitgetResult.transactions.length;
-        debugLogs.push(`✅ Bitget: ${bitgetResult.transactions.length} transactions`);
+      if (bitgetResult1.success) {
+        allTransactions.push(...bitgetResult1.transactions);
+        totalTransactionsFound += bitgetResult1.transactions.length;
+        debugLogs.push(`✅ Bitget Account 1: ${bitgetResult1.transactions.length} transactions`);
       } else {
-        debugLogs.push(`❌ Bitget: ${bitgetResult.status.notes}`);
+        debugLogs.push(`❌ Bitget Account 1: ${bitgetResult1.status.notes}`);
+      }
+    }
+    
+    // Process Bitget Account 2
+    const bitgetConfig2 = {
+      name: "Bitget Account 2",
+      apiKey: apiCredentials.BITGET_API_2?.apiKey || '',
+      apiSecret: apiCredentials.BITGET_API_2?.apiSecret || '',
+      passphrase: apiCredentials.BITGET_API_2?.passphrase || ''
+    };
+
+    if (!bitgetConfig2.apiKey || !bitgetConfig2.apiSecret || !bitgetConfig2.passphrase) {
+      debugLogs.push(`⚠️ Bitget Account 2: Missing API credentials`);
+      apiStatusResults['Bitget Account 2'] = {
+        status: 'Error',
+        lastSync: new Date().toISOString(),
+        autoUpdate: 'Every Hour',
+        notes: '❌ Missing credentials',
+        transactionCount: 0
+      };
+    } else {
+      debugLogs.push('🔧 Processing Bitget Account 2 with credentials...');
+      debugLogs.push(`🔍 Bitget Account 2 Config: Key=${bitgetConfig2.apiKey.substring(0, 10)}..., Secret=${bitgetConfig2.apiSecret.substring(0, 10)}..., Passphrase=${bitgetConfig2.passphrase || 'NOT PROVIDED'}`);
+      const bitgetResult2 = await testBitgetAccountFixed(bitgetConfig2, filterDate, debugLogs);
+      apiStatusResults['Bitget Account 2'] = bitgetResult2.status;
+      
+      if (bitgetResult2.success) {
+        allTransactions.push(...bitgetResult2.transactions);
+        totalTransactionsFound += bitgetResult2.transactions.length;
+        debugLogs.push(`✅ Bitget Account 2: ${bitgetResult2.transactions.length} transactions`);
+      } else {
+        debugLogs.push(`❌ Bitget Account 2: ${bitgetResult2.status.notes}`);
       }
     }
 

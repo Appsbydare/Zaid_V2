@@ -503,7 +503,12 @@ export default async function handler(req, res) {
             transactions = await fetchBitcoinEnhanced(walletConfig.address, filterDate);
             break;
           case 'ethereum':
-            transactions = await fetchEthereumEnhanced(walletConfig.address, filterDate, walletConfig.apiKey);
+            // Check if this is actually a BEP20 wallet (BSC) or Ethereum wallet
+            if (walletName.toLowerCase().includes('bep20') || walletName.toLowerCase().includes('bsc')) {
+              transactions = await fetchBEP20Enhanced(walletConfig.address, filterDate, walletConfig.apiKey);
+            } else {
+              transactions = await fetchEthereumEnhanced(walletConfig.address, filterDate, walletConfig.apiKey);
+            }
             break;
           case 'tron':
             transactions = await fetchTronEnhanced(walletConfig.address, filterDate);
@@ -1640,6 +1645,111 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
   return transactions;
 }
 
+async function fetchBEP20Enhanced(address, filterDate, apiKey = null) {
+  try {
+    console.log(`  🔍 BEP20/BSC wallet search: ${address.substring(0, 20)}...`);
+    
+    // Use provided API key from Settings page
+    if (!apiKey) {
+      console.log("⚠️ No BSCScan API key provided for BEP20 wallet - skipping");
+      return [];
+    }
+    
+    const bscscanApiKey = apiKey;
+    const transactions = [];
+    
+    // 1. Fetch BNB transactions (native BSC token)
+    console.log(`    🔍 Fetching BNB transactions...`);
+    const bnbEndpoint = `https://api.bscscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${bscscanApiKey}`;
+    
+    const bnbResponse = await fetch(bnbEndpoint);
+    
+    if (!bnbResponse.ok) {
+      throw new Error(`BSC API error: ${bnbResponse.status}`);
+    }
+    
+    const bnbData = await bnbResponse.json();
+    
+    if (bnbData.status !== "1") {
+      console.log(`    ⚠️ BSCScan BNB API message: ${bnbData.message}`);
+    } else {
+      bnbData.result.forEach(tx => {
+        const txDate = new Date(parseInt(tx.timeStamp) * 1000);
+        if (txDate < filterDate) return;
+        
+        const isDeposit = tx.to.toLowerCase() === address.toLowerCase();
+        const amount = (parseInt(tx.value) / Math.pow(10, 18)).toString();
+        
+        if (parseFloat(amount) > 0) {
+          transactions.push({
+            platform: "BEP20 Wallet",
+            type: isDeposit ? "deposit" : "withdrawal",
+            asset: "BNB",
+            amount: amount,
+            timestamp: txDate.toISOString(),
+            from_address: tx.from,
+            to_address: tx.to,
+            tx_id: tx.hash,
+            status: tx.txreceipt_status === "1" ? "Completed" : "Failed",
+            network: "BSC",
+            api_source: "BSCScan_BNB"
+          });
+        }
+      });
+      console.log(`    ✅ Found ${bnbData.result.length} BNB transactions, ${transactions.length} after filtering`);
+    }
+    
+    // 2. Fetch BEP-20 token transactions (USDT, USDC, etc.)
+    console.log(`    🔍 Fetching BEP-20 token transactions...`);
+    const tokenEndpoint = `https://api.bscscan.com/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${bscscanApiKey}`;
+    
+    const tokenResponse = await fetch(tokenEndpoint);
+    
+    if (!tokenResponse.ok) {
+      console.log(`    ⚠️ Token API error: ${tokenResponse.status}`);
+    } else {
+      const tokenData = await tokenResponse.json();
+      
+      if (tokenData.status !== "1") {
+        console.log(`    ⚠️ BSCScan Token API message: ${tokenData.message}`);
+      } else {
+        tokenData.result.forEach(tx => {
+          const txDate = new Date(parseInt(tx.timeStamp) * 1000);
+          if (txDate < filterDate) return;
+          
+          const isDeposit = tx.to.toLowerCase() === address.toLowerCase();
+          const decimals = parseInt(tx.tokenDecimal) || 18;
+          const amount = (parseInt(tx.value) / Math.pow(10, decimals)).toString();
+          
+          if (parseFloat(amount) > 0) {
+            transactions.push({
+              platform: "BEP20 Wallet",
+              type: isDeposit ? "deposit" : "withdrawal",
+              asset: tx.tokenSymbol || "UNKNOWN",
+              amount: amount,
+              timestamp: txDate.toISOString(),
+              from_address: tx.from,
+              to_address: tx.to,
+              tx_id: tx.hash,
+              status: tx.txreceipt_status === "1" ? "Completed" : "Failed",
+              network: "BSC",
+              api_source: "BSCScan_BEP20"
+            });
+          }
+        });
+        console.log(`    ✅ Found ${tokenData.result.length} BEP-20 token transactions, ${tokenData.result.filter(tx => new Date(parseInt(tx.timeStamp) * 1000) >= filterDate).length} after filtering`);
+      }
+    }
+    
+    console.log(`  📊 BEP20/BSC total found: ${transactions.length} transactions`);
+    return transactions;
+    
+  } catch (error) {
+    console.error("BEP20/BSC API error:", error);
+    throw error;
+  }
+}
+
 async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
   try {
     console.log(`  🔍 Ethereum wallet search: ${address.substring(0, 20)}...`);
@@ -1869,7 +1979,7 @@ async function fetchSolanaEnhanced(address, filterDate) {
       jsonrpc: "2.0",
       id: 1,
       method: "getSignaturesForAddress",
-      params: [address, { limit: 20 }]
+      params: [address, { limit: 50 }] // Increased limit for better coverage
     };
     
     const signaturesResponse = await fetch(endpoint, {
@@ -1940,24 +2050,88 @@ async function fetchSolanaEnhanced(address, filterDate) {
         }
       } catch (txError) {
         console.log(`    ⚠️ Error fetching transaction ${sig.signature}: ${txError.message}`);
-        // Fallback to basic transaction info
-        transactions.push({
-          platform: "Solana Wallet",
-          type: "deposit",
-          asset: "SOL",
-          amount: "0.001", // Fallback amount
-          timestamp: txDate.toISOString(),
-          from_address: "External",
-          to_address: address,
-          tx_id: sig.signature,
-          status: sig.err ? "Failed" : "Completed",
-          network: "SOL",
-          api_source: "Solana_RPC_Fallback"
-        });
+        // Skip failed transactions instead of adding fallback
       }
     }
     
+    // 3. Fetch SPL token transactions using Jupiter API
+    console.log(`    🔍 Fetching SPL token transactions...`);
+    try {
+      const jupiterEndpoint = `https://price.jup.ag/v4/price?ids=SOL,USDC,USDT,RAY,SRM,ORCA,STEP,ALEPH,COPE,SNY,SLRS,MSOL,STSOL,JSOL,SCNSOL,DAI,ETH,WBTC,FTT,CREAM,LIKE,COPE,SNY,SLRS,MSOL,STSOL,JSOL,SCNSOL,DAI,ETH,WBTC,FTT,CREAM,LIKE`;
+      
+      const jupiterResponse = await fetch(jupiterEndpoint);
+      if (jupiterResponse.ok) {
+        const jupiterData = await jupiterResponse.json();
+        console.log(`    ✅ Jupiter price data available for ${Object.keys(jupiterData.data).length} tokens`);
+      }
+    } catch (jupiterError) {
+      console.log(`    ⚠️ Jupiter API error: ${jupiterError.message}`);
+    }
+    
+    // 4. Fetch token account info for SPL tokens
+    try {
+      const tokenAccountsPayload = {
+        jsonrpc: "2.0",
+        id: 1,
+        method: "getTokenAccountsByOwner",
+        params: [
+          address,
+          { programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" }, // SPL Token Program
+          { encoding: "jsonParsed" }
+        ]
+      };
+      
+      const tokenAccountsResponse = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(tokenAccountsPayload)
+      });
+      
+      if (tokenAccountsResponse.ok) {
+        const tokenAccountsData = await tokenAccountsResponse.json();
+        
+        if (tokenAccountsData.result && tokenAccountsData.result.value) {
+          console.log(`    🔍 Found ${tokenAccountsData.result.value.length} SPL token accounts`);
+          
+          // For each token account, fetch recent transactions
+          for (const tokenAccount of tokenAccountsData.result.value.slice(0, 10)) { // Limit to first 10 tokens
+            const tokenMint = tokenAccount.account.data.parsed.info.mint;
+            const tokenBalance = tokenAccount.account.data.parsed.info.tokenAmount;
+            
+            if (parseFloat(tokenBalance.uiAmount) > 0) {
+              console.log(`    💰 Token ${tokenMint}: ${tokenBalance.uiAmount} (${tokenBalance.decimals} decimals)`);
+              
+              // Add token balance as a "deposit" transaction for tracking
+              transactions.push({
+                platform: "Solana Wallet",
+                type: "deposit",
+                asset: tokenMint.substring(0, 8) + "...", // Shortened mint address
+                amount: tokenBalance.uiAmount.toString(),
+                timestamp: new Date().toISOString(), // Current time as fallback
+                from_address: "Token Account",
+                to_address: address,
+                tx_id: `TOKEN_${tokenMint.substring(0, 16)}`,
+                status: "Completed",
+                network: "SOL",
+                api_source: "Solana_SPL_Token"
+              });
+            }
+          }
+        }
+      }
+    } catch (tokenError) {
+      console.log(`    ⚠️ Token accounts fetch error: ${tokenError.message}`);
+    }
+    
     console.log(`  📊 Solana total found: ${transactions.length} transactions`);
+    
+    // Log currency breakdown
+    const currencyBreakdown = {};
+    transactions.forEach(t => {
+      currencyBreakdown[t.asset] = (currencyBreakdown[t.asset] || 0) + 1;
+    });
+    console.log(`  📊 Currency breakdown:`, currencyBreakdown);
+    
     return transactions;
     
   } catch (error) {

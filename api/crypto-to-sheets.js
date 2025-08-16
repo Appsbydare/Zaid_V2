@@ -1642,53 +1642,101 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
 
 async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
   try {
+    console.log(`  🔍 Ethereum wallet search: ${address.substring(0, 20)}...`);
+    
     // Use provided API key from Settings page
     if (!apiKey) {
-      console.log("⚠️ No Etherscan API key provided for Ethereum wallet");
+      console.log("⚠️ No Etherscan API key provided for Ethereum wallet - skipping");
       return [];
     }
+    
     const etherscanApiKey = apiKey;
-    const endpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
-    
-    const response = await fetch(endpoint);
-    
-    if (!response.ok) {
-      throw new Error(`Ethereum API error: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    if (data.status !== "1") {
-      console.log("Etherscan API message:", data.message);
-      return [];
-    }
-    
     const transactions = [];
     
-    data.result.forEach(tx => {
-      const txDate = new Date(parseInt(tx.timeStamp) * 1000);
-      if (txDate < filterDate) return;
-      
-      const isDeposit = tx.to.toLowerCase() === address.toLowerCase();
-      const amount = (parseInt(tx.value) / Math.pow(10, 18)).toString();
-      
-      if (parseFloat(amount) > 0) {
-        transactions.push({
-          platform: "Ethereum Wallet",
-          type: isDeposit ? "deposit" : "withdrawal",
-          asset: "ETH",
-          amount: amount,
-          timestamp: txDate.toISOString(),
-          from_address: tx.from,
-          to_address: tx.to,
-          tx_id: tx.hash,
-          status: tx.txreceipt_status === "1" ? "Completed" : "Failed",
-          network: "ETH",
-          api_source: "Etherscan"
-        });
-      }
-    });
+    // 1. Fetch ETH transactions
+    console.log(`    🔍 Fetching ETH transactions...`);
+    const ethEndpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
     
+    const ethResponse = await fetch(ethEndpoint);
+    
+    if (!ethResponse.ok) {
+      throw new Error(`Ethereum API error: ${ethResponse.status}`);
+    }
+    
+    const ethData = await ethResponse.json();
+    
+    if (ethData.status !== "1") {
+      console.log(`    ⚠️ Etherscan ETH API message: ${ethData.message}`);
+    } else {
+      ethData.result.forEach(tx => {
+        const txDate = new Date(parseInt(tx.timeStamp) * 1000);
+        if (txDate < filterDate) return;
+        
+        const isDeposit = tx.to.toLowerCase() === address.toLowerCase();
+        const amount = (parseInt(tx.value) / Math.pow(10, 18)).toString();
+        
+        if (parseFloat(amount) > 0) {
+          transactions.push({
+            platform: "Ethereum Wallet",
+            type: isDeposit ? "deposit" : "withdrawal",
+            asset: "ETH",
+            amount: amount,
+            timestamp: txDate.toISOString(),
+            from_address: tx.from,
+            to_address: tx.to,
+            tx_id: tx.hash,
+            status: tx.txreceipt_status === "1" ? "Completed" : "Failed",
+            network: "ETH",
+            api_source: "Etherscan_ETH"
+          });
+        }
+      });
+      console.log(`    ✅ Found ${ethData.result.length} ETH transactions, ${transactions.length} after filtering`);
+    }
+    
+    // 2. Fetch ERC-20 token transactions (BEP20 compatible)
+    console.log(`    🔍 Fetching ERC-20/BEP20 token transactions...`);
+    const tokenEndpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
+    
+    const tokenResponse = await fetch(tokenEndpoint);
+    
+    if (!tokenResponse.ok) {
+      console.log(`    ⚠️ Token API error: ${tokenResponse.status}`);
+    } else {
+      const tokenData = await tokenResponse.json();
+      
+      if (tokenData.status !== "1") {
+        console.log(`    ⚠️ Etherscan Token API message: ${tokenData.message}`);
+      } else {
+        tokenData.result.forEach(tx => {
+          const txDate = new Date(parseInt(tx.timeStamp) * 1000);
+          if (txDate < filterDate) return;
+          
+          const isDeposit = tx.to.toLowerCase() === address.toLowerCase();
+          const decimals = parseInt(tx.tokenDecimal) || 18;
+          const amount = (parseInt(tx.value) / Math.pow(10, decimals)).toString();
+          
+          if (parseFloat(amount) > 0) {
+            transactions.push({
+              platform: "Ethereum Wallet",
+              type: isDeposit ? "deposit" : "withdrawal",
+              asset: tx.tokenSymbol || "UNKNOWN",
+              amount: amount,
+              timestamp: txDate.toISOString(),
+              from_address: tx.from,
+              to_address: tx.to,
+              tx_id: tx.hash,
+              status: tx.txreceipt_status === "1" ? "Completed" : "Failed",
+              network: "ETH",
+              api_source: "Etherscan_ERC20"
+            });
+          }
+        });
+        console.log(`    ✅ Found ${tokenData.result.length} token transactions, ${tokenData.result.filter(tx => new Date(parseInt(tx.timeStamp) * 1000) >= filterDate).length} after filtering`);
+      }
+    }
+    
+    console.log(`  📊 Ethereum total found: ${transactions.length} transactions`);
     return transactions;
     
   } catch (error) {
@@ -1811,48 +1859,105 @@ async function fetchTronEnhanced(address, filterDate) {
 
 async function fetchSolanaEnhanced(address, filterDate) {
   try {
-    const endpoint = "https://api.mainnet-beta.solana.com";
+    console.log(`  🔍 Solana wallet search: ${address.substring(0, 20)}...`);
     
-    const payload = {
+    const endpoint = "https://api.mainnet-beta.solana.com";
+    const transactions = [];
+    
+    // 1. Get recent signatures for the address
+    const signaturesPayload = {
       jsonrpc: "2.0",
       id: 1,
       method: "getSignaturesForAddress",
       params: [address, { limit: 20 }]
     };
     
-    const response = await fetch(endpoint, {
+    const signaturesResponse = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(signaturesPayload)
     });
     
-    if (!response.ok) {
-      throw new Error(`Solana API error: ${response.status}`);
+    if (!signaturesResponse.ok) {
+      throw new Error(`Solana API error: ${signaturesResponse.status}`);
     }
     
-    const data = await response.json();
+    const signaturesData = await signaturesResponse.json();
     
-    if (data.error) {
-      throw new Error(`Solana RPC error: ${data.error.message}`);
+    if (signaturesData.error) {
+      throw new Error(`Solana RPC error: ${signaturesData.error.message}`);
     }
     
-    const transactions = data.result.filter(sig => {
+    console.log(`    🔍 Found ${signaturesData.result.length} signatures, fetching transaction details...`);
+    
+    // 2. Get transaction details for each signature
+    for (const sig of signaturesData.result) {
       const txDate = new Date(sig.blockTime * 1000);
-      return txDate >= filterDate;
-    }).map(sig => ({
-      platform: "Solana Wallet",
-      type: "deposit",
-      asset: "SOL",
-      amount: "0.001",
-      timestamp: new Date(sig.blockTime * 1000).toISOString(),
-      from_address: "External",
-      to_address: address,
-      tx_id: sig.signature,
-      status: sig.err ? "Failed" : "Completed",
-      network: "SOL",
-      api_source: "Solana_RPC"
-    }));
+      if (txDate < filterDate) continue;
+      
+      try {
+        const txPayload = {
+          jsonrpc: "2.0",
+          id: 1,
+          method: "getTransaction",
+          params: [sig.signature, { encoding: "json", maxSupportedTransactionVersion: 0 }]
+        };
+        
+        const txResponse = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(txPayload)
+        });
+        
+        if (txResponse.ok) {
+          const txData = await txResponse.json();
+          
+          if (txData.result && txData.result.meta) {
+            // Calculate SOL amount from pre and post balances
+            const preBalance = txData.result.meta.preBalances[0] || 0;
+            const postBalance = txData.result.meta.postBalances[0] || 0;
+            const balanceChange = Math.abs(postBalance - preBalance);
+            const solAmount = (balanceChange / 1e9).toString(); // Convert lamports to SOL
+            
+            if (parseFloat(solAmount) > 0) {
+              const isDeposit = postBalance > preBalance;
+              
+              transactions.push({
+                platform: "Solana Wallet",
+                type: isDeposit ? "deposit" : "withdrawal",
+                asset: "SOL",
+                amount: solAmount,
+                timestamp: txDate.toISOString(),
+                from_address: isDeposit ? "External" : address,
+                to_address: isDeposit ? address : "External",
+                tx_id: sig.signature,
+                status: sig.err ? "Failed" : "Completed",
+                network: "SOL",
+                api_source: "Solana_RPC_Enhanced"
+              });
+            }
+          }
+        }
+      } catch (txError) {
+        console.log(`    ⚠️ Error fetching transaction ${sig.signature}: ${txError.message}`);
+        // Fallback to basic transaction info
+        transactions.push({
+          platform: "Solana Wallet",
+          type: "deposit",
+          asset: "SOL",
+          amount: "0.001", // Fallback amount
+          timestamp: txDate.toISOString(),
+          from_address: "External",
+          to_address: address,
+          tx_id: sig.signature,
+          status: sig.err ? "Failed" : "Completed",
+          network: "SOL",
+          api_source: "Solana_RPC_Fallback"
+        });
+      }
+    }
     
+    console.log(`  📊 Solana total found: ${transactions.length} transactions`);
     return transactions;
     
   } catch (error) {

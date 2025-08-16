@@ -751,7 +751,8 @@ function onOpen() {
       .addItem('🔗 Test Connection', 'testVercelConnection')
       .addItem('📊 Count Transactions', 'countCurrentTransactions')
       .addItem('📈 Test Sheet Access', 'testSheetAccess')
-      .addItem('🟢 Test TRON Wallet', 'testTronWallet'))
+      .addItem('🟢 Test TRON Wallet', 'testTronWallet')
+      .addItem('🔍 Test Bybit Internal', 'testBybitInternal'))
     .addSeparator()
     .addItem('📖 User Guide', 'showUserGuide')
     .addToUi();
@@ -1457,6 +1458,47 @@ function findApiCredentials() {
     
   } catch (error) {
     console.error("❌ Error searching for credentials:", error);
+  }
+}
+
+/**
+ * TEST: Bybit internal transactions debugging
+ */
+function testBybitInternal() {
+  try {
+    console.log("🧪 Testing Bybit internal transactions...");
+    
+    // Test with a recent date range (last 7 days)
+    const now = new Date();
+    const sevenDaysAgo = new Date(now);
+    sevenDaysAgo.setDate(now.getDate() - 7);
+    
+    const startDate = sevenDaysAgo.toISOString();
+    const endDate = now.toISOString();
+    
+    console.log(`📅 Test period: ${startDate} to ${endDate}`);
+    
+    const settings = {
+      startDate: startDate,
+      testMode: true
+    };
+    
+    // Trigger Vercel with debug mode
+    console.log("📡 Triggering Vercel test fetch for Bybit internal transactions...");
+    const vercelResult = triggerVercelDataFetch(settings);
+    
+    if (vercelResult && vercelResult.debugLogs) {
+      console.log("--- 🧪 BYBIT INTERNAL TEST Debug Logs Start 🧪 ---");
+      vercelResult.debugLogs.forEach(log => console.log(log));
+      console.log("--- 🧪 BYBIT INTERNAL TEST Debug Logs End 🧪 ---");
+    }
+    
+    console.log("🧪 Bybit internal test completed:", vercelResult);
+    showAlert("Test Complete", `🧪 Bybit internal transactions test completed!\n\nPeriod: ${startDate} to ${endDate}\n\nCheck execution logs for detailed debugging information.`);
+    
+  } catch (error) {
+    console.error("❌ Error in Bybit internal test:", error);
+    showAlert("Test Error", `❌ Bybit internal test failed!\n\nError: ${error.message}`);
   }
 }
 

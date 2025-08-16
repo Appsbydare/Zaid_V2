@@ -1346,6 +1346,12 @@ async function fetchByBitInternalDepositsFixed(config, filterDate) {
     
     const url = `${endpoint}?${queryParams}`;
 
+    console.log(`    🔍 Internal Deposits Debug:`);
+    console.log(`    - URL: ${url}`);
+    console.log(`    - Start Time: ${new Date(filterDate.getTime()).toISOString()}`);
+    console.log(`    - End Time: ${new Date().toISOString()}`);
+    console.log(`    - Filter Date: ${filterDate.toISOString()}`);
+
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -1357,11 +1363,17 @@ async function fetchByBitInternalDepositsFixed(config, filterDate) {
       }
     });
 
+    console.log(`    📊 Internal Deposits Response Status: ${response.status}`);
+
     if (!response.ok) {
-      throw new Error(`ByBit internal deposits API error: ${response.status}`);
+      const errorText = await response.text();
+      console.log(`    ❌ Internal Deposits Error Response: ${errorText}`);
+      throw new Error(`ByBit internal deposits API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    
+    console.log(`    📊 Internal Deposits API Response:`, JSON.stringify(data, null, 2));
     
     if (data.retCode !== 0) {
       throw new Error(`ByBit internal deposits error: ${data.retMsg}`);
@@ -1369,12 +1381,21 @@ async function fetchByBitInternalDepositsFixed(config, filterDate) {
 
     if (!data.result || !data.result.rows) {
       console.log(`    ℹ️ No internal deposit data returned for ${config.name}`);
+      console.log(`    📊 Full response data:`, JSON.stringify(data, null, 2));
       return [];
     }
 
+    console.log(`    📊 Raw internal deposits found: ${data.result.rows.length}`);
+    console.log(`    📊 Sample internal deposit:`, JSON.stringify(data.result.rows[0], null, 2));
+
     const internalDeposits = data.result.rows.filter(deposit => {
       const depositDate = new Date(parseInt(deposit.successAt));
-      return depositDate >= filterDate && deposit.status === 3;
+      const isAfterFilter = depositDate >= filterDate;
+      const isCompleted = deposit.status === 3;
+      
+      console.log(`    🔍 Internal Deposit Filter: Date=${depositDate.toISOString()}, After Filter=${isAfterFilter}, Status=${deposit.status}, Completed=${isCompleted}`);
+      
+      return isAfterFilter && isCompleted;
     }).map(deposit => ({
       platform: config.name,
       type: "deposit",
@@ -1412,6 +1433,12 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
     
     const url = `${endpoint}?${queryParams}`;
 
+    console.log(`    🔍 Internal Transfers Debug:`);
+    console.log(`    - URL: ${url}`);
+    console.log(`    - Start Time: ${new Date(filterDate.getTime()).toISOString()}`);
+    console.log(`    - End Time: ${new Date().toISOString()}`);
+    console.log(`    - Filter Date: ${filterDate.toISOString()}`);
+
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -1423,11 +1450,17 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
       }
     });
 
+    console.log(`    📊 Internal Transfers Response Status: ${response.status}`);
+
     if (!response.ok) {
-      throw new Error(`ByBit internal transfers API error: ${response.status}`);
+      const errorText = await response.text();
+      console.log(`    ❌ Internal Transfers Error Response: ${errorText}`);
+      throw new Error(`ByBit internal transfers API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    
+    console.log(`    📊 Internal Transfers API Response:`, JSON.stringify(data, null, 2));
     
     if (data.retCode !== 0) {
       throw new Error(`ByBit internal transfers error: ${data.retMsg}`);
@@ -1435,12 +1468,21 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
 
     if (!data.result || !data.result.rows) {
       console.log(`    ℹ️ No internal transfer data returned for ${config.name}`);
+      console.log(`    📊 Full response data:`, JSON.stringify(data, null, 2));
       return [];
     }
 
+    console.log(`    📊 Raw internal transfers found: ${data.result.rows.length}`);
+    console.log(`    📊 Sample internal transfer:`, JSON.stringify(data.result.rows[0], null, 2));
+
     const internalTransfers = data.result.rows.filter(transfer => {
       const transferDate = new Date(parseInt(transfer.createTime));
-      return transferDate >= filterDate && transfer.status === "success";
+      const isAfterFilter = transferDate >= filterDate;
+      const isSuccess = transfer.status === "success";
+      
+      console.log(`    🔍 Internal Transfer Filter: Date=${transferDate.toISOString()}, After Filter=${isAfterFilter}, Status=${transfer.status}, Success=${isSuccess}`);
+      
+      return isAfterFilter && isSuccess;
     }).map(transfer => ({
       platform: config.name,
       type: transfer.type === "IN" ? "deposit" : "withdrawal",

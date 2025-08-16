@@ -505,8 +505,10 @@ export default async function handler(req, res) {
           case 'ethereum':
             // Check if this is actually a BEP20 wallet (BSC) or Ethereum wallet
             if (walletName.toLowerCase().includes('bep20') || walletName.toLowerCase().includes('bsc')) {
+              debugLogs.push(`🔧 Detected BEP20 wallet: ${walletName} - using BSC API`);
               transactions = await fetchBEP20Enhanced(walletConfig.address, filterDate, walletConfig.apiKey);
             } else {
+              debugLogs.push(`🔧 Detected Ethereum wallet: ${walletName} - using Etherscan API`);
               transactions = await fetchEthereumEnhanced(walletConfig.address, filterDate, walletConfig.apiKey);
             }
             break;
@@ -1648,6 +1650,8 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
 async function fetchBEP20Enhanced(address, filterDate, apiKey = null) {
   try {
     console.log(`  🔍 BEP20/BSC wallet search: ${address.substring(0, 20)}...`);
+    console.log(`  🔑 API Key provided: ${apiKey ? 'YES' : 'NO'}`);
+    console.log(`  🔑 API Key preview: ${apiKey ? apiKey.substring(0, 10) + '...' : 'NONE'}`);
     
     // Use provided API key from Settings page
     if (!apiKey) {
@@ -1662,13 +1666,19 @@ async function fetchBEP20Enhanced(address, filterDate, apiKey = null) {
     console.log(`    🔍 Fetching BNB transactions...`);
     const bnbEndpoint = `https://api.bscscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${bscscanApiKey}`;
     
+    console.log(`    🔍 Fetching BNB transactions from: ${bnbEndpoint.split('?')[0]}`);
     const bnbResponse = await fetch(bnbEndpoint);
     
+    console.log(`    📊 BNB API Response Status: ${bnbResponse.status}`);
+    
     if (!bnbResponse.ok) {
-      throw new Error(`BSC API error: ${bnbResponse.status}`);
+      const errorText = await bnbResponse.text();
+      console.log(`    ❌ BSC API error: ${bnbResponse.status} - ${errorText}`);
+      throw new Error(`BSC API error: ${bnbResponse.status} - ${errorText}`);
     }
     
     const bnbData = await bnbResponse.json();
+    console.log(`    📊 BNB API Response: ${JSON.stringify(bnbData, null, 2)}`);
     
     if (bnbData.status !== "1") {
       console.log(`    ⚠️ BSCScan BNB API message: ${bnbData.message}`);

@@ -2829,13 +2829,13 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
         
         if (depositDate >= filterDate) {
           deposits.push({
-            platform: 'Bitget',
+            platform: config.name,
             type: 'deposit',
             asset: deposit.coin,
             amount: deposit.amount.toString(),
             timestamp: new Date(parseInt(deposit.cTime)).toISOString(),
             from_address: deposit.fromAddress || 'External',
-            to_address: 'Bitget',
+            to_address: config.name,
             tx_id: deposit.txId || deposit.id,
             status: deposit.status === 'success' ? 'Completed' : 'Pending',
             network: deposit.chain,
@@ -2922,12 +2922,12 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
         
         if (withdrawalDate >= filterDate) {
           withdrawals.push({
-            platform: 'Bitget',
+            platform: config.name,
             type: 'withdrawal',
             asset: withdrawal.coin,
             amount: withdrawal.amount.toString(),
             timestamp: new Date(parseInt(withdrawal.cTime)).toISOString(),
-            from_address: 'Bitget',
+            from_address: config.name,
             to_address: withdrawal.toAddress || 'External',
             tx_id: withdrawal.txId || withdrawal.id,
             status: withdrawal.status === 'success' ? 'Completed' : 'Pending',
@@ -3025,13 +3025,13 @@ async function fetchBitgetP2PFixed(config, filterDate) {
           }
           
           p2pTransactions.push({
-            platform: 'Bitget',
+            platform: config.name,
             type: type,
             asset: transaction.marginCoin || 'USDT',
             amount: transaction.amount.toString(),
             timestamp: new Date(parseInt(transaction.ctime)).toISOString(),
-            from_address: type === 'deposit' ? 'External' : 'Bitget',
-            to_address: type === 'deposit' ? 'Bitget' : 'External',
+            from_address: type === 'deposit' ? 'External' : config.name,
+            to_address: type === 'deposit' ? config.name : 'External',
             tx_id: transaction.id || '',
             status: 'Completed',
             network: 'Internal',

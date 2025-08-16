@@ -1140,11 +1140,17 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
     };
 
     try {
-      // FIXED deposits
+      // FIXED external deposits
       const deposits = await fetchByBitDepositsFixed(config, filterDate);
       transactions.push(...deposits);
       transactionBreakdown.deposits = deposits.length;
-      console.log(`  💰 ${config.name} deposits: ${deposits.length}`);
+      console.log(`  💰 ${config.name} external deposits: ${deposits.length}`);
+
+      // FIXED internal deposits
+      const internalDeposits = await fetchByBitInternalDepositsFixed(config, filterDate);
+      transactions.push(...internalDeposits);
+      transactionBreakdown.internalDeposits = internalDeposits.length;
+      console.log(`  🔄 ${config.name} internal deposits: ${internalDeposits.length}`);
 
       // FIXED withdrawals
       const withdrawals = await fetchByBitWithdrawalsFixed(config, filterDate);
@@ -1152,11 +1158,17 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
       transactionBreakdown.withdrawals = withdrawals.length;
       console.log(`  📤 ${config.name} withdrawals: ${withdrawals.length}`);
 
+      // FIXED internal transfers
+      const internalTransfers = await fetchByBitInternalTransfersFixed(config, filterDate);
+      transactions.push(...internalTransfers);
+      transactionBreakdown.internalTransfers = internalTransfers.length;
+      console.log(`  🔄 ${config.name} internal transfers: ${internalTransfers.length}`);
+
     } catch (txError) {
       console.log(`ByBit transaction fetch failed: ${txError.message}`);
     }
 
-    const statusNotes = `🔧 FIXED V5: ${transactionBreakdown.deposits}D + ${transactionBreakdown.withdrawals}W = ${transactions.length} total`;
+    const statusNotes = `🔧 FIXED V5: ${transactionBreakdown.deposits}D + ${transactionBreakdown.internalDeposits}ID + ${transactionBreakdown.withdrawals}W + ${transactionBreakdown.internalTransfers}IT = ${transactions.length} total`;
 
     return {
       success: true,
@@ -1316,6 +1328,138 @@ async function fetchByBitWithdrawalsFixed(config, filterDate) {
 
   } catch (error) {
     console.error(`Error fetching ByBit withdrawals for ${config.name}:`, error);
+    return [];
+  }
+}
+
+async function fetchByBitInternalDepositsFixed(config, filterDate) {
+  try {
+    console.log(`    🔄 Fetching ByBit internal deposits for ${config.name}...`);
+    
+    const timestamp = Date.now().toString();
+    const recvWindow = "5000";
+    const endpoint = "https://api.bybit.com/v5/asset/deposit/internal-deposit-record";
+    
+    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}`;
+    const signString = timestamp + config.apiKey + recvWindow + queryParams;
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
+    
+    const url = `${endpoint}?${queryParams}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "X-BAPI-API-KEY": config.apiKey,
+        "X-BAPI-SIGN": signature,
+        "X-BAPI-TIMESTAMP": timestamp,
+        "X-BAPI-RECV-WINDOW": recvWindow,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`ByBit internal deposits API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.retCode !== 0) {
+      throw new Error(`ByBit internal deposits error: ${data.retMsg}`);
+    }
+
+    if (!data.result || !data.result.rows) {
+      console.log(`    ℹ️ No internal deposit data returned for ${config.name}`);
+      return [];
+    }
+
+    const internalDeposits = data.result.rows.filter(deposit => {
+      const depositDate = new Date(parseInt(deposit.successAt));
+      return depositDate >= filterDate && deposit.status === 3;
+    }).map(deposit => ({
+      platform: config.name,
+      type: "deposit",
+      asset: deposit.coin,
+      amount: deposit.amount.toString(),
+      timestamp: new Date(parseInt(deposit.successAt)).toISOString(),
+      from_address: deposit.fromAddress || "Internal",
+      to_address: deposit.toAddress || config.name,
+      tx_id: deposit.txID || deposit.id,
+      status: "Completed",
+      network: "Internal",
+      api_source: "ByBit_Internal_Deposit_V5_Fixed"
+    }));
+
+    console.log(`    ✅ ByBit internal deposits: ${internalDeposits.length} transactions`);
+    return internalDeposits;
+
+  } catch (error) {
+    console.error(`Error fetching ByBit internal deposits for ${config.name}:`, error);
+    return [];
+  }
+}
+
+async function fetchByBitInternalTransfersFixed(config, filterDate) {
+  try {
+    console.log(`    🔄 Fetching ByBit internal transfers for ${config.name}...`);
+    
+    const timestamp = Date.now().toString();
+    const recvWindow = "5000";
+    const endpoint = "https://api.bybit.com/v5/asset/transfer/inter-transfer-list";
+    
+    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}`;
+    const signString = timestamp + config.apiKey + recvWindow + queryParams;
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
+    
+    const url = `${endpoint}?${queryParams}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "X-BAPI-API-KEY": config.apiKey,
+        "X-BAPI-SIGN": signature,
+        "X-BAPI-TIMESTAMP": timestamp,
+        "X-BAPI-RECV-WINDOW": recvWindow,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`ByBit internal transfers API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.retCode !== 0) {
+      throw new Error(`ByBit internal transfers error: ${data.retMsg}`);
+    }
+
+    if (!data.result || !data.result.rows) {
+      console.log(`    ℹ️ No internal transfer data returned for ${config.name}`);
+      return [];
+    }
+
+    const internalTransfers = data.result.rows.filter(transfer => {
+      const transferDate = new Date(parseInt(transfer.createTime));
+      return transferDate >= filterDate && transfer.status === "success";
+    }).map(transfer => ({
+      platform: config.name,
+      type: transfer.type === "IN" ? "deposit" : "withdrawal",
+      asset: transfer.coin,
+      amount: transfer.amount.toString(),
+      timestamp: new Date(parseInt(transfer.createTime)).toISOString(),
+      from_address: transfer.fromAddress || "Internal",
+      to_address: transfer.toAddress || "Internal",
+      tx_id: transfer.txID || transfer.id,
+      status: "Completed",
+      network: "Internal",
+      api_source: "ByBit_Internal_Transfer_V5_Fixed"
+    }));
+
+    console.log(`    ✅ ByBit internal transfers: ${internalTransfers.length} transactions`);
+    return internalTransfers;
+
+  } catch (error) {
+    console.error(`Error fetching ByBit internal transfers for ${config.name}:`, error);
     return [];
   }
 }

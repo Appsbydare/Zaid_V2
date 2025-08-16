@@ -2572,7 +2572,6 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     // Official Bitget signature method
     const method = 'GET';
     const params = {
-      coin: 'USDT',
       startTime: filterDate.getTime().toString(),
       endTime: Date.now().toString()
     };
@@ -2639,6 +2638,14 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     }
 
     console.log(`    ✅ Found ${deposits.length} Bitget deposits`);
+    
+    // Log currency breakdown
+    const currencyBreakdown = {};
+    deposits.forEach(deposit => {
+      currencyBreakdown[deposit.asset] = (currencyBreakdown[deposit.asset] || 0) + 1;
+    });
+    console.log(`    📊 Currency breakdown:`, currencyBreakdown);
+    
     return deposits;
 
   } catch (error) {
@@ -2658,7 +2665,6 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     // Official Bitget signature method
     const method = 'GET';
     const params = {
-      coin: 'USDT',
       startTime: filterDate.getTime().toString(),
       endTime: Date.now().toString()
     };
@@ -2725,6 +2731,14 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     }
 
     console.log(`    ✅ Found ${withdrawals.length} Bitget withdrawals`);
+    
+    // Log currency breakdown
+    const currencyBreakdown = {};
+    withdrawals.forEach(withdrawal => {
+      currencyBreakdown[withdrawal.asset] = (currencyBreakdown[withdrawal.asset] || 0) + 1;
+    });
+    console.log(`    📊 Currency breakdown:`, currencyBreakdown);
+    
     return withdrawals;
 
   } catch (error) {
@@ -2745,7 +2759,6 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     const method = 'GET';
     const params = {
       productType: 'UMCBL',
-      marginCoin: 'USDT',
       startTime: filterDate.getTime().toString(),
       endTime: Date.now().toString(),
       pageSize: '20'

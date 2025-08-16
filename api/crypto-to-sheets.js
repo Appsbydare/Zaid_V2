@@ -1509,7 +1509,8 @@ async function fetchTronEnhanced(address, filterDate) {
     // TRC-20 token contract addresses (add more as needed)
     const trc20Tokens = {
       USDT: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
-      // USDC: 'TOKEN_CONTRACT_ADDRESS',
+      USDC: 'TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8',
+      // Add more tokens as needed
     };
 
     // Process TRX transfers
@@ -1553,11 +1554,8 @@ async function fetchTronEnhanced(address, filterDate) {
       trc20Data.data.forEach(tx => {
         const txDate = new Date(tx.block_timestamp);
         if (txDate < filterDate) return;
-        // Only include tokens we care about
-        const tokenName = Object.keys(trc20Tokens).find(
-          k => trc20Tokens[k].toLowerCase() === tx.token_info.address.toLowerCase()
-        );
-        if (!tokenName) return;
+        // Use token symbol from API response instead of hardcoded mapping
+        const tokenName = tx.token_info.symbol || 'UNKNOWN';
         let type = null;
         if (tx.to && tx.to.toLowerCase() === address.toLowerCase()) {
           type = 'deposit';
@@ -1590,6 +1588,14 @@ async function fetchTronEnhanced(address, filterDate) {
 
     // Log all transactions before returning
     console.log(`[TRON LOG] Total transactions to return: ${transactions.length}`);
+    
+    // Log currency breakdown
+    const currencyBreakdown = {};
+    transactions.forEach(t => {
+      currencyBreakdown[t.asset] = (currencyBreakdown[t.asset] || 0) + 1;
+    });
+    console.log(`[TRON LOG] Currency breakdown:`, currencyBreakdown);
+    
     transactions.forEach((t, i) => {
       console.log(`[TRON TX ${i + 1}] ${JSON.stringify(t)}`);
     });

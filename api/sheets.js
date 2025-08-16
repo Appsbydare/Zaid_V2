@@ -483,7 +483,11 @@ async function fetchBitcoinBalance(address) {
 }
 
 async function fetchEthereumBalance(address) {
-  const apiKey = process.env.ETHERSCAN_API_KEY || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+  const apiKey = process.env.ETHERSCAN_API_KEY;
+  if (!apiKey) {
+    console.log("⚠️ No Etherscan API key provided for Ethereum balance check");
+    return { ETH: 0 };
+  }
   const response = await fetch(`https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`);
   
   if (!response.ok) throw new Error(`Ethereum API error: ${response.status}`);

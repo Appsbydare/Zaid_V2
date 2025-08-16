@@ -1444,8 +1444,12 @@ async function fetchBitcoinBlockchainInfo(address, filterDate) {
 
 async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
   try {
-    // Use provided API key or fallback to default
-    const etherscanApiKey = apiKey || "SP8YA4W8RDB85G9129BTDHY72ADBZ6USHA";
+    // Use provided API key from Settings page
+    if (!apiKey) {
+      console.log("⚠️ No Etherscan API key provided for Ethereum wallet");
+      return [];
+    }
+    const etherscanApiKey = apiKey;
     const endpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
     
     const response = await fetch(endpoint);

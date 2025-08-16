@@ -111,15 +111,15 @@ async function readWalletsFromSettings() {
 // ===========================================
 
 /**
- * Creates a reverse mapping from wallet addresses to friendly names
+ * Creates a reverse mapping from wallet addresses to friendly names for platform display
  * @param {Object} wallets - Wallet configuration object from readWalletsFromSettings
- * @returns {Object} - Mapping of address -> friendly name
+ * @returns {Object} - Mapping of address -> friendly name (for PLATFORM column only)
  */
 function createWalletAddressMapping(wallets) {
   const addressMapping = {};
   const mappingStats = { total: 0, mapped: 0, skipped: 0 };
   
-  console.log('🔧 Creating wallet address mapping...');
+  console.log('🔧 Creating platform mapping for friendly names...');
   
   for (const [walletName, walletConfig] of Object.entries(wallets)) {
     if (walletConfig.address && walletConfig.address.trim() !== '') {
@@ -154,8 +154,8 @@ function createWalletAddressMapping(wallets) {
     }
   }
   
-  console.log(`📊 Address mapping created: ${mappingStats.total} addresses mapped`);
-  console.log(`📊 Mapping keys: ${Object.keys(addressMapping).length} variations`);
+  console.log(`📊 Platform mapping created: ${mappingStats.total} addresses mapped`);
+  console.log(`📊 Platform mapping keys: ${Object.keys(addressMapping).length} variations`);
   
   return addressMapping;
 }
@@ -201,37 +201,29 @@ function mapWalletAddress(address, addressMapping) {
 }
 
 /**
- * Applies wallet address mapping to a transaction object
+ * Applies platform mapping to a transaction object (ONLY platform field)
  * @param {Object} transaction - The transaction object
  * @param {Object} addressMapping - The address mapping object
- * @returns {Object} - The transaction with mapped addresses
+ * @returns {Object} - The transaction with mapped platform only
  */
-function applyWalletAddressMapping(transaction, addressMapping) {
+function applyPlatformMapping(transaction, addressMapping) {
   if (!transaction || !addressMapping) {
     return transaction;
   }
   
   const mappedTransaction = { ...transaction };
   
-  // Map from_address if it exists
-  if (mappedTransaction.from_address) {
-    const originalFromAddress = mappedTransaction.from_address;
-    mappedTransaction.from_address = mapWalletAddress(originalFromAddress, addressMapping);
+  // Only map the platform field, keep original addresses
+  if (mappedTransaction.platform) {
+    const originalPlatform = mappedTransaction.platform;
     
-    // Log if mapping occurred
-    if (mappedTransaction.from_address !== originalFromAddress) {
-      console.log(`🔗 Mapped from_address: ${originalFromAddress} → ${mappedTransaction.from_address}`);
-    }
-  }
-  
-  // Map to_address if it exists
-  if (mappedTransaction.to_address) {
-    const originalToAddress = mappedTransaction.to_address;
-    mappedTransaction.to_address = mapWalletAddress(originalToAddress, addressMapping);
-    
-    // Log if mapping occurred
-    if (mappedTransaction.to_address !== originalToAddress) {
-      console.log(`🔗 Mapped to_address: ${originalToAddress} → ${mappedTransaction.to_address}`);
+    // Check if this platform contains a wallet address that should be mapped
+    for (const [address, friendlyName] of Object.entries(addressMapping)) {
+      if (originalPlatform.includes(address) || originalPlatform.toLowerCase().includes(address.toLowerCase())) {
+        mappedTransaction.platform = friendlyName;
+        console.log(`🔗 Mapped platform: ${originalPlatform} → ${friendlyName}`);
+        break;
+      }
     }
   }
   
@@ -495,9 +487,9 @@ export default async function handler(req, res) {
     console.log(`🔧 Processing ${Object.keys(wallets).length} wallets from Settings...`);
     debugLogs.push(`🔧 Processing ${Object.keys(wallets).length} wallets from Settings...`);
     
-    // Create wallet address mapping for friendly names
+    // Create wallet address mapping for platform names (friendly names in PLATFORM column)
     const addressMapping = createWalletAddressMapping(wallets);
-    debugLogs.push(`🔗 Created wallet address mapping for ${Object.keys(addressMapping).length} addresses`);
+    debugLogs.push(`🔗 Created platform mapping for ${Object.keys(addressMapping).length} addresses`);
     
     // Process each wallet based on blockchain type
     for (const [walletName, walletConfig] of Object.entries(wallets)) {
@@ -525,8 +517,8 @@ export default async function handler(req, res) {
             continue;
         }
         
-        // Apply wallet address mapping to transactions
-        const mappedTransactions = transactions.map(tx => applyWalletAddressMapping(tx, addressMapping));
+        // Apply platform mapping to transactions (only platform field, keep original addresses)
+        const mappedTransactions = transactions.map(tx => applyPlatformMapping(tx, addressMapping));
         allTransactions.push(...mappedTransactions);
         totalTransactionsFound += mappedTransactions.length;
         

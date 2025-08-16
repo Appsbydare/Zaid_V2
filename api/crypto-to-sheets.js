@@ -489,7 +489,7 @@ export default async function handler(req, res) {
     
     // Create wallet address mapping for platform names (friendly names in PLATFORM column)
     const addressMapping = createWalletAddressMapping(wallets);
-    debugLogs.push(`🔗 Created platform mapping for ${Object.keys(addressMapping).length} addresses`);
+    debugLogs.push(`🔗 Created platform mapping for ${Object.keys(addressMapping).length} addresses (for exchange platforms)`);
     
     // Process each wallet based on blockchain type
     for (const [walletName, walletConfig] of Object.entries(wallets)) {
@@ -517,8 +517,11 @@ export default async function handler(req, res) {
             continue;
         }
         
-        // Apply platform mapping to transactions (only platform field, keep original addresses)
-        const mappedTransactions = transactions.map(tx => applyPlatformMapping(tx, addressMapping));
+        // Set platform to friendly name for blockchain wallets (keep original addresses)
+        const mappedTransactions = transactions.map(tx => ({
+          ...tx,
+          platform: walletName // Use the friendly name from Settings
+        }));
         allTransactions.push(...mappedTransactions);
         totalTransactionsFound += mappedTransactions.length;
         

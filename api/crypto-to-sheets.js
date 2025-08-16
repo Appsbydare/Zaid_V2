@@ -1333,7 +1333,7 @@ async function fetchByBitInternalDepositsFixed(config, filterDate) {
     
     const timestamp = Date.now().toString();
     const recvWindow = "5000";
-    const endpoint = "https://api.bybit.com/v5/asset/deposit/internal-deposit-record";
+    const endpoint = "https://api.bybit.com/v5/asset/deposit/query-internal-record";
     
     const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}`;
     const signString = timestamp + config.apiKey + recvWindow + queryParams;
@@ -1381,29 +1381,37 @@ async function fetchByBitInternalDepositsFixed(config, filterDate) {
     }
 
     console.log(`    📊 Raw internal deposits found: ${data.result.rows.length}`);
-    console.log(`    📊 Sample internal deposit:`, JSON.stringify(data.result.rows[0], null, 2));
+    if (data.result.rows.length > 0) {
+      console.log(`    📊 Sample internal deposit:`, JSON.stringify(data.result.rows[0], null, 2));
+    }
 
     const internalDeposits = data.result.rows.filter(deposit => {
-      const depositDate = new Date(parseInt(deposit.successAt));
+      const created = parseInt(deposit.createdTime);
+      const createdMs = created < 1e12 ? created * 1000 : created; // handle seconds vs ms
+      const depositDate = new Date(createdMs);
       const isAfterFilter = depositDate >= filterDate;
-      const isCompleted = deposit.status === 3;
+      const isCompleted = Number(deposit.status) === 2; // 2 = Success per docs
       
       console.log(`    🔍 Internal Deposit Filter: Date=${depositDate.toISOString()}, After Filter=${isAfterFilter}, Status=${deposit.status}, Completed=${isCompleted}`);
       
       return isAfterFilter && isCompleted;
-    }).map(deposit => ({
-      platform: config.name,
-      type: "deposit",
-      asset: deposit.coin,
-      amount: deposit.amount.toString(),
-      timestamp: new Date(parseInt(deposit.successAt)).toISOString(),
-      from_address: deposit.fromAddress || "Internal",
-      to_address: deposit.toAddress || config.name,
-      tx_id: deposit.txID || deposit.id,
-      status: "Completed",
-      network: "Internal",
-      api_source: "ByBit_Internal_Deposit_V5_Fixed"
-    }));
+    }).map(deposit => {
+      const created = parseInt(deposit.createdTime);
+      const createdMs = created < 1e12 ? created * 1000 : created;
+      return {
+        platform: config.name,
+        type: "deposit",
+        asset: deposit.coin,
+        amount: deposit.amount.toString(),
+        timestamp: new Date(createdMs).toISOString(),
+        from_address: deposit.address || "Internal",
+        to_address: config.name,
+        tx_id: deposit.txID || deposit.id,
+        status: "Completed",
+        network: "Internal",
+        api_source: "ByBit_Internal_Deposit_V5_Fixed"
+      };
+    });
 
     console.log(`    ✅ ByBit internal deposits: ${internalDeposits.length} transactions`);
     return internalDeposits;
@@ -1420,7 +1428,7 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
     
     const timestamp = Date.now().toString();
     const recvWindow = "5000";
-    const endpoint = "https://api.bybit.com/v5/asset/transfer/inter-transfer-list";
+    const endpoint = "https://api.bybit.com/v5/asset/inter-transfer-list";
     
     const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}`;
     const signString = timestamp + config.apiKey + recvWindow + queryParams;
@@ -1461,36 +1469,45 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
       throw new Error(`ByBit internal transfers error: ${data.retMsg}`);
     }
 
-    if (!data.result || !data.result.rows) {
+    if (!data.result || !Array.isArray(data.result.list)) {
       console.log(`    ℹ️ No internal transfer data returned for ${config.name}`);
       console.log(`    📊 Full response data:`, JSON.stringify(data, null, 2));
       return [];
     }
 
-    console.log(`    📊 Raw internal transfers found: ${data.result.rows.length}`);
-    console.log(`    📊 Sample internal transfer:`, JSON.stringify(data.result.rows[0], null, 2));
+    console.log(`    📊 Raw internal transfers found: ${data.result.list.length}`);
+    if (data.result.list.length > 0) {
+      console.log(`    📊 Sample internal transfer:`, JSON.stringify(data.result.list[0], null, 2));
+    }
 
-    const internalTransfers = data.result.rows.filter(transfer => {
-      const transferDate = new Date(parseInt(transfer.createTime));
+    const internalTransfers = data.result.list.filter(transfer => {
+      const created = parseInt(transfer.timestamp);
+      const createdMs = created < 1e12 ? created * 1000 : created;
+      const transferDate = new Date(createdMs);
       const isAfterFilter = transferDate >= filterDate;
-      const isSuccess = transfer.status === "success";
+      const isSuccess = transfer.status === "SUCCESS";
       
       console.log(`    🔍 Internal Transfer Filter: Date=${transferDate.toISOString()}, After Filter=${isAfterFilter}, Status=${transfer.status}, Success=${isSuccess}`);
       
       return isAfterFilter && isSuccess;
-    }).map(transfer => ({
-      platform: config.name,
-      type: transfer.type === "IN" ? "deposit" : "withdrawal",
-      asset: transfer.coin,
-      amount: transfer.amount.toString(),
-      timestamp: new Date(parseInt(transfer.createTime)).toISOString(),
-      from_address: transfer.fromAddress || "Internal",
-      to_address: transfer.toAddress || "Internal",
-      tx_id: transfer.txID || transfer.id,
-      status: "Completed",
-      network: "Internal",
-      api_source: "ByBit_Internal_Transfer_V5_Fixed"
-    }));
+    }).map(transfer => {
+      const created = parseInt(transfer.timestamp);
+      const createdMs = created < 1e12 ? created * 1000 : created;
+      const type = transfer.toAccountType === 'UNIFIED' ? 'deposit' : (transfer.fromAccountType === 'UNIFIED' ? 'withdrawal' : 'deposit');
+      return {
+        platform: config.name,
+        type: type,
+        asset: transfer.coin || 'USDT',
+        amount: transfer.amount.toString(),
+        timestamp: new Date(createdMs).toISOString(),
+        from_address: transfer.fromAccountType || 'Internal',
+        to_address: transfer.toAccountType || 'Internal',
+        tx_id: transfer.transferId || transfer.id || '',
+        status: 'Completed',
+        network: 'Internal',
+        api_source: 'ByBit_Internal_Transfer_V5_Fixed'
+      };
+    });
 
     console.log(`    ✅ ByBit internal transfers: ${internalTransfers.length} transactions`);
     return internalTransfers;

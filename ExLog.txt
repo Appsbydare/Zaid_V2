@@ -1,84 +1,84 @@
 Execution log
-1:27:52 AM	Notice	Execution started
-1:27:52 AM	Info	🚀 Starting Vercel-mode crypto data fetch...
-1:27:54 AM	Info	📡 Triggering Vercel data fetch...
-1:27:54 AM	Info	📡 Triggering Vercel data fetch...
-1:27:54 AM	Info	🔍 Debugging credential reading...
-1:27:54 AM	Info	🔍 L3 (Binance CV Key): "jdKlhQcdPyOEykfdGB2FFsCKGnmzfqkJ9gsmCuEaHS00l8LfDPkMEWtY8nDUVbNn"
-1:27:54 AM	Info	🔍 M3 (Binance CV Secret): "JanQSThz1NOvinAaOWcPkP86CoxULBFJ5BDxfyk0hhM3mlR1RYgB59RIn3lQMQEt"
-1:27:54 AM	Info	✅ Loaded Binance CV credentials
-1:27:54 AM	Info	🔍 L4 (Binance GC Key): "IvyPBHtjvptofGoxMPCGyQ6fDWo82bBTzNbACRTSPcfF23Onht8fL6jKfAL2QzRk"
-1:27:54 AM	Info	🔍 M4 (Binance GC Secret): "Gw3nor0p0NYJpXkGHSshLh9QjFMwUy97cAwPwBniifvm0ivvhmxyika4OKhxioBH"
-1:27:54 AM	Info	✅ Loaded Binance GC credentials
-1:27:54 AM	Info	🔍 L5 (Binance Main Key): "LYG4Tp1wnBF0Xzuu9pKVcIYB2UJcV6nGQmCVGtcNKnA4mJLYVyTfMCcIUZt7Vksu"
-1:27:54 AM	Info	🔍 M5 (Binance Main Secret): "VRZUaxPNKQBuVVA81mhpS04xQ9xylh8Gr6HTL2Dl5ThhKYy71GqRenFS0XA0GG8N"
-1:27:54 AM	Info	✅ Loaded Binance Main credentials
-1:27:54 AM	Info	🔍 L6 (ByBit Key): "vqL52uDhkej3tyGUaP"
-1:27:54 AM	Info	🔍 M6 (ByBit Secret): "B043tPnaVGON5P5W3eCo4cDFDqEXcx7fB2sl"
-1:27:54 AM	Info	✅ Loaded ByBit credentials
-1:27:54 AM	Info	🔍 L8 (Bitget Key): "bg_b42408b0fdce16b4ce7d8412c6920820"
-1:27:54 AM	Info	🔍 M8 (Bitget Secret): "1dc8a168bf7e0bbe01921f5f707e6be46cfe907b202687b9705a7aeb20bdfaa8"
-1:27:54 AM	Info	🔍 N8 (Bitget Passphrase): "Darshana1"
-1:27:54 AM	Info	🔍 L8 cell type: string, length: 35
-1:27:54 AM	Info	🔍 M8 cell type: string, length: 64
-1:27:54 AM	Info	🔍 N8 cell type: string, length: 9
-1:27:54 AM	Info	✅ Loaded Bitget Account 1 credentials
-1:27:54 AM	Info	   - Key: bg_b42408b...
-1:27:54 AM	Info	   - Secret: 1dc8a168bf...
-1:27:54 AM	Info	   - Passphrase (raw): "Darshana1"
-1:27:54 AM	Info	   - Passphrase (trimmed): "Darshana1"
-1:27:54 AM	Info	🔍 L9 (Bitget Account 2 Key): "bg_fe80b5a1851c65bb83a99aba55d4b40b"
-1:27:54 AM	Info	🔍 M9 (Bitget Account 2 Secret): "1c8e1bac46576724aa920e2a2a60f7db78121a00d350cf6225041a007d4333de"
-1:27:54 AM	Info	🔍 N9 (Bitget Account 2 Passphrase): "Darshana1"
-1:27:54 AM	Info	🔍 L9 cell type: string, length: 35
-1:27:54 AM	Info	🔍 M9 cell type: string, length: 64
-1:27:54 AM	Info	🔍 N9 cell type: string, length: 9
-1:27:54 AM	Info	✅ Loaded Bitget Account 2 credentials
-1:27:54 AM	Info	   - Key: bg_fe80b5a...
-1:27:54 AM	Info	   - Secret: 1c8e1bac46...
-1:27:54 AM	Info	   - Passphrase (raw): "Darshana1"
-1:27:54 AM	Info	   - Passphrase (trimmed): "Darshana1"
-1:27:54 AM	Info	🔑 Total credentials loaded: 6
-1:27:54 AM	Info	🔑 Credential keys: BINANCE_CV, BINANCE_GC_API, BINANCE_MAIN_API, BYBIT_API, BITGET_API, BITGET_API_2
-1:27:54 AM	Info	🔑 Loaded API credentials: [ 'BINANCE_CV',
+2:11:31 AM	Notice	Execution started
+2:11:31 AM	Info	🚀 Starting Vercel-mode crypto data fetch...
+2:11:32 AM	Info	📡 Triggering Vercel data fetch...
+2:11:32 AM	Info	📡 Triggering Vercel data fetch...
+2:11:32 AM	Info	🔍 Debugging credential reading...
+2:11:32 AM	Info	🔍 L3 (Binance CV Key): "jdKlhQcdPyOEykfdGB2FFsCKGnmzfqkJ9gsmCuEaHS00l8LfDPkMEWtY8nDUVbNn"
+2:11:32 AM	Info	🔍 M3 (Binance CV Secret): "JanQSThz1NOvinAaOWcPkP86CoxULBFJ5BDxfyk0hhM3mlR1RYgB59RIn3lQMQEt"
+2:11:32 AM	Info	✅ Loaded Binance CV credentials
+2:11:32 AM	Info	🔍 L4 (Binance GC Key): "IvyPBHtjvptofGoxMPCGyQ6fDWo82bBTzNbACRTSPcfF23Onht8fL6jKfAL2QzRk"
+2:11:32 AM	Info	🔍 M4 (Binance GC Secret): "Gw3nor0p0NYJpXkGHSshLh9QjFMwUy97cAwPwBniifvm0ivvhmxyika4OKhxioBH"
+2:11:32 AM	Info	✅ Loaded Binance GC credentials
+2:11:32 AM	Info	🔍 L5 (Binance Main Key): "LYG4Tp1wnBF0Xzuu9pKVcIYB2UJcV6nGQmCVGtcNKnA4mJLYVyTfMCcIUZt7Vksu"
+2:11:32 AM	Info	🔍 M5 (Binance Main Secret): "VRZUaxPNKQBuVVA81mhpS04xQ9xylh8Gr6HTL2Dl5ThhKYy71GqRenFS0XA0GG8N"
+2:11:32 AM	Info	✅ Loaded Binance Main credentials
+2:11:32 AM	Info	🔍 L6 (ByBit Key): "vqL52uDhkej3tyGUaP"
+2:11:32 AM	Info	🔍 M6 (ByBit Secret): "B043tPnaVGON5P5W3eCo4cDFDqEXcx7fB2sl"
+2:11:32 AM	Info	✅ Loaded ByBit credentials
+2:11:32 AM	Info	🔍 L8 (Bitget Key): "bg_b42408b0fdce16b4ce7d8412c6920820"
+2:11:32 AM	Info	🔍 M8 (Bitget Secret): "1dc8a168bf7e0bbe01921f5f707e6be46cfe907b202687b9705a7aeb20bdfaa8"
+2:11:32 AM	Info	🔍 N8 (Bitget Passphrase): "Darshana1"
+2:11:32 AM	Info	🔍 L8 cell type: string, length: 35
+2:11:32 AM	Info	🔍 M8 cell type: string, length: 64
+2:11:32 AM	Info	🔍 N8 cell type: string, length: 9
+2:11:32 AM	Info	✅ Loaded Bitget Account 1 credentials
+2:11:32 AM	Info	   - Key: bg_b42408b...
+2:11:32 AM	Info	   - Secret: 1dc8a168bf...
+2:11:32 AM	Info	   - Passphrase (raw): "Darshana1"
+2:11:32 AM	Info	   - Passphrase (trimmed): "Darshana1"
+2:11:32 AM	Info	🔍 L9 (Bitget Account 2 Key): "bg_fe80b5a1851c65bb83a99aba55d4b40b"
+2:11:32 AM	Info	🔍 M9 (Bitget Account 2 Secret): "1c8e1bac46576724aa920e2a2a60f7db78121a00d350cf6225041a007d4333de"
+2:11:32 AM	Info	🔍 N9 (Bitget Account 2 Passphrase): "Darshana1"
+2:11:32 AM	Info	🔍 L9 cell type: string, length: 35
+2:11:32 AM	Info	🔍 M9 cell type: string, length: 64
+2:11:32 AM	Info	🔍 N9 cell type: string, length: 9
+2:11:32 AM	Info	✅ Loaded Bitget Account 2 credentials
+2:11:32 AM	Info	   - Key: bg_fe80b5a...
+2:11:32 AM	Info	   - Secret: 1c8e1bac46...
+2:11:32 AM	Info	   - Passphrase (raw): "Darshana1"
+2:11:32 AM	Info	   - Passphrase (trimmed): "Darshana1"
+2:11:32 AM	Info	🔑 Total credentials loaded: 6
+2:11:32 AM	Info	🔑 Credential keys: BINANCE_CV, BINANCE_GC_API, BINANCE_MAIN_API, BYBIT_API, BITGET_API, BITGET_API_2
+2:11:32 AM	Info	🔑 Loaded API credentials: [ 'BINANCE_CV',
   'BINANCE_GC_API',
   'BINANCE_MAIN_API',
   'BYBIT_API',
   'BITGET_API',
   'BITGET_API_2' ]
-1:27:54 AM	Info	🔍 Bitget credentials found:
-1:27:54 AM	Info	   - API Key: ✅ Present
-1:27:54 AM	Info	   - API Secret: ✅ Present
-1:27:54 AM	Info	   - Key length: 35
-1:27:54 AM	Info	   - Secret length: 64
-1:27:54 AM	Info	🔍 All credential keys available: [ 'BINANCE_CV',
+2:11:32 AM	Info	🔍 Bitget credentials found:
+2:11:32 AM	Info	   - API Key: ✅ Present
+2:11:32 AM	Info	   - API Secret: ✅ Present
+2:11:32 AM	Info	   - Key length: 35
+2:11:32 AM	Info	   - Secret length: 64
+2:11:32 AM	Info	🔍 All credential keys available: [ 'BINANCE_CV',
   'BINANCE_GC_API',
   'BINANCE_MAIN_API',
   'BYBIT_API',
   'BITGET_API',
   'BITGET_API_2' ]
-1:27:54 AM	Info	   - BINANCE_CV: ✅ Key, ✅ Secret
-1:27:54 AM	Info	   - BINANCE_GC_API: ✅ Key, ✅ Secret
-1:27:54 AM	Info	   - BINANCE_MAIN_API: ✅ Key, ✅ Secret
-1:27:54 AM	Info	   - BYBIT_API: ✅ Key, ✅ Secret
-1:27:54 AM	Info	   - BITGET_API: ✅ Key, ✅ Secret
-1:27:54 AM	Info	   - BITGET_API_2: ✅ Key, ✅ Secret
-1:28:13 AM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
-1:28:13 AM	Info	🚀 Starting FIXED crypto data fetch...
-1:28:13 AM	Info	📅 Filtering transactions after: 2025-07-30T19:54:03.000Z
-1:28:13 AM	Info	📅 Filter date object: 2025-07-30T19:54:03.000Z
-1:28:13 AM	Info	🔧 Testing Binance APIs with credentials from Apps Script...
-1:28:13 AM	Info	🔑 Received 6 credential sets from Apps Script
-1:28:13 AM	Info	🔧 Processing Binance (GC) with credentials...
-1:28:13 AM	Info	  💰 Binance (GC) deposits: 19
-1:28:13 AM	Info	  📤 Binance (GC) withdrawals: 35
-1:28:13 AM	Info	  🤝 Binance (GC) P2P: 0
-1:28:13 AM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
-1:28:13 AM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-1:28:13 AM	Info	        [PAY DEBUG] Request Params: {"timestamp":1755547075379,"recvWindow":5000,"limit":100,"startTime":1753905243000}
-1:28:13 AM	Info	        [PAY DEBUG] Response Status: 200
-1:28:13 AM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":941534261,"counterpartyId":115928493,"orderId":"380649506236522497","note":"","orderType":"C2C","transactionId":"P_A1V7GAUVPH571113","transactionTime":1755090539674,"amount":"-2693","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2693","walletAssetCost":{"1":"2693"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-0af8d","type":"USER","binanceId":68251320,"accountId":115928493,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":115928493,"orderId":"380649117527064576","note":"","orderType":"C2C","transactionId":"P_A1V7G9EK45H7111C","transactionTime":1755090358425,"amount":"-10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-0af8d","type":"USER","binanceId":68251320,"accountId":115928493,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"380266990082744320","note":"","orderType":"C2C","transactionId":"P_A1V64U9CY7H71114","transactionTime":1754912417008,"amount":"10000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10000","walletAssetCost":{"1":"10000"}}],"payerInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"379915691861475328","note":"","orderType":"C2C","transactionId":"P_A1V4VW8N2A971113","transactionTime":1754748830135,"amount":"-10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"accountId":206029274,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":1057888111,"orderId":"379498169432711168","note":"","orderType":"C2C","transactionId":"P_A1V3DEAK45H71117","transactionTime":1754554406756,"amount":"1997","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1997","walletAssetCost":{"1":"1997"}}],"payerInfo":{"name":"nfet123","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"379374341122473984","note":"","orderType":"C2C","transactionId":"P_A1V2YBU1T1H71112","transactionTime":1754496744638,"amount":"-70000","currency":"USDT","walletType":2,"walletTypes":["2"],"fundsDetail":[{"currency":"USDT","amount":"70000","walletAssetCost":{"2":"70000"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"accountId":206029274,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":710596492,"orderId":"378402622063747072","note":"","orderType":"C2C","transactionId":"P_A1UYGVR3Q997111A","transactionTime":1754044252608,"amount":"3000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3000","walletAssetCost":{"1":"3000"}}],"payerInfo":{"name":"l__1_0","type":"USER","binanceId":710629485,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"}],"success":true}
-1:28:13 AM	Info	        [PAY DEBUG] Parsed Data: {
+2:11:32 AM	Info	   - BINANCE_CV: ✅ Key, ✅ Secret
+2:11:32 AM	Info	   - BINANCE_GC_API: ✅ Key, ✅ Secret
+2:11:32 AM	Info	   - BINANCE_MAIN_API: ✅ Key, ✅ Secret
+2:11:32 AM	Info	   - BYBIT_API: ✅ Key, ✅ Secret
+2:11:32 AM	Info	   - BITGET_API: ✅ Key, ✅ Secret
+2:11:32 AM	Info	   - BITGET_API_2: ✅ Key, ✅ Secret
+2:11:52 AM	Info	--- 📡 Vercel Debug Logs Start 📡 ---
+2:11:52 AM	Info	🚀 Starting FIXED crypto data fetch...
+2:11:52 AM	Info	📅 Filtering transactions after: 2025-07-30T20:20:54.000Z
+2:11:52 AM	Info	📅 Filter date object: 2025-07-30T20:20:54.000Z
+2:11:52 AM	Info	🔧 Testing Binance APIs with credentials from Apps Script...
+2:11:52 AM	Info	🔑 Received 6 credential sets from Apps Script
+2:11:52 AM	Info	🔧 Processing Binance (GC) with credentials...
+2:11:52 AM	Info	  💰 Binance (GC) deposits: 19
+2:11:52 AM	Info	  📤 Binance (GC) withdrawals: 35
+2:11:52 AM	Info	  🤝 Binance (GC) P2P: 0
+2:11:52 AM	Info	    💳 Fetching Binance Pay transactions for Binance (GC) using official endpoint...
+2:11:52 AM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+2:11:52 AM	Info	        [PAY DEBUG] Request Params: {"timestamp":1755549693854,"recvWindow":5000,"limit":100,"startTime":1753906854000}
+2:11:52 AM	Info	        [PAY DEBUG] Response Status: 200
+2:11:52 AM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":941534261,"counterpartyId":115928493,"orderId":"380649506236522497","note":"","orderType":"C2C","transactionId":"P_A1V7GAUVPH571113","transactionTime":1755090539674,"amount":"-2693","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2693","walletAssetCost":{"1":"2693"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-0af8d","type":"USER","binanceId":68251320,"accountId":115928493,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":115928493,"orderId":"380649117527064576","note":"","orderType":"C2C","transactionId":"P_A1V7G9EK45H7111C","transactionTime":1755090358425,"amount":"-10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"User-0af8d","type":"USER","binanceId":68251320,"accountId":115928493,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"380266990082744320","note":"","orderType":"C2C","transactionId":"P_A1V64U9CY7H71114","transactionTime":1754912417008,"amount":"10000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10000","walletAssetCost":{"1":"10000"}}],"payerInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"379915691861475328","note":"","orderType":"C2C","transactionId":"P_A1V4VW8N2A971113","transactionTime":1754748830135,"amount":"-10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"accountId":206029274,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":1057888111,"orderId":"379498169432711168","note":"","orderType":"C2C","transactionId":"P_A1V3DEAK45H71117","transactionTime":1754554406756,"amount":"1997","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"1997","walletAssetCost":{"1":"1997"}}],"payerInfo":{"name":"nfet123","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":206029274,"orderId":"379374341122473984","note":"","orderType":"C2C","transactionId":"P_A1V2YBU1T1H71112","transactionTime":1754496744638,"amount":"-70000","currency":"USDT","walletType":2,"walletTypes":["2"],"fundsDetail":[{"currency":"USDT","amount":"70000","walletAssetCost":{"2":"70000"}}],"payerInfo":{"binanceId":941534261,"unmaskData":false},"receiverInfo":{"name":"Rabahalnasseri","type":"USER","binanceId":13115322,"accountId":206029274,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":941534261,"counterpartyId":710596492,"orderId":"378402622063747072","note":"","orderType":"C2C","transactionId":"P_A1UYGVR3Q997111A","transactionTime":1754044252608,"amount":"3000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3000","walletAssetCost":{"1":"3000"}}],"payerInfo":{"name":"l__1_0","type":"USER","binanceId":710629485,"unmaskData":false},"receiverInfo":{"binanceId":941534261,"unmaskData":false},"totalPaymentFee":"0"}],"success":true}
+2:11:52 AM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [
@@ -345,8 +345,8 @@ Execution log
   ],
   "success": true
 }
-1:28:13 AM	Info	        [PAY DEBUG] Found 7 successful transactions.
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Found 7 successful transactions.
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 115928493,
   "orderId": "380649506236522497",
@@ -385,14 +385,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 115928493,
   "orderId": "380649117527064576",
@@ -431,14 +431,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 206029274,
   "orderId": "380266990082744320",
@@ -473,14 +473,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("13115322" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("13115322" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 206029274,
   "orderId": "379915691861475328",
@@ -519,14 +519,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("13115322" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("13115322" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 1057888111,
   "orderId": "379498169432711168",
@@ -560,14 +560,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 206029274,
   "orderId": "379374341122473984",
@@ -606,14 +606,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("13115322" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("13115322" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 941534261,
   "counterpartyId": 710596492,
   "orderId": "378402622063747072",
@@ -648,25 +648,25 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 710629485 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("710629485" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	  💳 Binance (GC) Pay: 7
-1:28:13 AM	Info	✅ Binance (GC): 61 transactions
-1:28:13 AM	Info	🔧 Processing Binance (Main) with credentials...
-1:28:13 AM	Info	  💰 Binance (Main) deposits: 100
-1:28:13 AM	Info	  📤 Binance (Main) withdrawals: 49
-1:28:13 AM	Info	  🤝 Binance (Main) P2P: 28
-1:28:13 AM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
-1:28:13 AM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-1:28:13 AM	Info	        [PAY DEBUG] Request Params: {"timestamp":1755547076210,"recvWindow":5000,"limit":100,"startTime":1753905243000}
-1:28:13 AM	Info	        [PAY DEBUG] Response Status: 200
-1:28:13 AM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":1028496161,"orderId":"381560309905530880","note":"","orderType":"C2C","transactionId":"P_A1VAQVBMNJN71112","transactionTime":1755514666014,"amount":"-9989.96","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9989.96","walletAssetCost":{"1":"9989.96"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"381402106875699200","note":"","orderType":"C2C","transactionId":"P_A1VA5VT4Y7H71115","transactionTime":1755440996366,"amount":"-3995.96","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3995.96","walletAssetCost":{"1":"3995.96"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":225071527,"orderId":"380876186064191488","note":"","orderType":"C2C","transactionId":"P_A1V8A3H3BFW71112","transactionTime":1755196096080,"amount":"-29729","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"29729","walletAssetCost":{"1":"29729"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-3c51d","type":"USER","binanceId":133103409,"accountId":225071527,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":150647986,"orderId":"380861924539113472","note":"","orderType":"C2C","transactionId":"P_A1V88FMK39H71118","transactionTime":1755189454497,"amount":"58260","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"58260","walletAssetCost":{"1":"58260"}}],"payerInfo":{"name":"User-81577","type":"USER","binanceId":50698508,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"380640619802812416","note":"","orderType":"C2C","transactionId":"P_A1V7FAHAUAH7111A","transactionTime":1755086401898,"amount":"-38972.23","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"38972.23","walletAssetCost":{"1":"38972.23"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":387033572,"orderId":"380300398473273344","note":"","orderType":"C2C","transactionId":"P_A1V68MTBEJS7111A","transactionTime":1754927973524,"amount":"2032","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2032","walletAssetCost":{"1":"2032"}}],"payerInfo":{"name":"سعيد المهيري","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":941547466,"orderId":"380266990082744320","note":"","orderType":"C2C","transactionId":"P_A1V64U9CY7H71112","transactionTime":1754912417008,"amount":"-10000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10000","walletAssetCost":{"1":"10000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"Trade-Crypto","type":"USER","binanceId":941534261,"accountId":941547466,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"380257004126576640","note":"","orderType":"C2C","transactionId":"P_A1V63PXHXN971115","transactionTime":1754907766693,"amount":"-6401.33","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"6401.33","walletAssetCost":{"1":"6401.33"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"380076020618903553","note":"","orderType":"C2C","transactionId":"P_A1V5F4HAQFN71117","transactionTime":1754823489856,"amount":"-3122.47","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3122.47","walletAssetCost":{"1":"3122.47"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":941547466,"orderId":"379915691861475328","note":"","orderType":"C2C","transactionId":"P_A1V4VW8N2A971115","transactionTime":1754748830135,"amount":"10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"name":"Trade-Crypto","type":"USER","binanceId":941534261,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"379702628997144577","note":"","orderType":"C2C","transactionId":"P_A1V44P4S8NW71116","transactionTime":1754649615363,"amount":"-836.05","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"836.05","walletAssetCost":{"1":"836.05"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"379584820463493120","note":"","orderType":"C2C","transactionId":"P_A1V3Q9JD2A971112","transactionTime":1754594757004,"amount":"-9875","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9875","walletAssetCost":{"1":"9875"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":445585117,"orderId":"379530267762671616","note":"","orderType":"C2C","transactionId":"P_A1V3H33JHGH71112","transactionTime":1754569354063,"amount":"-62560","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"62560","walletAssetCost":{"1":"62560"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"Saif11113","type":"USER","binanceId":201152874,"accountId":445585117,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":445585117,"orderId":"379527759644049408","note":"","orderType":"C2C","transactionId":"P_A1V3GSYBHQW71112","transactionTime":1754568185272,"amount":"-6.84","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"6.84","walletAssetCost":{"1":"6.84"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"Saif11113","type":"USER","binanceId":201152874,"accountId":445585117,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"379376192383508480","note":"","orderType":"C2C","transactionId":"P_A1V2YJJK6T971117","transactionTime":1754497606866,"amount":"-9871.7","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9871.7","walletAssetCost":{"1":"9871.7"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan 
-1:28:13 AM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Parsed Data: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 710629485 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("710629485" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("941534261" === "941534261")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	  💳 Binance (GC) Pay: 7
+2:11:52 AM	Info	✅ Binance (GC): 61 transactions
+2:11:52 AM	Info	🔧 Processing Binance (Main) with credentials...
+2:11:52 AM	Info	  💰 Binance (Main) deposits: 100
+2:11:52 AM	Info	  📤 Binance (Main) withdrawals: 49
+2:11:52 AM	Info	  🤝 Binance (Main) P2P: 28
+2:11:52 AM	Info	    💳 Fetching Binance Pay transactions for Binance (Main) using official endpoint...
+2:11:52 AM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+2:11:52 AM	Info	        [PAY DEBUG] Request Params: {"timestamp":1755549694548,"recvWindow":5000,"limit":100,"startTime":1753906854000}
+2:11:52 AM	Info	        [PAY DEBUG] Response Status: 200
+2:11:52 AM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[{"uid":13115322,"counterpartyId":1028496161,"orderId":"381560309905530880","note":"","orderType":"C2C","transactionId":"P_A1VAQVBMNJN71112","transactionTime":1755514666014,"amount":"-9989.96","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9989.96","walletAssetCost":{"1":"9989.96"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"381402106875699200","note":"","orderType":"C2C","transactionId":"P_A1VA5VT4Y7H71115","transactionTime":1755440996366,"amount":"-3995.96","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3995.96","walletAssetCost":{"1":"3995.96"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":225071527,"orderId":"380876186064191488","note":"","orderType":"C2C","transactionId":"P_A1V8A3H3BFW71112","transactionTime":1755196096080,"amount":"-29729","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"29729","walletAssetCost":{"1":"29729"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"User-3c51d","type":"USER","binanceId":133103409,"accountId":225071527,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":150647986,"orderId":"380861924539113472","note":"","orderType":"C2C","transactionId":"P_A1V88FMK39H71118","transactionTime":1755189454497,"amount":"58260","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"58260","walletAssetCost":{"1":"58260"}}],"payerInfo":{"name":"User-81577","type":"USER","binanceId":50698508,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"380640619802812416","note":"","orderType":"C2C","transactionId":"P_A1V7FAHAUAH7111A","transactionTime":1755086401898,"amount":"-38972.23","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"38972.23","walletAssetCost":{"1":"38972.23"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":387033572,"orderId":"380300398473273344","note":"","orderType":"C2C","transactionId":"P_A1V68MTBEJS7111A","transactionTime":1754927973524,"amount":"2032","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"2032","walletAssetCost":{"1":"2032"}}],"payerInfo":{"name":"سعيد المهيري","type":"USER","unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":941547466,"orderId":"380266990082744320","note":"","orderType":"C2C","transactionId":"P_A1V64U9CY7H71112","transactionTime":1754912417008,"amount":"-10000","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10000","walletAssetCost":{"1":"10000"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"Trade-Crypto","type":"USER","binanceId":941534261,"accountId":941547466,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":442624693,"orderId":"380257004126576640","note":"","orderType":"C2C","transactionId":"P_A1V63PXHXN971115","transactionTime":1754907766693,"amount":"-6401.33","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"6401.33","walletAssetCost":{"1":"6401.33"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"block_merchant ","type":"USER","binanceId":442597780,"accountId":442624693,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"380076020618903553","note":"","orderType":"C2C","transactionId":"P_A1V5F4HAQFN71117","transactionTime":1754823489856,"amount":"-3122.47","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"3122.47","walletAssetCost":{"1":"3122.47"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":941547466,"orderId":"379915691861475328","note":"","orderType":"C2C","transactionId":"P_A1V4VW8N2A971115","transactionTime":1754748830135,"amount":"10","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"10","walletAssetCost":{"1":"10"}}],"payerInfo":{"name":"Trade-Crypto","type":"USER","binanceId":941534261,"unmaskData":false},"receiverInfo":{"binanceId":13115322,"unmaskData":false},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"379702628997144577","note":"","orderType":"C2C","transactionId":"P_A1V44P4S8NW71116","transactionTime":1754649615363,"amount":"-836.05","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"836.05","walletAssetCost":{"1":"836.05"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"379584820463493120","note":"","orderType":"C2C","transactionId":"P_A1V3Q9JD2A971112","transactionTime":1754594757004,"amount":"-9875","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9875","walletAssetCost":{"1":"9875"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan ","type":"USER","binanceId":1028458551,"accountId":1028496161,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":445585117,"orderId":"379530267762671616","note":"","orderType":"C2C","transactionId":"P_A1V3H33JHGH71112","transactionTime":1754569354063,"amount":"-62560","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"62560","walletAssetCost":{"1":"62560"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"Saif11113","type":"USER","binanceId":201152874,"accountId":445585117,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":445585117,"orderId":"379527759644049408","note":"","orderType":"C2C","transactionId":"P_A1V3GSYBHQW71112","transactionTime":1754568185272,"amount":"-6.84","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"6.84","walletAssetCost":{"1":"6.84"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"Saif11113","type":"USER","binanceId":201152874,"accountId":445585117,"unmaskData":true,"extend":{"phoneOrEmailChanged":false}},"totalPaymentFee":"0"},{"uid":13115322,"counterpartyId":1028496161,"orderId":"379376192383508480","note":"","orderType":"C2C","transactionId":"P_A1V2YJJK6T971117","transactionTime":1754497606866,"amount":"-9871.7","currency":"USDT","walletType":1,"walletTypes":["1"],"fundsDetail":[{"currency":"USDT","amount":"9871.7","walletAssetCost":{"1":"9871.7"}}],"payerInfo":{"binanceId":13115322,"unmaskData":false},"receiverInfo":{"name":"husam_Jordan 
+2:11:52 AM	Info	Logging output too large. Truncating output.         [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [
@@ -1016,8 +1016,8 @@ Execution log
       "uid": 13115322,
       "counterpartyId": 941547466,
       "orderId": "379915691861475328",
-1:28:13 AM	Info	        [PAY DEBUG] Found 32 successful transactions.
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Found 32 successful transactions.
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "381560309905530880",
@@ -1056,14 +1056,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "381402106875699200",
@@ -1102,14 +1102,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 225071527,
   "orderId": "380876186064191488",
@@ -1148,14 +1148,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 133103409 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("133103409" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 133103409 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("133103409" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 150647986,
   "orderId": "380861924539113472",
@@ -1190,14 +1190,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 50698508 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("50698508" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 50698508 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("50698508" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "380640619802812416",
@@ -1236,14 +1236,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 387033572,
   "orderId": "380300398473273344",
@@ -1277,14 +1277,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 941547466,
   "orderId": "380266990082744320",
@@ -1323,14 +1323,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("941534261" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("941534261" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "380257004126576640",
@@ -1369,14 +1369,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 442597780 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("442597780" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "380076020618903553",
@@ -1415,14 +1415,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 941547466,
   "orderId": "379915691861475328",
@@ -1457,14 +1457,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("941534261" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("941534261" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "379702628997144577",
@@ -1503,14 +1503,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "379584820463493120",
@@ -1549,14 +1549,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 445585117,
   "orderId": "379530267762671616",
@@ -1595,14 +1595,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 201152874 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("201152874" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 201152874 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("201152874" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 445585117,
   "orderId": "379527759644049408",
@@ -1641,14 +1641,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 201152874 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("201152874" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 201152874 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("201152874" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "379376192383508480",
@@ -1687,14 +1687,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 941547466,
   "orderId": "379374341122473984",
@@ -1729,14 +1729,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("941534261" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 941534261 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("941534261" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "379205596254175232",
@@ -1775,14 +1775,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 892849335,
   "orderId": "379145131501535232",
@@ -1821,14 +1821,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 115928493,
   "orderId": "379006956254183424",
@@ -1867,14 +1867,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 68251320 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("68251320" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1112329266,
   "orderId": "379001557295636480",
@@ -1909,14 +1909,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 1112336009 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("1112336009" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378840182670876672",
@@ -1955,14 +1955,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 442624693,
   "orderId": "378839961318678528",
@@ -1996,14 +1996,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: undefined (type: undefined)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378824639142404096",
@@ -2042,14 +2042,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378621381968011264",
@@ -2088,14 +2088,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 559302905,
   "orderId": "378603776762552320",
@@ -2130,14 +2130,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 18925568 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("18925568" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 18925568 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("18925568" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 559302905,
   "orderId": "378603650023694336",
@@ -2172,14 +2172,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 18925568 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("18925568" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 18925568 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("18925568" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 273646830,
   "orderId": "378475367868186624",
@@ -2214,14 +2214,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 273646830,
   "orderId": "378474979495944192",
@@ -2256,14 +2256,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: deposit
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 170277098 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: false ("170277098" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as DEPOSIT (account is receiver)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: deposit
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 319341372,
   "orderId": "378415180432982016",
@@ -2302,14 +2302,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 319325857 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("319325857" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 319325857 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("319325857" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378414398784135168",
@@ -2348,14 +2348,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 1028496161,
   "orderId": "378277138299805696",
@@ -2394,14 +2394,14 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	        [PAY DEBUG] Processing transaction: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 1028458551 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("1028458551" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	        [PAY DEBUG] Processing transaction: {
   "uid": 13115322,
   "counterpartyId": 892849335,
   "orderId": "378214577739374592",
@@ -2440,296 +2440,294 @@ Execution log
   },
   "totalPaymentFee": "0"
 }
-1:28:13 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
-1:28:13 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
-1:28:13 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
-1:28:13 AM	Info	        [PAY DEBUG] Final Type: withdrawal
-1:28:13 AM	Info	  💳 Binance (Main) Pay: 32
-1:28:13 AM	Info	✅ Binance (Main): 209 transactions
-1:28:13 AM	Info	🔧 Processing Binance (CV) with credentials...
-1:28:13 AM	Info	  💰 Binance (CV) deposits: 0
-1:28:13 AM	Info	  📤 Binance (CV) withdrawals: 0
-1:28:13 AM	Info	  🤝 Binance (CV) P2P: 0
-1:28:13 AM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
-1:28:13 AM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
-1:28:13 AM	Info	        [PAY DEBUG] Request Params: {"timestamp":1755547076830,"recvWindow":5000,"limit":100,"startTime":1753905243000}
-1:28:13 AM	Info	        [PAY DEBUG] Response Status: 200
-1:28:13 AM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
-1:28:13 AM	Info	        [PAY DEBUG] Parsed Data: {
+2:11:52 AM	Info	        [PAY DEBUG] Account UID: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Payer BinanceId: 13115322 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Receiver BinanceId: 892817144 (type: number)
+2:11:52 AM	Info	        [PAY DEBUG] Is Payer: true ("13115322" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Is Receiver: false ("892817144" === "13115322")
+2:11:52 AM	Info	        [PAY DEBUG] Classified as WITHDRAWAL (account is payer)
+2:11:52 AM	Info	        [PAY DEBUG] Final Type: withdrawal
+2:11:52 AM	Info	  💳 Binance (Main) Pay: 32
+2:11:52 AM	Info	✅ Binance (Main): 209 transactions
+2:11:52 AM	Info	🔧 Processing Binance (CV) with credentials...
+2:11:52 AM	Info	  💰 Binance (CV) deposits: 0
+2:11:52 AM	Info	  📤 Binance (CV) withdrawals: 0
+2:11:52 AM	Info	  🤝 Binance (CV) P2P: 0
+2:11:52 AM	Info	    💳 Fetching Binance Pay transactions for Binance (CV) using official endpoint...
+2:11:52 AM	Info	        [PAY DEBUG] Request URL: https://api.binance.com/sapi/v1/pay/transactions
+2:11:52 AM	Info	        [PAY DEBUG] Request Params: {"timestamp":1755549695165,"recvWindow":5000,"limit":100,"startTime":1753906854000}
+2:11:52 AM	Info	        [PAY DEBUG] Response Status: 200
+2:11:52 AM	Info	        [PAY DEBUG] Raw Response Body: {"code":"000000","message":"success","data":[],"success":true}
+2:11:52 AM	Info	        [PAY DEBUG] Parsed Data: {
   "code": "000000",
   "message": "success",
   "data": [],
   "success": true
 }
-1:28:13 AM	Info	        ℹ️ Pay: No new transactions found.
-1:28:13 AM	Info	  💳 Binance (CV) Pay: 0
-1:28:13 AM	Info	✅ Binance (CV): 0 transactions
-1:28:13 AM	Info	🔧 Processing ByBit APIs with credentials from Apps Script...
-1:28:13 AM	Info	🔧 Processing ByBit with credentials...
-1:28:13 AM	Info	✅ ByBit: 103 transactions
-1:28:13 AM	Info	🔧 Processing Bitget APIs with credentials from Apps Script...
-1:28:13 AM	Info	🔧 Processing Bitget Account 1 with credentials...
-1:28:13 AM	Info	🔍 Bitget Account 1 Config: Key=bg_b42408b..., Secret=1dc8a168bf..., Passphrase=Darshana1
-1:28:13 AM	Info	✅ Bitget Account 1: 39 transactions
-1:28:13 AM	Info	🔧 Processing Bitget Account 2 with credentials...
-1:28:13 AM	Info	🔍 Bitget Account 2 Config: Key=bg_fe80b5a..., Secret=1c8e1bac46..., Passphrase=Darshana1
-1:28:13 AM	Info	✅ Bitget Account 2: 3 transactions
-1:28:13 AM	Info	🔧 Fetching blockchain data from Settings...
-1:28:13 AM	Info	🔧 About to read wallets from Settings...
-1:28:13 AM	Info	🔧 Processing 11 wallets from Settings...
-1:28:13 AM	Info	🔗 Created platform mapping for 18 addresses (for exchange platforms)
-1:28:13 AM	Info	🔧 Processing Bitcoin Wallet 1 (bitcoin)...
-1:28:13 AM	Info	✅ Bitcoin Wallet 1: 0 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing Bitcoin Wallet 2 (bitcoin)...
-1:28:13 AM	Info	✅ Bitcoin Wallet 2: 1 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing Ethereum Wallet 1 (ethereum)...
-1:28:13 AM	Info	🔧 Detected Ethereum wallet: Ethereum Wallet 1 - using Etherscan API
-1:28:13 AM	Info	✅ Ethereum Wallet 1: 0 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing Ethereum Wallet 2 (ethereum)...
-1:28:13 AM	Info	🔧 Detected Ethereum wallet: Ethereum Wallet 2 - using Etherscan API
-1:28:13 AM	Info	✅ Ethereum Wallet 2: 0 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing Ethereum Wallet 3 (ethereum)...
-1:28:13 AM	Info	🔧 Detected Ethereum wallet: Ethereum Wallet 3 - using Etherscan API
-1:28:13 AM	Info	✅ Ethereum Wallet 3: 4 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing TRON Wallet 1 (tron)...
-1:28:13 AM	Info	✅ TRON Wallet 1: 39 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing TRON Wallet 2 (tron)...
-1:28:13 AM	Info	✅ TRON Wallet 2: 76 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing TRON Wallet 3 (tron)...
-1:28:13 AM	Info	✅ TRON Wallet 3: 94 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing Solana Wallet 1 (solana)...
-1:28:13 AM	Info	✅ Solana Wallet 1: 0 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing Solana Wallet 2 (solana)...
-1:28:13 AM	Info	✅ Solana Wallet 2: 0 transactions - Status: Working
-1:28:13 AM	Info	🔧 Processing BEP20 Wallet 1 (BNB)...
-1:28:13 AM	Info	⚠️ Unknown blockchain type: BNB
-1:28:13 AM	Info	🔧 Processing 629 transactions with FIXED deduplication...
-1:28:13 AM	Info	✅ Google Sheets write successful:
-1:28:13 AM	Info	{ success: true,
-  withdrawalsAdded: 0,
-  depositsAdded: 0,
-  totalRaw: 629,
-  totalAfterDedup: 100,
-  totalAfterFilter: 0,
-  duplicatesRemoved: 529,
-  filteredOut: 100,
-  recycleBinSaved: 0,
-  unknownCurrencies: [],
+2:11:52 AM	Info	        ℹ️ Pay: No new transactions found.
+2:11:52 AM	Info	  💳 Binance (CV) Pay: 0
+2:11:52 AM	Info	✅ Binance (CV): 0 transactions
+2:11:52 AM	Info	🔧 Processing ByBit APIs with credentials from Apps Script...
+2:11:52 AM	Info	🔧 Processing ByBit with credentials...
+2:11:52 AM	Info	✅ ByBit: 103 transactions
+2:11:52 AM	Info	🔧 Processing Bitget APIs with credentials from Apps Script...
+2:11:52 AM	Info	🔧 Processing Bitget Account 1 with credentials...
+2:11:52 AM	Info	🔍 Bitget Account 1 Config: Key=bg_b42408b..., Secret=1dc8a168bf..., Passphrase=Darshana1
+2:11:52 AM	Info	✅ Bitget Account 1: 39 transactions
+2:11:52 AM	Info	🔧 Processing Bitget Account 2 with credentials...
+2:11:52 AM	Info	🔍 Bitget Account 2 Config: Key=bg_fe80b5a..., Secret=1c8e1bac46..., Passphrase=Darshana1
+2:11:52 AM	Info	✅ Bitget Account 2: 3 transactions
+2:11:52 AM	Info	🔧 Fetching blockchain data from Settings...
+2:11:52 AM	Info	🔧 About to read wallets from Settings...
+2:11:52 AM	Info	🔧 Processing 11 wallets from Settings...
+2:11:52 AM	Info	🔗 Created platform mapping for 18 addresses (for exchange platforms)
+2:11:52 AM	Info	🔧 Processing Bitcoin Wallet 1 (bitcoin)...
+2:11:52 AM	Info	✅ Bitcoin Wallet 1: 0 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing Bitcoin Wallet 2 (bitcoin)...
+2:11:52 AM	Info	✅ Bitcoin Wallet 2: 1 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing Ethereum Wallet 1 (ethereum)...
+2:11:52 AM	Info	🔧 Detected Ethereum wallet: Ethereum Wallet 1 - using Etherscan API
+2:11:52 AM	Info	✅ Ethereum Wallet 1: 0 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing Ethereum Wallet 2 (ethereum)...
+2:11:52 AM	Info	🔧 Detected Ethereum wallet: Ethereum Wallet 2 - using Etherscan API
+2:11:52 AM	Info	✅ Ethereum Wallet 2: 0 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing Ethereum Wallet 3 (ethereum)...
+2:11:52 AM	Info	🔧 Detected Ethereum wallet: Ethereum Wallet 3 - using Etherscan API
+2:11:52 AM	Info	✅ Ethereum Wallet 3: 4 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing TRON Wallet 1 (tron)...
+2:11:52 AM	Info	✅ TRON Wallet 1: 39 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing TRON Wallet 2 (tron)...
+2:11:52 AM	Info	✅ TRON Wallet 2: 76 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing TRON Wallet 3 (tron)...
+2:11:52 AM	Info	✅ TRON Wallet 3: 94 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing Solana Wallet 1 (solana)...
+2:11:52 AM	Info	✅ Solana Wallet 1: 0 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing Solana Wallet 2 (solana)...
+2:11:52 AM	Info	✅ Solana Wallet 2: 2 transactions - Status: Working
+2:11:52 AM	Info	🔧 Processing BEP20 Wallet 1 (BNB)...
+2:11:52 AM	Info	⚠️ Unknown blockchain type: BNB
+2:11:52 AM	Info	🔧 Processing 631 transactions with FIXED deduplication...
+2:11:52 AM	Info	✅ Google Sheets write successful:
+2:11:52 AM	Info	{ success: true,
+  withdrawalsAdded: 225,
+  depositsAdded: 304,
+  totalRaw: 631,
+  totalAfterDedup: 631,
+  totalAfterFilter: 529,
+  duplicatesRemoved: 0,
+  filteredOut: 102,
+  recycleBinSaved: 41,
+  unknownCurrencies: [ 'SUI', 'ARB', 'CYBER', 'OP', 'AR', 'GRT', 'IMX', 'CETUS' ],
   note: '✅ Transactions successfully written to Google Sheets' }
-1:28:13 AM	Info	--- 📡 Vercel Debug Logs End 📡 ---
-1:28:13 AM	Info	✅ Vercel processed 629 transactions.
-1:28:13 AM	Info	✅ Updated 16 API statuses in Settings.
-1:28:13 AM	Info	✅ Updated Bitcoin Wallet 1 status to: Working
-1:28:13 AM	Info	✅ Updated Bitcoin Wallet 2 status to: Working
-1:28:13 AM	Info	✅ Updated Ethereum Wallet 1 status to: Working
-1:28:13 AM	Info	✅ Updated Ethereum Wallet 2 status to: Working
-1:28:13 AM	Info	✅ Updated Ethereum Wallet 3 status to: Working
-1:28:13 AM	Info	✅ Updated TRON Wallet 1 status to: Working
-1:28:13 AM	Info	✅ Updated TRON Wallet 2 status to: Working
-1:28:13 AM	Info	✅ Updated TRON Wallet 3 status to: Working
-1:28:13 AM	Info	✅ Updated Solana Wallet 1 status to: Working
-1:28:13 AM	Info	✅ Updated Solana Wallet 2 status to: Working
-1:28:13 AM	Info	✅ Updated wallet statuses in DECENTRALIZED WALLETS table
-1:28:14 AM	Info	🔄 Consolidating to formatted sheet...
-1:28:15 AM	Info	🔍 Data Validation Results:
-1:28:15 AM	Info	📊 Withdrawals: 230 transactions
-1:28:15 AM	Info	📊 Deposits: 316 transactions
-1:28:15 AM	Info	📊 Total: 546 transactions
-1:28:15 AM	Info	📤 Sample Withdrawal: { platform: 'Binance (Main)',
+2:11:52 AM	Info	--- 📡 Vercel Debug Logs End 📡 ---
+2:11:52 AM	Info	✅ Vercel processed 631 transactions.
+2:11:52 AM	Info	✅ Updated 16 API statuses in Settings.
+2:11:52 AM	Info	✅ Updated Bitcoin Wallet 1 status to: Working
+2:11:52 AM	Info	✅ Updated Bitcoin Wallet 2 status to: Working
+2:11:52 AM	Info	✅ Updated Ethereum Wallet 1 status to: Working
+2:11:52 AM	Info	✅ Updated Ethereum Wallet 2 status to: Working
+2:11:52 AM	Info	✅ Updated Ethereum Wallet 3 status to: Working
+2:11:52 AM	Info	✅ Updated TRON Wallet 1 status to: Working
+2:11:52 AM	Info	✅ Updated TRON Wallet 2 status to: Working
+2:11:52 AM	Info	✅ Updated TRON Wallet 3 status to: Working
+2:11:52 AM	Info	✅ Updated Solana Wallet 1 status to: Working
+2:11:52 AM	Info	✅ Updated Solana Wallet 2 status to: Working
+2:11:52 AM	Info	✅ Updated wallet statuses in DECENTRALIZED WALLETS table
+2:11:53 AM	Info	✅ Adjusted timestamps and formats for new rows in "Withdrawals" (7 to 231).
+2:11:55 AM	Info	✅ Adjusted timestamps and formats for new rows in "Deposits" (7 to 310).
+2:11:55 AM	Info	🔄 Consolidating to formatted sheet...
+2:11:57 AM	Info	🔍 Data Validation Results:
+2:11:57 AM	Info	📊 Withdrawals: 225 transactions
+2:11:57 AM	Info	📊 Deposits: 304 transactions
+2:11:57 AM	Info	📊 Total: 529 transactions
+2:11:57 AM	Info	📤 Sample Withdrawal: { platform: 'Binance (Main)',
   asset: 'USDT',
   amount: 30000.05,
   timestamp: Mon Jul 28 2025 17:52:00 GMT+0800 (Singapore Standard Time) }
-1:28:15 AM	Info	💰 Sample Deposit: { platform: 'Binance (Main)',
+2:11:57 AM	Info	💰 Sample Deposit: { platform: 'Binance (Main)',
   asset: 'USDT',
-  amount: 699.95,
-  timestamp: Sat Jul 19 2025 02:56:00 GMT+0800 (Singapore Standard Time) }
-1:28:15 AM	Info	✅ All transactions have required fields
-1:28:15 AM	Info	🔧 Applying wallet address mapping to transactions...
-1:28:15 AM	Info	🔧 Reading wallet configurations from Settings...
-1:28:15 AM	Info	📊 Processing 15 wallet rows from Settings
-1:28:15 AM	Info	🔍 Row 1: Name="Bitcoin Wallet 1", Address="bc1qkuefzcmc6c8enw9f7a2e9w2hy964q3jgwcv35g", Type="bitcoin", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Bitcoin Wallet 1 (bitcoin) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 2: Name="Bitcoin Wallet 2", Address="bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue", Type="bitcoin", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Bitcoin Wallet 2 (bitcoin) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 3: Name="Bitcoin Wallet 3", Address="", Type="", Status=""
-1:28:15 AM	Info	⚠️ Skipping empty row 3 - no address
-1:28:15 AM	Info	🔍 Row 4: Name="Ethereum Wallet 1", Address="0x856851a1d5111330729744f95238e5D810ba773c", Type="ethereum", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Ethereum Wallet 1 (ethereum) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 5: Name="Ethereum Wallet 2", Address="0x65e2C3C75D0262592446b64Ef47596aD1dE4426d", Type="ethereum", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Ethereum Wallet 2 (ethereum) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 6: Name="Ethereum Wallet 3", Address="0x764247f831743F9eBe383A58bb26bA4Ec38c53a3", Type="ethereum", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Ethereum Wallet 3 (ethereum) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 7: Name="TRON Wallet 1", Address="TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN", Type="tron", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: TRON Wallet 1 (tron) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 8: Name="TRON Wallet 2", Address="TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN", Type="tron", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: TRON Wallet 2 (tron) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 9: Name="TRON Wallet 3", Address="TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu", Type="tron", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: TRON Wallet 3 (tron) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 10: Name="Solana Wallet 1", Address="BURkHx6BNTqryY3sCqXcYNVkhN6Mz3ttDUdGQ6hXuX4n", Type="solana", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Solana Wallet 1 (solana) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 11: Name="Solana Wallet 2", Address="HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1", Type="solana", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: Solana Wallet 2 (solana) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 12: Name="Solana Wallet 3", Address="", Type="", Status=""
-1:28:15 AM	Info	⚠️ Skipping empty row 12 - no address
-1:28:15 AM	Info	🔍 Row 13: Name="BEP20 Wallet 1", Address="0x856851a1d5111330729744f95238e5D810ba773c", Type="BNB", Status="Working"
-1:28:15 AM	Info	✅ Loaded wallet: BEP20 Wallet 1 (BNB) - Current Status: Working
-1:28:15 AM	Info	🔍 Row 14: Name="BEP20 Wallet 2", Address="", Type="ethereum", Status=""
-1:28:15 AM	Info	⚠️ Skipping empty row 14 - no address
-1:28:15 AM	Info	🔍 Row 15: Name="BEP20 Wallet 3", Address="", Type="ethereum", Status=""
-1:28:15 AM	Info	⚠️ Skipping empty row 15 - no address
-1:28:15 AM	Info	📊 Total active wallets loaded: 11
-1:28:15 AM	Info	🔧 Creating wallet address mapping...
-1:28:15 AM	Info	✅ Mapped: bc1qkuefzcmc6c8enw9f7a2e9w2hy964q3jgwcv35g → Bitcoin Wallet 1
-1:28:15 AM	Info	✅ Mapped: bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue → Bitcoin Wallet 2
-1:28:15 AM	Info	✅ Mapped: 0x856851a1d5111330729744f95238e5D810ba773c → Ethereum Wallet 1
-1:28:15 AM	Info	✅ Mapped: 0x65e2C3C75D0262592446b64Ef47596aD1dE4426d → Ethereum Wallet 2
-1:28:15 AM	Info	✅ Mapped: 0x764247f831743F9eBe383A58bb26bA4Ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	✅ Mapped: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	✅ Mapped: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	✅ Mapped: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	✅ Mapped: BURkHx6BNTqryY3sCqXcYNVkhN6Mz3ttDUdGQ6hXuX4n → Solana Wallet 1
-1:28:15 AM	Info	✅ Mapped: HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1 → Solana Wallet 2
-1:28:15 AM	Info	✅ Mapped: 0x856851a1d5111330729744f95238e5D810ba773c → BEP20 Wallet 1
-1:28:15 AM	Info	📊 Address mapping created: 11 addresses mapped
-1:28:15 AM	Info	📊 Mapping keys: 18 variations
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: 0x65e2C3C75D0262592446b64Ef47596aD1dE4426d → Ethereum Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue → Bitcoin Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1 → Solana Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: 0x764247f831743F9eBe383A58bb26bA4Ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: 0x764247f831743F9eBe383A58bb26bA4Ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1 → Solana Wallet 2
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
-1:28:15 AM	Info	🔗 Mapped to_address: bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue → Bitcoin Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1 → Solana Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
-1:28:15 AM	Info	🔗 Applied wallet address mapping to 546 transactions
-1:28:17 AM	Info	✅ Updated FORMATTED_TRANSACTIONS with 546 transactions
-1:28:17 AM	Info	✅ Consolidated 546 transactions (230 withdrawals, 316 deposits).
-1:28:17 AM	Info	⏰ Updating last execution timestamp...
-1:28:17 AM	Info	✅ Vercel-mode flow completed successfully.
-1:28:24 AM	Notice	Execution completed
+  amount: 3322.16,
+  timestamp: Wed Jul 23 2025 03:44:00 GMT+0800 (Singapore Standard Time) }
+2:11:57 AM	Info	✅ All transactions have required fields
+2:11:57 AM	Info	🔧 Applying wallet address mapping to transactions...
+2:11:57 AM	Info	🔧 Reading wallet configurations from Settings...
+2:11:57 AM	Info	📊 Processing 15 wallet rows from Settings
+2:11:57 AM	Info	🔍 Row 1: Name="Bitcoin Wallet 1", Address="bc1qkuefzcmc6c8enw9f7a2e9w2hy964q3jgwcv35g", Type="bitcoin", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Bitcoin Wallet 1 (bitcoin) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 2: Name="Bitcoin Wallet 2", Address="bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue", Type="bitcoin", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Bitcoin Wallet 2 (bitcoin) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 3: Name="Bitcoin Wallet 3", Address="", Type="", Status=""
+2:11:57 AM	Info	⚠️ Skipping empty row 3 - no address
+2:11:57 AM	Info	🔍 Row 4: Name="Ethereum Wallet 1", Address="0x856851a1d5111330729744f95238e5D810ba773c", Type="ethereum", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Ethereum Wallet 1 (ethereum) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 5: Name="Ethereum Wallet 2", Address="0x65e2C3C75D0262592446b64Ef47596aD1dE4426d", Type="ethereum", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Ethereum Wallet 2 (ethereum) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 6: Name="Ethereum Wallet 3", Address="0x764247f831743F9eBe383A58bb26bA4Ec38c53a3", Type="ethereum", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Ethereum Wallet 3 (ethereum) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 7: Name="TRON Wallet 1", Address="TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN", Type="tron", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: TRON Wallet 1 (tron) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 8: Name="TRON Wallet 2", Address="TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN", Type="tron", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: TRON Wallet 2 (tron) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 9: Name="TRON Wallet 3", Address="TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu", Type="tron", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: TRON Wallet 3 (tron) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 10: Name="Solana Wallet 1", Address="BURkHx6BNTqryY3sCqXcYNVkhN6Mz3ttDUdGQ6hXuX4n", Type="solana", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Solana Wallet 1 (solana) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 11: Name="Solana Wallet 2", Address="HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1", Type="solana", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: Solana Wallet 2 (solana) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 12: Name="Solana Wallet 3", Address="", Type="", Status=""
+2:11:57 AM	Info	⚠️ Skipping empty row 12 - no address
+2:11:57 AM	Info	🔍 Row 13: Name="BEP20 Wallet 1", Address="0x856851a1d5111330729744f95238e5D810ba773c", Type="BNB", Status="Working"
+2:11:57 AM	Info	✅ Loaded wallet: BEP20 Wallet 1 (BNB) - Current Status: Working
+2:11:57 AM	Info	🔍 Row 14: Name="BEP20 Wallet 2", Address="", Type="ethereum", Status=""
+2:11:57 AM	Info	⚠️ Skipping empty row 14 - no address
+2:11:57 AM	Info	🔍 Row 15: Name="BEP20 Wallet 3", Address="", Type="ethereum", Status=""
+2:11:57 AM	Info	⚠️ Skipping empty row 15 - no address
+2:11:57 AM	Info	📊 Total active wallets loaded: 11
+2:11:57 AM	Info	🔧 Creating wallet address mapping...
+2:11:57 AM	Info	✅ Mapped: bc1qkuefzcmc6c8enw9f7a2e9w2hy964q3jgwcv35g → Bitcoin Wallet 1
+2:11:57 AM	Info	✅ Mapped: bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue → Bitcoin Wallet 2
+2:11:57 AM	Info	✅ Mapped: 0x856851a1d5111330729744f95238e5D810ba773c → Ethereum Wallet 1
+2:11:57 AM	Info	✅ Mapped: 0x65e2C3C75D0262592446b64Ef47596aD1dE4426d → Ethereum Wallet 2
+2:11:57 AM	Info	✅ Mapped: 0x764247f831743F9eBe383A58bb26bA4Ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	✅ Mapped: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	✅ Mapped: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	✅ Mapped: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	✅ Mapped: BURkHx6BNTqryY3sCqXcYNVkhN6Mz3ttDUdGQ6hXuX4n → Solana Wallet 1
+2:11:57 AM	Info	✅ Mapped: HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1 → Solana Wallet 2
+2:11:57 AM	Info	✅ Mapped: 0x856851a1d5111330729744f95238e5D810ba773c → BEP20 Wallet 1
+2:11:57 AM	Info	📊 Address mapping created: 11 addresses mapped
+2:11:57 AM	Info	📊 Mapping keys: 18 variations
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: 0x65e2C3C75D0262592446b64Ef47596aD1dE4426d → Ethereum Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue → Bitcoin Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: HVzT8TeznRkuxhFeMnARUb35hdckoqQqG367ciQsFCB1 → Solana Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: 0x764247f831743F9eBe383A58bb26bA4Ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: 0x764247f831743F9eBe383A58bb26bA4Ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped from_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TAUDuQAZSTUH88xno1imPoKN25eJN6aJkN → TRON Wallet 1
+2:11:57 AM	Info	🔗 Mapped to_address: bc1qkktxeaxz4kcln9gw0ygez7smk0avt7cklemvue → Bitcoin Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: 0x764247f831743f9ebe383a58bb26ba4ec38c53a3 → Ethereum Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TBBpANGegwL2WWkMvoFRN54tnUtPz879Bu → TRON Wallet 3
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Mapped to_address: TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN → TRON Wallet 2
+2:11:57 AM	Info	🔗 Applied wallet address mapping to 529 transactions
+2:11:58 AM	Info	✅ Updated FORMATTED_TRANSACTIONS with 529 transactions
+2:11:58 AM	Info	✅ Consolidated 529 transactions (225 withdrawals, 304 deposits).
+2:11:58 AM	Info	⏰ Updating last execution timestamp...
+2:11:58 AM	Info	✅ Vercel-mode flow completed successfully.
+2:12:14 AM	Notice	Execution completed

@@ -1612,6 +1612,22 @@ function readApiCredentialsFromSheet() {
       console.log("⚠️ Error reading ByBit credentials:", e.message);
     }
     
+    // Read Helius API credentials from Solana Wallet 1 (row 12, column W)
+    try {
+      const heliusKey = settingsSheet.getRange('W12').getValue();
+      console.log(`🔍 W12 (Helius Key from Solana Wallet 1): "${heliusKey}"`);
+      if (heliusKey) {
+        credentials.HELIUS = {
+          apiKey: heliusKey.toString()
+        };
+        console.log("✅ Loaded Helius credentials from Solana Wallet 1");
+      } else {
+        console.log("⚠️ Helius credentials empty or missing in W12");
+      }
+    } catch (e) {
+      console.log("⚠️ Error reading Helius credentials from W12:", e.message);
+    }
+    
     // Read Bitget API credentials (row 8) - Account 1
     try {
       const bitgetKey = settingsSheet.getRange('L8').getValue();

@@ -516,7 +516,9 @@ export default async function handler(req, res) {
             transactions = await fetchTronEnhanced(walletConfig.address, filterDate);
             break;
           case 'solana':
-            transactions = await fetchSolanaEnhanced(walletConfig.address, filterDate);
+            // Get Helius API key from credentials if available
+            const heliusApiKey = apiCredentials.HELIUS?.apiKey || null;
+            transactions = await fetchSolanaEnhanced(walletConfig.address, filterDate, heliusApiKey);
             break;
           default:
             debugLogs.push(`⚠️ Unknown blockchain type: ${walletConfig.blockchainType}`);
@@ -1986,12 +1988,21 @@ async function fetchTronEnhanced(address, filterDate) {
   }
 }
 
-async function fetchSolanaEnhanced(address, filterDate) {
+async function fetchSolanaEnhanced(address, filterDate, heliusApiKey = null) {
   try {
     console.log(`  🔍 Solana wallet search: ${address.substring(0, 20)}...`);
     console.log(`  📅 Filter date: ${filterDate.toISOString()}`);
     
-    const endpoint = "https://api.mainnet-beta.solana.com";
+    // Use Helius API if key is provided, otherwise fall back to free endpoint
+    let endpoint;
+    if (heliusApiKey) {
+      endpoint = `https://rpc.helius.xyz/?api-key=${heliusApiKey}`;
+      console.log(`  🔑 Using Helius API with key: ${heliusApiKey.substring(0, 8)}...`);
+    } else {
+      endpoint = "https://api.mainnet-beta.solana.com";
+      console.log(`  ⚠️ No Helius API key provided, using free endpoint`);
+    }
+    
     const transactions = [];
     
     // 1. Get recent signatures for the address

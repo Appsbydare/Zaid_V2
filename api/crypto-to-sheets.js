@@ -1989,6 +1989,7 @@ async function fetchTronEnhanced(address, filterDate) {
 async function fetchSolanaEnhanced(address, filterDate) {
   try {
     console.log(`  🔍 Solana wallet search: ${address.substring(0, 20)}...`);
+    console.log(`  📅 Filter date: ${filterDate.toISOString()}`);
     
     const endpoint = "https://api.mainnet-beta.solana.com";
     const transactions = [];
@@ -1998,7 +1999,7 @@ async function fetchSolanaEnhanced(address, filterDate) {
       jsonrpc: "2.0",
       id: 1,
       method: "getSignaturesForAddress",
-      params: [address, { limit: 200 }] // Increased limit for better coverage
+      params: [address, { limit: 500 }] // Increased limit to capture more history
     };
     
     const signaturesResponse = await fetch(endpoint, {
@@ -2020,9 +2021,21 @@ async function fetchSolanaEnhanced(address, filterDate) {
     console.log(`    🔍 Found ${signaturesData.result.length} signatures, fetching transaction details...`);
     
     // 2. Get transaction details for each signature
+    let processedCount = 0;
+    let skippedByDate = 0;
+    let errorCount = 0;
+    
     for (const sig of signaturesData.result) {
       const txDate = new Date(sig.blockTime * 1000);
-      if (txDate < filterDate) continue;
+      console.log(`    📅 Transaction ${sig.signature.substring(0, 10)}... date: ${txDate.toISOString()} vs filter: ${filterDate.toISOString()}`);
+      
+      if (txDate < filterDate) {
+        skippedByDate++;
+        console.log(`    ⏭️ Skipping transaction (before filter date): ${txDate.toISOString()}`);
+        continue;
+      }
+      
+      processedCount++;
       
       try {
         const txPayload = {
@@ -2042,177 +2055,107 @@ async function fetchSolanaEnhanced(address, filterDate) {
           const txData = await txResponse.json();
           
           if (txData.result && txData.result.meta && !sig.err) {
-            // Parse actual transaction instructions instead of using balance changes
-            const instructions = txData.result.transaction?.message?.instructions || [];
+            console.log(`    🔍 Processing transaction: ${sig.signature.substring(0, 10)}...`);
+            
+            // Method 1: Use pre/post balance changes (more reliable)
+            const preBalances = txData.result.meta.preBalances || [];
+            const postBalances = txData.result.meta.postBalances || [];
             const accountKeys = txData.result.transaction?.message?.accountKeys || [];
             
-            // Find SOL transfers (System Program transfers)
-            for (const instruction of instructions) {
-              if (instruction.programIdIndex !== undefined) {
-                const programId = accountKeys[instruction.programIdIndex];
+            // Find our wallet's index in the account keys
+            const walletIndex = accountKeys.findIndex(key => key === address);
+            console.log(`    🔍 Wallet index in transaction: ${walletIndex}`);
+            
+            if (walletIndex !== -1 && preBalances[walletIndex] !== undefined && postBalances[walletIndex] !== undefined) {
+              const preBalance = preBalances[walletIndex];
+              const postBalance = postBalances[walletIndex];
+              const balanceChange = postBalance - preBalance;
+              
+              console.log(`    💰 Balance change: ${preBalance} -> ${postBalance} (${balanceChange} lamports)`);
+              
+              if (Math.abs(balanceChange) > 0) {
+                const solAmount = Math.abs(balanceChange / 1e9);
+                const isDeposit = balanceChange > 0;
                 
-                // System Program transfers (SOL)
-                if (programId === "11111111111111111111111111111111") {
-                  const data = instruction.data;
-                  if (data && data.length >= 8) {
-                    // Parse transfer amount from instruction data
-                    const transferAmount = data.readBigUInt64LE(4); // Amount is at offset 4
-                    const solAmount = (Number(transferAmount) / 1e9).toString();
+                console.log(`    ✅ Found SOL transaction: ${solAmount} SOL (${isDeposit ? 'deposit' : 'withdrawal'})`);
+                
+                transactions.push({
+                  platform: "Solana Wallet",
+                  type: isDeposit ? "deposit" : "withdrawal", 
+                  asset: "SOL",
+                  amount: solAmount.toString(),
+                  timestamp: txDate.toISOString(),
+                  from_address: isDeposit ? "External" : address,
+                  to_address: isDeposit ? address : "External",
+                  tx_id: sig.signature,
+                  status: "Completed",
+                  network: "SOL",
+                  api_source: "Solana_RPC_Balance_Change"
+                });
+              } else {
+                console.log(`    ⚠️ No balance change detected for wallet`);
+              }
+            } else {
+              console.log(`    ⚠️ Wallet not found in transaction account keys or missing balance data`);
+            }
+            
+            // Method 2: Also check for SPL token balance changes
+            const preTokenBalances = txData.result.meta.preTokenBalances || [];
+            const postTokenBalances = txData.result.meta.postTokenBalances || [];
+            
+            for (const postTokenBalance of postTokenBalances) {
+              if (postTokenBalance.owner === address) {
+                const preTokenBalance = preTokenBalances.find(ptb => 
+                  ptb.accountIndex === postTokenBalance.accountIndex && ptb.mint === postTokenBalance.mint
+                );
+                
+                if (preTokenBalance) {
+                  const preAmount = parseFloat(preTokenBalance.uiTokenAmount.uiAmount) || 0;
+                  const postAmount = parseFloat(postTokenBalance.uiTokenAmount.uiAmount) || 0;
+                  const tokenChange = postAmount - preAmount;
+                  
+                  if (Math.abs(tokenChange) > 0) {
+                    const isDeposit = tokenChange > 0;
+                    console.log(`    ✅ Found SPL token transaction: ${Math.abs(tokenChange)} ${postTokenBalance.mint.substring(0, 8)}... (${isDeposit ? 'deposit' : 'withdrawal'})`);
                     
-                    if (parseFloat(solAmount) > 0) {
-                      // Determine if this is a deposit or withdrawal
-                      const fromAccount = accountKeys[instruction.accounts[0]];
-                      const toAccount = accountKeys[instruction.accounts[1]];
-                      const isDeposit = toAccount === address;
-                      
-                      transactions.push({
-                        platform: "Solana Wallet",
-                        type: isDeposit ? "deposit" : "withdrawal",
-                        asset: "SOL",
-                        amount: solAmount,
-                        timestamp: txDate.toISOString(),
-                        from_address: isDeposit ? fromAccount : address,
-                        to_address: isDeposit ? address : toAccount,
-                        tx_id: sig.signature,
-                        status: "Completed",
-                        network: "SOL",
-                        api_source: "Solana_RPC_Enhanced"
-                      });
-                    }
+                    transactions.push({
+                      platform: "Solana Wallet",
+                      type: isDeposit ? "deposit" : "withdrawal",
+                      asset: postTokenBalance.mint.substring(0, 8) + "...",
+                      amount: Math.abs(tokenChange).toString(),
+                      timestamp: txDate.toISOString(),
+                      from_address: isDeposit ? "External" : address,
+                      to_address: isDeposit ? address : "External", 
+                      tx_id: sig.signature,
+                      status: "Completed",
+                      network: "SOL",
+                      api_source: "Solana_SPL_Balance_Change"
+                    });
                   }
                 }
               }
             }
+          } else {
+            console.log(`    ⚠️ Transaction has no result, meta, or has error: ${sig.err || 'unknown'}`);
           }
+        } else {
+          console.log(`    ❌ Failed to fetch transaction details: ${txResponse.status}`);
         }
       } catch (txError) {
-        console.log(`    ⚠️ Error fetching transaction ${sig.signature}: ${txError.message}`);
+        errorCount++;
+        console.log(`    ❌ Error fetching transaction ${sig.signature}: ${txError.message}`);
         // Skip failed transactions instead of adding fallback
       }
     }
     
-    // 3. Fetch SPL token transactions dynamically
-    console.log(`    🔍 Fetching SPL token transactions...`);
-    try {
-      // Get all token accounts for this wallet
-      const tokenAccountsPayload = {
-        jsonrpc: "2.0",
-        id: 1,
-        method: "getTokenAccountsByOwner",
-        params: [
-          address,
-          { programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" }, // SPL Token Program
-          { encoding: "jsonParsed" }
-        ]
-      };
-      
-      const tokenAccountsResponse = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(tokenAccountsPayload)
-      });
-      
-      if (tokenAccountsResponse.ok) {
-        const tokenAccountsData = await tokenAccountsResponse.json();
-        
-        if (tokenAccountsData.result && tokenAccountsData.result.value) {
-          console.log(`    🔍 Found ${tokenAccountsData.result.value.length} SPL token accounts`);
-          
-          // For each token account, fetch recent transactions
-          for (const tokenAccount of tokenAccountsData.result.value) {
-            const tokenMint = tokenAccount.account.data.parsed.info.mint;
-            const tokenBalance = tokenAccount.account.data.parsed.info.tokenAmount;
-            
-            if (parseFloat(tokenBalance.uiAmount) > 0) {
-              console.log(`    💰 Token ${tokenMint}: ${tokenBalance.uiAmount} (${tokenBalance.decimals} decimals)`);
-              
-              // Fetch recent transactions for this token
-              const tokenSignaturesPayload = {
-                jsonrpc: "2.0",
-                id: 1,
-                method: "getSignaturesForAddress",
-                params: [tokenAccount.pubkey, { limit: 50 }]
-              };
-              
-              const tokenSignaturesResponse = await fetch(endpoint, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(tokenSignaturesPayload)
-              });
-              
-              if (tokenSignaturesResponse.ok) {
-                const tokenSignaturesData = await tokenSignaturesResponse.json();
-                
-                if (tokenSignaturesData.result) {
-                  for (const tokenSig of tokenSignaturesData.result) {
-                    const tokenTxDate = new Date(tokenSig.blockTime * 1000);
-                    if (tokenTxDate < filterDate) continue;
-                    
-                    // Parse token transaction to get actual transfer amounts
-                    const tokenTxPayload = {
-                      jsonrpc: "2.0",
-                      id: 1,
-                      method: "getTransaction",
-                      params: [tokenSig.signature, { encoding: "json", maxSupportedTransactionVersion: 0 }]
-                    };
-                    
-                    const tokenTxResponse = await fetch(endpoint, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify(tokenTxPayload)
-                    });
-                    
-                    if (tokenTxResponse.ok) {
-                      const tokenTxData = await tokenTxResponse.json();
-                      
-                      if (tokenTxData.result && tokenTxData.result.meta && !tokenSig.err) {
-                        // Parse SPL token transfers
-                        const postTokenBalances = tokenTxData.result.meta.postTokenBalances || [];
-                        const preTokenBalances = tokenTxData.result.meta.preTokenBalances || [];
-                        
-                        for (const postBalance of postTokenBalances) {
-                          if (postBalance.owner === address && postBalance.mint === tokenMint) {
-                            const preBalance = preTokenBalances.find(pb => 
-                              pb.accountIndex === postBalance.accountIndex && pb.mint === tokenMint
-                            );
-                            
-                            if (preBalance) {
-                              const preAmount = parseFloat(preBalance.uiTokenAmount.uiAmount) || 0;
-                              const postAmount = parseFloat(postBalance.uiTokenAmount.uiAmount) || 0;
-                              const amountChange = postAmount - preAmount;
-                              
-                              if (Math.abs(amountChange) > 0) {
-                                const isDeposit = amountChange > 0;
-                                
-                                transactions.push({
-                                  platform: "Solana Wallet",
-                                  type: isDeposit ? "deposit" : "withdrawal",
-                                  asset: tokenMint.substring(0, 8) + "...", // Shortened mint address
-                                  amount: Math.abs(amountChange).toString(),
-                                  timestamp: tokenTxDate.toISOString(),
-                                  from_address: isDeposit ? "External" : address,
-                                  to_address: isDeposit ? address : "External",
-                                  tx_id: tokenSig.signature,
-                                  status: "Completed",
-                                  network: "SOL",
-                                  api_source: "Solana_SPL_Token"
-                                });
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    } catch (tokenError) {
-      console.log(`    ⚠️ Token accounts fetch error: ${tokenError.message}`);
-    }
+    console.log(`    📊 Solana processing summary:`);
+    console.log(`    📊 - Total signatures: ${signaturesData.result.length}`);
+    console.log(`    📊 - Processed: ${processedCount}`);
+    console.log(`    📊 - Skipped by date: ${skippedByDate}`);
+    console.log(`    📊 - Errors: ${errorCount}`);
+    console.log(`    📊 - Transactions found: ${transactions.length}`);
+    
+    // SPL token transactions are now handled in the main transaction loop above
     
 
     

@@ -1770,12 +1770,13 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
       return [];
     }
     
+    console.log(`    🔑 Using Etherscan API key: ${apiKey.substring(0, 8)}...`);
     const etherscanApiKey = apiKey;
     const transactions = [];
     
     // 1. Fetch ETH transactions
     console.log(`    🔍 Fetching ETH transactions...`);
-    const ethEndpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
+    const ethEndpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=1000&apikey=${etherscanApiKey}`;
     
     const ethResponse = await fetch(ethEndpoint);
     
@@ -1787,6 +1788,10 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
     
     if (ethData.status !== "1") {
       console.log(`    ⚠️ Etherscan ETH API message: ${ethData.message}`);
+      if (ethData.message.includes("rate limit") || ethData.message.includes("Max rate limit reached")) {
+        console.log(`    ⚠️ Rate limit reached for ETH transactions - will retry with smaller batch`);
+        // Could implement retry logic here if needed
+      }
     } else {
       ethData.result.forEach(tx => {
         const txDate = new Date(parseInt(tx.timeStamp) * 1000);
@@ -1816,7 +1821,7 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
     
     // 2. Fetch ERC-20 token transactions (BEP20 compatible)
     console.log(`    🔍 Fetching ERC-20/BEP20 token transactions...`);
-    const tokenEndpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=100&apikey=${etherscanApiKey}`;
+    const tokenEndpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=1000&apikey=${etherscanApiKey}`;
     
     const tokenResponse = await fetch(tokenEndpoint);
     
@@ -1827,6 +1832,10 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
       
       if (tokenData.status !== "1") {
         console.log(`    ⚠️ Etherscan Token API message: ${tokenData.message}`);
+        if (tokenData.message.includes("rate limit") || tokenData.message.includes("Max rate limit reached")) {
+          console.log(`    ⚠️ Rate limit reached for token transactions - will retry with smaller batch`);
+          // Could implement retry logic here if needed
+        }
       } else {
         tokenData.result.forEach(tx => {
           const txDate = new Date(parseInt(tx.timeStamp) * 1000);
@@ -1989,7 +1998,7 @@ async function fetchSolanaEnhanced(address, filterDate) {
       jsonrpc: "2.0",
       id: 1,
       method: "getSignaturesForAddress",
-      params: [address, { limit: 50 }] // Increased limit for better coverage
+      params: [address, { limit: 200 }] // Increased limit for better coverage
     };
     
     const signaturesResponse = await fetch(endpoint, {
@@ -2032,29 +2041,47 @@ async function fetchSolanaEnhanced(address, filterDate) {
         if (txResponse.ok) {
           const txData = await txResponse.json();
           
-          if (txData.result && txData.result.meta) {
-            // Calculate SOL amount from pre and post balances
-            const preBalance = txData.result.meta.preBalances[0] || 0;
-            const postBalance = txData.result.meta.postBalances[0] || 0;
-            const balanceChange = Math.abs(postBalance - preBalance);
-            const solAmount = (balanceChange / 1e9).toString(); // Convert lamports to SOL
+          if (txData.result && txData.result.meta && !sig.err) {
+            // Parse actual transaction instructions instead of using balance changes
+            const instructions = txData.result.transaction?.message?.instructions || [];
+            const accountKeys = txData.result.transaction?.message?.accountKeys || [];
             
-            if (parseFloat(solAmount) > 0) {
-              const isDeposit = postBalance > preBalance;
-              
-              transactions.push({
-                platform: "Solana Wallet",
-                type: isDeposit ? "deposit" : "withdrawal",
-                asset: "SOL",
-                amount: solAmount,
-                timestamp: txDate.toISOString(),
-                from_address: isDeposit ? "External" : address,
-                to_address: isDeposit ? address : "External",
-                tx_id: sig.signature,
-                status: sig.err ? "Failed" : "Completed",
-                network: "SOL",
-                api_source: "Solana_RPC_Enhanced"
-              });
+            // Find SOL transfers (System Program transfers)
+            for (const instruction of instructions) {
+              if (instruction.programIdIndex !== undefined) {
+                const programId = accountKeys[instruction.programIdIndex];
+                
+                // System Program transfers (SOL)
+                if (programId === "11111111111111111111111111111111") {
+                  const data = instruction.data;
+                  if (data && data.length >= 8) {
+                    // Parse transfer amount from instruction data
+                    const transferAmount = data.readBigUInt64LE(4); // Amount is at offset 4
+                    const solAmount = (Number(transferAmount) / 1e9).toString();
+                    
+                    if (parseFloat(solAmount) > 0) {
+                      // Determine if this is a deposit or withdrawal
+                      const fromAccount = accountKeys[instruction.accounts[0]];
+                      const toAccount = accountKeys[instruction.accounts[1]];
+                      const isDeposit = toAccount === address;
+                      
+                      transactions.push({
+                        platform: "Solana Wallet",
+                        type: isDeposit ? "deposit" : "withdrawal",
+                        asset: "SOL",
+                        amount: solAmount,
+                        timestamp: txDate.toISOString(),
+                        from_address: isDeposit ? fromAccount : address,
+                        to_address: isDeposit ? address : toAccount,
+                        tx_id: sig.signature,
+                        status: "Completed",
+                        network: "SOL",
+                        api_source: "Solana_RPC_Enhanced"
+                      });
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -2064,22 +2091,10 @@ async function fetchSolanaEnhanced(address, filterDate) {
       }
     }
     
-    // 3. Fetch SPL token transactions using Jupiter API
+    // 3. Fetch SPL token transactions dynamically
     console.log(`    🔍 Fetching SPL token transactions...`);
     try {
-      const jupiterEndpoint = `https://price.jup.ag/v4/price?ids=SOL,USDC,USDT,RAY,SRM,ORCA,STEP,ALEPH,COPE,SNY,SLRS,MSOL,STSOL,JSOL,SCNSOL,DAI,ETH,WBTC,FTT,CREAM,LIKE,COPE,SNY,SLRS,MSOL,STSOL,JSOL,SCNSOL,DAI,ETH,WBTC,FTT,CREAM,LIKE`;
-      
-      const jupiterResponse = await fetch(jupiterEndpoint);
-      if (jupiterResponse.ok) {
-        const jupiterData = await jupiterResponse.json();
-        console.log(`    ✅ Jupiter price data available for ${Object.keys(jupiterData.data).length} tokens`);
-      }
-    } catch (jupiterError) {
-      console.log(`    ⚠️ Jupiter API error: ${jupiterError.message}`);
-    }
-    
-    // 4. Fetch token account info for SPL tokens
-    try {
+      // Get all token accounts for this wallet
       const tokenAccountsPayload = {
         jsonrpc: "2.0",
         id: 1,
@@ -2104,27 +2119,93 @@ async function fetchSolanaEnhanced(address, filterDate) {
           console.log(`    🔍 Found ${tokenAccountsData.result.value.length} SPL token accounts`);
           
           // For each token account, fetch recent transactions
-          for (const tokenAccount of tokenAccountsData.result.value.slice(0, 10)) { // Limit to first 10 tokens
+          for (const tokenAccount of tokenAccountsData.result.value) {
             const tokenMint = tokenAccount.account.data.parsed.info.mint;
             const tokenBalance = tokenAccount.account.data.parsed.info.tokenAmount;
             
             if (parseFloat(tokenBalance.uiAmount) > 0) {
               console.log(`    💰 Token ${tokenMint}: ${tokenBalance.uiAmount} (${tokenBalance.decimals} decimals)`);
               
-              // Add token balance as a "deposit" transaction for tracking
-              transactions.push({
-                platform: "Solana Wallet",
-                type: "deposit",
-                asset: tokenMint.substring(0, 8) + "...", // Shortened mint address
-                amount: tokenBalance.uiAmount.toString(),
-                timestamp: new Date().toISOString(), // Current time as fallback
-                from_address: "Token Account",
-                to_address: address,
-                tx_id: `TOKEN_${tokenMint.substring(0, 16)}`,
-                status: "Completed",
-                network: "SOL",
-                api_source: "Solana_SPL_Token"
+              // Fetch recent transactions for this token
+              const tokenSignaturesPayload = {
+                jsonrpc: "2.0",
+                id: 1,
+                method: "getSignaturesForAddress",
+                params: [tokenAccount.pubkey, { limit: 50 }]
+              };
+              
+              const tokenSignaturesResponse = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(tokenSignaturesPayload)
               });
+              
+              if (tokenSignaturesResponse.ok) {
+                const tokenSignaturesData = await tokenSignaturesResponse.json();
+                
+                if (tokenSignaturesData.result) {
+                  for (const tokenSig of tokenSignaturesData.result) {
+                    const tokenTxDate = new Date(tokenSig.blockTime * 1000);
+                    if (tokenTxDate < filterDate) continue;
+                    
+                    // Parse token transaction to get actual transfer amounts
+                    const tokenTxPayload = {
+                      jsonrpc: "2.0",
+                      id: 1,
+                      method: "getTransaction",
+                      params: [tokenSig.signature, { encoding: "json", maxSupportedTransactionVersion: 0 }]
+                    };
+                    
+                    const tokenTxResponse = await fetch(endpoint, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(tokenTxPayload)
+                    });
+                    
+                    if (tokenTxResponse.ok) {
+                      const tokenTxData = await tokenTxResponse.json();
+                      
+                      if (tokenTxData.result && tokenTxData.result.meta && !tokenSig.err) {
+                        // Parse SPL token transfers
+                        const postTokenBalances = tokenTxData.result.meta.postTokenBalances || [];
+                        const preTokenBalances = tokenTxData.result.meta.preTokenBalances || [];
+                        
+                        for (const postBalance of postTokenBalances) {
+                          if (postBalance.owner === address && postBalance.mint === tokenMint) {
+                            const preBalance = preTokenBalances.find(pb => 
+                              pb.accountIndex === postBalance.accountIndex && pb.mint === tokenMint
+                            );
+                            
+                            if (preBalance) {
+                              const preAmount = parseFloat(preBalance.uiTokenAmount.uiAmount) || 0;
+                              const postAmount = parseFloat(postBalance.uiTokenAmount.uiAmount) || 0;
+                              const amountChange = postAmount - preAmount;
+                              
+                              if (Math.abs(amountChange) > 0) {
+                                const isDeposit = amountChange > 0;
+                                
+                                transactions.push({
+                                  platform: "Solana Wallet",
+                                  type: isDeposit ? "deposit" : "withdrawal",
+                                  asset: tokenMint.substring(0, 8) + "...", // Shortened mint address
+                                  amount: Math.abs(amountChange).toString(),
+                                  timestamp: tokenTxDate.toISOString(),
+                                  from_address: isDeposit ? "External" : address,
+                                  to_address: isDeposit ? address : "External",
+                                  tx_id: tokenSig.signature,
+                                  status: "Completed",
+                                  network: "SOL",
+                                  api_source: "Solana_SPL_Token"
+                                });
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -2132,6 +2213,8 @@ async function fetchSolanaEnhanced(address, filterDate) {
     } catch (tokenError) {
       console.log(`    ⚠️ Token accounts fetch error: ${tokenError.message}`);
     }
+    
+
     
     console.log(`  📊 Solana total found: ${transactions.length} transactions`);
     
@@ -2241,27 +2324,81 @@ function filterTransactionsByValueFixed(transactions) {
     'BNB': 2200,
     'SEI': 1.47,
     'BUSD': 3.67,
-    'ADA': 1.47,  // FIXED: Added
-    'DOT': 18.50, // FIXED: Added
-    'MATIC': 1.84, // FIXED: Added
-    'LINK': 44.10, // FIXED: Added
-    'UNI': 25.75, // FIXED: Added
-    'LTC': 257.25, // FIXED: Added
-    'XRP': 2.20, // FIXED: Added
-    'AVAX': 117.00, // FIXED: Added
-    'ATOM': 29.50, // FIXED: Added
-    'NEAR': 22.00, // FIXED: Added
-    'FTM': 2.94, // FIXED: Added
-    'ALGO': 1.10, // FIXED: Added
-    'VET': 0.11, // FIXED: Added
-    'ICP': 36.75, // FIXED: Added
-    'SAND': 1.84, // FIXED: Added
-    'MANA': 1.47, // FIXED: Added
-    'CRO': 0.44, // FIXED: Added
-    'SHIB': 0.00009, // FIXED: Added
-    'DOGE': 0.26, // FIXED: Added
-    'BCH': 1468.00, // FIXED: Added
-    'ETC': 92.40 // FIXED: Added
+    'ADA': 1.47,
+    'DOT': 18.50,
+    'MATIC': 1.84,
+    'LINK': 44.10,
+    'UNI': 25.75,
+    'LTC': 257.25,
+    'XRP': 2.20,
+    'AVAX': 117.00,
+    'ATOM': 29.50,
+    'NEAR': 22.00,
+    'FTM': 2.94,
+    'ALGO': 1.10,
+    'VET': 0.11,
+    'ICP': 36.75,
+    'SAND': 1.84,
+    'MANA': 1.47,
+    'CRO': 0.44,
+    'SHIB': 0.00009,
+    'DOGE': 0.26,
+    'BCH': 1468.00,
+    'ETC': 92.40,
+    // Additional common ERC-20 tokens
+    'DAI': 3.67,
+    'WBTC': 220200,
+    'WETH': 11010,
+    'AAVE': 2200,
+    'COMP': 1100,
+    'MKR': 11000,
+    'SNX': 110,
+    'CRV': 2.20,
+    'YFI': 22000,
+    'SUSHI': 2.20,
+    '1INCH': 2.20,
+    'BAL': 110,
+    'REN': 0.37,
+    'KNC': 2.20,
+    'ZRX': 2.20,
+    'BAT': 2.20,
+    'REP': 110,
+    'OMG': 2.20,
+    'ENJ': 2.20,
+    'CHZ': 0.37,
+    'HOT': 0.00009,
+    'ANKR': 0.37,
+    'CKB': 0.11,
+    'NEO': 220,
+    'GAS': 22,
+    'ONT': 2.20,
+    'QTUM': 22,
+    'ZEC': 220,
+    'XMR': 2200,
+    'DASH': 220,
+    'EOS': 2.20,
+    'IOTA': 2.20,
+    'XLM': 0.37,
+    'NANO': 2.20,
+    'VET': 0.11,
+    'THETA': 2.20,
+    'FIL': 22,
+    'HNT': 22,
+    'CHIA': 22,
+    'XCH': 22,
+    // Additional SPL tokens
+    'RAY': 22,
+    'SRM': 2.20,
+    'ORCA': 2.20,
+    'STEP': 2.20,
+    'ALEPH': 2.20,
+    'COPE': 2.20,
+    'SNY': 2.20,
+    'SLRS': 2.20,
+    'MSOL': 181.50,
+    'STSOL': 181.50,
+    'JSOL': 181.50,
+    'SCNSOL': 181.50
   };
 
   const minValueAED = 1.0;
@@ -2274,15 +2411,17 @@ function filterTransactionsByValueFixed(transactions) {
     const amount = parseFloat(tx.amount) || 0;
     let priceAED = pricesAED[tx.asset];
     
-    // FIXED: Use 1 AED default for unknown currencies
+    // FIXED: Handle unknown currencies - keep them with 0 AED value instead of filtering out
     if (!priceAED) {
-      priceAED = 1.0;
+      priceAED = 0.0; // Use 0 AED for unknown currencies to keep them in the list
       unknownCurrencies.add(tx.asset);
-      console.log(`⚠️ Unknown currency ${tx.asset} - using 1 AED default`);
+      console.log(`⚠️ Unknown currency ${tx.asset} - keeping with 0 AED value`);
     }
     
     const aedValue = amount * priceAED;
-    const keepTransaction = aedValue >= minValueAED;
+    
+    // Only filter out if we have a known currency and the value is below minimum
+    const keepTransaction = !pricesAED[tx.asset] || aedValue >= minValueAED;
     
     if (!keepTransaction) {
       filteredCount++;

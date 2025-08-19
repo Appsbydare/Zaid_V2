@@ -1156,6 +1156,12 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
       transactionBreakdown.internalDeposits = internalDeposits.length;
       console.log(`  🔄 ${config.name} internal deposits: ${internalDeposits.length}`);
 
+      // FIXED internal withdrawals
+      const internalWithdrawals = await fetchByBitInternalWithdrawalsFixed(config, filterDate);
+      transactions.push(...internalWithdrawals);
+      transactionBreakdown.internalWithdrawals = internalWithdrawals.length;
+      console.log(`  🔄 ${config.name} internal withdrawals: ${internalWithdrawals.length}`);
+
       // FIXED withdrawals
       const withdrawals = await fetchByBitWithdrawalsFixed(config, filterDate);
       transactions.push(...withdrawals);
@@ -1186,7 +1192,7 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
       console.log(`ByBit transaction fetch failed: ${txError.message}`);
     }
 
-    const statusNotes = `🔧 FIXED V5: ${transactionBreakdown.deposits}D + ${transactionBreakdown.internalDeposits}ID + ${transactionBreakdown.withdrawals}W + ${transactionBreakdown.internalTransfers}IT = ${transactions.length} total`;
+    const statusNotes = `🔧 FIXED V5: ${transactionBreakdown.deposits}D + ${transactionBreakdown.internalDeposits}ID + ${transactionBreakdown.internalWithdrawals}IW + ${transactionBreakdown.withdrawals}W + ${transactionBreakdown.internalTransfers}IT = ${transactions.length} total`;
 
     return {
       success: true,
@@ -1441,6 +1447,101 @@ async function fetchByBitInternalDepositsFixed(config, filterDate) {
 
   } catch (error) {
     console.error(`Error fetching ByBit internal deposits for ${config.name}:`, error);
+    return [];
+  }
+}
+
+async function fetchByBitInternalWithdrawalsFixed(config, filterDate) {
+  try {
+    console.log(`    🔄 Fetching ByBit internal withdrawals for ${config.name}...`);
+    
+    const timestamp = Date.now().toString();
+    const recvWindow = "5000";
+    const endpoint = "https://api.bybit.com/v5/asset/withdraw/query-internal-record";
+    
+    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}`;
+    const signString = timestamp + config.apiKey + recvWindow + queryParams;
+    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
+    
+    const url = `${endpoint}?${queryParams}`;
+
+    console.log(`    🔍 Internal Withdrawals Debug:`);
+    console.log(`    - URL: ${url}`);
+    console.log(`    - Start Time: ${new Date(filterDate.getTime()).toISOString()}`);
+    console.log(`    - End Time: ${new Date().toISOString()}`);
+    console.log(`    - Filter Date: ${filterDate.toISOString()}`);
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "X-BAPI-API-KEY": config.apiKey,
+        "X-BAPI-SIGN": signature,
+        "X-BAPI-TIMESTAMP": timestamp,
+        "X-BAPI-RECV-WINDOW": recvWindow,
+        "Content-Type": "application/json"
+      }
+    });
+
+    console.log(`    📊 Internal Withdrawals Response Status: ${response.status}`);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.log(`    ❌ Internal Withdrawals Error Response: ${errorText}`);
+      throw new Error(`ByBit internal withdrawals API error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    
+    console.log(`    📊 Internal Withdrawals API Response:`, JSON.stringify(data, null, 2));
+    
+    if (data.retCode !== 0) {
+      throw new Error(`ByBit internal withdrawals error: ${data.retMsg}`);
+    }
+
+    if (!data.result || !data.result.rows) {
+      console.log(`    ℹ️ No internal withdrawal data returned for ${config.name}`);
+      console.log(`    📊 Full response data:`, JSON.stringify(data, null, 2));
+      return [];
+    }
+
+    console.log(`    📊 Raw internal withdrawals found: ${data.result.rows.length}`);
+    if (data.result.rows.length > 0) {
+      console.log(`    📊 Sample internal withdrawal:`, JSON.stringify(data.result.rows[0], null, 2));
+    }
+
+    const internalWithdrawals = data.result.rows.filter(withdrawal => {
+      const created = parseInt(withdrawal.createdTime);
+      const createdMs = created < 1e12 ? created * 1000 : created; // handle seconds vs ms
+      const withdrawalDate = new Date(createdMs);
+      const isAfterFilter = withdrawalDate >= filterDate;
+      const isCompleted = Number(withdrawal.status) === 2; // 2 = Success per docs
+      
+      console.log(`    🔍 Internal Withdrawal Filter: Date=${withdrawalDate.toISOString()}, After Filter=${isAfterFilter}, Status=${withdrawal.status}, Completed=${isCompleted}`);
+      
+      return isAfterFilter && isCompleted;
+    }).map(withdrawal => {
+      const created = parseInt(withdrawal.createdTime);
+      const createdMs = created < 1e12 ? created * 1000 : created;
+      return {
+        platform: config.name,
+        type: "withdrawal",
+        asset: withdrawal.coin,
+        amount: withdrawal.amount.toString(),
+        timestamp: new Date(createdMs).toISOString(),
+        from_address: config.name,
+        to_address: withdrawal.address || "Internal",
+        tx_id: withdrawal.txID || withdrawal.id,
+        status: "Completed",
+        network: "Internal",
+        api_source: "ByBit_Internal_Withdrawal_V5_Fixed"
+      };
+    });
+
+    console.log(`    ✅ ByBit internal withdrawals: ${internalWithdrawals.length} transactions`);
+    return internalWithdrawals;
+
+  } catch (error) {
+    console.error(`Error fetching ByBit internal withdrawals for ${config.name}:`, error);
     return [];
   }
 }

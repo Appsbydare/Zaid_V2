@@ -1165,17 +1165,11 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
       transactionBreakdown.internalDeposits = internalDeposits.length;
       console.log(`  🔄 ${config.name} internal deposits: ${internalDeposits.length}`);
 
-      // FIXED internal withdrawals
-      const internalWithdrawals = await fetchByBitInternalWithdrawalsFixed(config, filterDate);
-      transactions.push(...internalWithdrawals);
-      transactionBreakdown.internalWithdrawals = internalWithdrawals.length;
-      console.log(`  🔄 ${config.name} internal withdrawals: ${internalWithdrawals.length}`);
-
-      // FIXED withdrawals
-      const withdrawals = await fetchByBitWithdrawalsFixed(config, filterDate);
-      transactions.push(...withdrawals);
-      transactionBreakdown.withdrawals = withdrawals.length;
-      console.log(`  📤 ${config.name} withdrawals: ${withdrawals.length}`);
+      // FIXED ALL withdrawals (internal + external combined)
+      const allWithdrawals = await fetchByBitWithdrawalsFixed(config, filterDate);
+      transactions.push(...allWithdrawals);
+      transactionBreakdown.allWithdrawals = allWithdrawals.length;
+      console.log(`  📤 ${config.name} ALL withdrawals: ${allWithdrawals.length}`);
 
       // FIXED internal transfers
       const internalTransfers = await fetchByBitInternalTransfersFixed(config, filterDate);
@@ -1201,7 +1195,7 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
       console.log(`ByBit transaction fetch failed: ${txError.message}`);
     }
 
-          const statusNotes = `🔧 FIXED V5: ${transactionBreakdown.deposits}D + ${transactionBreakdown.internalDeposits}ID + ${transactionBreakdown.internalWithdrawals}IW + ${transactionBreakdown.withdrawals}EW + ${transactionBreakdown.internalTransfers}IT = ${transactions.length} total`;
+          const statusNotes = `🔧 FIXED V5: ${transactionBreakdown.deposits}D + ${transactionBreakdown.internalDeposits}ID + ${transactionBreakdown.allWithdrawals}W + ${transactionBreakdown.internalTransfers}IT = ${transactions.length} total`;
 
     return {
       success: true,
@@ -1300,14 +1294,14 @@ async function fetchByBitDepositsFixed(config, filterDate) {
 
 async function fetchByBitWithdrawalsFixed(config, filterDate) {
   try {
-    console.log(`    📤 Fetching ByBit external withdrawals for ${config.name} with FIXED signature...`);
+    console.log(`    📤 Fetching ByBit ALL withdrawals (internal + external) for ${config.name} with FIXED signature...`);
     
     const timestamp = Date.now().toString();
     const recvWindow = "5000";
     const endpoint = "https://api.bybit.com/v5/asset/withdraw/query-record";
     
-    // FIXED: Proper query string construction for external withdrawals (withdrawType=0)
-    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&withdrawType=0`;
+    // FIXED: Get ALL withdrawals (both internal and external) by removing withdrawType filter
+    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}`;
     const signString = timestamp + config.apiKey + recvWindow + queryParams;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
     
@@ -1325,23 +1319,29 @@ async function fetchByBitWithdrawalsFixed(config, filterDate) {
     });
 
     if (!response.ok) {
-      throw new Error(`ByBit external withdrawals API error: ${response.status}`);
+      throw new Error(`ByBit ALL withdrawals API error: ${response.status}`);
     }
 
     const data = await response.json();
     
     if (data.retCode !== 0) {
-      throw new Error(`ByBit external withdrawals error: ${data.retMsg}`);
+      throw new Error(`ByBit ALL withdrawals error: ${data.retMsg}`);
     }
 
     if (!data.result || !data.result.rows) {
-      console.log(`    ℹ️ No external withdrawal data returned for ${config.name}`);
+      console.log(`    ℹ️ No withdrawal data returned for ${config.name}`);
       return [];
     }
 
+    console.log(`    📊 Raw withdrawals found: ${data.result.rows.length}`);
+
     const withdrawals = data.result.rows.filter(withdrawal => {
       const withdrawalDate = new Date(parseInt(withdrawal.createTime));
-      return withdrawalDate >= filterDate && withdrawal.status === "success";
+      const isAfterFilter = withdrawalDate >= filterDate;
+      const isCompleted = withdrawal.status === "success";
+      
+      console.log(`    🔍 Withdrawal Filter: Date=${withdrawalDate.toISOString()}, After Filter=${isAfterFilter}, Status=${withdrawal.status}, Completed=${isCompleted}, Type=${withdrawal.withdrawType === 1 ? 'Internal' : 'External'}`);
+      return isAfterFilter && isCompleted;
     }).map(withdrawal => ({
       platform: config.name,
       type: "withdrawal", 
@@ -1349,110 +1349,29 @@ async function fetchByBitWithdrawalsFixed(config, filterDate) {
       amount: withdrawal.amount.toString(),
       timestamp: new Date(parseInt(withdrawal.createTime)).toISOString(),
       from_address: config.name,
-      to_address: withdrawal.toAddress || "External",
+      to_address: withdrawal.toAddress || (withdrawal.withdrawType === 1 ? "Internal" : "External"),
       tx_id: withdrawal.txID || withdrawal.id,
       status: "Completed",
-      network: withdrawal.chain,
-      api_source: "ByBit_External_Withdrawal_V5_Fixed"
+      network: withdrawal.withdrawType === 1 ? "Internal" : (withdrawal.chain || "External"),
+      api_source: `ByBit_${withdrawal.withdrawType === 1 ? 'Internal' : 'External'}_Withdrawal_V5_Fixed`
     }));
 
-    console.log(`    ✅ ByBit external withdrawals: ${withdrawals.length} transactions`);
+    console.log(`    ✅ ByBit ALL withdrawals: ${withdrawals.length} transactions`);
+    
+    // Log breakdown by type
+    const internal = withdrawals.filter(w => w.api_source.includes('Internal')).length;
+    const external = withdrawals.filter(w => w.api_source.includes('External')).length;
+    console.log(`    📊 Breakdown: ${internal} Internal + ${external} External = ${withdrawals.length} Total`);
+    
     return withdrawals;
 
   } catch (error) {
-    console.error(`Error fetching ByBit external withdrawals for ${config.name}:`, error);
+    console.error(`Error fetching ByBit ALL withdrawals for ${config.name}:`, error);
     return [];
   }
 }
 
-async function fetchByBitInternalWithdrawalsFixed(config, filterDate) {
-  try {
-    console.log(`    📤 Fetching ByBit internal withdrawals for ${config.name} with FIXED signature...`);
-    
-    const timestamp = Date.now().toString();
-    const recvWindow = "5000";
-    const endpoint = "https://api.bybit.com/v5/asset/withdraw/query-record";
-    
-    // FIXED: Use withdrawType=1 for internal withdrawals
-    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}&withdrawType=1`;
-    const signString = timestamp + config.apiKey + recvWindow + queryParams;
-    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
-    
-    const url = `${endpoint}?${queryParams}`;
-    
-    console.log(`    🔍 Internal Withdrawals Debug:`);
-    console.log(`    - URL: ${url}`);
-    console.log(`    - Start Time: ${new Date(filterDate.getTime()).toISOString()}`);
-    console.log(`    - End Time: ${new Date().toISOString()}`);
-    console.log(`    - Filter Date: ${filterDate.toISOString()}`);
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "X-BAPI-API-KEY": config.apiKey,
-        "X-BAPI-SIGN": signature,
-        "X-BAPI-TIMESTAMP": timestamp,
-        "X-BAPI-RECV-WINDOW": recvWindow,
-        "Content-Type": "application/json"
-      }
-    });
-
-    console.log(`    📊 Internal Withdrawals Response Status: ${response.status}`);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log(`    ❌ Internal Withdrawals Error Response: ${errorText}`);
-      throw new Error(`ByBit internal withdrawals API error: ${response.status} - ${errorText}`);
-    }
-
-    const data = await response.json();
-    console.log(`    📊 Internal Withdrawals API Response:`, JSON.stringify(data, null, 2));
-    
-    if (data.retCode !== 0) {
-      throw new Error(`ByBit internal withdrawals error: ${data.retMsg}`);
-    }
-
-    if (!data.result || !data.result.rows) {
-      console.log(`    ℹ️ No internal withdrawal data returned for ${config.name}`);
-      console.log(`    📊 Full response data:`, JSON.stringify(data, null, 2));
-      return [];
-    }
-
-    console.log(`    📊 Raw internal withdrawals found: ${data.result.rows.length}`);
-    if (data.result.rows.length > 0) {
-      console.log(`    📊 Sample internal withdrawal:`, JSON.stringify(data.result.rows[0], null, 2));
-    }
-
-    const internalWithdrawals = data.result.rows.filter(withdrawal => {
-      const withdrawalDate = new Date(parseInt(withdrawal.createTime));
-      const isAfterFilter = withdrawalDate >= filterDate;
-      const isCompleted = withdrawal.status === "success";
-      const isInternal = withdrawal.withdrawType === 1;
-      
-      console.log(`    🔍 Internal Withdrawal Filter: Date=${withdrawalDate.toISOString()}, After Filter=${isAfterFilter}, Status=${withdrawal.status}, Completed=${isCompleted}, IsInternal=${isInternal}`);
-      return isAfterFilter && isCompleted && isInternal;
-    }).map(withdrawal => ({
-      platform: config.name,
-      type: "withdrawal",
-      asset: withdrawal.coin,
-      amount: withdrawal.amount.toString(),
-      timestamp: new Date(parseInt(withdrawal.createTime)).toISOString(),
-      from_address: config.name,
-      to_address: withdrawal.toAddress || "Internal",
-      tx_id: withdrawal.txID || withdrawal.withdrawId,
-      status: "Completed",
-      network: "Internal",
-      api_source: "ByBit_Internal_Withdrawal_V5_Fixed"
-    }));
-
-    console.log(`    ✅ ByBit internal withdrawals: ${internalWithdrawals.length} transactions`);
-    return internalWithdrawals;
-
-  } catch (error) {
-    console.error(`Error fetching ByBit internal withdrawals for ${config.name}:`, error);
-    return [];
-  }
-}
 
 async function fetchByBitInternalDepositsFixed(config, filterDate) {
   try {

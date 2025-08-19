@@ -1294,48 +1294,84 @@ async function fetchByBitDepositsFixed(config, filterDate) {
 
 async function fetchByBitWithdrawalsFixed(config, filterDate) {
   try {
-    console.log(`    📤 Fetching ByBit ALL withdrawals (internal + external) for ${config.name} with FIXED signature...`);
+    console.log(`    📤 Fetching ByBit ALL withdrawals (internal + external) for ${config.name} with FIXED TWO-CALL approach...`);
     
+    const allWithdrawals = [];
     const timestamp = Date.now().toString();
     const recvWindow = "5000";
     const endpoint = "https://api.bybit.com/v5/asset/withdraw/query-record";
     
-    // FIXED: Get ALL withdrawals (both internal and external) by removing withdrawType filter
-    const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}`;
-    const signString = timestamp + config.apiKey + recvWindow + queryParams;
-    const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
-    
-    const url = `${endpoint}?${queryParams}`;
+    // ===========================================
+    // CALL 1: Get EXTERNAL withdrawals (withdrawType=0)
+    // ===========================================
+    console.log(`    📤 Step 1: Fetching EXTERNAL withdrawals...`);
+    const queryParams1 = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&withdrawType=0`;
+    const signString1 = timestamp + config.apiKey + recvWindow + queryParams1;
+    const signature1 = crypto.createHmac('sha256', config.apiSecret).update(signString1).digest('hex');
+    const url1 = `${endpoint}?${queryParams1}`;
 
-    const response = await fetch(url, {
+    const response1 = await fetch(url1, {
       method: "GET",
       headers: {
         "X-BAPI-API-KEY": config.apiKey,
-        "X-BAPI-SIGN": signature,
+        "X-BAPI-SIGN": signature1,
         "X-BAPI-TIMESTAMP": timestamp,
         "X-BAPI-RECV-WINDOW": recvWindow,
         "Content-Type": "application/json"
       }
     });
 
-    if (!response.ok) {
-      throw new Error(`ByBit ALL withdrawals API error: ${response.status}`);
+    if (response1.ok) {
+      const data1 = await response1.json();
+      if (data1.retCode === 0 && data1.result && data1.result.rows) {
+        console.log(`    📊 External withdrawals found: ${data1.result.rows.length}`);
+        allWithdrawals.push(...data1.result.rows);
+      }
+    } else {
+      console.log(`    ⚠️ External withdrawals API error: ${response1.status}`);
     }
-
-    const data = await response.json();
     
-    if (data.retCode !== 0) {
-      throw new Error(`ByBit ALL withdrawals error: ${data.retMsg}`);
+    // ===========================================
+    // CALL 2: Get INTERNAL withdrawals (withdrawType=1)
+    // ===========================================
+    console.log(`    📤 Step 2: Fetching INTERNAL withdrawals...`);
+    const queryParams2 = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&withdrawType=1`;
+    const signString2 = timestamp + config.apiKey + recvWindow + queryParams2;
+    const signature2 = crypto.createHmac('sha256', config.apiSecret).update(signString2).digest('hex');
+    const url2 = `${endpoint}?${queryParams2}`;
+
+    const response2 = await fetch(url2, {
+      method: "GET",
+      headers: {
+        "X-BAPI-API-KEY": config.apiKey,
+        "X-BAPI-SIGN": signature2,
+        "X-BAPI-TIMESTAMP": timestamp,
+        "X-BAPI-RECV-WINDOW": recvWindow,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response2.ok) {
+      const data2 = await response2.json();
+      if (data2.retCode === 0 && data2.result && data2.result.rows) {
+        console.log(`    📊 Internal withdrawals found: ${data2.result.rows.length}`);
+        allWithdrawals.push(...data2.result.rows);
+      }
+    } else {
+      console.log(`    ⚠️ Internal withdrawals API error: ${response2.status}`);
     }
 
-    if (!data.result || !data.result.rows) {
-      console.log(`    ℹ️ No withdrawal data returned for ${config.name}`);
+    // ===========================================
+    // PROCESS COMBINED RESULTS
+    // ===========================================
+    if (allWithdrawals.length === 0) {
+      console.log(`    ℹ️ No withdrawals found for ${config.name}`);
       return [];
     }
 
-    console.log(`    📊 Raw withdrawals found: ${data.result.rows.length}`);
+    console.log(`    📊 Total raw withdrawals found: ${allWithdrawals.length}`);
 
-    const withdrawals = data.result.rows.filter(withdrawal => {
+    const withdrawals = allWithdrawals.filter(withdrawal => {
       const withdrawalDate = new Date(parseInt(withdrawal.createTime));
       const isAfterFilter = withdrawalDate >= filterDate;
       const isCompleted = withdrawal.status === "success";
@@ -1350,18 +1386,22 @@ async function fetchByBitWithdrawalsFixed(config, filterDate) {
       timestamp: new Date(parseInt(withdrawal.createTime)).toISOString(),
       from_address: config.name,
       to_address: withdrawal.toAddress || (withdrawal.withdrawType === 1 ? "Internal" : "External"),
-      tx_id: withdrawal.txID || withdrawal.id,
+      tx_id: withdrawal.txID || withdrawal.withdrawId || withdrawal.id,
       status: "Completed",
       network: withdrawal.withdrawType === 1 ? "Internal" : (withdrawal.chain || "External"),
       api_source: `ByBit_${withdrawal.withdrawType === 1 ? 'Internal' : 'External'}_Withdrawal_V5_Fixed`
     }));
 
-    console.log(`    ✅ ByBit ALL withdrawals: ${withdrawals.length} transactions`);
+    console.log(`    ✅ ByBit ALL withdrawals processed: ${withdrawals.length} transactions`);
     
-    // Log breakdown by type
+    // Log detailed breakdown by type
     const internal = withdrawals.filter(w => w.api_source.includes('Internal')).length;
     const external = withdrawals.filter(w => w.api_source.includes('External')).length;
-    console.log(`    📊 Breakdown: ${internal} Internal + ${external} External = ${withdrawals.length} Total`);
+    console.log(`    📊 Final Breakdown: ${internal} Internal + ${external} External = ${withdrawals.length} Total`);
+    
+    if (internal > 0) {
+      console.log(`    🎉 SUCCESS: Found ${internal} internal withdrawal(s) that were previously missing!`);
+    }
     
     return withdrawals;
 

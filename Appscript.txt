@@ -751,8 +751,9 @@ function onOpen() {
       .addItem('🔗 Test Connection', 'testVercelConnection')
       .addItem('📊 Count Transactions', 'countCurrentTransactions')
       .addItem('📈 Test Sheet Access', 'testSheetAccess')
-      .addItem('🟢 Test TRON Wallet', 'testTronWallet')
-      .addItem('🔍 Test Bybit Internal', 'testBybitInternal'))
+          .addItem('🟢 Test TRON Wallet', 'testTronWallet')
+    .addItem('🔍 Test Bybit Internal', 'testBybitInternal')
+    .addItem('🔍 Test Bybit Internal Transfers', 'testBybitInternalTransfers'))
     .addSeparator()
     .addItem('📖 User Guide', 'showUserGuide')
     .addToUi();
@@ -1499,6 +1500,48 @@ function testBybitInternal() {
   } catch (error) {
     console.error("❌ Error in Bybit internal test:", error);
     showAlert("Test Error", `❌ Bybit internal test failed!\n\nError: ${error.message}`);
+  }
+}
+
+/**
+ * TEST: Bybit internal transfers specific debugging
+ */
+function testBybitInternalTransfers() {
+  try {
+    console.log("🧪 Testing Bybit internal transfers specifically...");
+    
+    // Test with a recent date range (last 30 days to catch more transfers)
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now);
+    thirtyDaysAgo.setDate(now.getDate() - 30);
+    
+    const startDate = thirtyDaysAgo.toISOString();
+    const endDate = now.toISOString();
+    
+    console.log(`📅 Test period: ${startDate} to ${endDate}`);
+    
+    const settings = {
+      startDate: startDate,
+      testMode: true,
+      debugBybitInternal: true // Special flag for detailed Bybit internal debugging
+    };
+    
+    // Trigger Vercel with enhanced debug mode
+    console.log("📡 Triggering Vercel test fetch for Bybit internal transfers...");
+    const vercelResult = triggerVercelDataFetch(settings);
+    
+    if (vercelResult && vercelResult.debugLogs) {
+      console.log("--- 🧪 BYBIT INTERNAL TRANSFERS TEST Debug Logs Start 🧪 ---");
+      vercelResult.debugLogs.forEach(log => console.log(log));
+      console.log("--- 🧪 BYBIT INTERNAL TRANSFERS TEST Debug Logs End 🧪 ---");
+    }
+    
+    console.log("🧪 Bybit internal transfers test completed:", vercelResult);
+    showAlert("Test Complete", `🧪 Bybit internal transfers test completed!\n\nPeriod: ${startDate} to ${endDate}\n\nCheck execution logs for detailed debugging information.\n\nThis test specifically focuses on internal transfers to identify why only deposits are being fetched.`);
+    
+  } catch (error) {
+    console.error("❌ Error in Bybit internal transfers test:", error);
+    showAlert("Test Error", `❌ Bybit internal transfers test failed!\n\nError: ${error.message}`);
   }
 }
 

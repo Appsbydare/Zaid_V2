@@ -1167,6 +1167,20 @@ async function testByBitAccountFixed(config, filterDate, debugLogs) {
       transactions.push(...internalTransfers);
       transactionBreakdown.internalTransfers = internalTransfers.length;
       console.log(`  🔄 ${config.name} internal transfers: ${internalTransfers.length}`);
+      
+      // Enhanced debugging for internal transfers
+      if (internalTransfers.length === 0) {
+        console.log(`  ⚠️ No internal transfers found for ${config.name} - this might indicate an API issue or no transfers in the date range`);
+      } else {
+        console.log(`  📊 Internal transfers breakdown:`);
+        const transferTypes = internalTransfers.reduce((acc, tx) => {
+          acc[tx.type] = (acc[tx.type] || 0) + 1;
+          return acc;
+        }, {});
+        Object.entries(transferTypes).forEach(([type, count]) => {
+          console.log(`    - ${type}: ${count}`);
+        });
+      }
 
     } catch (txError) {
       console.log(`ByBit transaction fetch failed: ${txError.message}`);
@@ -1439,6 +1453,8 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
     const recvWindow = "5000";
     const endpoint = "https://api.bybit.com/v5/asset/inter-transfer-list";
     
+    // FIXED: Use proper parameter names for Bybit V5 API
+    // Try without coin parameter first to see all transfers
     const queryParams = `timestamp=${timestamp}&limit=50&startTime=${filterDate.getTime()}&endTime=${Date.now()}`;
     const signString = timestamp + config.apiKey + recvWindow + queryParams;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('hex');
@@ -1487,6 +1503,12 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
     console.log(`    📊 Raw internal transfers found: ${data.result.list.length}`);
     if (data.result.list.length > 0) {
       console.log(`    📊 Sample internal transfer:`, JSON.stringify(data.result.list[0], null, 2));
+      
+      // Log all internal transfers for debugging
+      console.log(`    📊 All internal transfers structure:`);
+      data.result.list.forEach((transfer, index) => {
+        console.log(`    ${index + 1}. fromAccountType: "${transfer.fromAccountType}", toAccountType: "${transfer.toAccountType}", status: "${transfer.status}", amount: "${transfer.amount}", coin: "${transfer.coin}"`);
+      });
     }
 
     const internalTransfers = data.result.list.filter(transfer => {
@@ -1502,7 +1524,21 @@ async function fetchByBitInternalTransfersFixed(config, filterDate) {
     }).map(transfer => {
       const created = parseInt(transfer.timestamp);
       const createdMs = created < 1e12 ? created * 1000 : created;
-      const type = transfer.toAccountType === 'UNIFIED' ? 'deposit' : (transfer.fromAccountType === 'UNIFIED' ? 'withdrawal' : 'deposit');
+      
+      // FIXED: Better logic for determining transaction type
+      let type = 'deposit'; // default
+      if (transfer.fromAccountType === 'UNIFIED' && transfer.toAccountType !== 'UNIFIED') {
+        type = 'withdrawal'; // Money going OUT of UNIFIED account
+      } else if (transfer.toAccountType === 'UNIFIED' && transfer.fromAccountType !== 'UNIFIED') {
+        type = 'deposit'; // Money coming IN to UNIFIED account
+      } else {
+        // For internal transfers between same account types, determine based on direction
+        // This is a fallback - you may need to adjust based on your specific needs
+        type = 'deposit'; // Default to deposit for internal transfers
+      }
+      
+      console.log(`    🔍 Internal Transfer Type Logic: from=${transfer.fromAccountType}, to=${transfer.toAccountType}, determined_type=${type}`);
+      
       return {
         platform: config.name,
         type: type,

@@ -274,19 +274,21 @@ function parseCSV(csvText) {
 // The walletStatuses object tracks status for each wallet
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  const debugLogs = [];
-
+  const debugLogs = ['🚀 Function started'];
+  
   try {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    debugLogs.push('✅ CORS headers set');
+
+    if (req.method === 'OPTIONS') {
+      res.status(200).end();
+      return;
+    }
+    debugLogs.push('✅ Method check passed');
+
     debugLogs.push('🚀 Starting FIXED crypto data fetch...');
 
     // Get date filtering from request or use defaults
@@ -625,14 +627,21 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    debugLogs.push('❌ Fixed Vercel Error:', error);
+    debugLogs.push(`❌ FATAL ERROR: ${error.message}`);
+    debugLogs.push(`❌ Error stack: ${error.stack}`);
     
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      timestamp: new Date().toISOString(),
-      debugLogs: debugLogs
-    });
+    try {
+      res.status(500).json({
+        success: false,
+        error: error.message,
+        errorStack: error.stack,
+        timestamp: new Date().toISOString(),
+        debugLogs: debugLogs
+      });
+    } catch (responseError) {
+      // If we can't even send a JSON response, send plain text
+      res.status(500).send(`Error: ${error.message} | Response Error: ${responseError.message}`);
+    }
   }
 }
 

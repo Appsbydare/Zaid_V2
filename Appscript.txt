@@ -156,19 +156,35 @@ function triggerVercelDataFetch(settings) {
       console.log(`   - ${key}: ${cred.apiKey ? '✅' : '❌'} Key, ${cred.apiSecret ? '✅' : '❌'} Secret`);
     });
     
+    // Log payload size for debugging
+    const requestPayload = {
+      action: "fetch_and_write",
+      startDate: settings.startDate,
+      apiCredentials: apiCredentials // Send credentials to Vercel
+    };
+    const payloadString = JSON.stringify(requestPayload);
+    console.log(`🔍 Request payload size: ${payloadString.length} characters`);
+    console.log(`🔍 Credentials keys being sent: ${Object.keys(apiCredentials).join(', ')}`);
+    
     const response = UrlFetchApp.fetch(CONFIG.VERCEL_CRYPTO_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      payload: JSON.stringify({
-        action: "fetch_and_write",
-        startDate: settings.startDate,
-        apiCredentials: apiCredentials // Send credentials to Vercel
-      }),
+      payload: payloadString,
       muteHttpExceptions: true
     });
     
     const responseText = response.getContentText();
-    const data = JSON.parse(responseText);
+    console.log(`🔍 Response status: ${response.getResponseCode()}`);
+    console.log(`🔍 Response text preview: ${responseText.substring(0, 200)}...`);
+    
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error(`❌ JSON parse error: ${parseError.message}`);
+      console.error(`❌ Response text (first 500 chars): ${responseText.substring(0, 500)}`);
+      throw new Error(`Failed to parse Vercel response as JSON: ${parseError.message}`);
+    }
 
     if (data.debugLogs && Array.isArray(data.debugLogs)) {
       console.log("--- 📡 Vercel Debug Logs Start 📡 ---");

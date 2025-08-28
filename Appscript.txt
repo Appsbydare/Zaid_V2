@@ -768,6 +768,7 @@ function onOpen() {
       .addItem('📊 Count Transactions', 'countCurrentTransactions')
       .addItem('📈 Test Sheet Access', 'testSheetAccess')
           .addItem('🟢 Test TRON Wallet', 'testTronWallet')
+    .addItem('🔍 Test TRX Deposits', 'testTronDepositDebug')
     .addItem('🔍 Test Bybit Internal', 'testBybitInternal')
     .addItem('🔍 Test Bybit Internal Transfers', 'testBybitInternalTransfers'))
     .addSeparator()
@@ -1818,5 +1819,108 @@ function validateDataProcessing(withdrawals, deposits) {
     
   } catch (error) {
     console.error("❌ Error in data validation:", error);
+  }
+}
+
+/**
+ * TEST: Debug TRX deposit issues specifically
+ */
+function testTronDepositDebug() {
+  try {
+    console.log("🔍 Starting TRX deposit debugging...");
+    
+    // Test with a specific TRON wallet address
+    const testAddress = "TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN"; // R TRC20 wallet
+    const endpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions?limit=20&order_by=block_timestamp,desc`;
+    
+    console.log(`🔍 Testing TRON wallet: ${testAddress}`);
+    console.log(`🔍 API endpoint: ${endpoint}`);
+    
+    const response = UrlFetchApp.fetch(endpoint, {
+      muteHttpExceptions: true
+    });
+    
+    const statusCode = response.getResponseCode();
+    const responseText = response.getContentText();
+    
+    console.log(`📡 TRON API Response Status: ${statusCode}`);
+    
+    if (statusCode !== 200) {
+      throw new Error(`TRON API error: ${statusCode} - ${responseText}`);
+    }
+    
+    const data = JSON.parse(responseText);
+    console.log(`📊 Raw TRX data received: ${data.data ? data.data.length : 0} transactions`);
+    
+    let depositCount = 0;
+    let withdrawalCount = 0;
+    let skippedCount = 0;
+    let totalProcessed = 0;
+    
+    if (data.data) {
+      data.data.forEach((tx, index) => {
+        const txDate = new Date(tx.block_timestamp);
+        console.log(`\n🔍 Transaction ${index + 1}: ${tx.txID}`);
+        console.log(`🔍 Date: ${txDate.toISOString()}`);
+        
+        if (tx.raw_data && tx.raw_data.contract) {
+          tx.raw_data.contract.forEach((contract, contractIndex) => {
+            console.log(`🔍 Contract ${contractIndex + 1}: ${contract.type}`);
+            
+            if (contract.type === "TransferContract") {
+              totalProcessed++;
+              const value = contract.parameter.value;
+              const normalizedAddress = testAddress.trim();
+              const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
+              const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+              
+              const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
+              const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
+              const amount = (value.amount / 1000000).toString();
+              
+              console.log(`🔍 Transfer details:`);
+              console.log(`   - From: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
+              console.log(`   - To: ${value.to_address} (normalized: ${normalizedToAddress})`);
+              console.log(`   - Amount: ${amount} TRX`);
+              console.log(`   - Is deposit: ${isDeposit}`);
+              console.log(`   - Is withdrawal: ${isWithdrawal}`);
+              console.log(`   - Address match: ${normalizedToAddress === normalizedAddress || normalizedFromAddress === normalizedAddress}`);
+              
+              if (isDeposit) {
+                depositCount++;
+                console.log(`✅ DEPOSIT DETECTED`);
+              } else if (isWithdrawal) {
+                withdrawalCount++;
+                console.log(`📤 WITHDRAWAL DETECTED`);
+              } else {
+                skippedCount++;
+                console.log(`❌ SKIPPED - wallet not involved`);
+              }
+            }
+          });
+        } else {
+          console.log(`🔍 No raw_data or contracts found`);
+        }
+      });
+    }
+    
+    const report = `🔍 TRX Transaction Analysis:
+
+📊 Total transactions: ${data.data ? data.data.length : 0}
+📊 Transfer contracts processed: ${totalProcessed}
+📊 Deposits found: ${depositCount}
+📊 Withdrawals found: ${withdrawalCount}
+📊 Skipped: ${skippedCount}
+
+🔍 Test Address: ${testAddress}
+🔍 API Endpoint: ${endpoint}
+🔍 Response Status: ${statusCode}`;
+
+    console.log(report);
+    showAlert("TRX Deposit Debug", report);
+    
+  } catch (error) {
+    console.error("❌ Error in TRX deposit debugging:", error);
+    showAlert("TRX Debug Error", `❌ TRX deposit debugging failed!\n\nError: ${error.message}`);
   }
 }

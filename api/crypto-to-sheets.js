@@ -2111,6 +2111,14 @@ async function fetchTronEnhanced(address, filterDate) {
               const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
               const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
               
+              // Enhanced logging for debugging
+              console.log(`[TRX ENHANCED DEBUG] Processing transaction: ${tx.txID}`);
+              console.log(`[TRX ENHANCED DEBUG] Wallet address: "${normalizedAddress}"`);
+              console.log(`[TRX ENHANCED DEBUG] To address: "${normalizedToAddress}"`);
+              console.log(`[TRX ENHANCED DEBUG] From address: "${normalizedFromAddress}"`);
+              console.log(`[TRX ENHANCED DEBUG] To match: ${normalizedToAddress === normalizedAddress}`);
+              console.log(`[TRX ENHANCED DEBUG] From match: ${normalizedFromAddress === normalizedAddress}`);
+              
               const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
               const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
               const amount = (value.amount / 1000000).toString();
@@ -2171,12 +2179,23 @@ async function fetchTronEnhanced(address, filterDate) {
         const normalizedToAddress = tx.to ? tx.to.trim() : '';
         const normalizedFromAddress = tx.from ? tx.from.trim() : '';
         
+        // Enhanced logging for TRC-20 debugging
+        console.log(`[TRC20 ENHANCED DEBUG] Processing transaction: ${tx.transaction_id}`);
+        console.log(`[TRC20 ENHANCED DEBUG] Wallet address: "${normalizedAddress}"`);
+        console.log(`[TRC20 ENHANCED DEBUG] To address: "${normalizedToAddress}"`);
+        console.log(`[TRC20 ENHANCED DEBUG] From address: "${normalizedFromAddress}"`);
+        console.log(`[TRC20 ENHANCED DEBUG] To match: ${normalizedToAddress === normalizedAddress}`);
+        console.log(`[TRC20 ENHANCED DEBUG] From match: ${normalizedFromAddress === normalizedAddress}`);
+        
         if (normalizedToAddress && normalizedToAddress === normalizedAddress) {
           type = 'deposit';
+          console.log(`[TRC20 ENHANCED DEBUG] ✅ DEPOSIT DETECTED`);
         } else if (normalizedFromAddress && normalizedFromAddress === normalizedAddress) {
           type = 'withdrawal';
+          console.log(`[TRC20 ENHANCED DEBUG] 📤 WITHDRAWAL DETECTED`);
         } else {
           // Not relevant to this wallet, skip
+          console.log(`[TRC20 ENHANCED DEBUG] ❌ SKIPPED - wallet not involved`);
           return;
         }
         
@@ -2210,12 +2229,27 @@ async function fetchTronEnhanced(address, filterDate) {
     // Log all transactions before returning
     console.log(`[TRON LOG] Total transactions to return: ${transactions.length}`);
     
-    // Log currency breakdown
-    const currencyBreakdown = {};
+    // Log transaction type breakdown
+    const typeBreakdown = {};
+    const assetBreakdown = {};
     transactions.forEach(t => {
-      currencyBreakdown[t.asset] = (currencyBreakdown[t.asset] || 0) + 1;
+      typeBreakdown[t.type] = (typeBreakdown[t.type] || 0) + 1;
+      assetBreakdown[t.asset] = (assetBreakdown[t.asset] || 0) + 1;
     });
-    console.log(`[TRON LOG] Currency breakdown:`, currencyBreakdown);
+    console.log(`[TRON LOG] Type breakdown:`, typeBreakdown);
+    console.log(`[TRON LOG] Asset breakdown:`, assetBreakdown);
+    
+    // Log detailed breakdown for debugging
+    const deposits = transactions.filter(t => t.type === 'deposit');
+    const withdrawals = transactions.filter(t => t.type === 'withdrawal');
+    console.log(`[TRON LOG] Deposits: ${deposits.length}, Withdrawals: ${withdrawals.length}`);
+    
+    if (deposits.length > 0) {
+      console.log(`[TRON LOG] Sample deposit:`, deposits[0]);
+    }
+    if (withdrawals.length > 0) {
+      console.log(`[TRON LOG] Sample withdrawal:`, withdrawals[0]);
+    }
     
     transactions.forEach((t, i) => {
       console.log(`[TRON TX ${i + 1}] ${JSON.stringify(t)}`);
@@ -3729,5 +3763,112 @@ async function fetchBitgetP2PFixed(config, filterDate) {
   } catch (error) {
     console.log(`    ❌ Bitget P2P error: ${error.message}`);
     return [];
+  }
+}
+
+/**
+ * TEST FUNCTION: Debug TRX deposit issues specifically
+ */
+async function debugTronDeposits() {
+  try {
+    console.log("🔍 Starting TRX deposit debugging...");
+    
+    // Test with a specific TRON wallet address
+    const testAddress = "TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN"; // R TRC20 wallet
+    const filterDate = new Date();
+    filterDate.setDate(filterDate.getDate() - 30); // Last 30 days
+    
+    console.log(`🔍 Testing TRON wallet: ${testAddress}`);
+    console.log(`🔍 Filter date: ${filterDate.toISOString()}`);
+    
+    // Fetch native TRX transfers
+    const trxEndpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions?limit=50&order_by=block_timestamp,desc`;
+    console.log(`🔍 Fetching from: ${trxEndpoint}`);
+    
+    const trxResponse = await fetch(trxEndpoint);
+    if (!trxResponse.ok) {
+      throw new Error(`TRON API error: ${trxResponse.status}`);
+    }
+    
+    const trxData = await trxResponse.json();
+    console.log(`🔍 Raw TRX data received: ${trxData.data ? trxData.data.length : 0} transactions`);
+    
+    let depositCount = 0;
+    let withdrawalCount = 0;
+    let skippedCount = 0;
+    
+    if (trxData.data) {
+      trxData.data.forEach((tx, index) => {
+        const txDate = new Date(tx.block_timestamp);
+        console.log(`\n🔍 Transaction ${index + 1}: ${tx.txID}`);
+        console.log(`🔍 Date: ${txDate.toISOString()}`);
+        console.log(`🔍 Block timestamp: ${tx.block_timestamp}`);
+        
+        if (txDate < filterDate) {
+          console.log(`🔍 ⏰ Skipping - before filter date`);
+          return;
+        }
+        
+        if (tx.raw_data && tx.raw_data.contract) {
+          tx.raw_data.contract.forEach((contract, contractIndex) => {
+            console.log(`🔍 Contract ${contractIndex + 1}: ${contract.type}`);
+            
+            if (contract.type === "TransferContract") {
+              const value = contract.parameter.value;
+              const normalizedAddress = testAddress.trim();
+              const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
+              const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+              
+              const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
+              const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
+              const amount = (value.amount / 1000000).toString();
+              
+              console.log(`🔍 Transfer details:`);
+              console.log(`   - From: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
+              console.log(`   - To: ${value.to_address} (normalized: ${normalizedToAddress})`);
+              console.log(`   - Amount: ${amount} TRX`);
+              console.log(`   - Is deposit: ${isDeposit}`);
+              console.log(`   - Is withdrawal: ${isWithdrawal}`);
+              console.log(`   - Address match: ${normalizedToAddress === normalizedAddress || normalizedFromAddress === normalizedAddress}`);
+              
+              if (isDeposit) {
+                depositCount++;
+                console.log(`✅ DEPOSIT DETECTED`);
+              } else if (isWithdrawal) {
+                withdrawalCount++;
+                console.log(`📤 WITHDRAWAL DETECTED`);
+              } else {
+                skippedCount++;
+                console.log(`❌ SKIPPED - wallet not involved`);
+              }
+            }
+          });
+        } else {
+          console.log(`🔍 No raw_data or contracts found`);
+        }
+      });
+    }
+    
+    console.log(`\n📊 TRX Transaction Analysis:`);
+    console.log(`   - Total transactions: ${trxData.data ? trxData.data.length : 0}`);
+    console.log(`   - Deposits found: ${depositCount}`);
+    console.log(`   - Withdrawals found: ${withdrawalCount}`);
+    console.log(`   - Skipped: ${skippedCount}`);
+    
+    return {
+      success: true,
+      totalTransactions: trxData.data ? trxData.data.length : 0,
+      deposits: depositCount,
+      withdrawals: withdrawalCount,
+      skipped: skippedCount,
+      address: testAddress
+    };
+    
+  } catch (error) {
+    console.error("❌ Error in TRX deposit debugging:", error);
+    return {
+      success: false,
+      error: error.message
+    };
   }
 }

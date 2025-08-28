@@ -2106,17 +2106,22 @@ async function fetchTronEnhanced(address, filterDate) {
             if (contract.type === "TransferContract") {
               const value = contract.parameter.value;
               // Fix: Properly categorize based on whether this wallet is sender or receiver
-              const isDeposit = value.to_address && value.to_address === address;
-              const isWithdrawal = value.owner_address && value.owner_address === address;
+              // Normalize addresses for comparison (convert to lowercase and trim)
+              const normalizedAddress = address.toLowerCase().trim();
+              const normalizedToAddress = value.to_address ? value.to_address.toLowerCase().trim() : '';
+              const normalizedFromAddress = value.owner_address ? value.owner_address.toLowerCase().trim() : '';
+              
+              const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
+              const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
               const amount = (value.amount / 1000000).toString();
               
               // Debug logging for TRX transfers
               console.log(`[TRX DEBUG] TX: ${tx.txID}`);
-              console.log(`[TRX DEBUG] Wallet address: ${address}`);
-              console.log(`[TRX DEBUG] To address: ${value.to_address}`);
-              console.log(`[TRX DEBUG] From address: ${value.owner_address}`);
-              console.log(`[TRX DEBUG] To address match: ${value.to_address === address}`);
-              console.log(`[TRX DEBUG] From address match: ${value.owner_address === address}`);
+              console.log(`[TRX DEBUG] Wallet address: ${address} (normalized: ${normalizedAddress})`);
+              console.log(`[TRX DEBUG] To address: ${value.to_address} (normalized: ${normalizedToAddress})`);
+              console.log(`[TRX DEBUG] From address: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
+              console.log(`[TRX DEBUG] To address match: ${normalizedToAddress === normalizedAddress}`);
+              console.log(`[TRX DEBUG] From address match: ${normalizedFromAddress === normalizedAddress}`);
               console.log(`[TRX DEBUG] Is deposit: ${isDeposit}`);
               console.log(`[TRX DEBUG] Is withdrawal: ${isWithdrawal}`);
               
@@ -2160,9 +2165,15 @@ async function fetchTronEnhanced(address, filterDate) {
         // Use token symbol from API response instead of hardcoded mapping
         const tokenName = tx.token_info.symbol || 'UNKNOWN';
         let type = null;
-        if (tx.to && tx.to === address) {
+        
+        // Normalize addresses for comparison (convert to lowercase and trim)
+        const normalizedAddress = address.toLowerCase().trim();
+        const normalizedToAddress = tx.to ? tx.to.toLowerCase().trim() : '';
+        const normalizedFromAddress = tx.from ? tx.from.toLowerCase().trim() : '';
+        
+        if (normalizedToAddress && normalizedToAddress === normalizedAddress) {
           type = 'deposit';
-        } else if (tx.from && tx.from === address) {
+        } else if (normalizedFromAddress && normalizedFromAddress === normalizedAddress) {
           type = 'withdrawal';
         } else {
           // Not relevant to this wallet, skip
@@ -2171,9 +2182,9 @@ async function fetchTronEnhanced(address, filterDate) {
         
         // Debug logging for TRC-20 transfers
         console.log(`[TRC20 DEBUG] TX: ${tx.transaction_id}`);
-        console.log(`[TRC20 DEBUG] Wallet address: ${address}`);
-        console.log(`[TRC20 DEBUG] To address: ${tx.to}`);
-        console.log(`[TRC20 DEBUG] From address: ${tx.from}`);
+        console.log(`[TRC20 DEBUG] Wallet address: ${address} (normalized: ${normalizedAddress})`);
+        console.log(`[TRC20 DEBUG] To address: ${tx.to} (normalized: ${normalizedToAddress})`);
+        console.log(`[TRC20 DEBUG] From address: ${tx.from} (normalized: ${normalizedFromAddress})`);
         console.log(`[TRC20 DEBUG] Type: ${type}`);
         // USDT and most TRC-20 tokens have 6 decimals
         const decimals = tx.token_info.decimals || 6;
@@ -2607,7 +2618,14 @@ function filterTransactionsByValueFixed(transactions) {
     
     const aedValue = amount * priceAED;
     
-    // Only filter out if we have a known currency and the value is below minimum
+    // Special handling for TRX - keep all TRX transactions regardless of value
+    if (tx.asset === 'TRX') {
+      console.log(`[TRX FILTER] Keeping TRX transaction: ${tx.tx_id}, Amount: ${amount}, AED Value: ${aedValue}`);
+      const keepTransaction = true;
+      return keepTransaction;
+    }
+    
+    // Keep unknown currencies, only filter out known currencies below minimum
     const keepTransaction = !pricesAED[tx.asset] || aedValue >= minValueAED;
     
     if (!keepTransaction) {
@@ -2620,6 +2638,11 @@ function filterTransactionsByValueFixed(transactions) {
       });
       // Log filtered out transaction details
       console.log(`[FILTERED OUT] TX: ${tx.tx_id}, Asset: ${tx.asset}, Amount: ${amount}, AED: ${aedValue}, Reason: Value < ${minValueAED} AED`);
+      
+      // Special logging for TRX transactions
+      if (tx.asset === 'TRX') {
+        console.log(`[TRX FILTERED OUT] TRX transaction filtered: ${tx.tx_id}, Amount: ${amount}, AED: ${aedValue}, Platform: ${tx.platform}, Type: ${tx.type}`);
+      }
     }
     
     return keepTransaction;
@@ -2879,6 +2902,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
       console.log(`🔍 TRON TX ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}, platform=${tx.platform}`);
     });
     
+    // Debug: Log all TRX transactions specifically
+    const trxTransactions = sortedTransactions.filter(tx => tx.asset === "TRX");
+    console.log(`🔍 TRX transactions found: ${trxTransactions.length}`);
+    trxTransactions.forEach((tx, i) => {
+      console.log(`🔍 TRX TX ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}, platform=${tx.platform}, from=${tx.from_address}, to=${tx.to_address}`);
+    });
+    
     // Debug: Log all transactions by platform to see if R TRC20 is being processed
     const platformGroups = {};
     sortedTransactions.forEach(tx => {
@@ -2923,6 +2953,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     if (withdrawals.length > 0) {
       console.log(`📤 Writing ${withdrawals.length} withdrawals to sheet...`);
       console.log(`📤 Sample withdrawal:`, withdrawals[0]);
+      
+      // Debug: Log all TRX withdrawals specifically
+      const trxWithdrawals = withdrawals.filter(tx => tx.asset === "TRX");
+      console.log(`📤 TRX withdrawals found: ${trxWithdrawals.length}`);
+      trxWithdrawals.forEach((tx, i) => {
+        console.log(`📤 TRX Withdrawal ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}, platform=${tx.platform}, from=${tx.from_address}, to=${tx.to_address}`);
+      });
       
       // Find the last row with data in column F
       const withdrawalsSheet = await sheets.spreadsheets.values.get({
@@ -2976,6 +3013,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     if (deposits.length > 0) {
       console.log(`📝 Writing ${deposits.length} deposits to sheet...`);
       console.log(`📝 Sample deposit:`, deposits[0]);
+      
+      // Debug: Log all TRX deposits specifically
+      const trxDeposits = deposits.filter(tx => tx.asset === "TRX");
+      console.log(`📝 TRX deposits found: ${trxDeposits.length}`);
+      trxDeposits.forEach((tx, i) => {
+        console.log(`📝 TRX Deposit ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}, platform=${tx.platform}, from=${tx.from_address}, to=${tx.to_address}`);
+      });
       
       // Find the last row with data in column F
       const depositsSheet = await sheets.spreadsheets.values.get({

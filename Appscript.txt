@@ -769,6 +769,7 @@ function onOpen() {
       .addItem('📈 Test Sheet Access', 'testSheetAccess')
           .addItem('🟢 Test TRON Wallet', 'testTronWallet')
     .addItem('🔍 Test TRX Deposits', 'testTronDepositDebug')
+    .addItem('🧪 Fetch ALL TRX to TestTRON', 'fetchAllTRXToTestSheet')
     .addItem('🔍 Test Bybit Internal', 'testBybitInternal')
     .addItem('🔍 Test Bybit Internal Transfers', 'testBybitInternalTransfers'))
     .addSeparator()
@@ -1823,104 +1824,443 @@ function validateDataProcessing(withdrawals, deposits) {
 }
 
 /**
- * TEST: Debug TRX deposit issues specifically
+ * TEST: Fetch ALL TRX transactions to TestTRON sheet
+ * This bypasses all filtering to verify raw data fetching
+ */
+function fetchAllTRXToTestSheet() {
+  try {
+    console.log("🧪 Starting comprehensive TRX test - fetching ALL transactions...");
+    
+    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+    
+    // Create or clear TestTRON sheet
+    let testSheet;
+    try {
+      testSheet = spreadsheet.getSheetByName("TestTRON");
+      testSheet.clear(); // Clear existing data
+    } catch (e) {
+      testSheet = spreadsheet.insertSheet("TestTRON");
+    }
+    
+    // Set up headers
+    const headers = [
+      "Timestamp", "Platform", "Type", "Asset", "Amount", 
+      "From Address", "To Address", "TX ID", "Status", 
+      "Network", "API Source", "Debug Info"
+    ];
+    testSheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    
+    // Read wallet configurations to get TRON wallets
+    const wallets = readWalletsFromSettings();
+    const tronWallets = Object.entries(wallets).filter(([name, config]) => 
+      config.blockchainType === 'tron'
+    );
+    
+    console.log(`🔍 Found ${tronWallets.length} TRON wallets to test:`);
+    tronWallets.forEach(([name, config]) => {
+      console.log(`   - ${name}: ${config.address}`);
+    });
+    
+    let allTestTransactions = [];
+    
+    // Test each TRON wallet
+    for (const [walletName, walletConfig] of tronWallets) {
+      console.log(`\n🧪 Testing wallet: ${walletName} (${walletConfig.address})`);
+      
+      try {
+        // Call Vercel API to fetch TRX data for this specific wallet
+        const testPayload = {
+          action: "test_tron_wallet",
+          walletAddress: walletConfig.address,
+          walletName: walletName,
+          startDate: "2024-01-01T00:00:00.000Z", // Extended date range
+          skipFiltering: true // Skip all filtering
+        };
+        
+        const response = UrlFetchApp.fetch(CONFIG.VERCEL_CRYPTO_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          payload: JSON.stringify(testPayload),
+          muteHttpExceptions: true
+        });
+        
+        const responseText = response.getContentText();
+        console.log(`📡 Response for ${walletName}: ${response.getResponseCode()}`);
+        
+        if (response.getResponseCode() === 200) {
+          const data = JSON.parse(responseText);
+          
+          if (data.transactions && data.transactions.length > 0) {
+            console.log(`✅ ${walletName}: Found ${data.transactions.length} transactions`);
+            
+            // Process each transaction and add debug info
+            data.transactions.forEach(tx => {
+              const debugInfo = [
+                `Wallet: ${walletName}`,
+                `Address: ${walletConfig.address}`,
+                `To Match: ${tx.to_address === walletConfig.address}`,
+                `From Match: ${tx.from_address === walletConfig.address}`,
+                `Type Logic: ${tx.to_address === walletConfig.address ? 'DEPOSIT' : 'WITHDRAWAL'}`
+              ].join(" | ");
+              
+              allTestTransactions.push([
+                tx.timestamp,
+                tx.platform,
+                tx.type,
+                tx.asset,
+                tx.amount,
+                tx.from_address,
+                tx.to_address,
+                tx.tx_id,
+                tx.status,
+                tx.network,
+                tx.api_source,
+                debugInfo
+              ]);
+            });
+          } else {
+            console.log(`⚠️ ${walletName}: No transactions returned`);
+            // Add a debug entry for wallets with no transactions
+            allTestTransactions.push([
+              new Date().toISOString(),
+              "TRON Wallet",
+              "DEBUG",
+              "NO_DATA",
+              "0",
+              "",
+              "",
+              "",
+              "NO_TRANSACTIONS",
+              "TRON",
+              "TronGrid",
+              `Wallet ${walletName} (${walletConfig.address}) returned no transactions`
+            ]);
+          }
+          
+          if (data.debugLogs) {
+            console.log(`📋 Debug logs for ${walletName}:`);
+            data.debugLogs.forEach(log => console.log(`   ${log}`));
+          }
+          
+        } else {
+          console.log(`❌ ${walletName}: API error ${response.getResponseCode()}`);
+          console.log(`❌ Response: ${responseText.substring(0, 200)}`);
+          
+          // Add error entry
+          allTestTransactions.push([
+            new Date().toISOString(),
+            "TRON Wallet",
+            "ERROR",
+            "API_ERROR",
+            "0",
+            "",
+            "",
+            "",
+            "ERROR",
+            "TRON",
+            "TronGrid",
+            `API Error for ${walletName}: ${response.getResponseCode()} - ${responseText.substring(0, 100)}`
+          ]);
+        }
+        
+      } catch (walletError) {
+        console.error(`❌ Error testing wallet ${walletName}:`, walletError);
+        // Add error entry
+        allTestTransactions.push([
+          new Date().toISOString(),
+          "TRON Wallet",
+          "ERROR",
+          "EXCEPTION",
+          "0",
+          "",
+          "",
+          "",
+          "EXCEPTION",
+          "TRON",
+          "TronGrid",
+          `Exception for ${walletName}: ${walletError.message}`
+        ]);
+      }
+    }
+    
+    // Write all test results to TestTRON sheet
+    if (allTestTransactions.length > 0) {
+      testSheet.getRange(2, 1, allTestTransactions.length, headers.length)
+               .setValues(allTestTransactions);
+      
+      // Format the sheet
+      testSheet.autoResizeColumns(1, headers.length);
+      testSheet.getRange(1, 1, 1, headers.length).setFontWeight("bold");
+      testSheet.getRange(1, 1, 1, headers.length).setBackground("#E6F3FF");
+      
+      console.log(`✅ Test completed: ${allTestTransactions.length} entries written to TestTRON sheet`);
+    }
+    
+    // Generate summary
+    const deposits = allTestTransactions.filter(tx => tx[2] === 'deposit').length;
+    const withdrawals = allTestTransactions.filter(tx => tx[2] === 'withdrawal').length;
+    const errors = allTestTransactions.filter(tx => tx[2] === 'ERROR').length;
+    const debugEntries = allTestTransactions.filter(tx => tx[2] === 'DEBUG').length;
+    
+    const summary = `🧪 TRX Test Complete!
+    
+📊 Results written to TestTRON sheet:
+📥 Deposits: ${deposits}
+📤 Withdrawals: ${withdrawals}  
+❌ Errors: ${errors}
+🔍 Debug entries: ${debugEntries}
+📊 Total entries: ${allTestTransactions.length}
+
+🔍 Tested ${tronWallets.length} TRON wallets
+⏰ Data range: 2024-01-01 onwards
+🚫 All filtering bypassed
+
+Check the TestTRON sheet for detailed results and debug information.`;
+
+    showAlert("TRX Test Complete", summary);
+    console.log(summary);
+    
+  } catch (error) {
+    console.error("❌ Error in TRX test:", error);
+    showAlert("TRX Test Error", `❌ Test failed!\n\nError: ${error.message}`);
+  }
+}
+
+/**
+ * TEST: Debug TRX deposit issues specifically - ENHANCED VERSION
  */
 function testTronDepositDebug() {
   try {
-    console.log("🔍 Starting TRX deposit debugging...");
+    console.log("🔍 Starting ENHANCED TRX deposit debugging...");
     
     // Test with a specific TRON wallet address
     const testAddress = "TThTR3mtzippXkFkG3GHzbwcMRsiiWivDN"; // R TRC20 wallet
-    const endpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions?limit=20&order_by=block_timestamp,desc`;
+    
+    // Test both native TRX and TRC-20 tokens
+    const nativeEndpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions?limit=50&order_by=block_timestamp,desc`;
+    const trc20Endpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions/trc20?limit=50&order_by=block_timestamp,desc`;
     
     console.log(`🔍 Testing TRON wallet: ${testAddress}`);
-    console.log(`🔍 API endpoint: ${endpoint}`);
+    console.log(`🔍 Native TRX endpoint: ${nativeEndpoint}`);
+    console.log(`🔍 TRC-20 endpoint: ${trc20Endpoint}`);
     
-    const response = UrlFetchApp.fetch(endpoint, {
-      muteHttpExceptions: true
-    });
+    let allTransactions = [];
+    let nativeTransactions = [];
+    let trc20Transactions = [];
     
-    const statusCode = response.getResponseCode();
-    const responseText = response.getContentText();
+    // ===========================================
+    // FETCH NATIVE TRX TRANSACTIONS
+    // ===========================================
+    console.log("\n📡 Fetching NATIVE TRX transactions...");
+    const nativeResponse = UrlFetchApp.fetch(nativeEndpoint, { muteHttpExceptions: true });
+    const nativeStatusCode = nativeResponse.getResponseCode();
+    const nativeResponseText = nativeResponse.getContentText();
     
-    console.log(`📡 TRON API Response Status: ${statusCode}`);
+    console.log(`📡 Native TRX API Response Status: ${nativeStatusCode}`);
     
-    if (statusCode !== 200) {
-      throw new Error(`TRON API error: ${statusCode} - ${responseText}`);
-    }
-    
-    const data = JSON.parse(responseText);
-    console.log(`📊 Raw TRX data received: ${data.data ? data.data.length : 0} transactions`);
-    
-    let depositCount = 0;
-    let withdrawalCount = 0;
-    let skippedCount = 0;
-    let totalProcessed = 0;
-    
-    if (data.data) {
-      data.data.forEach((tx, index) => {
-        const txDate = new Date(tx.block_timestamp);
-        console.log(`\n🔍 Transaction ${index + 1}: ${tx.txID}`);
-        console.log(`🔍 Date: ${txDate.toISOString()}`);
-        
-        if (tx.raw_data && tx.raw_data.contract) {
-          tx.raw_data.contract.forEach((contract, contractIndex) => {
-            console.log(`🔍 Contract ${contractIndex + 1}: ${contract.type}`);
-            
-            if (contract.type === "TransferContract") {
-              totalProcessed++;
-              const value = contract.parameter.value;
-              const normalizedAddress = testAddress.trim();
-              const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
-              const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+    if (nativeStatusCode === 200) {
+      const nativeData = JSON.parse(nativeResponseText);
+      console.log(`📊 Native TRX data received: ${nativeData.data ? nativeData.data.length : 0} transactions`);
+      
+      if (nativeData.data) {
+        nativeData.data.forEach((tx, index) => {
+          const txDate = new Date(tx.block_timestamp);
+          console.log(`\n🔍 NATIVE TRX Transaction ${index + 1}: ${tx.txID}`);
+          console.log(`🔍 Date: ${txDate.toISOString()}`);
+          console.log(`🔍 Raw transaction data:`, JSON.stringify(tx, null, 2));
+          
+          if (tx.raw_data && tx.raw_data.contract) {
+            tx.raw_data.contract.forEach((contract, contractIndex) => {
+              console.log(`🔍 Contract ${contractIndex + 1}: ${contract.type}`);
               
-              const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
-              const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
-              const amount = (value.amount / 1000000).toString();
-              
-              console.log(`🔍 Transfer details:`);
-              console.log(`   - From: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
-              console.log(`   - To: ${value.to_address} (normalized: ${normalizedToAddress})`);
-              console.log(`   - Amount: ${amount} TRX`);
-              console.log(`   - Is deposit: ${isDeposit}`);
-              console.log(`   - Is withdrawal: ${isWithdrawal}`);
-              console.log(`   - Address match: ${normalizedToAddress === normalizedAddress || normalizedFromAddress === normalizedAddress}`);
-              
-              if (isDeposit) {
-                depositCount++;
-                console.log(`✅ DEPOSIT DETECTED`);
-              } else if (isWithdrawal) {
-                withdrawalCount++;
-                console.log(`📤 WITHDRAWAL DETECTED`);
-              } else {
-                skippedCount++;
-                console.log(`❌ SKIPPED - wallet not involved`);
+              if (contract.type === "TransferContract") {
+                const value = contract.parameter.value;
+                const normalizedAddress = testAddress.trim();
+                const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
+                const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+                
+                const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
+                const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
+                const amount = (value.amount / 1000000).toString();
+                
+                const transactionInfo = {
+                  type: "Native TRX",
+                  txID: tx.txID,
+                  date: txDate.toISOString(),
+                  from: value.owner_address,
+                  to: value.to_address,
+                  amount: amount,
+                  isDeposit: isDeposit,
+                  isWithdrawal: isWithdrawal,
+                  normalizedFrom: normalizedFromAddress,
+                  normalizedTo: normalizedToAddress,
+                  normalizedAddress: normalizedAddress,
+                  addressMatch: normalizedToAddress === normalizedAddress || normalizedFromAddress === normalizedAddress
+                };
+                
+                nativeTransactions.push(transactionInfo);
+                
+                console.log(`🔍 Transfer details:`);
+                console.log(`   - From: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
+                console.log(`   - To: ${value.to_address} (normalized: ${normalizedToAddress})`);
+                console.log(`   - Amount: ${amount} TRX`);
+                console.log(`   - Is deposit: ${isDeposit}`);
+                console.log(`   - Is withdrawal: ${isWithdrawal}`);
+                console.log(`   - Address match: ${transactionInfo.addressMatch}`);
+                
+                if (isDeposit) {
+                  console.log(`✅ NATIVE TRX DEPOSIT DETECTED`);
+                } else if (isWithdrawal) {
+                  console.log(`📤 NATIVE TRX WITHDRAWAL DETECTED`);
+                } else {
+                  console.log(`❌ NATIVE TRX SKIPPED - wallet not involved`);
+                }
               }
-            }
-          });
-        } else {
-          console.log(`🔍 No raw_data or contracts found`);
-        }
-      });
+            });
+          } else {
+            console.log(`🔍 No raw_data or contracts found for native TRX`);
+          }
+        });
+      }
+    } else {
+      console.log(`❌ Native TRX API error: ${nativeStatusCode} - ${nativeResponseText}`);
     }
     
-    const report = `🔍 TRX Transaction Analysis:
+    // ===========================================
+    // FETCH TRC-20 TOKEN TRANSACTIONS
+    // ===========================================
+    console.log("\n📡 Fetching TRC-20 token transactions...");
+    const trc20Response = UrlFetchApp.fetch(trc20Endpoint, { muteHttpExceptions: true });
+    const trc20StatusCode = trc20Response.getResponseCode();
+    const trc20ResponseText = trc20Response.getContentText();
+    
+    console.log(`📡 TRC-20 API Response Status: ${trc20StatusCode}`);
+    
+    if (trc20StatusCode === 200) {
+      const trc20Data = JSON.parse(trc20ResponseText);
+      console.log(`📊 TRC-20 data received: ${trc20Data.data ? trc20Data.data.length : 0} transactions`);
+      
+      if (trc20Data.data) {
+        trc20Data.data.forEach((tx, index) => {
+          const txDate = new Date(tx.block_timestamp);
+          console.log(`\n🔍 TRC-20 Transaction ${index + 1}: ${tx.transaction_id}`);
+          console.log(`🔍 Date: ${txDate.toISOString()}`);
+          console.log(`🔍 Raw TRC-20 data:`, JSON.stringify(tx, null, 2));
+          
+          const normalizedAddress = testAddress.trim();
+          const normalizedToAddress = tx.to ? tx.to.trim() : '';
+          const normalizedFromAddress = tx.from ? tx.from.trim() : '';
+          
+          const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
+          const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
+          
+          // USDT and most TRC-20 tokens have 6 decimals
+          const decimals = tx.token_info ? (tx.token_info.decimals || 6) : 6;
+          const amount = (parseFloat(tx.value) / Math.pow(10, decimals)).toString();
+          const tokenSymbol = tx.token_info ? tx.token_info.symbol : 'UNKNOWN';
+          
+          const transactionInfo = {
+            type: "TRC-20",
+            txID: tx.transaction_id,
+            date: txDate.toISOString(),
+            from: tx.from,
+            to: tx.to,
+            amount: amount,
+            tokenSymbol: tokenSymbol,
+            decimals: decimals,
+            rawValue: tx.value,
+            isDeposit: isDeposit,
+            isWithdrawal: isWithdrawal,
+            normalizedFrom: normalizedFromAddress,
+            normalizedTo: normalizedToAddress,
+            normalizedAddress: normalizedAddress,
+            addressMatch: normalizedToAddress === normalizedAddress || normalizedFromAddress === normalizedAddress
+          };
+          
+          trc20Transactions.push(transactionInfo);
+          
+          console.log(`🔍 TRC-20 Transfer details:`);
+          console.log(`   - Token: ${tokenSymbol}`);
+          console.log(`   - From: ${tx.from} (normalized: ${normalizedFromAddress})`);
+          console.log(`   - To: ${tx.to} (normalized: ${normalizedToAddress})`);
+          console.log(`   - Amount: ${amount} ${tokenSymbol}`);
+          console.log(`   - Raw Value: ${tx.value}`);
+          console.log(`   - Decimals: ${decimals}`);
+          console.log(`   - Is deposit: ${isDeposit}`);
+          console.log(`   - Is withdrawal: ${isWithdrawal}`);
+          console.log(`   - Address match: ${transactionInfo.addressMatch}`);
+          
+          if (isDeposit) {
+            console.log(`✅ TRC-20 DEPOSIT DETECTED`);
+          } else if (isWithdrawal) {
+            console.log(`📤 TRC-20 WITHDRAWAL DETECTED`);
+          } else {
+            console.log(`❌ TRC-20 SKIPPED - wallet not involved`);
+          }
+        });
+      }
+    } else {
+      console.log(`❌ TRC-20 API error: ${trc20StatusCode} - ${trc20ResponseText}`);
+    }
+    
+    // ===========================================
+    // COMBINE AND ANALYZE ALL TRANSACTIONS
+    // ===========================================
+    allTransactions = [...nativeTransactions, ...trc20Transactions];
+    
+    const nativeDeposits = nativeTransactions.filter(tx => tx.isDeposit).length;
+    const nativeWithdrawals = nativeTransactions.filter(tx => tx.isWithdrawal).length;
+    const trc20Deposits = trc20Transactions.filter(tx => tx.isDeposit).length;
+    const trc20Withdrawals = trc20Transactions.filter(tx => tx.isWithdrawal).length;
+    
+    const totalDeposits = nativeDeposits + trc20Deposits;
+    const totalWithdrawals = nativeWithdrawals + trc20Withdrawals;
+    
+    // ===========================================
+    // CREATE DETAILED REPORT
+    // ===========================================
+    let detailedReport = `🔍 ENHANCED TRX Transaction Analysis:
 
-📊 Total transactions: ${data.data ? data.data.length : 0}
-📊 Transfer contracts processed: ${totalProcessed}
-📊 Deposits found: ${depositCount}
-📊 Withdrawals found: ${withdrawalCount}
-📊 Skipped: ${skippedCount}
+📊 SUMMARY:
+📊 Total transactions fetched: ${allTransactions.length}
+📊 Native TRX transactions: ${nativeTransactions.length}
+📊 TRC-20 transactions: ${trc20Transactions.length}
+
+💰 DEPOSITS:
+📊 Native TRX deposits: ${nativeDeposits}
+📊 TRC-20 deposits: ${trc20Deposits}
+📊 Total deposits: ${totalDeposits}
+
+📤 WITHDRAWALS:
+📊 Native TRX withdrawals: ${nativeWithdrawals}
+📊 TRC-20 withdrawals: ${trc20Withdrawals}
+📊 Total withdrawals: ${totalWithdrawals}
 
 🔍 Test Address: ${testAddress}
-🔍 API Endpoint: ${endpoint}
-🔍 Response Status: ${statusCode}`;
+🔍 Native TRX API Status: ${nativeStatusCode}
+🔍 TRC-20 API Status: ${trc20StatusCode}
 
-    console.log(report);
-    showAlert("TRX Deposit Debug", report);
+📋 DETAILED TRANSACTION LIST:
+`;
+
+    // Add all transactions to the report
+    allTransactions.forEach((tx, index) => {
+      const type = tx.isDeposit ? "DEPOSIT" : tx.isWithdrawal ? "WITHDRAWAL" : "SKIPPED";
+      const asset = tx.type === "Native TRX" ? "TRX" : tx.tokenSymbol;
+      detailedReport += `\n${index + 1}. ${type} - ${tx.type} - ${asset}\n`;
+      detailedReport += `   TX ID: ${tx.txID}\n`;
+      detailedReport += `   Date: ${tx.date}\n`;
+      detailedReport += `   From: ${tx.from}\n`;
+      detailedReport += `   To: ${tx.to}\n`;
+      detailedReport += `   Amount: ${tx.amount} ${asset}\n`;
+      detailedReport += `   Address Match: ${tx.addressMatch}\n`;
+    });
+
+    console.log(detailedReport);
+    showAlert("Enhanced TRX Debug", detailedReport);
     
   } catch (error) {
-    console.error("❌ Error in TRX deposit debugging:", error);
-    showAlert("TRX Debug Error", `❌ TRX deposit debugging failed!\n\nError: ${error.message}`);
+    console.error("❌ Error in enhanced TRX deposit debugging:", error);
+    showAlert("TRX Debug Error", `❌ Enhanced TRX deposit debugging failed!\n\nError: ${error.message}`);
   }
 }

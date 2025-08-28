@@ -290,6 +290,23 @@ export default async function handler(req, res) {
     }
     debugLogs.push('✅ Method check passed');
 
+    // Handle test_tron_wallet action
+    if (req.body?.action === "test_tron_wallet") {
+      debugLogs.push('🧪 Processing test_tron_wallet request...');
+      return await handleTronWalletTest(req, res, debugLogs);
+    }
+
+    // Handle test_connection action
+    if (req.body?.action === "test_connection") {
+      return res.json({
+        success: true,
+        message: "✅ Vercel endpoint is working perfectly!",
+        timestamp: new Date().toISOString(),
+        server: "Vercel Functions",
+        status: "Active"
+      });
+    }
+
     debugLogs.push('🚀 Starting FIXED crypto data fetch...');
 
     // Get date filtering from request or use defaults
@@ -3870,5 +3887,88 @@ async function debugTronDeposits() {
       success: false,
       error: error.message
     };
+  }
+}
+
+/**
+ * Handle test_tron_wallet action - Fetches ALL TRX transactions for a specific wallet
+ */
+async function handleTronWalletTest(req, res, debugLogs) {
+  try {
+    const { walletAddress, walletName, startDate, skipFiltering } = req.body;
+    debugLogs.push(`🧪 Testing TRON wallet: ${walletName} (${walletAddress})`);
+    
+    if (!walletAddress) {
+      return res.status(400).json({
+        success: false,
+        error: "walletAddress is required",
+        debugLogs
+      });
+    }
+    
+    // Use extended date range for testing or provided startDate
+    const filterDate = startDate ? new Date(startDate) : new Date('2024-01-01');
+    debugLogs.push(`🧪 Using filter date: ${filterDate.toISOString()}`);
+    
+    // Fetch TRON transactions using existing function
+    const transactions = await fetchTronEnhanced(walletAddress, filterDate);
+    debugLogs.push(`🧪 Raw transactions fetched: ${transactions.length}`);
+    
+    // Add detailed debug information for each transaction
+    const enhancedTransactions = transactions.map(tx => {
+      const isDeposit = tx.to_address === walletAddress;
+      const isWithdrawal = tx.from_address === walletAddress;
+      
+      return {
+        ...tx,
+        debug_info: {
+          wallet_address: walletAddress,
+          to_address_match: tx.to_address === walletAddress,
+          from_address_match: tx.from_address === walletAddress,
+          determined_type: isDeposit ? 'DEPOSIT' : isWithdrawal ? 'WITHDRAWAL' : 'UNKNOWN',
+          actual_type: tx.type
+        }
+      };
+    });
+    
+    // Group by type for analysis
+    const deposits = enhancedTransactions.filter(tx => tx.type === 'deposit');
+    const withdrawals = enhancedTransactions.filter(tx => tx.type === 'withdrawal');
+    const native_trx = enhancedTransactions.filter(tx => tx.asset === 'TRX');
+    const trc20_tokens = enhancedTransactions.filter(tx => tx.asset !== 'TRX');
+    
+    debugLogs.push(`🧪 Analysis: ${deposits.length} deposits, ${withdrawals.length} withdrawals`);
+    debugLogs.push(`🧪 Assets: ${native_trx.length} native TRX, ${trc20_tokens.length} TRC-20 tokens`);
+    
+    // Log each transaction for debugging
+    enhancedTransactions.forEach((tx, i) => {
+      debugLogs.push(`🧪 TX ${i + 1}: ${tx.asset} ${tx.type} ${tx.amount} | ${tx.tx_id} | From: ${tx.from_address?.substring(0, 10)}... | To: ${tx.to_address?.substring(0, 10)}...`);
+    });
+    
+    return res.json({
+      success: true,
+      walletAddress,
+      walletName,
+      filterDate: filterDate.toISOString(),
+      skipFiltering,
+      transactions: enhancedTransactions,
+      summary: {
+        total: enhancedTransactions.length,
+        deposits: deposits.length,
+        withdrawals: withdrawals.length,
+        native_trx: native_trx.length,
+        trc20_tokens: trc20_tokens.length,
+        assets: [...new Set(enhancedTransactions.map(tx => tx.asset))]
+      },
+      debugLogs
+    });
+    
+  } catch (error) {
+    debugLogs.push(`❌ Error in TRON wallet test: ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+      debugLogs
+    });
   }
 }

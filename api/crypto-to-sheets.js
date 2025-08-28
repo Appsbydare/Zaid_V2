@@ -296,6 +296,12 @@ export default async function handler(req, res) {
       return await handleTronWalletTest(req, res, debugLogs);
     }
 
+    // Handle detailed test_tron_wallet_detailed action
+    if (req.body?.action === "test_tron_wallet_detailed") {
+      debugLogs.push('🧪 Processing test_tron_wallet_detailed request...');
+      return await handleTronWalletDetailedTest(req, res, debugLogs);
+    }
+
     // Handle test_connection action
     if (req.body?.action === "test_connection") {
       return res.json({
@@ -3965,6 +3971,234 @@ async function handleTronWalletTest(req, res, debugLogs) {
     
   } catch (error) {
     debugLogs.push(`❌ Error in TRON wallet test: ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+      debugLogs
+    });
+  }
+}
+
+/**
+ * Handle test_tron_wallet_detailed action - Tests both native TRX and TRC-20 endpoints separately
+ */
+async function handleTronWalletDetailedTest(req, res, debugLogs) {
+  try {
+    const { walletAddress, walletName, startDate, testBothEndpoints } = req.body;
+    debugLogs.push(`🧪 Detailed TRON test for: ${walletName} (${walletAddress})`);
+    
+    if (!walletAddress) {
+      return res.status(400).json({
+        success: false,
+        error: "walletAddress is required",
+        debugLogs
+      });
+    }
+    
+    const filterDate = startDate ? new Date(startDate) : new Date('2024-01-01');
+    debugLogs.push(`🧪 Using filter date: ${filterDate.toISOString()}`);
+    
+    let nativeResults = { transactions: [], error: null };
+    let trc20Results = { transactions: [], error: null };
+    
+    // ===========================================
+    // TEST 1: NATIVE TRX TRANSACTIONS
+    // ===========================================
+    debugLogs.push(`🧪 Testing NATIVE TRX endpoint...`);
+    try {
+      const trxEndpoint = `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions?limit=200&order_by=block_timestamp,desc`;
+      debugLogs.push(`🔗 Native TRX URL: ${trxEndpoint}`);
+      
+      const trxResponse = await fetch(trxEndpoint);
+      const trxStatusCode = trxResponse.status;
+      debugLogs.push(`📡 Native TRX API Status: ${trxStatusCode}`);
+      
+      if (trxResponse.ok) {
+        const trxData = await trxResponse.json();
+        debugLogs.push(`📊 Native TRX API Response: ${trxData.data ? trxData.data.length : 0} raw transactions`);
+        
+        if (trxData.data) {
+          // Process native TRX transactions
+          trxData.data.forEach(tx => {
+            const txDate = new Date(tx.block_timestamp);
+            if (txDate < filterDate) return;
+            
+            if (tx.raw_data && tx.raw_data.contract) {
+              tx.raw_data.contract.forEach(contract => {
+                if (contract.type === "TransferContract") {
+                  const value = contract.parameter.value;
+                  const normalizedAddress = walletAddress.trim();
+                  const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
+                  const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+                  
+                  const isDeposit = normalizedToAddress === normalizedAddress;
+                  const isWithdrawal = normalizedFromAddress === normalizedAddress;
+                  
+                  if (isDeposit || isWithdrawal) {
+                    const amount = (value.amount / 1000000).toString();
+                    const type = isDeposit ? "deposit" : "withdrawal";
+                    
+                    nativeResults.transactions.push({
+                      timestamp: txDate.toISOString(),
+                      platform: "TRON Wallet",
+                      type: type,
+                      asset: "TRX",
+                      amount: amount,
+                      from_address: value.owner_address,
+                      to_address: value.to_address,
+                      tx_id: tx.txID,
+                      status: "Completed",
+                      network: "TRON",
+                      api_source: "TronGrid-Native",
+                      debug_info: {
+                        endpoint_type: "NATIVE_TRX",
+                        wallet_address: walletAddress,
+                        to_address_match: isDeposit,
+                        from_address_match: isWithdrawal,
+                        determined_type: type,
+                        contract_type: contract.type
+                      }
+                    });
+                    
+                    debugLogs.push(`✅ Native TRX ${type.toUpperCase()}: ${amount} TRX | TX: ${tx.txID}`);
+                  }
+                }
+              });
+            }
+          });
+        }
+      } else {
+        nativeResults.error = `API Error ${trxStatusCode}`;
+        debugLogs.push(`❌ Native TRX API Error: ${trxStatusCode}`);
+      }
+    } catch (nativeError) {
+      nativeResults.error = nativeError.message;
+      debugLogs.push(`❌ Native TRX Exception: ${nativeError.message}`);
+    }
+    
+    // ===========================================
+    // TEST 2: TRC-20 TOKEN TRANSACTIONS  
+    // ===========================================
+    debugLogs.push(`🧪 Testing TRC-20 endpoint...`);
+    try {
+      const trc20Endpoint = `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions/trc20?limit=200&order_by=block_timestamp,desc`;
+      debugLogs.push(`🔗 TRC-20 URL: ${trc20Endpoint}`);
+      
+      const trc20Response = await fetch(trc20Endpoint);
+      const trc20StatusCode = trc20Response.status;
+      debugLogs.push(`📡 TRC-20 API Status: ${trc20StatusCode}`);
+      
+      if (trc20Response.ok) {
+        const trc20Data = await trc20Response.json();
+        debugLogs.push(`📊 TRC-20 API Response: ${trc20Data.data ? trc20Data.data.length : 0} raw transactions`);
+        
+        if (trc20Data.data) {
+          // Process TRC-20 transactions
+          trc20Data.data.forEach(tx => {
+            const txDate = new Date(tx.block_timestamp);
+            if (txDate < filterDate) return;
+            
+            const normalizedAddress = walletAddress.trim();
+            const normalizedToAddress = tx.to ? tx.to.trim() : '';
+            const normalizedFromAddress = tx.from ? tx.from.trim() : '';
+            
+            const isDeposit = normalizedToAddress === normalizedAddress;
+            const isWithdrawal = normalizedFromAddress === normalizedAddress;
+            
+            if (isDeposit || isWithdrawal) {
+              const tokenSymbol = tx.token_info?.symbol || 'UNKNOWN';
+              const decimals = tx.token_info?.decimals || 6;
+              const amount = (parseFloat(tx.value) / Math.pow(10, decimals)).toString();
+              const type = isDeposit ? "deposit" : "withdrawal";
+              
+              trc20Results.transactions.push({
+                timestamp: txDate.toISOString(),
+                platform: "TRON Wallet", 
+                type: type,
+                asset: tokenSymbol,
+                amount: amount,
+                from_address: tx.from,
+                to_address: tx.to,
+                tx_id: tx.transaction_id,
+                status: "Completed",
+                network: "TRON",
+                api_source: "TronGrid-TRC20",
+                debug_info: {
+                  endpoint_type: "TRC20_TOKENS",
+                  wallet_address: walletAddress,
+                  to_address_match: isDeposit,
+                  from_address_match: isWithdrawal,
+                  determined_type: type,
+                  token_symbol: tokenSymbol,
+                  decimals: decimals,
+                  raw_value: tx.value
+                }
+              });
+              
+              debugLogs.push(`✅ TRC-20 ${type.toUpperCase()}: ${amount} ${tokenSymbol} | TX: ${tx.transaction_id}`);
+            }
+          });
+        }
+      } else {
+        trc20Results.error = `API Error ${trc20StatusCode}`;
+        debugLogs.push(`❌ TRC-20 API Error: ${trc20StatusCode}`);
+      }
+    } catch (trc20Error) {
+      trc20Results.error = trc20Error.message;
+      debugLogs.push(`❌ TRC-20 Exception: ${trc20Error.message}`);
+    }
+    
+    // ===========================================
+    // COMBINE AND ANALYZE RESULTS
+    // ===========================================
+    const allTransactions = [...nativeResults.transactions, ...trc20Results.transactions];
+    
+    const nativeDeposits = nativeResults.transactions.filter(tx => tx.type === 'deposit').length;
+    const nativeWithdrawals = nativeResults.transactions.filter(tx => tx.type === 'withdrawal').length;
+    const trc20Deposits = trc20Results.transactions.filter(tx => tx.type === 'deposit').length;
+    const trc20Withdrawals = trc20Results.transactions.filter(tx => tx.type === 'withdrawal').length;
+    
+    debugLogs.push(`📊 NATIVE TRX: ${nativeDeposits} deposits, ${nativeWithdrawals} withdrawals (Total: ${nativeResults.transactions.length})`);
+    debugLogs.push(`📊 TRC-20: ${trc20Deposits} deposits, ${trc20Withdrawals} withdrawals (Total: ${trc20Results.transactions.length})`);
+    debugLogs.push(`📊 COMBINED: ${allTransactions.length} total transactions`);
+    
+    return res.json({
+      success: true,
+      walletAddress,
+      walletName,
+      filterDate: filterDate.toISOString(),
+      endpoints_tested: {
+        native_trx: {
+          url: `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions?limit=200&order_by=block_timestamp,desc`,
+          status: nativeResults.error ? 'ERROR' : 'SUCCESS',
+          error: nativeResults.error,
+          transactions: nativeResults.transactions.length,
+          deposits: nativeDeposits,
+          withdrawals: nativeWithdrawals
+        },
+        trc20_tokens: {
+          url: `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions/trc20?limit=200&order_by=block_timestamp,desc`,
+          status: trc20Results.error ? 'ERROR' : 'SUCCESS', 
+          error: trc20Results.error,
+          transactions: trc20Results.transactions.length,
+          deposits: trc20Deposits,
+          withdrawals: trc20Withdrawals
+        }
+      },
+      transactions: allTransactions,
+      summary: {
+        total: allTransactions.length,
+        native_trx_total: nativeResults.transactions.length,
+        trc20_total: trc20Results.transactions.length,
+        deposits: nativeDeposits + trc20Deposits,
+        withdrawals: nativeWithdrawals + trc20Withdrawals,
+        assets: [...new Set(allTransactions.map(tx => tx.asset))]
+      },
+      debugLogs
+    });
+    
+  } catch (error) {
+    debugLogs.push(`❌ Error in detailed TRON wallet test: ${error.message}`);
     return res.status(500).json({
       success: false,
       error: error.message,

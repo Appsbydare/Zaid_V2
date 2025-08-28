@@ -1846,7 +1846,7 @@ function fetchAllTRXToTestSheet() {
     const headers = [
       "Timestamp", "Platform", "Type", "Asset", "Amount", 
       "From Address", "To Address", "TX ID", "Status", 
-      "Network", "API Source", "Debug Info"
+      "Network", "API Source", "Endpoint Type", "Debug Info"
     ];
     testSheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     
@@ -1870,11 +1870,12 @@ function fetchAllTRXToTestSheet() {
       try {
         // Call Vercel API to fetch TRX data for this specific wallet
         const testPayload = {
-          action: "test_tron_wallet",
+          action: "test_tron_wallet_detailed",
           walletAddress: walletConfig.address,
           walletName: walletName,
           startDate: "2024-01-01T00:00:00.000Z", // Extended date range
-          skipFiltering: true // Skip all filtering
+          skipFiltering: true, // Skip all filtering
+          testBothEndpoints: true // Test both native TRX and TRC-20 separately
         };
         
         const response = UrlFetchApp.fetch(CONFIG.VERCEL_CRYPTO_ENDPOINT, {
@@ -1893,14 +1894,25 @@ function fetchAllTRXToTestSheet() {
           if (data.transactions && data.transactions.length > 0) {
             console.log(`✅ ${walletName}: Found ${data.transactions.length} transactions`);
             
-            // Process each transaction and add debug info
+            // Log endpoint test results if available
+            if (data.endpoints_tested) {
+              console.log(`📊 ${walletName} Endpoint Results:`);
+              console.log(`   - Native TRX: ${data.endpoints_tested.native_trx.status} (${data.endpoints_tested.native_trx.transactions} transactions)`);
+              console.log(`   - TRC-20: ${data.endpoints_tested.trc20_tokens.status} (${data.endpoints_tested.trc20_tokens.transactions} transactions)`);
+            }
+            
+            // Process each transaction and add enhanced debug info
             data.transactions.forEach(tx => {
+              const endpointType = tx.debug_info?.endpoint_type || 
+                                 (tx.api_source === 'TronGrid-Native' ? 'NATIVE_TRX' : 'TRC20_TOKENS');
+              
               const debugInfo = [
                 `Wallet: ${walletName}`,
                 `Address: ${walletConfig.address}`,
                 `To Match: ${tx.to_address === walletConfig.address}`,
                 `From Match: ${tx.from_address === walletConfig.address}`,
-                `Type Logic: ${tx.to_address === walletConfig.address ? 'DEPOSIT' : 'WITHDRAWAL'}`
+                `Type Logic: ${tx.to_address === walletConfig.address ? 'DEPOSIT' : 'WITHDRAWAL'}`,
+                `Endpoint: ${endpointType}`
               ].join(" | ");
               
               allTestTransactions.push([
@@ -1915,9 +1927,29 @@ function fetchAllTRXToTestSheet() {
                 tx.status,
                 tx.network,
                 tx.api_source,
+                endpointType,
                 debugInfo
               ]);
             });
+            
+            // Add summary information if endpoint results are available
+            if (data.endpoints_tested) {
+              allTestTransactions.push([
+                new Date().toISOString(),
+                "TRON Wallet",
+                "SUMMARY",
+                "ENDPOINT_TEST",
+                "0",
+                "",
+                "",
+                "",
+                "SUMMARY",
+                "TRON",
+                "TronGrid",
+                "SUMMARY",
+                `${walletName}: Native TRX: ${data.endpoints_tested.native_trx.transactions} (${data.endpoints_tested.native_trx.status}) | TRC-20: ${data.endpoints_tested.trc20_tokens.transactions} (${data.endpoints_tested.trc20_tokens.status})`
+              ]);
+            }
           } else {
             console.log(`⚠️ ${walletName}: No transactions returned`);
             // Add a debug entry for wallets with no transactions
@@ -1933,6 +1965,7 @@ function fetchAllTRXToTestSheet() {
               "NO_TRANSACTIONS",
               "TRON",
               "TronGrid",
+              "NO_ENDPOINT",
               `Wallet ${walletName} (${walletConfig.address}) returned no transactions`
             ]);
           }
@@ -1959,6 +1992,7 @@ function fetchAllTRXToTestSheet() {
             "ERROR",
             "TRON",
             "TronGrid",
+            "API_ERROR",
             `API Error for ${walletName}: ${response.getResponseCode()} - ${responseText.substring(0, 100)}`
           ]);
         }
@@ -1978,6 +2012,7 @@ function fetchAllTRXToTestSheet() {
           "EXCEPTION",
           "TRON",
           "TronGrid",
+          "EXCEPTION",
           `Exception for ${walletName}: ${walletError.message}`
         ]);
       }
@@ -1996,26 +2031,40 @@ function fetchAllTRXToTestSheet() {
       console.log(`✅ Test completed: ${allTestTransactions.length} entries written to TestTRON sheet`);
     }
     
-    // Generate summary
+    // Generate enhanced summary
     const deposits = allTestTransactions.filter(tx => tx[2] === 'deposit').length;
     const withdrawals = allTestTransactions.filter(tx => tx[2] === 'withdrawal').length;
+    const nativeTrx = allTestTransactions.filter(tx => tx[11] === 'NATIVE_TRX').length;
+    const trc20Tokens = allTestTransactions.filter(tx => tx[11] === 'TRC20_TOKENS').length;
     const errors = allTestTransactions.filter(tx => tx[2] === 'ERROR').length;
+    const summaryEntries = allTestTransactions.filter(tx => tx[2] === 'SUMMARY').length;
     const debugEntries = allTestTransactions.filter(tx => tx[2] === 'DEBUG').length;
     
-    const summary = `🧪 TRX Test Complete!
+    // Get asset breakdown
+    const assets = [...new Set(allTestTransactions
+      .filter(tx => tx[2] === 'deposit' || tx[2] === 'withdrawal')
+      .map(tx => tx[3])
+    )];
+    
+    const summary = `🧪 Enhanced TRX Test Complete!
     
 📊 Results written to TestTRON sheet:
 📥 Deposits: ${deposits}
 📤 Withdrawals: ${withdrawals}  
+🔥 Native TRX: ${nativeTrx}
+🪙 TRC-20 Tokens: ${trc20Tokens}
 ❌ Errors: ${errors}
+📋 Summaries: ${summaryEntries}
 🔍 Debug entries: ${debugEntries}
 📊 Total entries: ${allTestTransactions.length}
 
+💎 Assets found: ${assets.join(', ') || 'None'}
 🔍 Tested ${tronWallets.length} TRON wallets
 ⏰ Data range: 2024-01-01 onwards
 🚫 All filtering bypassed
+🔬 Both endpoints tested separately
 
-Check the TestTRON sheet for detailed results and debug information.`;
+Check the TestTRON sheet for detailed endpoint results and debug information.`;
 
     showAlert("TRX Test Complete", summary);
     console.log(summary);

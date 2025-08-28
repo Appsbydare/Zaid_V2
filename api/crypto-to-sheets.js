@@ -2097,8 +2097,16 @@ async function fetchTronEnhanced(address, filterDate) {
           tx.raw_data.contract.forEach(contract => {
             if (contract.type === "TransferContract") {
               const value = contract.parameter.value;
-              const isDeposit = value.to_address && value.to_address.toLowerCase() === address.toLowerCase();
+              const isDeposit = value.to_address && value.to_address === address;
               const amount = (value.amount / 1000000).toString();
+              
+              // Debug logging for TRX transfers
+              console.log(`[TRX DEBUG] TX: ${tx.txID}`);
+              console.log(`[TRX DEBUG] Wallet address: ${address}`);
+              console.log(`[TRX DEBUG] To address: ${value.to_address}`);
+              console.log(`[TRX DEBUG] From address: ${value.owner_address}`);
+              console.log(`[TRX DEBUG] Is deposit: ${isDeposit}`);
+              console.log(`[TRX DEBUG] Type: ${isDeposit ? 'deposit' : 'withdrawal'}`);
               transactions.push({
                 platform: "TRON Wallet",
                 type: isDeposit ? "deposit" : "withdrawal",
@@ -2132,14 +2140,21 @@ async function fetchTronEnhanced(address, filterDate) {
         // Use token symbol from API response instead of hardcoded mapping
         const tokenName = tx.token_info.symbol || 'UNKNOWN';
         let type = null;
-        if (tx.to && tx.to.toLowerCase() === address.toLowerCase()) {
+        if (tx.to && tx.to === address) {
           type = 'deposit';
-        } else if (tx.from && tx.from.toLowerCase() === address.toLowerCase()) {
+        } else if (tx.from && tx.from === address) {
           type = 'withdrawal';
         } else {
           // Not relevant to this wallet, skip
           return;
         }
+        
+        // Debug logging for TRC-20 transfers
+        console.log(`[TRC20 DEBUG] TX: ${tx.transaction_id}`);
+        console.log(`[TRC20 DEBUG] Wallet address: ${address}`);
+        console.log(`[TRC20 DEBUG] To address: ${tx.to}`);
+        console.log(`[TRC20 DEBUG] From address: ${tx.from}`);
+        console.log(`[TRC20 DEBUG] Type: ${type}`);
         // USDT and most TRC-20 tokens have 6 decimals
         const decimals = tx.token_info.decimals || 6;
         const amount = (parseFloat(tx.value) / Math.pow(10, decimals)).toString();
@@ -2447,9 +2462,13 @@ function removeDuplicateTransactions(transactions, existingWithdrawalIds, existi
       return true;
     }
     
-    const isDuplicate = existingWithdrawalIds.has(txId) || existingDepositIds.has(txId);
+    // Check if this transaction ID already exists in the SAME sheet type
+    const isDuplicate = (tx.type === 'withdrawal' && existingWithdrawalIds.has(txId)) ||
+                       (tx.type === 'deposit' && existingDepositIds.has(txId));
+    
     if (isDuplicate) {
       duplicateCount++;
+      console.log(`🔄 Removing duplicate ${tx.type}: ${txId} (already exists in ${tx.type} sheet)`);
     }
     
     return !isDuplicate;
@@ -2832,6 +2851,13 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     
     console.log(`📊 Separated: ${withdrawals.length} withdrawals, ${deposits.length} deposits`);
     console.log(`🔍 Transaction types found:`, [...new Set(sortedTransactions.map(tx => tx.type))]);
+    
+    // Debug: Log all TRON transactions to see their types
+    const tronTransactions = sortedTransactions.filter(tx => tx.platform === "TRON Wallet");
+    console.log(`🔍 TRON transactions found: ${tronTransactions.length}`);
+    tronTransactions.forEach((tx, i) => {
+      console.log(`🔍 TRON TX ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}`);
+    });
     
     // Debug: Show sample transactions of each type
     if (withdrawals.length > 0) {

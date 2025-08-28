@@ -8,6 +8,59 @@ import { google } from 'googleapis';
 import crypto from 'crypto';
 
 // ===========================================
+// TRON ADDRESS HELPERS (Hex -> Base58Check)
+// ===========================================
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+function encodeBase58(buffer) {
+  if (!buffer || buffer.length === 0) return '';
+  // Convert buffer to BigInt
+  let value = 0n;
+  for (const byte of buffer) {
+    value = (value << 8n) + BigInt(byte);
+  }
+  let result = '';
+  while (value > 0n) {
+    const mod = value % 58n;
+    result = BASE58_ALPHABET[Number(mod)] + result;
+    value = value / 58n;
+  }
+  // Preserve leading zeros as '1'
+  for (let i = 0; i < buffer.length && buffer[i] === 0; i++) {
+    result = '1' + result;
+  }
+  return result || '1';
+}
+
+function sha256(buf) {
+  return crypto.createHash('sha256').update(buf).digest();
+}
+
+function base58checkEncode(payload) {
+  const checksum = sha256(sha256(payload)).slice(0, 4);
+  return encodeBase58(Buffer.concat([payload, checksum]));
+}
+
+// Accepts base58 (returns as-is) or hex (starting with '41') and returns base58
+function tronHexToBase58(addr) {
+  if (!addr || typeof addr !== 'string') return '';
+  const trimmed = addr.trim();
+  if (trimmed.startsWith('T')) return trimmed; // already base58
+  // Expected hex with 0x41 prefix (21 bytes total)
+  const hex = trimmed.startsWith('41') ? trimmed : trimmed.startsWith('0x41') ? trimmed.slice(2) : trimmed;
+  // Validate length (should be 42 chars => 21 bytes)
+  try {
+    const payload = Buffer.from(hex, 'hex');
+    if (payload.length === 21 && payload[0] === 0x41) {
+      return base58checkEncode(payload);
+    }
+  } catch (_e) {
+    // fallthrough
+  }
+  return trimmed; // fallback to original if unexpected
+}
+
+// ===========================================
 // NEW: WALLET CONFIGURATION READER FROM SETTINGS
 // ===========================================
 
@@ -2104,7 +2157,7 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
 async function fetchTronEnhanced(address, filterDate) {
   try {
     // Fetch native TRX transfers (as before)
-    const trxEndpoint = `https://api.trongrid.io/v1/accounts/${address}/transactions?limit=200&order_by=block_timestamp,desc`;
+    const trxEndpoint = `https://api.trongrid.io/v1/accounts/${address}/transactions?limit=200&only_confirmed=true&order_by=block_timestamp,desc`;
     const trxResponse = await fetch(trxEndpoint);
     if (!trxResponse.ok) {
       throw new Error(`TRON API error: ${trxResponse.status}`);
@@ -2129,10 +2182,10 @@ async function fetchTronEnhanced(address, filterDate) {
             if (contract.type === "TransferContract") {
               const value = contract.parameter.value;
               // Fix: Properly categorize based on whether this wallet is sender or receiver
-              // TRON addresses are case-sensitive, so don't convert to lowercase
+              // Convert hex addresses (41...) to base58 for reliable comparison
               const normalizedAddress = address.trim();
-              const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
-              const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+              const normalizedToAddress = value.to_address ? tronHexToBase58(value.to_address.trim()) : '';
+              const normalizedFromAddress = value.owner_address ? tronHexToBase58(value.owner_address.trim()) : '';
               
               // Enhanced logging for debugging
               console.log(`[TRX ENHANCED DEBUG] Processing transaction: ${tx.txID}`);
@@ -2149,8 +2202,10 @@ async function fetchTronEnhanced(address, filterDate) {
               // Debug logging for TRX transfers
               console.log(`[TRX DEBUG] TX: ${tx.txID}`);
               console.log(`[TRX DEBUG] Wallet address: ${address} (normalized: ${normalizedAddress})`);
-              console.log(`[TRX DEBUG] To address: ${value.to_address} (normalized: ${normalizedToAddress})`);
-              console.log(`[TRX DEBUG] From address: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
+              console.log(`[TRX DEBUG] To address (raw): ${value.to_address}`);
+              console.log(`[TRX DEBUG] From address (raw): ${value.owner_address}`);
+              console.log(`[TRX DEBUG] To address (base58): ${normalizedToAddress}`);
+              console.log(`[TRX DEBUG] From address (base58): ${normalizedFromAddress}`);
               console.log(`[TRX DEBUG] To address match: ${normalizedToAddress === normalizedAddress}`);
               console.log(`[TRX DEBUG] From address match: ${normalizedFromAddress === normalizedAddress}`);
               console.log(`[TRX DEBUG] Is deposit: ${isDeposit}`);
@@ -2166,8 +2221,8 @@ async function fetchTronEnhanced(address, filterDate) {
                   asset: "TRX",
                   amount: amount,
                   timestamp: txDate.toISOString(),
-                  from_address: value.owner_address,
-                  to_address: value.to_address,
+                  from_address: normalizedFromAddress,
+                  to_address: normalizedToAddress,
                   tx_id: tx.txID,
                   status: "Completed",
                   network: "TRON",
@@ -2183,7 +2238,7 @@ async function fetchTronEnhanced(address, filterDate) {
     }
 
     // Fetch TRC-20 token transfers (USDT, etc.)
-    const trc20Endpoint = `https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=200&order_by=block_timestamp,desc`;
+    const trc20Endpoint = `https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=200&only_confirmed=true&order_by=block_timestamp,desc`;
     const trc20Response = await fetch(trc20Endpoint);
     if (!trc20Response.ok) {
       throw new Error(`TRON TRC-20 API error: ${trc20Response.status}`);
@@ -3805,7 +3860,7 @@ async function debugTronDeposits() {
     console.log(`🔍 Filter date: ${filterDate.toISOString()}`);
     
     // Fetch native TRX transfers
-    const trxEndpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions?limit=50&order_by=block_timestamp,desc`;
+    const trxEndpoint = `https://api.trongrid.io/v1/accounts/${testAddress}/transactions?limit=50&only_confirmed=true&order_by=block_timestamp,desc`;
     console.log(`🔍 Fetching from: ${trxEndpoint}`);
     
     const trxResponse = await fetch(trxEndpoint);
@@ -3839,16 +3894,16 @@ async function debugTronDeposits() {
             if (contract.type === "TransferContract") {
               const value = contract.parameter.value;
               const normalizedAddress = testAddress.trim();
-              const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
-              const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+              const normalizedToAddress = value.to_address ? tronHexToBase58(value.to_address.trim()) : '';
+              const normalizedFromAddress = value.owner_address ? tronHexToBase58(value.owner_address.trim()) : '';
               
               const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
               const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
               const amount = (value.amount / 1000000).toString();
               
               console.log(`🔍 Transfer details:`);
-              console.log(`   - From: ${value.owner_address} (normalized: ${normalizedFromAddress})`);
-              console.log(`   - To: ${value.to_address} (normalized: ${normalizedToAddress})`);
+              console.log(`   - From (raw): ${value.owner_address}  -> base58: ${normalizedFromAddress}`);
+              console.log(`   - To   (raw): ${value.to_address}  -> base58: ${normalizedToAddress}`);
               console.log(`   - Amount: ${amount} TRX`);
               console.log(`   - Is deposit: ${isDeposit}`);
               console.log(`   - Is withdrawal: ${isWithdrawal}`);
@@ -4006,7 +4061,7 @@ async function handleTronWalletDetailedTest(req, res, debugLogs) {
     // ===========================================
     debugLogs.push(`🧪 Testing NATIVE TRX endpoint...`);
     try {
-      const trxEndpoint = `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions?limit=200&order_by=block_timestamp,desc`;
+      const trxEndpoint = `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions?limit=200&only_confirmed=true&order_by=block_timestamp,desc`;
       debugLogs.push(`🔗 Native TRX URL: ${trxEndpoint}`);
       
       const trxResponse = await fetch(trxEndpoint);
@@ -4028,8 +4083,8 @@ async function handleTronWalletDetailedTest(req, res, debugLogs) {
                 if (contract.type === "TransferContract") {
                   const value = contract.parameter.value;
                   const normalizedAddress = walletAddress.trim();
-                  const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
-                  const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
+                  const normalizedToAddress = value.to_address ? tronHexToBase58(value.to_address.trim()) : '';
+                  const normalizedFromAddress = value.owner_address ? tronHexToBase58(value.owner_address.trim()) : '';
                   
                   const isDeposit = normalizedToAddress === normalizedAddress;
                   const isWithdrawal = normalizedFromAddress === normalizedAddress;
@@ -4044,8 +4099,8 @@ async function handleTronWalletDetailedTest(req, res, debugLogs) {
                       type: type,
                       asset: "TRX",
                       amount: amount,
-                      from_address: value.owner_address,
-                      to_address: value.to_address,
+                      from_address: normalizedFromAddress,
+                      to_address: normalizedToAddress,
                       tx_id: tx.txID,
                       status: "Completed",
                       network: "TRON",
@@ -4081,7 +4136,7 @@ async function handleTronWalletDetailedTest(req, res, debugLogs) {
     // ===========================================
     debugLogs.push(`🧪 Testing TRC-20 endpoint...`);
     try {
-      const trc20Endpoint = `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions/trc20?limit=200&order_by=block_timestamp,desc`;
+      const trc20Endpoint = `https://api.trongrid.io/v1/accounts/${walletAddress}/transactions/trc20?limit=200&only_confirmed=true&order_by=block_timestamp,desc`;
       debugLogs.push(`🔗 TRC-20 URL: ${trc20Endpoint}`);
       
       const trc20Response = await fetch(trc20Endpoint);

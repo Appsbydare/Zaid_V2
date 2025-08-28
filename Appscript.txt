@@ -1873,7 +1873,7 @@ function fetchAllTRXToTestSheet() {
           action: "test_tron_wallet_detailed",
           walletAddress: walletConfig.address,
           walletName: walletName,
-          startDate: "2024-01-01T00:00:00.000Z", // Extended date range
+          startDate: "2025-08-01T00:00:00.000Z", // Narrowed date range per request
           skipFiltering: true, // Skip all filtering
           testBothEndpoints: true // Test both native TRX and TRC-20 separately
         };

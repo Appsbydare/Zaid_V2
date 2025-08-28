@@ -1,0 +1,75 @@
+S C:\Windows\System32> cd "D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified"
+PS D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified> git add api/crypto-to-sheets.js
+>> git commit -m "Fix TRX transaction categorization and deduplication for decentralized wallets"
+>> git push origin main
+[main 0b6a3af] Fix TRX transaction categorization and deduplication for decentralized wallets
+ 1 file changed, 30 insertions(+), 4 deletions(-)
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 1.04 KiB | 530.00 KiB/s, done.
+Total 4 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/Appsbydare/Zaid_V2.git
+   2e5127a..0b6a3af  main -> main
+PS D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified> git add .
+>> git commit -m "fix: correct TRX transaction categorization for decentralized wallets - Fix native TRX transfer categorization logic in fetchTronEnhanced - Properly distinguish between deposits and withdrawals based on wallet role - Add explicit checks for to_address (deposit) and owner_address (withdrawal) - Ensure transactions are only added when wallet is involved as sender or receiver - Prevent both sides of internal transfer from appearing in same sheet"
+>> git push origin main
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 3.69 KiB | 1.23 MiB/s, done.
+Total 6 (delta 5), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (5/5), completed with 4 local objects.
+To https://github.com/Appsbydare/Zaid_V2.git
+   0b6a3af..5b670f0  main -> main
+PS D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified> git add .
+>> git commit -m "fix: add debug logging for TRX deposit issue - Add detailed debug logging for TRX transaction categorization - Add platform-specific transaction logging - Add wallet name logging to identify which wallets are being processed - Add address match debugging to identify categorization issues - Help diagnose why R TRC20 deposits are not appearing in Deposits sheet"
+>> git push origin main
+[main 9cce383] fix: add debug logging for TRX deposit issue - Add detailed debug logging for TRX transaction categorization - Add platform-specific transaction logging - Add wallet name logging to identify which wallets are being processed - Add address match debugging to identify categorization issues - Help diagnose why R TRC20 deposits are not appearing in Deposits sheet
+ 1 file changed, 27 insertions(+), 1 deletion(-)
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 1.03 KiB | 1.03 MiB/s, done.
+Total 4 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/Appsbydare/Zaid_V2.git
+   5b670f0..9cce383  main -> main
+PS D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified> git add .
+>> git commit -m "feat: add comprehensive debug logging for TRX transaction processing - Add detailed wallet processing logs to track each wallet's transactions - Add TRX-specific debug logs for address matching and categorization - Add platform grouping logs to see transaction distribution - Help diagnose missing TRX deposits in decentralized wallets"
+>> git push
+[main 4d8d0ce] feat: add comprehensive debug logging for TRX transaction processing - Add detailed wallet processing logs to track each wallet's transactions - Add TRX-specific debug logs for address matching and categorization - Add platform grouping logs to see transaction distribution - Help diagnose missing TRX deposits in decentralized wallets
+ 1 file changed, 1486 insertions(+), 75 deletions(-)
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 8.23 KiB | 4.12 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/Appsbydare/Zaid_V2.git
+   9cce383..4d8d0ce  main -> main
+PS D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified> git add .
+>> git commit -m "feat: add comprehensive debug logging for TRX transaction processing - Add detailed wallet processing logs to track each wallet's transactions - Add TRX-specific debug logs for address matching and categorization - Add platform grouping logs to see transaction distribution - Help diagnose missing TRX deposits in decentralized wallets"
+>> git push
+[main 31ebb3e] feat: add comprehensive debug logging for TRX transaction processing - Add detailed wallet processing logs to track each wallet's transactions - Add TRX-specific debug logs for address matching and categorization - Add platform grouping logs to see transaction distribution - Help diagnose missing TRX deposits in decentralized wallets
+ 1 file changed, 561 insertions(+), 437 deletions(-)
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 2.92 KiB | 1.46 MiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/Appsbydare/Zaid_V2.git
+   4d8d0ce..31ebb3e  main -> main
+PS D:\01. Fiverr\594 - zaidalnasseri\CryptoWallet_V3\zaid_cryptowallets-modified>

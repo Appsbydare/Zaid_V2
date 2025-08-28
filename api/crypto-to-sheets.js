@@ -89,6 +89,7 @@ async function readWalletsFromSettings() {
     });
     
     console.log(`📊 Total active wallets loaded: ${Object.keys(wallets).length}`);
+    console.log(`📊 Wallet names: ${Object.keys(wallets).join(', ')}`);
     
     if (Object.keys(wallets).length === 0) {
       console.log(`⚠️ No active wallets found. Check Settings T3:X17 for wallet configurations.`);
@@ -533,6 +534,13 @@ export default async function handler(req, res) {
           ...tx,
           platform: walletName // Use the friendly name from Settings
         }));
+        
+        // Debug: Log transactions for this specific wallet
+        console.log(`🔍 Wallet "${walletName}" (${walletConfig.address}): ${mappedTransactions.length} transactions`);
+        mappedTransactions.forEach((tx, i) => {
+          console.log(`🔍 ${walletName} TX ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}`);
+        });
+        
         allTransactions.push(...mappedTransactions);
         totalTransactionsFound += mappedTransactions.length;
         
@@ -2107,6 +2115,8 @@ async function fetchTronEnhanced(address, filterDate) {
               console.log(`[TRX DEBUG] Wallet address: ${address}`);
               console.log(`[TRX DEBUG] To address: ${value.to_address}`);
               console.log(`[TRX DEBUG] From address: ${value.owner_address}`);
+              console.log(`[TRX DEBUG] To address match: ${value.to_address === address}`);
+              console.log(`[TRX DEBUG] From address match: ${value.owner_address === address}`);
               console.log(`[TRX DEBUG] Is deposit: ${isDeposit}`);
               console.log(`[TRX DEBUG] Is withdrawal: ${isWithdrawal}`);
               
@@ -2866,7 +2876,23 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     const tronTransactions = sortedTransactions.filter(tx => tx.platform === "TRON Wallet");
     console.log(`🔍 TRON transactions found: ${tronTransactions.length}`);
     tronTransactions.forEach((tx, i) => {
-      console.log(`🔍 TRON TX ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}`);
+      console.log(`🔍 TRON TX ${i + 1}: type=${tx.type}, asset=${tx.asset}, amount=${tx.amount}, tx_id=${tx.tx_id}, platform=${tx.platform}`);
+    });
+    
+    // Debug: Log all transactions by platform to see if R TRC20 is being processed
+    const platformGroups = {};
+    sortedTransactions.forEach(tx => {
+      if (!platformGroups[tx.platform]) {
+        platformGroups[tx.platform] = [];
+      }
+      platformGroups[tx.platform].push(tx);
+    });
+    
+    console.log(`🔍 Transactions by platform:`);
+    Object.keys(platformGroups).forEach(platform => {
+      const deposits = platformGroups[platform].filter(tx => tx.type === 'deposit').length;
+      const withdrawals = platformGroups[platform].filter(tx => tx.type === 'withdrawal').length;
+      console.log(`🔍 ${platform}: ${deposits} deposits, ${withdrawals} withdrawals`);
     });
     
     // Debug: Show sample transactions of each type

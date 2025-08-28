@@ -2097,7 +2097,9 @@ async function fetchTronEnhanced(address, filterDate) {
           tx.raw_data.contract.forEach(contract => {
             if (contract.type === "TransferContract") {
               const value = contract.parameter.value;
+              // Fix: Properly categorize based on whether this wallet is sender or receiver
               const isDeposit = value.to_address && value.to_address === address;
+              const isWithdrawal = value.owner_address && value.owner_address === address;
               const amount = (value.amount / 1000000).toString();
               
               // Debug logging for TRX transfers
@@ -2106,20 +2108,28 @@ async function fetchTronEnhanced(address, filterDate) {
               console.log(`[TRX DEBUG] To address: ${value.to_address}`);
               console.log(`[TRX DEBUG] From address: ${value.owner_address}`);
               console.log(`[TRX DEBUG] Is deposit: ${isDeposit}`);
-              console.log(`[TRX DEBUG] Type: ${isDeposit ? 'deposit' : 'withdrawal'}`);
-              transactions.push({
-                platform: "TRON Wallet",
-                type: isDeposit ? "deposit" : "withdrawal",
-                asset: "TRX",
-                amount: amount,
-                timestamp: txDate.toISOString(),
-                from_address: value.owner_address,
-                to_address: value.to_address,
-                tx_id: tx.txID,
-                status: "Completed",
-                network: "TRON",
-                api_source: "TronGrid"
-              });
+              console.log(`[TRX DEBUG] Is withdrawal: ${isWithdrawal}`);
+              
+              // Only add transaction if this wallet is involved (sender or receiver)
+              if (isDeposit || isWithdrawal) {
+                const type = isDeposit ? "deposit" : "withdrawal";
+                console.log(`[TRX DEBUG] Type: ${type}`);
+                transactions.push({
+                  platform: "TRON Wallet",
+                  type: type,
+                  asset: "TRX",
+                  amount: amount,
+                  timestamp: txDate.toISOString(),
+                  from_address: value.owner_address,
+                  to_address: value.to_address,
+                  tx_id: tx.txID,
+                  status: "Completed",
+                  network: "TRON",
+                  api_source: "TronGrid"
+                });
+              } else {
+                console.log(`[TRX DEBUG] Skipping transaction - wallet not involved`);
+              }
             }
           });
         }

@@ -2106,10 +2106,10 @@ async function fetchTronEnhanced(address, filterDate) {
             if (contract.type === "TransferContract") {
               const value = contract.parameter.value;
               // Fix: Properly categorize based on whether this wallet is sender or receiver
-              // Normalize addresses for comparison (convert to lowercase and trim)
-              const normalizedAddress = address.toLowerCase().trim();
-              const normalizedToAddress = value.to_address ? value.to_address.toLowerCase().trim() : '';
-              const normalizedFromAddress = value.owner_address ? value.owner_address.toLowerCase().trim() : '';
+              // TRON addresses are case-sensitive, so don't convert to lowercase
+              const normalizedAddress = address.trim();
+              const normalizedToAddress = value.to_address ? value.to_address.trim() : '';
+              const normalizedFromAddress = value.owner_address ? value.owner_address.trim() : '';
               
               const isDeposit = normalizedToAddress && normalizedToAddress === normalizedAddress;
               const isWithdrawal = normalizedFromAddress && normalizedFromAddress === normalizedAddress;
@@ -2166,10 +2166,10 @@ async function fetchTronEnhanced(address, filterDate) {
         const tokenName = tx.token_info.symbol || 'UNKNOWN';
         let type = null;
         
-        // Normalize addresses for comparison (convert to lowercase and trim)
-        const normalizedAddress = address.toLowerCase().trim();
-        const normalizedToAddress = tx.to ? tx.to.toLowerCase().trim() : '';
-        const normalizedFromAddress = tx.from ? tx.from.toLowerCase().trim() : '';
+        // TRON addresses are case-sensitive, so don't convert to lowercase
+        const normalizedAddress = address.trim();
+        const normalizedToAddress = tx.to ? tx.to.trim() : '';
+        const normalizedFromAddress = tx.from ? tx.from.trim() : '';
         
         if (normalizedToAddress && normalizedToAddress === normalizedAddress) {
           type = 'deposit';

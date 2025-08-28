@@ -6,12 +6,12 @@
  */
 
 const CONFIG = {
-  SHEET_ID: "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y",
+  SHEET_ID: "1pLsxrfU5NgHF4aNLXNnCCvGgBvKO4EKjb44iiVvUp5Q",
   FORMATTED_SHEET: "FORMATTED_TRANSACTIONS",
   WITHDRAWALS_SHEET: "Withdrawals",
   DEPOSITS_SHEET: "Deposits",
   SETTINGS_SHEET: "SETTINGS",
-  VERCEL_CRYPTO_ENDPOINT: "https://zaid-v2-darshanas-projects-d30d0377.vercel.app/api/crypto-to-sheets"
+  VERCEL_CRYPTO_ENDPOINT: "https://zaid-cryptowallets.vercel.app/api/crypto-to-sheets"
 };
 
 // ===========================================
@@ -134,42 +134,13 @@ function triggerVercelDataFetch(settings) {
   try {
     console.log("📡 Triggering Vercel data fetch...");
     
-    // Read API credentials from Settings sheet
-    const apiCredentials = readApiCredentialsFromSheet();
-    console.log("🔑 Loaded API credentials:", Object.keys(apiCredentials));
-    
-    // Add detailed logging for Bitget credentials
-    if (apiCredentials.BITGET_API) {
-      console.log("🔍 Bitget credentials found:");
-      console.log("   - API Key:", apiCredentials.BITGET_API.apiKey ? "✅ Present" : "❌ Missing");
-      console.log("   - API Secret:", apiCredentials.BITGET_API.apiSecret ? "✅ Present" : "❌ Missing");
-      console.log("   - Key length:", apiCredentials.BITGET_API.apiKey ? apiCredentials.BITGET_API.apiKey.length : 0);
-      console.log("   - Secret length:", apiCredentials.BITGET_API.apiSecret ? apiCredentials.BITGET_API.apiSecret.length : 0);
-    } else {
-      console.log("⚠️ Bitget credentials NOT found in apiCredentials object");
-    }
-    
-    // Log all credential keys for debugging
-    console.log("🔍 All credential keys available:", Object.keys(apiCredentials));
-    Object.keys(apiCredentials).forEach(key => {
-      const cred = apiCredentials[key];
-      console.log(`   - ${key}: ${cred.apiKey ? '✅' : '❌'} Key, ${cred.apiSecret ? '✅' : '❌'} Secret`);
-    });
-    
-    // Log payload size for debugging
-    const requestPayload = {
-      action: "fetch_and_write",
-      startDate: settings.startDate,
-      apiCredentials: apiCredentials // Send credentials to Vercel
-    };
-    const payloadString = JSON.stringify(requestPayload);
-    console.log(`🔍 Request payload size: ${payloadString.length} characters`);
-    console.log(`🔍 Credentials keys being sent: ${Object.keys(apiCredentials).join(', ')}`);
-    
     const response = UrlFetchApp.fetch(CONFIG.VERCEL_CRYPTO_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      payload: payloadString,
+      payload: JSON.stringify({
+        action: "fetch_and_write",
+        startDate: settings.startDate,
+      }),
       muteHttpExceptions: true
     });
     
@@ -768,8 +739,7 @@ function onOpen() {
       .addItem('📊 Count Transactions', 'countCurrentTransactions')
       .addItem('📈 Test Sheet Access', 'testSheetAccess')
           .addItem('🟢 Test TRON Wallet', 'testTronWallet')
-    .addItem('🔍 Test Bybit Internal', 'testBybitInternal')
-    .addItem('🔍 Test Bybit Internal Transfers', 'testBybitInternalTransfers'))
+))
     .addSeparator()
     .addItem('📖 User Guide', 'showUserGuide')
     .addToUi();
@@ -1338,228 +1308,9 @@ function testTronWallet() {
   }
 }
 
-/**
- * TEST: Check where API credentials are stored
- */
-function testCredentialLocations() {
-  try {
-    console.log("🔍 Testing credential locations...");
-    
-    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-    const settingsSheet = spreadsheet.getSheetByName(CONFIG.SETTINGS_SHEET);
-    
-    if (!settingsSheet) {
-      console.log("❌ Settings sheet not found");
-      return;
-    }
-    
-    console.log("📊 Checking various cell locations for credentials...");
-    
-    // Check common locations
-    const locations = [
-      { row: 25, col: 'B', desc: 'B25 (Binance GC Key)' },
-      { row: 25, col: 'C', desc: 'C25 (Binance GC Secret)' },
-      { row: 26, col: 'B', desc: 'B26 (Binance Main Key)' },
-      { row: 26, col: 'C', desc: 'C26 (Binance Main Secret)' },
-      { row: 27, col: 'B', desc: 'B27 (Binance CV Key)' },
-      { row: 27, col: 'C', desc: 'C27 (Binance CV Secret)' },
-      { row: 28, col: 'B', desc: 'B28 (ByBit Key)' },
-      { row: 28, col: 'C', desc: 'C28 (ByBit Secret)' },
-      // Check other possible locations
-      { row: 20, col: 'B', desc: 'B20 (Alternative location)' },
-      { row: 20, col: 'C', desc: 'C20 (Alternative location)' },
-      { row: 30, col: 'B', desc: 'B30 (Alternative location)' },
-      { row: 30, col: 'C', desc: 'C30 (Alternative location)' }
-    ];
-    
-    locations.forEach(loc => {
-      try {
-        const value = settingsSheet.getRange(`${loc.col}${loc.row}`).getValue();
-        if (value && value.toString().trim()) {
-          console.log(`✅ ${loc.desc}: "${value.toString().substring(0, 10)}..."`);
-        } else {
-          console.log(`❌ ${loc.desc}: Empty`);
-        }
-      } catch (e) {
-        console.log(`❌ ${loc.desc}: Error - ${e.message}`);
-      }
-    });
-    
-    // Also check if there are any cells with "API" or "Key" in them
-    console.log("🔍 Searching for cells containing 'API' or 'Key'...");
-    const dataRange = settingsSheet.getDataRange();
-    const allData = dataRange.getValues();
-    
-    for (let row = 0; row < allData.length; row++) {
-      for (let col = 0; col < allData[row].length; col++) {
-        const cellValue = allData[row][col];
-        if (cellValue && typeof cellValue === 'string') {
-          if (cellValue.toLowerCase().includes('api') || 
-              cellValue.toLowerCase().includes('key') || 
-              cellValue.toLowerCase().includes('secret')) {
-            console.log(`🔍 Found potential credential cell at ${String.fromCharCode(65 + col)}${row + 1}: "${cellValue}"`);
-          }
-        }
-      }
-    }
-    
-  } catch (error) {
-    console.error("❌ Error testing credential locations:", error);
-  }
-}
 
-/**
- * SIMPLE: Find API credentials in Settings sheet
- */
-function findApiCredentials() {
-  try {
-    console.log("🔍 Searching for API credentials in Settings sheet...");
-    
-    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-    const settingsSheet = spreadsheet.getSheetByName(CONFIG.SETTINGS_SHEET);
-    
-    if (!settingsSheet) {
-      console.log("❌ Settings sheet not found");
-      return;
-    }
-    
-    // Get all data from the sheet
-    const dataRange = settingsSheet.getDataRange();
-    const allData = dataRange.getValues();
-    
-    console.log(`📊 Sheet has ${allData.length} rows and ${allData[0].length} columns`);
-    
-    // Search for cells containing API keys or secrets
-    for (let row = 0; row < allData.length; row++) {
-      for (let col = 0; col < allData[row].length; col++) {
-        const cellValue = allData[row][col];
-        if (cellValue && typeof cellValue === 'string') {
-          const cellAddress = `${String.fromCharCode(65 + col)}${row + 1}`;
-          
-          // Check if this looks like an API key or secret
-          if (cellValue.length > 20 && 
-              (cellValue.toLowerCase().includes('binance') || 
-               cellValue.toLowerCase().includes('bybit') ||
-               cellValue.toLowerCase().includes('api') ||
-               cellValue.toLowerCase().includes('key') ||
-               cellValue.toLowerCase().includes('secret'))) {
-            console.log(`🔑 Found potential credential at ${cellAddress}: "${cellValue.substring(0, 20)}..."`);
-          }
-          
-          // Also check for labels that might indicate credential locations
-          if (cellValue.toLowerCase().includes('binance') || 
-              cellValue.toLowerCase().includes('bybit') ||
-              cellValue.toLowerCase().includes('api key') ||
-              cellValue.toLowerCase().includes('secret')) {
-            console.log(`🏷️ Found credential label at ${cellAddress}: "${cellValue}"`);
-          }
-        }
-      }
-    }
-    
-    // Also check specific rows that might contain credentials
-    console.log("🔍 Checking specific rows for credentials...");
-    for (let row = 20; row <= 35; row++) {
-      for (let col = 0; col < 5; col++) { // Check columns A-E
-        try {
-          const cellAddress = `${String.fromCharCode(65 + col)}${row}`;
-          const value = settingsSheet.getRange(cellAddress).getValue();
-          if (value && value.toString().trim().length > 10) {
-            console.log(`📝 ${cellAddress}: "${value.toString().substring(0, 15)}..."`);
-          }
-        } catch (e) {
-          // Ignore errors for out-of-range cells
-        }
-      }
-    }
-    
-  } catch (error) {
-    console.error("❌ Error searching for credentials:", error);
-  }
-}
 
-/**
- * TEST: Bybit internal transactions debugging
- */
-function testBybitInternal() {
-  try {
-    console.log("🧪 Testing Bybit internal transactions...");
-    
-    // Test with a recent date range (last 7 days)
-    const now = new Date();
-    const sevenDaysAgo = new Date(now);
-    sevenDaysAgo.setDate(now.getDate() - 7);
-    
-    const startDate = sevenDaysAgo.toISOString();
-    const endDate = now.toISOString();
-    
-    console.log(`📅 Test period: ${startDate} to ${endDate}`);
-    
-    const settings = {
-      startDate: startDate,
-      testMode: true
-    };
-    
-    // Trigger Vercel with debug mode
-    console.log("📡 Triggering Vercel test fetch for Bybit internal transactions...");
-    const vercelResult = triggerVercelDataFetch(settings);
-    
-    if (vercelResult && vercelResult.debugLogs) {
-      console.log("--- 🧪 BYBIT INTERNAL TEST Debug Logs Start 🧪 ---");
-      vercelResult.debugLogs.forEach(log => console.log(log));
-      console.log("--- 🧪 BYBIT INTERNAL TEST Debug Logs End 🧪 ---");
-    }
-    
-    console.log("🧪 Bybit internal test completed:", vercelResult);
-    showAlert("Test Complete", `🧪 Bybit internal transactions test completed!\n\nPeriod: ${startDate} to ${endDate}\n\nCheck execution logs for detailed debugging information.`);
-    
-  } catch (error) {
-    console.error("❌ Error in Bybit internal test:", error);
-    showAlert("Test Error", `❌ Bybit internal test failed!\n\nError: ${error.message}`);
-  }
-}
 
-/**
- * TEST: Bybit internal transfers specific debugging
- */
-function testBybitInternalTransfers() {
-  try {
-    console.log("🧪 Testing Bybit internal transfers specifically...");
-    
-    // Test with a recent date range (last 30 days to catch more transfers)
-    const now = new Date();
-    const thirtyDaysAgo = new Date(now);
-    thirtyDaysAgo.setDate(now.getDate() - 30);
-    
-    const startDate = thirtyDaysAgo.toISOString();
-    const endDate = now.toISOString();
-    
-    console.log(`📅 Test period: ${startDate} to ${endDate}`);
-    
-    const settings = {
-      startDate: startDate,
-      testMode: true,
-      debugBybitInternal: true // Special flag for detailed Bybit internal debugging
-    };
-    
-    // Trigger Vercel with enhanced debug mode
-    console.log("📡 Triggering Vercel test fetch for Bybit internal transfers...");
-    const vercelResult = triggerVercelDataFetch(settings);
-    
-    if (vercelResult && vercelResult.debugLogs) {
-      console.log("--- 🧪 BYBIT INTERNAL TRANSFERS TEST Debug Logs Start 🧪 ---");
-      vercelResult.debugLogs.forEach(log => console.log(log));
-      console.log("--- 🧪 BYBIT INTERNAL TRANSFERS TEST Debug Logs End 🧪 ---");
-    }
-    
-    console.log("🧪 Bybit internal transfers test completed:", vercelResult);
-    showAlert("Test Complete", `🧪 Bybit internal transfers test completed!\n\nPeriod: ${startDate} to ${endDate}\n\nCheck execution logs for detailed debugging information.\n\nThis test specifically focuses on internal transfers to identify why only deposits are being fetched.`);
-    
-  } catch (error) {
-    console.error("❌ Error in Bybit internal transfers test:", error);
-    showAlert("Test Error", `❌ Bybit internal transfers test failed!\n\nError: ${error.message}`);
-  }
-}
 
 // ===========================================
 // UTILITY FUNCTIONS
@@ -1577,189 +1328,7 @@ function getSheetRowCount(spreadsheet, sheetName) {
   }
 }
 
-/**
- * Read API credentials from the Settings sheet
- * Returns an object with API credentials for different platforms
- */
-function readApiCredentialsFromSheet() {
-  try {
-    const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-    const settingsSheet = spreadsheet.getSheetByName(CONFIG.SETTINGS_SHEET);
-    
-    if (!settingsSheet) {
-      console.log("❌ Settings sheet not found");
-      return {};
-    }
-    
-    console.log("🔍 Debugging credential reading...");
-    
-    const credentials = {};
-    
-    // Read Binance CV API credentials (row 3)
-    try {
-      const binanceCVKey = settingsSheet.getRange('L3').getValue();
-      const binanceCVSecret = settingsSheet.getRange('M3').getValue();
-      console.log(`🔍 L3 (Binance CV Key): "${binanceCVKey}"`);
-      console.log(`🔍 M3 (Binance CV Secret): "${binanceCVSecret}"`);
-      if (binanceCVKey && binanceCVSecret) {
-        credentials.BINANCE_CV = {
-          apiKey: binanceCVKey.toString(),
-          apiSecret: binanceCVSecret.toString()
-        };
-        console.log("✅ Loaded Binance CV credentials");
-      } else {
-        console.log("⚠️ Binance CV credentials empty or missing");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Binance CV credentials:", e.message);
-    }
-    
-    // Read Binance GC API credentials (row 4)
-    try {
-      const binanceGCKey = settingsSheet.getRange('L4').getValue();
-      const binanceGCSecret = settingsSheet.getRange('M4').getValue();
-      console.log(`🔍 L4 (Binance GC Key): "${binanceGCKey}"`);
-      console.log(`🔍 M4 (Binance GC Secret): "${binanceGCSecret}"`);
-      if (binanceGCKey && binanceGCSecret) {
-        credentials.BINANCE_GC_API = {
-          apiKey: binanceGCKey.toString(),
-          apiSecret: binanceGCSecret.toString()
-        };
-        console.log("✅ Loaded Binance GC credentials");
-      } else {
-        console.log("⚠️ Binance GC credentials empty or missing");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Binance GC credentials:", e.message);
-    }
-    
-    // Read Binance Main API credentials (row 5)
-    try {
-      const binanceMainKey = settingsSheet.getRange('L5').getValue();
-      const binanceMainSecret = settingsSheet.getRange('M5').getValue();
-      console.log(`🔍 L5 (Binance Main Key): "${binanceMainKey}"`);
-      console.log(`🔍 M5 (Binance Main Secret): "${binanceMainSecret}"`);
-      if (binanceMainKey && binanceMainSecret) {
-        credentials.BINANCE_MAIN_API = {
-          apiKey: binanceMainKey.toString(),
-          apiSecret: binanceMainSecret.toString()
-        };
-        console.log("✅ Loaded Binance Main credentials");
-      } else {
-        console.log("⚠️ Binance Main credentials empty or missing");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Binance Main credentials:", e.message);
-    }
-    
-    // Read ByBit API credentials (row 6)
-    try {
-      const bybitKey = settingsSheet.getRange('L6').getValue();
-      const bybitSecret = settingsSheet.getRange('M6').getValue();
-      console.log(`🔍 L6 (ByBit Key): "${bybitKey}"`);
-      console.log(`🔍 M6 (ByBit Secret): "${bybitSecret}"`);
-      if (bybitKey && bybitSecret) {
-        credentials.BYBIT_API = {
-          apiKey: bybitKey.toString(),
-          apiSecret: bybitSecret.toString()
-        };
-        console.log("✅ Loaded ByBit credentials");
-      } else {
-        console.log("⚠️ ByBit credentials empty or missing");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading ByBit credentials:", e.message);
-    }
-    
-    // Read Helius API credentials from Solana Wallet 1 (row 12, column W)
-    try {
-      const heliusKey = settingsSheet.getRange('W12').getValue();
-      console.log(`🔍 W12 (Helius Key from Solana Wallet 1): "${heliusKey}"`);
-      if (heliusKey) {
-        credentials.HELIUS = {
-          apiKey: heliusKey.toString()
-        };
-        console.log("✅ Loaded Helius credentials from Solana Wallet 1");
-      } else {
-        console.log("⚠️ Helius credentials empty or missing in W12");
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Helius credentials from W12:", e.message);
-    }
-    
-    // Read Bitget API credentials (row 8) - Account 1
-    try {
-      const bitgetKey = settingsSheet.getRange('L8').getValue();
-      const bitgetSecret = settingsSheet.getRange('M8').getValue();
-      const bitgetPassphrase = settingsSheet.getRange('N8').getValue();
-      console.log(`🔍 L8 (Bitget Key): "${bitgetKey}"`);
-      console.log(`🔍 M8 (Bitget Secret): "${bitgetSecret}"`);
-      console.log(`🔍 N8 (Bitget Passphrase): "${bitgetPassphrase}"`);
-      console.log(`🔍 L8 cell type: ${typeof bitgetKey}, length: ${bitgetKey ? bitgetKey.length : 0}`);
-      console.log(`🔍 M8 cell type: ${typeof bitgetSecret}, length: ${bitgetSecret ? bitgetSecret.length : 0}`);
-      console.log(`🔍 N8 cell type: ${typeof bitgetPassphrase}, length: ${bitgetPassphrase ? bitgetPassphrase.length : 0}`);
-      if (bitgetKey && bitgetSecret && bitgetPassphrase) {
-        credentials.BITGET_API = {
-          apiKey: bitgetKey.toString(),
-          apiSecret: bitgetSecret.toString(),
-          passphrase: bitgetPassphrase.toString().trim()  // Trim whitespace
-        };
-        console.log("✅ Loaded Bitget Account 1 credentials");
-        console.log(`   - Key: ${bitgetKey.toString().substring(0, 10)}...`);
-        console.log(`   - Secret: ${bitgetSecret.toString().substring(0, 10)}...`);
-        console.log(`   - Passphrase (raw): "${bitgetPassphrase.toString()}"`);
-        console.log(`   - Passphrase (trimmed): "${bitgetPassphrase.toString().trim()}"`);
-      } else {
-        console.log("⚠️ Bitget Account 1 credentials empty or missing");
-        console.log(`   - Key empty: ${!bitgetKey}`);
-        console.log(`   - Secret empty: ${!bitgetSecret}`);
-        console.log(`   - Passphrase empty: ${!bitgetPassphrase}`);
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Bitget Account 1 credentials:", e.message);
-    }
-    
-    // Read Bitget API credentials (row 9) - Account 2
-    try {
-      const bitget2Key = settingsSheet.getRange('L9').getValue();
-      const bitget2Secret = settingsSheet.getRange('M9').getValue();
-      const bitget2Passphrase = settingsSheet.getRange('N9').getValue();
-      console.log(`🔍 L9 (Bitget Account 2 Key): "${bitget2Key}"`);
-      console.log(`🔍 M9 (Bitget Account 2 Secret): "${bitget2Secret}"`);
-      console.log(`🔍 N9 (Bitget Account 2 Passphrase): "${bitget2Passphrase}"`);
-      console.log(`🔍 L9 cell type: ${typeof bitget2Key}, length: ${bitget2Key ? bitget2Key.length : 0}`);
-      console.log(`🔍 M9 cell type: ${typeof bitget2Secret}, length: ${bitget2Secret ? bitget2Secret.length : 0}`);
-      console.log(`🔍 N9 cell type: ${typeof bitget2Passphrase}, length: ${bitget2Passphrase ? bitget2Passphrase.length : 0}`);
-      if (bitget2Key && bitget2Secret && bitget2Passphrase) {
-        credentials.BITGET_API_2 = {
-          apiKey: bitget2Key.toString(),
-          apiSecret: bitget2Secret.toString(),
-          passphrase: bitget2Passphrase.toString().trim()  // Trim whitespace
-        };
-        console.log("✅ Loaded Bitget Account 2 credentials");
-        console.log(`   - Key: ${bitget2Key.toString().substring(0, 10)}...`);
-        console.log(`   - Secret: ${bitget2Secret.toString().substring(0, 10)}...`);
-        console.log(`   - Passphrase (raw): "${bitget2Passphrase.toString()}"`);
-        console.log(`   - Passphrase (trimmed): "${bitget2Passphrase.toString().trim()}"`);
-      } else {
-        console.log("⚠️ Bitget Account 2 credentials empty or missing");
-        console.log(`   - Key empty: ${!bitget2Key}`);
-        console.log(`   - Secret empty: ${!bitget2Secret}`);
-        console.log(`   - Passphrase empty: ${!bitget2Passphrase}`);
-      }
-    } catch (e) {
-      console.log("⚠️ Error reading Bitget Account 2 credentials:", e.message);
-    }
-    
-    console.log(`🔑 Total credentials loaded: ${Object.keys(credentials).length}`);
-    console.log(`🔑 Credential keys: ${Object.keys(credentials).join(', ')}`);
-    return credentials;
-    
-  } catch (error) {
-    console.error("❌ Error reading API credentials:", error);
-    return {};
-  }
-}
+
 
 // ===========================================
 // BINANCE API PROCESSING (Apps Script) - REMOVED

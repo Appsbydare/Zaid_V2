@@ -2543,53 +2543,23 @@ async function fetchSolanaEnhanced(address, filterDate, heliusApiKey = null) {
 // FIXED FILTERING WITH EXTENDED CURRENCIES
 // ===========================================
 
-async function getExistingTransactionIds(sheets, spreadsheetId) {
+async function getExistingTransactionIds(sheets, spreadsheetId, sheetType /* 'Withdrawals' | 'Deposits' */) {
   const existingTxIds = new Set();
-  
   try {
-    console.log('🔍 Reading existing transaction IDs for deduplication...');
-    
-    try {
-      const withdrawalsRange = 'Withdrawals!F7:L1000'; // FIXED: F:L range
-      const withdrawalsResponse = await sheets.spreadsheets.values.get({
-        spreadsheetId,
-        range: withdrawalsRange,
-      });
-      
-      const withdrawalsData = withdrawalsResponse.data.values || [];
-      withdrawalsData.forEach(row => {
-        if (row[6]) { // FIXED: Column L is index 6 in F:L range (F=0, G=1, H=2, I=3, J=4, K=5, L=6)
-          existingTxIds.add(row[6].toString().trim());
-        }
-      });
-      console.log(`📤 Found ${withdrawalsData.length} existing withdrawals`);
-    } catch (error) {
-      console.log('⚠️ Could not read withdrawals sheet (might be empty)');
-    }
-    
-    try {
-      const depositsRange = 'Deposits!F7:L1000'; // FIXED: F:L range
-      const depositsResponse = await sheets.spreadsheets.values.get({
-        spreadsheetId,
-        range: depositsRange,
-      });
-      
-      const depositsData = depositsResponse.data.values || [];
-      depositsData.forEach(row => {
-        if (row[6]) { // FIXED: Column L is index 6 in F:L range
-          existingTxIds.add(row[6].toString().trim());
-        }
-      });
-      console.log(`📥 Found ${depositsData.length} existing deposits`);
-    } catch (error) {
-      console.log('⚠️ Could not read deposits sheet (might be empty)');
-    }
-    
-    console.log(`🎯 Total unique TX IDs found: ${existingTxIds.size}`);
+    const range = `${sheetType}!F7:L1000`;
+    console.log(`🔍 Reading existing TX IDs for ${sheetType} from ${range}...`);
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range
+    });
+    const data = response.data.values || [];
+    data.forEach(row => {
+      if (row[6]) existingTxIds.add(row[6].toString().trim());
+    });
+    console.log(`✅ Found ${existingTxIds.size} existing ${sheetType.toLowerCase()} TX IDs`);
     return existingTxIds;
-    
   } catch (error) {
-    console.error('❌ Error reading existing transactions:', error);
+    console.log(`⚠️ Could not read ${sheetType} sheet (might be empty)`);
     return new Set();
   }
 }
@@ -2605,9 +2575,9 @@ function removeDuplicateTransactions(transactions, existingWithdrawalIds, existi
       return true;
     }
     
-    // Check if this transaction ID already exists in the SAME sheet type
+    // Check if this transaction ID already exists in the SAME sheet type only
     const isDuplicate = (tx.type === 'withdrawal' && existingWithdrawalIds.has(txId)) ||
-                       (tx.type === 'deposit' && existingDepositIds.has(txId));
+                        (tx.type === 'deposit' && existingDepositIds.has(txId));
     
     if (isDuplicate) {
       duplicateCount++;
@@ -2979,9 +2949,9 @@ async function writeToGoogleSheetsFixed(transactions, apiStatus, debugLogs, filt
     
     console.log('✅ Google Sheets API initialized');
     
-    // Get existing transaction IDs to avoid duplicates
-    const existingWithdrawalIds = await getExistingTransactionIds(sheets, spreadsheetId);
-    const existingDepositIds = await getExistingTransactionIds(sheets, spreadsheetId);
+    // Get existing transaction IDs to avoid duplicates (per-sheet)
+    const existingWithdrawalIds = await getExistingTransactionIds(sheets, spreadsheetId, 'Withdrawals');
+    const existingDepositIds = await getExistingTransactionIds(sheets, spreadsheetId, 'Deposits');
     
     console.log(`📊 Found ${existingWithdrawalIds.size} existing withdrawal IDs`);
     console.log(`📊 Found ${existingDepositIds.size} existing deposit IDs`);

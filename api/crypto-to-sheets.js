@@ -2691,24 +2691,17 @@ function filterTransactionsByValueFixed(transactions) {
     const amount = parseFloat(tx.amount) || 0;
     let priceAED = pricesAED[tx.asset];
     
-    // FIXED: Handle unknown currencies - keep them with 0 AED value instead of filtering out
+    // For unknown currencies, use a conservative default of 1 AED to enable dust filtering
     if (!priceAED) {
-      priceAED = 0.0; // Use 0 AED for unknown currencies to keep them in the list
+      priceAED = 1.0;
       unknownCurrencies.add(tx.asset);
-      console.log(`⚠️ Unknown currency ${tx.asset} - keeping with 0 AED value`);
+      console.log(`⚠️ Unknown currency ${tx.asset} - using default 1 AED for dust filter`);
     }
     
     const aedValue = amount * priceAED;
     
-    // Special handling for TRX - keep all TRX transactions regardless of value
-    if (tx.asset === 'TRX') {
-      console.log(`[TRX FILTER] Keeping TRX transaction: ${tx.tx_id}, Amount: ${amount}, AED Value: ${aedValue}`);
-      const keepTransaction = true;
-      return keepTransaction;
-    }
-    
-    // Keep unknown currencies, only filter out known currencies below minimum
-    const keepTransaction = !pricesAED[tx.asset] || aedValue >= minValueAED;
+    // Keep only transactions >= 1 AED across all assets
+    const keepTransaction = aedValue >= minValueAED;
     
     if (!keepTransaction) {
       filteredCount++;
@@ -2721,10 +2714,6 @@ function filterTransactionsByValueFixed(transactions) {
       // Log filtered out transaction details
       console.log(`[FILTERED OUT] TX: ${tx.tx_id}, Asset: ${tx.asset}, Amount: ${amount}, AED: ${aedValue}, Reason: Value < ${minValueAED} AED`);
       
-      // Special logging for TRX transactions
-      if (tx.asset === 'TRX') {
-        console.log(`[TRX FILTERED OUT] TRX transaction filtered: ${tx.tx_id}, Amount: ${amount}, AED: ${aedValue}, Platform: ${tx.platform}, Type: ${tx.type}`);
-      }
     }
     
     return keepTransaction;

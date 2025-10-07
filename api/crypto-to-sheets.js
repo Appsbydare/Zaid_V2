@@ -2546,7 +2546,7 @@ async function fetchSolanaEnhanced(address, filterDate, heliusApiKey = null) {
 async function getExistingTransactionIds(sheets, spreadsheetId, sheetType /* 'Withdrawals' | 'Deposits' */) {
   const existingTxIds = new Set();
   try {
-    const range = `${sheetType}!F7:L1000`;
+    const range = `${sheetType}!F7:L`;
     console.log(`🔍 Reading existing TX IDs for ${sheetType} from ${range}...`);
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
@@ -2554,7 +2554,7 @@ async function getExistingTransactionIds(sheets, spreadsheetId, sheetType /* 'Wi
     });
     const data = response.data.values || [];
     data.forEach(row => {
-      if (row[6]) existingTxIds.add(row[6].toString().trim());
+      if (row[6]) existingTxIds.add(row[6].toString().trim().toLowerCase());
     });
     console.log(`✅ Found ${existingTxIds.size} existing ${sheetType.toLowerCase()} TX IDs`);
     return existingTxIds;
@@ -2569,7 +2569,7 @@ function removeDuplicateTransactions(transactions, existingWithdrawalIds, existi
   let totalCount = transactions.length;
   
   const newTransactions = transactions.filter(tx => {
-    const txId = tx.tx_id?.toString().trim();
+    const txId = tx.tx_id?.toString().trim().toLowerCase();
     
     if (!txId) {
       return true;

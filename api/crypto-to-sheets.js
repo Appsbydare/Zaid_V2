@@ -3345,7 +3345,7 @@ async function readGoogleCredentialsFromSheet(sheets, spreadsheetId) {
 }
 
 // ===========================================
-// BITGET API FUNCTIONS
+// BITGET API FUNCTIONS (V2 API - Updated Dec 2024)
 // ===========================================
 
 async function testBitgetAccountFixed(config, filterDate, debugLogs) {

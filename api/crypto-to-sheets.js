@@ -3351,6 +3351,7 @@ async function readGoogleCredentialsFromSheet(sheets, spreadsheetId) {
 async function testBitgetAccountFixed(config, filterDate, debugLogs) {
   try {
     console.log(`🔧 Processing Bitget ${config.name} with authentication...`);
+    debugLogs.push(`🔧 [Bitget ${config.name}] Testing V2 API authentication...`);
     
     // Test connection with Bitget authentication
     const timestamp = Date.now().toString();
@@ -3364,6 +3365,9 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     // Create signature string: timestamp + method + requestPath + body
     const signString = timestamp + method + requestPath + body;
     const signature = crypto.createHmac('sha256', config.apiSecret).update(signString).digest('base64');
+    
+    debugLogs.push(`🔍 [Bitget ${config.name}] Request: ${testEndpoint}`);
+    debugLogs.push(`🔍 [Bitget ${config.name}] Sign String: ${signString.substring(0, 60)}...`);
     
     // Debug signature creation
     console.log(`    🔍 Signature Debug:`);
@@ -3416,10 +3420,12 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     
     let testData = await testResponse.json();
     console.log(`    📊 First attempt - Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
+    debugLogs.push(`📊 [Bitget ${config.name}] API Response: Status=${testResponse.status}, Code=${testData.code}, Msg=${testData.msg || 'N/A'}`);
     
     // If first attempt fails, try with different API key format
     if (!testResponse.ok || testData.code !== '00000') {
       console.log(`    🔄 Trying alternative API key format...`);
+      debugLogs.push(`🔄 [Bitget ${config.name}] First attempt failed, trying without prefix...`);
       
       testResponse = await fetch(testEndpoint, {
         method: "GET",
@@ -3434,6 +3440,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
       
       testData = await testResponse.json();
       console.log(`    📊 Second attempt - Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
+      debugLogs.push(`📊 [Bitget ${config.name}] Second attempt: Status=${testResponse.status}, Code=${testData.code}, Msg=${testData.msg || 'N/A'}`);
     }
     
     console.log(`    📊 Bitget Response: ${testResponse.status}, Code: ${testData.code}, Message: ${testData.msg || 'N/A'}`);
@@ -3446,6 +3453,8 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
       console.log(`    - Message: ${testData.msg || 'N/A'}`);
       console.log(`    - API Key Used: ${apiKeyOriginal}`);
       console.log(`    - Passphrase Used: ${config.passphrase || 'NOT PROVIDED'}`);
+      
+      debugLogs.push(`❌ [Bitget ${config.name}] Auth FAILED: ${testData.msg || testResponse.status} (Code: ${testData.code})`);
       
       return {
         success: false,
@@ -3461,6 +3470,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     }
 
     console.log(`    ✅ Bitget connection successful, fetching transactions...`);
+    debugLogs.push(`✅ [Bitget ${config.name}] Authentication SUCCESS - fetching transactions...`);
 
     // Fetch transactions
     let transactions = [];
@@ -3472,28 +3482,36 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
 
     try {
       // Fetch deposits
+      debugLogs.push(`💰 [Bitget ${config.name}] Fetching deposits...`);
       const deposits = await fetchBitgetDepositsFixed(config, filterDate);
       transactions.push(...deposits);
       transactionBreakdown.deposits = deposits.length;
       console.log(`  💰 ${config.name} deposits: ${deposits.length}`);
+      debugLogs.push(`💰 [Bitget ${config.name}] Found ${deposits.length} deposits`);
 
       // Fetch withdrawals
+      debugLogs.push(`📤 [Bitget ${config.name}] Fetching withdrawals...`);
       const withdrawals = await fetchBitgetWithdrawalsFixed(config, filterDate);
       transactions.push(...withdrawals);
       transactionBreakdown.withdrawals = withdrawals.length;
       console.log(`  📤 ${config.name} withdrawals: ${withdrawals.length}`);
+      debugLogs.push(`📤 [Bitget ${config.name}] Found ${withdrawals.length} withdrawals`);
 
       // Fetch P2P transactions
+      debugLogs.push(`🤝 [Bitget ${config.name}] Fetching P2P/Futures...`);
       const p2pTransactions = await fetchBitgetP2PFixed(config, filterDate);
       transactions.push(...p2pTransactions);
       transactionBreakdown.p2p = p2pTransactions.length;
       console.log(`  🤝 ${config.name} P2P: ${p2pTransactions.length}`);
+      debugLogs.push(`🤝 [Bitget ${config.name}] Found ${p2pTransactions.length} P2P/Futures`);
 
     } catch (txError) {
       console.log(`Bitget transaction fetch failed: ${txError.message}`);
+      debugLogs.push(`❌ [Bitget ${config.name}] Transaction fetch error: ${txError.message}`);
     }
 
     const statusNotes = `🔧 Bitget: ${transactionBreakdown.deposits}D + ${transactionBreakdown.withdrawals}W + ${transactionBreakdown.p2p}P2P = ${transactions.length} total`;
+    debugLogs.push(`📊 [Bitget ${config.name}] Total: ${transactions.length} transactions (${statusNotes})`);
 
     return {
       success: true,
@@ -3508,6 +3526,10 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     };
 
   } catch (error) {
+    console.log(`❌ Bitget ${config.name} fatal error: ${error.message}`);
+    debugLogs.push(`❌ [Bitget ${config.name}] FATAL ERROR: ${error.message}`);
+    debugLogs.push(`❌ [Bitget ${config.name}] Stack: ${error.stack}`);
+    
     return {
       success: false,
       transactions: [],

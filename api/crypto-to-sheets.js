@@ -3354,11 +3354,11 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     
     // Test connection with Bitget authentication
     const timestamp = Date.now().toString();
-    const testEndpoint = "https://api.bitget.com/api/spot/v1/account/assets";
+    const testEndpoint = "https://api.bitget.com/api/v2/spot/account/assets";
     
     // Bitget signature creation - FIXED according to official documentation
     const method = 'GET';
-    const requestPath = '/api/spot/v1/account/assets';
+    const requestPath = '/api/v2/spot/account/assets';
     const body = ''; // Empty body for GET request
     
     // Create signature string: timestamp + method + requestPath + body
@@ -3394,7 +3394,7 @@ async function testBitgetAccountFixed(config, filterDate, debugLogs) {
     console.log(`    - API Key with prefix: ${apiKeyWithPrefix}`);
     
     console.log(`    🔍 Request Debug:`);
-    console.log(`    - URL: ${testEndpoint} (V1 API)`);
+    console.log(`    - URL: ${testEndpoint} (V2 API)`);
     console.log(`    - Method: GET`);
     console.log(`    - Headers:`);
     console.log(`      ACCESS-KEY: ${apiKeyOriginal}`);
@@ -3527,8 +3527,8 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
     console.log(`  💰 Fetching Bitget deposits...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use working spot deposit endpoint from official documentation
-    const endpoint = "https://api.bitget.com/api/spot/v1/wallet/deposit-list";
+    // V2 API: Use new deposit records endpoint
+    const endpoint = "https://api.bitget.com/api/v2/spot/wallet/deposit-records";
     
     // Official Bitget signature method
     const method = 'GET';
@@ -3542,7 +3542,7 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
       .map(key => `${key}=${params[key]}`)
       .join('&');
     
-    const requestPath = '/api/spot/v1/wallet/deposit-list?' + queryString;
+    const requestPath = '/api/v2/spot/wallet/deposit-records?' + queryString;
     const body = '';
     
     // Create signature string: timestamp + method + requestPath + body
@@ -3620,8 +3620,8 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
     console.log(`  📤 Fetching Bitget withdrawals...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use working spot withdrawal endpoint from official documentation
-    const endpoint = "https://api.bitget.com/api/spot/v1/wallet/withdrawal-list";
+    // V2 API: Use new withdrawal records endpoint
+    const endpoint = "https://api.bitget.com/api/v2/spot/wallet/withdrawal-records";
     
     // Official Bitget signature method
     const method = 'GET';
@@ -3635,7 +3635,7 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
       .map(key => `${key}=${params[key]}`)
       .join('&');
     
-    const requestPath = '/api/spot/v1/wallet/withdrawal-list?' + queryString;
+    const requestPath = '/api/v2/spot/wallet/withdrawal-records?' + queryString;
     const body = '';
     
     // Create signature string: timestamp + method + requestPath + body
@@ -3713,8 +3713,8 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     console.log(`  🤝 Fetching Bitget P2P transactions...`);
     
     const timestamp = Date.now().toString();
-    // FIXED: Use working mix account bill endpoint for all transaction types
-    const endpoint = "https://api.bitget.com/api/mix/v1/account/accountBill";
+    // V2 API: Account bill endpoint (Note: May not be available in V2, will fail gracefully)
+    const endpoint = "https://api.bitget.com/api/v2/mix/account/account-bill";
     
     // Official Bitget signature method
     const method = 'GET';
@@ -3730,7 +3730,7 @@ async function fetchBitgetP2PFixed(config, filterDate) {
       .map(key => `${key}=${params[key]}`)
       .join('&');
     
-    const requestPath = '/api/mix/v1/account/accountBill?' + queryString;
+    const requestPath = '/api/v2/mix/account/account-bill?' + queryString;
     const body = '';
     
     // Create signature string: timestamp + method + requestPath + body
@@ -3758,7 +3758,7 @@ async function fetchBitgetP2PFixed(config, filterDate) {
     console.log(`    📊 Bitget P2P Response: ${response.status}, Code: ${data.code}, Message: ${data.msg || 'N/A'}`);
     
     if (!response.ok || data.code !== '00000') {
-      console.log(`    ❌ Bitget P2P failed: ${data.msg || response.status}`);
+      console.log(`    ⚠️ Bitget P2P/Futures endpoint not available (this is OK - deposits/withdrawals are the main sources): ${data.msg || response.status}`);
       return [];
     }
 

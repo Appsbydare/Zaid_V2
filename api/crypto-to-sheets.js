@@ -3607,14 +3607,14 @@ async function fetchBitgetDepositsFixed(config, filterDate) {
             platform: config.name,
             type: 'deposit',
             asset: deposit.coin,
-            amount: deposit.amount.toString(),
+            amount: (deposit.size || deposit.amount || '0').toString(), // V2 uses 'size', V1 used 'amount'
             timestamp: new Date(parseInt(deposit.cTime)).toISOString(),
             from_address: deposit.fromAddress || 'External',
             to_address: config.name,
-            tx_id: deposit.txId || deposit.id,
+            tx_id: deposit.tradeId || deposit.txId || deposit.orderId || deposit.id, // V2 uses 'tradeId'
             status: deposit.status === 'success' ? 'Completed' : 'Pending',
             network: deposit.chain,
-            api_source: 'Bitget_Deposit_Fixed'
+            api_source: 'Bitget_Deposit_V2'
           });
         }
       }
@@ -3700,14 +3700,14 @@ async function fetchBitgetWithdrawalsFixed(config, filterDate) {
             platform: config.name,
             type: 'withdrawal',
             asset: withdrawal.coin,
-            amount: withdrawal.amount.toString(),
+            amount: (withdrawal.size || withdrawal.amount || '0').toString(), // V2 uses 'size', V1 used 'amount'
             timestamp: new Date(parseInt(withdrawal.cTime)).toISOString(),
             from_address: config.name,
             to_address: withdrawal.toAddress || 'External',
-            tx_id: withdrawal.txId || withdrawal.id,
+            tx_id: withdrawal.tradeId || withdrawal.txId || withdrawal.orderId || withdrawal.id, // V2 uses 'tradeId'
             status: withdrawal.status === 'success' ? 'Completed' : 'Pending',
             network: withdrawal.chain,
-            api_source: 'Bitget_Withdrawal_Fixed'
+            api_source: 'Bitget_Withdrawal_V2'
           });
         }
       }

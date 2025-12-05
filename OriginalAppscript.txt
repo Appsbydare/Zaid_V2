@@ -19,7 +19,7 @@ const CONFIG = {
 // ===========================================
 
 /**
- * Adjusts a timestamp string or Date object by +2 hours and ensures 24h format.
+ * Adjusts a timestamp string or Date object by +4 hours for Dubai/UAE timezone (GST - UTC+4).
  * Handles date-only strings by adding time information.
  * @param {Date|string} timestamp The original timestamp.
  * @returns {Date} The adjusted Date object with proper time format.
@@ -49,8 +49,8 @@ function adjustTimestampToGST(timestamp) {
       date = new Date(timestamp);
     }
       
-    // Add 2 hours
-    date.setHours(date.getHours() + 2);
+    // Add 4 hours for Dubai/UAE (GST = UTC+4)
+    date.setHours(date.getHours() + 4);
     
     return date;
   } catch (error) {

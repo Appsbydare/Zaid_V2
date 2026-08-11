@@ -11,7 +11,7 @@ async function readWalletsFromSettings() {
     const spreadsheetId = '1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y';
     
     // Use the correct CSV URL format for Google Sheets
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=T3:X17`;
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=T3:X25`;
     console.log(`🔍 CSV URL: ${csvUrl}`);
     
     const response = await fetch(csvUrl);
@@ -84,7 +84,7 @@ async function readWalletsFromSettings() {
     console.log(`📊 Total active wallets loaded: ${Object.keys(wallets).length}`);
     
     if (Object.keys(wallets).length === 0) {
-      console.log(`⚠️ No active wallets found. Check Settings T3:X17 for wallet configurations.`);
+      console.log(`⚠️ No active wallets found. Check Settings T3:X25 for wallet configurations.`);
       console.log(`🔍 Make sure wallets have:`);
       console.log(`   - Address filled in column U`);
       console.log(`   - Blockchain type filled in column V`);
@@ -488,7 +488,7 @@ async function fetchEthereumBalance(address) {
     console.log("⚠️ No Etherscan API key provided for Ethereum balance check");
     return { ETH: 0 };
   }
-  const response = await fetch(`https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`);
+  const response = await fetch(`https://api.etherscan.io/v2/api?chainid=1&module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`);
   
   if (!response.ok) throw new Error(`Ethereum API error: ${response.status}`);
   

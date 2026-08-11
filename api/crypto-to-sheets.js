@@ -71,7 +71,7 @@ async function readWalletsFromSettings() {
     const spreadsheetId = "1sx3ik8I-2_VcD3X1q6M4kOuo3hfkGbMa1JulPSWID9Y";
     
     // Use the correct CSV URL format for Google Sheets
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=T3:X17`;
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=SETTINGS&range=T3:X25`;
     console.log(`🔍 CSV URL: ${csvUrl}`);
     
     const response = await fetch(csvUrl);
@@ -145,7 +145,7 @@ async function readWalletsFromSettings() {
     console.log(`📊 Wallet names: ${Object.keys(wallets).join(', ')}`);
     
     if (Object.keys(wallets).length === 0) {
-      console.log(`⚠️ No active wallets found. Check Settings T3:X17 for wallet configurations.`);
+      console.log(`⚠️ No active wallets found. Check Settings T3:X25 for wallet configurations.`);
       console.log(`🔍 Make sure wallets have:`);
       console.log(`   - Address filled in column U`);
       console.log(`   - Blockchain type filled in column V`);
@@ -2054,9 +2054,9 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
     const etherscanApiKey = apiKey;
     const transactions = [];
     
-    // 1. Fetch ETH transactions
+    // 1. Fetch ETH transactions (Etherscan API V2 — V1 deprecated Aug 15, 2025)
     console.log(`    🔍 Fetching ETH transactions...`);
-    const ethEndpoint = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=1000&apikey=${etherscanApiKey}`;
+    const ethEndpoint = `https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=1000&apikey=${etherscanApiKey}`;
     
     const ethResponse = await fetch(ethEndpoint);
     
@@ -2068,6 +2068,9 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
     
     if (ethData.status !== "1") {
       console.log(`    ⚠️ Etherscan ETH API message: ${ethData.message}`);
+      if (ethData.result) {
+        console.log(`    ⚠️ Etherscan ETH API result: ${ethData.result}`);
+      }
       if (ethData.message.includes("rate limit") || ethData.message.includes("Max rate limit reached")) {
         console.log(`    ⚠️ Rate limit reached for ETH transactions - will retry with smaller batch`);
         // Could implement retry logic here if needed
@@ -2099,9 +2102,9 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
       console.log(`    ✅ Found ${ethData.result.length} ETH transactions, ${transactions.length} after filtering`);
     }
     
-    // 2. Fetch ERC-20 token transactions (BEP20 compatible)
-    console.log(`    🔍 Fetching ERC-20/BEP20 token transactions...`);
-    const tokenEndpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=1000&apikey=${etherscanApiKey}`;
+    // 2. Fetch ERC-20 token transactions (Etherscan API V2, Ethereum chainid=1)
+    console.log(`    🔍 Fetching ERC-20 token transactions...`);
+    const tokenEndpoint = `https://api.etherscan.io/v2/api?chainid=1&module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc&page=1&offset=1000&apikey=${etherscanApiKey}`;
     
     const tokenResponse = await fetch(tokenEndpoint);
     
@@ -2112,6 +2115,9 @@ async function fetchEthereumEnhanced(address, filterDate, apiKey = null) {
       
       if (tokenData.status !== "1") {
         console.log(`    ⚠️ Etherscan Token API message: ${tokenData.message}`);
+        if (tokenData.result) {
+          console.log(`    ⚠️ Etherscan Token API result: ${tokenData.result}`);
+        }
         if (tokenData.message.includes("rate limit") || tokenData.message.includes("Max rate limit reached")) {
           console.log(`    ⚠️ Rate limit reached for token transactions - will retry with smaller batch`);
           // Could implement retry logic here if needed

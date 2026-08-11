@@ -50,7 +50,7 @@ function adjustTimestampToGST(timestamp) {
     }
       
     // Add 3 hours for local timezone adjustment
-    date.setHours(date.getHours() + 3);
+    date.setHours(date.getHours() + 2);
     
     return date;
   } catch (error) {
